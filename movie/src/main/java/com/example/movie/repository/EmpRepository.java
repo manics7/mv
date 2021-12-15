@@ -7,6 +7,5 @@ import com.example.movie.dto.Emp;
 
 public interface EmpRepository extends JpaRepository<Emp, Integer> {
 
-	
-	public asdsad) 
+	public void aaa();
 }
