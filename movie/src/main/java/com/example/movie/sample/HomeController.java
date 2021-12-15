@@ -1,4 +1,4 @@
-package com.example.movie.controller;
+package com.example.movie.sample;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

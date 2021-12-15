@@ -1,9 +1,8 @@
-package com.example.movie.mapper;
+package com.example.movie.sample;
 
 import java.util.List;
 
 import com.example.movie.config.MybatisMapper;
-import com.example.movie.dto.Emp;
 
 public interface EmpMapper  extends MybatisMapper {
 	List<Emp> empList() throws Exception;
