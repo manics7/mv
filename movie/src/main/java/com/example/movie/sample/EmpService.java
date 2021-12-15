@@ -1,4 +1,4 @@
-package com.example.movie.service;
+package com.example.movie.sample;
 
 import java.util.ArrayList;
 import java.util.List;
