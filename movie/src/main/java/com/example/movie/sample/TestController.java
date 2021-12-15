@@ -8,16 +8,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.movie.service.EmpService;
 
 @Controller
-public class HomeController {
+public class TestController {
 	
 	@Autowired
 	private EmpService empService;
-	
-	@RequestMapping("/")
-	public String index() {
-		
-		return "index";
-	}
 	
 	@RequestMapping("/test") public ModelAndView test() throws Exception{
 		ModelAndView mv = new ModelAndView("test"); 
