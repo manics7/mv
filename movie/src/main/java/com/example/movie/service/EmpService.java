@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.movie.dto.BonusDto;
-import com.example.movie.dto.Emp;
-import com.example.movie.dto.Test;
-import com.example.movie.mapper.BonusMapper;
-import com.example.movie.mapper.EmpMapper;
-import com.example.movie.repository.EmpRepository;
-import com.example.movie.repository.Test1Repository;
+import com.example.movie.sample.BonusDto;
+import com.example.movie.sample.BonusMapper;
+import com.example.movie.sample.Emp;
+import com.example.movie.sample.EmpMapper;
+import com.example.movie.sample.EmpRepository;
+import com.example.movie.sample.Test;
+import com.example.movie.sample.Test1Repository;
 
 import lombok.extern.java.Log;
 

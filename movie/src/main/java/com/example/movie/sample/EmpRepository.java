@@ -1,4 +1,4 @@
-package com.example.movie.repository;
+package com.example.movie.sample;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
