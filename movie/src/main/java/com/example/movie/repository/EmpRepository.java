@@ -9,5 +9,4 @@ public interface EmpRepository extends JpaRepository<Emp, Integer> {
 
 	public void aaa();
 	
-	adssad
 }
