@@ -4,13 +4,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="resource/css/home.css">
 <meta charset="UTF-8">
 <title>영화 보러 가자~</title>
+<link rel="stylesheet" type="text/css" href="resource/css/home.css">
+<link rel="stylesheet" type="text/css" href="resource/css/hf.css">
 </head>
 <body>
 
-내용 추가
+	<header>
+		<!-- --------------- header --------------- -->
+		<jsp:include page="header.jsp"></jsp:include>
+	</header>
+
+	<section>
+		
+	</section>
+	
+	<footer>
+		<!-- --------------- footer --------------- -->
+		<jsp:include page="footer.jsp"></jsp:include>
+	</footer>
 
 </body>
 </html>
