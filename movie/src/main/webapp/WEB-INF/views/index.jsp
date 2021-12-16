@@ -6,10 +6,10 @@
 <head>
 <link rel="stylesheet" type="text/css" href="resource/css/home.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>영화 보러 가자~</title>
 </head>
 <body>
-<h1>index</h1>
+
 
 </body>
 </html>
