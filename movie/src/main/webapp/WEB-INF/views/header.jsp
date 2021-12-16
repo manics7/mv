@@ -38,6 +38,7 @@
 				<li><a href="#">광주</a></li>
 				<li><a href="#">광주</a></li>
 				<li><a href="#">광주</a></li>
+				<li><a href="#">test</a></li>
 				
 			</ul>
 		</div>
