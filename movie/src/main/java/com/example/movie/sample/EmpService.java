@@ -38,6 +38,7 @@ public class EmpService {
 		list.add(emp.get());
 		mv.addObject("list", list);
 		mv.setViewName("test");
+		
 		return mv;
 	}
 	

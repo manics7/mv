@@ -20,6 +20,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import lombok.extern.java.Log;
 
@@ -130,9 +133,19 @@ public class RootConfiguration   {
 	//public DataSourceTransactionManager transactionManager() {
 	//	return new DataSourceTransactionManager(dataSource());
 	//}
+	
+	@Bean
+	public CommonsMultipartResolver  multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(1048576); // 1MB
+	    multipartResolver.setMaxUploadSizePerFile(1048576 ); // 10MB
+	    multipartResolver.setMaxInMemorySize(0);
+	    multipartResolver.setServletContext(null);t
+		return multipartResolver;
 
+	}
 
-
+		
 
 
 

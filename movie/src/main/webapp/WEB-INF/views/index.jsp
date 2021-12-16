@@ -9,7 +9,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>index test</h1>
+
+<h1>파일테스트</h1>
+
+<form action="/file" class="write-form"
+			method="post" enctype="multipart/form-data">
+			<label for="file">추가파일</label>
+				<input type="file" name="files" id="file" multiple>
+				<input class="upload-name" value="파일선택"
+					readonly>
+				<input type="hidden" id="filecheck" value="0"
+					name="fileCheck">
+					<input type="submit" class="btn-write">
+</form>
 
 </body>
 </html>
