@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>index</h1>
+<h1>index1</h1>
 
 </body>
 </html>
