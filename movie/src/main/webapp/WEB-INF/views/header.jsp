@@ -32,6 +32,7 @@
 				<span>제주</span>			
 			</div>
 			<ul>
+				<!-- 생기면 추가 -->
 				<li><a href="#">광주</a></li>
 				<li><a href="#">광주</a></li>
 				<li><a href="#">광주</a></li>
