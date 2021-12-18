@@ -9,14 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.movie.sample.BonusDto;
-import com.example.movie.sample.BonusMapper;
-import com.example.movie.sample.Emp;
-import com.example.movie.sample.EmpMapper;
-import com.example.movie.sample.EmpRepository;
-import com.example.movie.sample.Test;
-import com.example.movie.sample.Test1Repository;
-
 import lombok.extern.java.Log;
 
 @Service
@@ -46,6 +38,7 @@ public class EmpService {
 		list.add(emp.get());
 		mv.addObject("list", list);
 		mv.setViewName("test");
+		
 		return mv;
 	}
 	

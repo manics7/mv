@@ -20,6 +20,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import lombok.extern.java.Log;
 
@@ -31,8 +34,8 @@ import lombok.extern.java.Log;
  * @Primary 를 사용해 우선적으로 등록할 트랜잭션 매니져 Bean을 지정
  */
 @EnableTransactionManagement // DataSourceTransactionManager 찾아서 트랜잭션 등록해줌
-@EnableJpaRepositories(basePackages = {"com.example.movie.repository"})
-@MapperScan(basePackages =  {"com.example.movie.mapper"} , markerInterface = MybatisMapper.class) // mapper 인터페이스 위치 
+@EnableJpaRepositories(basePackages = {"com.example.movie.repository", "com.example.movie.sample"})
+@MapperScan(basePackages =  {"com.example.movie.mapper", "com.example.movie.sample"} , markerInterface = MybatisMapper.class) // mapper 인터페이스 위치 
 @Log
 public class RootConfiguration   {
 
@@ -77,7 +80,8 @@ public class RootConfiguration   {
 		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactory.setDataSource(dataSource());
 		//entityManagerFactory.setPersistenceUnitName();
-		entityManagerFactory.setPackagesToScan("com.example.movie.dto");
+		final String[] packageLocation = {"com.example.movie.dto","com.example.movie.sample"};
+		entityManagerFactory.setPackagesToScan(packageLocation);
 		
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setDatabase(org.springframework.orm.jpa.vendor.Database.ORACLE);
@@ -129,9 +133,19 @@ public class RootConfiguration   {
 	//public DataSourceTransactionManager transactionManager() {
 	//	return new DataSourceTransactionManager(dataSource());
 	//}
+	
+	@Bean
+	public CommonsMultipartResolver  multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(1048576); // 1MB
+	    multipartResolver.setMaxUploadSizePerFile(1048576 ); // 10MB
+	    multipartResolver.setMaxInMemorySize(0);
+	    multipartResolver.setServletContext(null);t
+		return multipartResolver;
 
+	}
 
-
+		
 
 
 
