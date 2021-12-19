@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,21 +18,24 @@ import lombok.extern.java.Log;
 public class EmpService {
 
 	private ModelAndView mv;
-	
+
 	@Autowired
 	private EmpMapper empMapper;
-	
+
 	@Autowired
 	private BonusMapper bonusMapper;
-	
+
 	// asdfasdf
-	
+
 	@Autowired
 	private EmpRepository empRepository;
-	
+
 	@Autowired
 	private Test1Repository test1Repository;
 
+	@Autowired
+	private HttpSession session;
+	
 	public ModelAndView getEmp() {
 		mv = new ModelAndView();
 		List<Emp> list = new ArrayList<Emp>();
@@ -38,59 +43,59 @@ public class EmpService {
 		list.add(emp.get());
 		mv.addObject("list", list);
 		mv.setViewName("test");
-		
+
 		return mv;
 	}
-	
+
 	public ModelAndView getEmpList() {
 		// TODO Auto-generated method stub
 		mv = new ModelAndView();
 		List<Emp> list = new ArrayList<Emp>();
 		try {
-			 list = empMapper.empList();
+			list = empMapper.empList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
+
 		mv.addObject("list", list);
 		mv.setViewName("test");
 		return mv;
 	}
-	
+
 	public ModelAndView getBounusList() {
 		mv = new ModelAndView();
 		List<BonusDto> list = new ArrayList<BonusDto>();
 		try {
-			 list = bonusMapper.getList();
+			list = bonusMapper.getList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
+
 		mv.addObject("list", list);
 		mv.setViewName("test");
 		return mv;
 	}
-	
+
 	@Transactional(rollbackFor = Exception.class)
 	public void insertMybatis() throws Exception {
 		for (int i = 0; i < 10; i++) {
 			BonusDto dto = new BonusDto();
 			dto.setEname("aaaa");
-			
-				if(i == 5) {
-					//dto.setEname(null);
-					throw new Exception();
-					
-				}
-				bonusMapper.insertBonus(dto);
-				// TODO: handle exception
-			
-			log.info(i+"        ////////////////////////////////////////");
+
+			if(i == 5) {
+				//dto.setEname(null);
+				throw new Exception();
+
+			}
+			bonusMapper.insertBonus(dto);
+			// TODO: handle exception
+
+			//log.info(i+"        ////////////////////////////////////////");
 		}
 	}
-	
+
 	public ModelAndView getEmpList2() {
 		mv = new ModelAndView();
 		List<Emp> list =  empRepository.findAll();
@@ -98,10 +103,10 @@ public class EmpService {
 		mv.setViewName("test");
 		return mv;
 	}
-	
+
 	@Transactional
 	public void jpaInsertTest() throws Exception {
-		
+
 		for (int i = 0; i < 10; i++) {
 			Test test = new Test();
 			test.setNm("i");
@@ -109,7 +114,8 @@ public class EmpService {
 			if(i == 5) {
 				throw new Exception("트랜잭션 테스트");
 			}
-			
+
 		}
 	}
+
 }
