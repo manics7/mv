@@ -13,7 +13,14 @@ public class TestController {
 	@Autowired
 	private EmpService empService;
 
-	@RequestMapping("/test") public ModelAndView test() throws Exception{
+	@RequestMapping("/file") 
+	public String file() throws Exception{
+
+		return "test"; 
+	}
+
+	@RequestMapping("/test") 
+	public ModelAndView test() throws Exception{
 		ModelAndView mv = new ModelAndView("test"); 
 
 		//mv = empService.getEmpList();
@@ -23,7 +30,8 @@ public class TestController {
 		return mv; 
 	}
 
-	@RequestMapping("/test2") public ModelAndView test2() throws Exception{
+	@RequestMapping("/test2") 
+	public ModelAndView test2() throws Exception{
 		ModelAndView mv = new ModelAndView("test"); 
 
 		mv = empService.getEmpList();

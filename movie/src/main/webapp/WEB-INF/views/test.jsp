@@ -53,7 +53,8 @@
 
 			$.ajax({
 				type : "POST",
-				url : "/file",
+				//url : "/fileUpload",
+				url : "/fileUpload2",
 				enctype : 'multipart/form-data',
 				processData : false,
 				contentType : false,
@@ -116,21 +117,20 @@
 </head>
 <body>
 
-	<img id="img" alt="" src="">
+	
 	<header>
 		<!-- --------------- header --------------- -->
 		<jsp:include page="header.jsp"></jsp:include>
 	</header>
 
-	<section>
 			<h1>파일테스트</h1>
 
-
+<form method="POST" enctype="multipart/form-data" id="fileUploadForm"> 	
 	<div class="filebox">
 		<!-- 파일 입력 처리 영역 -->
-		<label for="file">업로드</label> <input type="file" name="files"
-			id="file" multiple> <input type="text" class="upload-name"
-			value="파일선택" readonly>
+		<label for="file">업로드</label> 
+		<input type="file" name="files"id="file" multiple> 
+		<input type="text" class="upload-name" value="파일선택" readonly>
 		<!-- 업로드할 파일이 있으면 1, 없으면 0 -->
 		<input type="hidden" id="filecheck" value="0" name="fileCheck">
 	</div>
@@ -144,12 +144,8 @@
 		 <input type="button"  value="폴더생성" onclick="create()">
 		 <input type="button"	 value=삭제 onclick="del()">
 	</div>
-	</section>
-	
-	<footer>
-		<!-- --------------- footer --------------- -->
-		<jsp:include page="footer.jsp"></jsp:include>
-	</footer>
+	<img id="img" alt="" src="">
+	</form>
 
 </body>
 </html>
