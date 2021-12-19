@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>영화 보러 가자~</title>
 <link rel="stylesheet" type="text/css" href="resource/css/home.css">
+<link rel="stylesheet" type="text/css" href="resource/css/hf.css">
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script src="resource/js/jquery.serializeObject.js"></script>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -115,7 +116,14 @@
 </head>
 <body>
 
-	<h1>파일테스트</h1>
+	<img id="img" alt="" src="">
+	<header>
+		<!-- --------------- header --------------- -->
+		<jsp:include page="header.jsp"></jsp:include>
+	</header>
+
+	<section>
+			<h1>파일테스트</h1>
 
 
 	<div class="filebox">
@@ -136,6 +144,12 @@
 		 <input type="button"  value="폴더생성" onclick="create()">
 		 <input type="button"	 value=삭제 onclick="del()">
 	</div>
-	<img id="img" alt="" src="">
+	</section>
+	
+	<footer>
+		<!-- --------------- footer --------------- -->
+		<jsp:include page="footer.jsp"></jsp:include>
+	</footer>
+
 </body>
 </html>
