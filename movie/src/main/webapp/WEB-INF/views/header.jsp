@@ -5,13 +5,13 @@
 		<div id="top_menu">
 			<a href="#" id="top_logo"> logo </a>
 			<ul>
-				<li class="search_th"><button>영화관 찾기</button></li>
-				<li><a href="#">영화 검색</a></li>
-				<li><a href="#">영화관 후기</a></li>
+				<li class="search_th"><a href="#" class="se_th" style="cursor: pointer;">영화관찾기</a></li>
+				<li><a href="#">영화검색</a></li>
+				<li><a href="#">영화관후기</a></li>
 				<li class="suc"><a href="#">마이페이지</a></li>
-				<li class="nomal"><a href="#" class="nomal">로그인</a></li>
-				<li class="nomal"><a href="#" class="nomal">회원 가입</a></li>
-				<li class="suc"><a href="#">빠른 예매</a></li>
+				<li id="login_btn" class="nomal"><a href="#" class="login_btn" style="cursor: pointer;">로그인</a></li>
+				<li class="nomal"><a href="#">회원가입</a></li>
+				<li class="suc"><a href="#">빠른예매</a></li>
 			</ul>
 		</div>
 		
@@ -47,14 +47,72 @@
 				
 			</ul>
 		</div>
-		
 	</div>
+	
+	<!-- 로그인 창 -->
+	<form>
+		<div id="login_bg">
+			<div id="login_box">
+				<div class="login_box_header">
+					<h2 id="login_title">로그인</h2>
+					<button class="close_btn">
+						X
+					</button>
+				</div>
+				<div id="type">
+					<div id="type_user" class="login_type">
+						<span>이용자 로그인</span>
+					</div>
+					<div id="type_business" class="login_type">
+						<span>사업자 로그인</span>
+					</div>
+				</div>
+					<div id="user_tap" class="login_tap">
+						아이디 : <input><br>
+						비밀번호 : <input><br>
+						<button>로그인</button><br>
+						<a>아이디/비밀번호 찾기</a> | 
+						<a href="./joinFrm">회원가입</a>
+					</div>
+					<div id="business_tap" class="login_tap">
+						사업자 아이디 : <input><br>
+						비밀번호 : <input>
+					</div>
+				
+			</div>
+		</div>	
+	</form>
 
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		// 영화관 검색 클릭시 하단 메뉴 출력
 		$(".search_th").click(function() {
-			$("#sub_menu").toggle();
-		})
+			$("#sub_menu").toggle(300);
+		});
+		
+		// a태그, 클릭시 주소창 # 없앰
+		$(".se_th").removeAttr("href");
+		$(".login_btn").removeAttr("href");
+		
+		// 로그인 클릭시 모달 창 띄움
+		$("#login_btn").click(function() {
+			$("#login_bg").show();
+		});
+		
+		// 로그인 창에서 x버튼 클릭시 창 닫음
+		$(".close_btn").click(function() {
+			$("#login_bg").css("display", "none");
+		});
+		
+		// 사용자, 사업자 클릭시 탭 이동
+		$("#type_user").click(function() {
+			$("#user_tap").css("display", "");
+			$("#business_tap").css("display", "none");
+		});
+		$("#type_business").click(function() {
+			$("#user_tap").css("display", "none");
+			$("#business_tap").css("display", "block");
+		});
 	})
 </script>

@@ -17,7 +17,7 @@
 	</header>
 
 	<section>
-		
+		<div id="test" style="width: 1100px; height: 1000px; border: 1px solid black;"></div>
 	</section>
 	
 	<footer>

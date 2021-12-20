@@ -1,10 +1,20 @@
 package com.example.movie.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.movie.dto.memberDto;
+import com.example.movie.service.MemberService;
 
 @Controller
 public class HomeController {
+	
+	@Autowired
+	private MemberService mServ;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -12,4 +22,19 @@ public class HomeController {
 		return "index";
 	}
 	
+	// 이용자 회원가입 페이지 이동
+	@GetMapping("joinFrm")
+	public String joinFrm() {
+		
+		return "joinFrm";
+	}
+	
+	// 이용자 회원가입
+	@PostMapping("memberInsert")
+	public String memberInsert(memberDto member, RedirectAttributes rttr) {
+		
+		String view = mServ.memberInsert(member, rttr);
+		
+		return view;
+	}
 }
