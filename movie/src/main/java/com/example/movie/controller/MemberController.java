@@ -70,8 +70,15 @@ public class MemberController {
 		
 		
 		
-		return view;
-		
-	
+		return view;	
 	}
+	
+	@GetMapping("/memberSelect")
+	public ModelAndView memberSelect(String m_id) {
+		
+		mv = mServ.memberSelect(m_id);
+		return null;
+		
+	}
+	
 }

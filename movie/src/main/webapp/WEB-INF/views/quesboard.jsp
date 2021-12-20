@@ -80,102 +80,14 @@
 								<td class="text-center d-none d-md-table-cell">${qitem.m_id}</td>
 
 							</tr>
-
-
 						</c:forEach>
-
-
-						<!-- 
-											<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						
-						 -->
 					</tbody>
 				</table>
 
 				<div class="d-none d-md-block">
 					<ul class="pagination justify-content-center">
 						<li class="page-item">${paging}</li>
-						<li class="page-item"><a href="#" class="page-link">이전</a></li>
-						<li class="page-item"><a href="#" class="page-link">1</a></li>
-						<li class="page-item"><a href="#" class="page-link">2</a></li>
-						<li class="page-item"><a href="#" class="page-link">3</a></li>
-						<li class="page-item"><a href="#" class="page-link">4</a></li>
-						<li class="page-item"><a href="#" class="page-link">5</a></li>
-						<li class="page-item"><a href="#" class="page-link">6</a></li>
-						<li class="page-item"><a href="#" class="page-link">7</a></li>
-						<li class="page-item"><a href="#" class="page-link">8</a></li>
-						<li class="page-item"><a href="#" class="page-link">9</a></li>
-						<li class="page-item"><a href="#" class="page-link">10</a></li>
-						<li class="page-item"><a href="#" class="page-link">다음</a></li>
+
 					</ul>
 				</div>
 
@@ -186,14 +98,6 @@
 					</ul>
 				</div>
 
-				<div class="text-right">
-					<a href="./../mmanage.jsp" class="btn btn-primary">회원관리</a> <a
-						href="board_write.jsp" class="btn btn-primary">글쓰기</a>
-					<c:forEach var="qitem" items="${qlist}">
-						<div>${qitem.ques_title}</div>
-					</c:forEach>
-
-				</div>
 				<!-- href="resource/css/home.css" -->
 			</div>
 		</div>

@@ -92,5 +92,19 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		return null;
 	}
 
+	public ModelAndView memberSelect(String m_id) {
+		
+	ModelAndView mv = new ModelAndView();
+	
+	List<MemberDto> mList = mMap.selectMember(m_id);
+		
+	
+		
+		
+		return mv;
+	}
+	
+	
+
 
 }

@@ -13,5 +13,7 @@ public interface MemberMapper  extends MybatisMapper {
 	int getBoardCnt();
 	//회원 삭제 쿼리 
 	void deleteMember(String m_id);
+	//회원 검색 쿼리
+	List<MemberDto> selectMember(String m_id);
 	
 }

@@ -13,7 +13,7 @@
 		]]>
 	</select>
 
-	<select id="getBoardCnt" parameterType="integer">
+	<select id="getBoardCnt" resultType="integer">
 		SELECT COUNT(*) FROM QUESTION
 	</select>
 

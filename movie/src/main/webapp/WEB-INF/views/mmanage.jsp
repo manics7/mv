@@ -58,145 +58,59 @@
 	<!-- 게시글 리스트 -->
 	<div class="container" style="margin-top: 100px">
 		<div class="card shadow">
-			<div class="card-body">
-				<h4 class="card-title">회원관리</h4>
-				<table class="table table-hover" id='board_list'>
-					<thead>
-						<tr>
-							<th class="text-center d-none d-md-table-cell">회원ID</th>
-							<th class="text-center d-none d-md-table-cell">이름</th>
-							<th class="text-center d-none d-md-table-cell">HP</th>
-							<th class="text-center d-none d-md-table-cell">주소</th>
-							<th class="text-center d-none d-md-table-cell">생년월일</th>
-							<th class="text-center d-none d-md-table-cell">회원 게시글 확인</th>
-							<th class="text-center d-none d-md-table-cell">회원 탈퇴처리</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="mitem" items="${mList}">
+			<form name="searchFrm" action="./memberSelect" method="post" >
+				<input type="submit" placeholder="ID 입력" >
+				<div class="card-body">
+					<h4 class="card-title">회원관리</h4>
 
+					<table class="table table-hover" id='board_list'>
+						<thead>
 							<tr>
-								<td class="text-center d-none d-md-table-cell">${mitem.m_id}</td>
-								<td><a href='board_read.html'>${mitem.m_name}</a></td>
-								<td class="text-center d-none d-md-table-cell">${mitem.m_phone}</td>
-								<td class="text-center d-none d-md-table-cell">${mitem.m_addr}</td>
-								<td class="text-center d-none d-md-table-cell">${mitem.m_birth}</td>
-								<td class="text-center d-none d-md-table-cell"><a href="#">확인</a></td>
-								<td class="text-center d-none d-md-table-cell"><a
-									href="./deleteMember">삭제</a></td>
-
+								<th class="text-center d-none d-md-table-cell">회원ID</th>
+								<th class="text-center d-none d-md-table-cell">이름</th>
+								<th class="text-center d-none d-md-table-cell">HP</th>
+								<th class="text-center d-none d-md-table-cell">주소</th>
+								<th class="text-center d-none d-md-table-cell">생년월일</th>
+								<th class="text-center d-none d-md-table-cell">회원 게시글 확인</th>
+								<th class="text-center d-none d-md-table-cell">회원 탈퇴처리</th>
 							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="mitem" items="${mList}">
 
+								<tr>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_id}</td>
+									<td><a href='board_read.html'>${mitem.m_name}</a></td>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_phone}</td>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_addr}</td>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_birth}</td>
+									<td class="text-center d-none d-md-table-cell"><a href="#">확인</a></td>
+									<td class="text-center d-none d-md-table-cell"><a
+										href="./deleteMember">삭제</a></td>
 
-						</c:forEach>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 
+					<div class="d-none d-md-block">
+						<!-- <div class="paging">${paging}</div>  -->
+						<div class="pagination justify-content-center">
 
-						<!--
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
+							<div class="page-item">${paging}</div>
 
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
+						</div>
+					</div>
 
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr>
-						<tr>
-							<td class="text-center d-none d-md-table-cell">10</td>
-							<td><a href='board_read.html'>글 제목 입니다</a></td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2021-12-12</td>
-
-						</tr> -->
-					</tbody>
-				</table>
-
-				<div class="d-none d-md-block">
-					<!-- <div class="paging">${paging}</div>  -->
-					<div class="pagination justify-content-center">
-							
-						<div class="page-item">${paging}</div>
-						<!-- 
-						<li class="page-item"><a href="#" class="page-link">이전</a></li>
-						<li class="page-item"><a href="#" class="page-link">1</a></li>
-						<li class="page-item"><a href="#" class="page-link">2</a></li>
-						<li class="page-item"><a href="#" class="page-link">3</a></li>
-						<li class="page-item"><a href="#" class="page-link">4</a></li>
-						<li class="page-item"><a href="#" class="page-link">5</a></li>
-						<li class="page-item"><a href="#" class="page-link">6</a></li>
-						<li class="page-item"><a href="#" class="page-link">7</a></li>
-						<li class="page-item"><a href="#" class="page-link">8</a></li>
-						<li class="page-item"><a href="#" class="page-link">9</a></li>
-						<li class="page-item"><a href="#" class="page-link">10</a></li>
-						<li class="page-item"><a href="#" class="page-link">다음</a></li>
-						
-						 -->
+					<div class="d-block d-md-none">
+						<ul class="pagination justify-content-center">
+							<li class="page-item"><a href="#" class="page-link">이전</a></li>
+							<li class="page-item"><a href="#" class="page-link">다음</a></li>
+						</ul>
 					</div>
 				</div>
+			</form>
 
-				<div class="d-block d-md-none">
-					<ul class="pagination justify-content-center">
-						<li class="page-item"><a href="#" class="page-link">이전</a></li>
-						<li class="page-item"><a href="#" class="page-link">다음</a></li>
-					</ul>
-				</div>
-				<!--
-
-		<div class="text-right">
-					<a href="board_write.html" class="btn btn-primary">글쓰기</a>
-				</div>
-
-  -->
-
-
-			</div>
 		</div>
 	</div>
 

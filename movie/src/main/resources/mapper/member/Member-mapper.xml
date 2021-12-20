@@ -21,6 +21,10 @@
 		DELETE FROM MEMBER WHERE
 		M_ID=#{M_ID}
 	</delete>
+	
+	<select id="selectMember" resultType="com.example.movie.dto.MemberDto">
+	SELECT * FROM member where m_id = {m_id}
+	</select>
 
 
 </mapper>
