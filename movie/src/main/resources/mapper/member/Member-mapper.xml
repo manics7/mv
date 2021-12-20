@@ -3,7 +3,26 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.movie.mapper.MemberMapper">
-	
+
+	<select id="getList" parameterType="HashMap"
+		resultType="com.example.movie.dto.MemberDto">
+				<![CDATA[
+		SELECT * FROM member
+		WHERE M_NO >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND M_NO <= #{num} * #{lcnt}
+		]]>
+	</select>
+
+	<select id="getBoardCnt" resultType="Integer">
+		SELECT COUNT(*) FROM MEMBER
+	</select>
+
+	<delete id="memberdelete" parameterType="String">
+		DELETE FROM MEMBER WHERE
+		M_ID=#{M_ID}
+	</delete>
+
+
 </mapper>
 
 

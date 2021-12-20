@@ -6,10 +6,15 @@
 <head>
 <link rel="stylesheet" type="text/css" href="resource/css/home.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>main</title>
 </head>
 <body>
-<h1>index222</h1>
+<h1>index</h1>
+
+
+
+<a type="button" href="./mmanage?pageNum=1">회원관리</a>
+<a href="./quesboard">문의게시판</a>
 
 </body>
 </html>
