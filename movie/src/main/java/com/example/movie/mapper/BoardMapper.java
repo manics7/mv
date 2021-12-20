@@ -1,7 +1,14 @@
 package com.example.movie.mapper;
 
-import com.example.movie.config.MybatisMapper;
+import java.util.List;
+import java.util.Map;
 
-public interface BoardMapper  extends MybatisMapper {
-	
+import com.example.movie.config.MybatisMapper;
+import com.example.movie.dto.BoardDto;
+
+public interface BoardMapper extends MybatisMapper {
+	//후기 게시글 목록 가져오기
+	public List<BoardDto> getRvList(Map<String, Integer> pmap);
+	//전체 게시글 수 구하기
+	public int getrvBoardCnt();
 }
