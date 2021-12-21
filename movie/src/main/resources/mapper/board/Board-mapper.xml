@@ -33,7 +33,7 @@
 	</select>
 	-->
 	
-	<!-- 검색으로 게시글 불러오기222 -->
+	<!-- 검색으로 게시글 불러오기test -->
 	<select id="selectSearchList" parameterType="com.example.movie.dto.BoardDto"
 		resultType="com.example.movie.dto.BoardDto">
 		SELECT * FROM RLIST WHERE
