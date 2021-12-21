@@ -7,8 +7,10 @@
 <title>영화 보러 가자~</title>
 <link rel="stylesheet" type="text/css" href="resource/css/home.css">
 <link rel="stylesheet" type="text/css" href="resource/css/hf.css">
+<link rel="stylesheet" type="text/css" href="resource/css/bootstrap.css">
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script src="resource/js/jquery.serializeObject.js"></script>
+<script src="resource/js/bootstrap.bundle.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -69,7 +71,6 @@
 
 	})
 
-
 	function sel() {
 		var formData = new FormData();
 		$.ajax({
@@ -78,7 +79,6 @@
 			success : function(res) {
 				console.log(res);
 				$("#img").attr("src", res);
-
 			},
 			err : function(err) {
 				console.log("err:", err)
@@ -112,11 +112,13 @@
 			}
 		});
 	}
-
+	
+	function modal(){
+		
+	}
 </script>
 </head>
 <body>
-
 
 
 	<header>
@@ -144,8 +146,9 @@
 			<input type="button"	value="폴더생성" onclick="create()"
 			> <input type="button" value=삭제 onclick="del()">
 		</div>
+			> <input type="button" value=모달창 onclick="modal()">
+		</div>
 		<img id="img" alt="" src="">
-
 	</form>
 
 </body>
