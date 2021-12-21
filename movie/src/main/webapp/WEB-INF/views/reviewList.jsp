@@ -27,14 +27,14 @@ $(function(){
 			<a>총 ${maxNum}개의 게시물이 있습니다.</a>
 		</div>
         <div class="rv_search">
-        	<form name="searchFrm" class="search_form" action="./rvSearch" method="post">
-            	<select class="rv_category">
-                	<option selected value="title" name="rtitle">제목</option>
-                	<option value="writer" name="mid">작성자</option>
-                	<option value="theater" name="thname">영화관</option>
+        	<form name="search_form" action="./slist" method="post">
+            	<select name="type">
+                	<option selected value="rtitle" name="rtitle">제목</option>
+                	<option value="mid" name="mid">작성자</option>
+                	<option value="thname" name="thname">영화관</option>
             	</select>
             	<input type="text" id="search_text" name="keyword" placeholder="검색어를 입력하세요.">
-            	<input type="submit" class="search_btn" value="검색">
+            	<input type="submit" value="검색">
             </form>
         </div>
 	</div>
@@ -50,13 +50,33 @@ $(function(){
 				<th class="t_view p-10">조회수</th>
 				<th class="t_like p-10">추천수</th>
 			</tr>
+			
+			<!-- 검색 결과 목록 -->
+			<c:forEach var="bitem" items="${sList}">
+				<tr class="data_row">
+					<td class="t_no p-10">${bitem.rnum}</td>
+					<td class="t_theater p-10">${bitem.thname}</td>
+					<td class="t_title p-30">${bitem.rtitle}</td>
+					<td class="t_date p-10">
+						<fmt:formatDate value="${bitem.rdate}"
+							pattern="yy/MM/dd" />
+					</td>
+					<td class="t_id p-10">${bitem.mid}</td>
+					<td class="t_view p-10">${bitem.rview}</td>
+					<td class="t_like p-10">${bitem.rlike}</td>
+				</tr>
+			</c:forEach>
+			
+			<!-- 전체 목록 -->
 			<c:forEach var="bitem" items="${bList}">
 				<tr class="data_row">
 					<td class="t_no p-10">${bitem.rnum}</td>
 					<td class="t_theater p-10">${bitem.thname}</td>
 					<td class="t_title p-30">${bitem.rtitle}</td>
-					<td class="t_date p-10"><fmt:formatDate value="${bitem.rdate}"
-							pattern="yy/MM/dd" /></td>
+					<td class="t_date p-10">
+						<fmt:formatDate value="${bitem.rdate}"
+							pattern="yy/MM/dd" />
+					</td>
 					<td class="t_id p-10">${bitem.mid}</td>
 					<td class="t_view p-10">${bitem.rview}</td>
 					<td class="t_like p-10">${bitem.rlike}</td>

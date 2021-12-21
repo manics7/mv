@@ -24,7 +24,7 @@ public class PagingUtil {
 		if(start != 1) {
 			sb.append("<a class='pno' href='" + listName
 					+ "?pageNum=" + (start - 1) + "'>");
-			sb.append("$nbsp;이전$nbsp;</a>");
+			sb.append("&nbsp;이전&nbsp;</a>");
 		}
 		
 		for(int i = start; i <= end; i++) {

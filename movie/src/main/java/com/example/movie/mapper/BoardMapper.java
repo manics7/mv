@@ -11,4 +11,6 @@ public interface BoardMapper extends MybatisMapper {
 	public List<BoardDto> getRvList(Map<String, Integer> pmap);
 	//전체 게시글 수 구하기
 	public int getrvBoardCnt();
+	//검색으로 게시글 목록 가져오기
+	public List<BoardDto> selectSearchList(BoardDto bDto);
 }

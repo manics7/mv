@@ -73,6 +73,18 @@ public class BoardService {
 		return pageHtml;
 	}
 	
+	//검색한 게시글 불러오기
+	public ModelAndView rvSearchList(BoardDto bDto) {
+		mv = new ModelAndView();
+		
+		List<BoardDto> sList = bMapper.selectSearchList(bDto);
+		
+		mv.addObject("sList", sList);
+		
+		mv.setViewName("reviewList");
+		
+		return mv;
+	}
 	
 	
 	
