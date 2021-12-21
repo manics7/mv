@@ -105,12 +105,12 @@
 							<tr>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
 								<td class="text-center d-none d-md-table-cell"><a
-									href='board_read.html'>${qitem.ques_title}</a></td>
+									href='/requeboard_read'>${qitem.ques_title}</a></td>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_state}</td>
 								<td class="text-center d-none d-md-table-cell">${qitem.m_id}</td>
 								<td class="text-center d-none d-md-table-cell"><a
-									href='board_read.html'>답변 작성</a></td>
+									href='/requeboard_write'>답변 작성</a></td>
 
 							</tr>
 						</c:forEach>

@@ -39,6 +39,15 @@ public class AdminController {
 		return mv;
 	}
 	
+	public ModelAndView requeboardRead(String ques_title) {
+	ModelAndView mv = new ModelAndView();
+		
+	List<quesboardDto> qlist = aServ.getboardRead(ques_title);
+	
+	mv.addObject("qrlist", qlist);
+	mv.setViewName("requeboar_read");
+		return mv;
+	}
 
 	
 	

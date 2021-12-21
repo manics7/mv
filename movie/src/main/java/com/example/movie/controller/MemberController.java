@@ -96,5 +96,13 @@ public class MemberController {
 		
 		return mv;
 	}
+	@GetMapping("/thDetail")
+	public String thDetail() {
+		
+		
+		
+		
+		return "theater_detail";
+	}
 	
 }

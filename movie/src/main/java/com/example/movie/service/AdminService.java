@@ -58,4 +58,9 @@ public class AdminService {
 		return pageHtml;
 	}
 
+	public List<quesboardDto> getboardRead(String ques_title) {
+		
+		return null;
+	}
+
 }

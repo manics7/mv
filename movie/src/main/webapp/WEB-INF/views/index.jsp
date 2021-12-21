@@ -18,6 +18,7 @@
 	<a type="button" href="./mmanage?pageNum=1">회원관리</a>
 	<input type="submit" class="search">
 	<a href="./quesboard?pageNum=1">문의게시판</a>
+	<a href="./thDetail">영화관 상세 페이지</a>
 
 </body>
 </html>
