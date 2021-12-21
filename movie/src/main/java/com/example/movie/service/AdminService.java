@@ -60,7 +60,9 @@ public class AdminService {
 
 	public List<quesboardDto> getboardRead(String ques_title) {
 		
-		return null;
+		List<quesboardDto> readqlist = qMap.getboardRead(ques_title);
+		
+		return readqlist;
 	}
 
 }

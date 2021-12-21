@@ -13,6 +13,8 @@ public interface AdminMapper  extends MybatisMapper {
 	int getBoardCnt();
 
 	List<quesboardDto> getboardSelect(String m_id);
+
+	List<quesboardDto> getboardRead(String ques_title);
 	
 	
 	

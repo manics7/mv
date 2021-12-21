@@ -14,11 +14,18 @@
 	</select>
 
 	<select id="getBoardCnt" resultType="integer">
-		SELECT COUNT(*) FROM QUESTION
+		SELECT COUNT(*) FROM
+		QUESTION
 	</select>
-	
-	<select id="getboardSelect" resultType="com.example.movie.dto.quesboardDto">
-	SELECT * FROM QUESTION where m_id = #{m_id}
+
+	<select id="getboardSelect"
+		resultType="com.example.movie.dto.quesboardDto">
+		SELECT * FROM QUESTION where m_id = #{m_id}
+	</select>
+
+	<select id="getboardRead"
+		resultType="com.example.movie.dto.quesboardDto">
+		SELECT * FROM QUESTION where ques_title = #{ques_title}
 	</select>
 
 </mapper>

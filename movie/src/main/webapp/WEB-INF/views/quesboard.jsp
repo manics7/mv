@@ -81,18 +81,18 @@
 						</tr>
 					</thead>
 					<tbody>
-						<!-- 이부분은 검색 -->
+						<!-- 이부분은 검색 결과 출력되는 부분 -->
 						<c:forEach var="qitem" items="${mbLIst}">
 
 							<tr>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
 								<td class="text-center d-none d-md-table-cell"><a
-									href='board_read.html'>${qitem.ques_title}</a></td>
+									href='/requeboard_read?ques_title=${qitem.ques_title}'>${qitem.ques_title}</a></td>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_state}</td>
 								<td class="text-center d-none d-md-table-cell">${qitem.m_id}</td>
 								<td class="text-center d-none d-md-table-cell"><a
-									href='board_read.html'>답변하기</a></td>
+									href='/requeboard_write'>답변작성</a></td>
 
 							</tr>
 						</c:forEach>
@@ -104,13 +104,13 @@
 
 							<tr>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
-								<td class="text-center d-none d-md-table-cell"><a
-									href='/requeboard_read'>${qitem.ques_title}</a></td>
+								<td class="text-center d-none d-md-table-cell">
+								<a href='/requeboard_read?ques_title=${qitem.ques_title}'>${qitem.ques_title}</a></td>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_state}</td>
 								<td class="text-center d-none d-md-table-cell">${qitem.m_id}</td>
 								<td class="text-center d-none d-md-table-cell"><a
-									href='/requeboard_write'>답변 작성</a></td>
+									href='#'>답변 작성</a></td>
 
 							</tr>
 						</c:forEach>

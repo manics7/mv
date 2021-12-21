@@ -38,14 +38,16 @@ public class AdminController {
 		System.out.println("qlist = "+qList);
 		return mv;
 	}
-	
+	@GetMapping("/requeboard_read")
 	public ModelAndView requeboardRead(String ques_title) {
 	ModelAndView mv = new ModelAndView();
+	System.out.println("ques_title = "+ques_title);
 		
-	List<quesboardDto> qlist = aServ.getboardRead(ques_title);
+	List<quesboardDto> readqlist = aServ.getboardRead(ques_title);
 	
-	mv.addObject("qrlist", qlist);
-	mv.setViewName("requeboar_read");
+	mv.addObject("qrlist", readqlist);
+	mv.setViewName("requeboard_read");
+	System.out.println("readqlist = "+readqlist);
 		return mv;
 	}
 
