@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.quesboardDto;
+import com.example.movie.mapper.AdminMapper;
 import com.example.movie.mapper.MemberMapper;
 import com.example.movie.util.PagingUtil;
 
@@ -17,6 +19,11 @@ import com.example.movie.util.PagingUtil;
 public class MemberService {
 	@Autowired
 	private MemberMapper mMap;
+	
+	@Autowired
+	private AdminMapper aMap;
+	
+	
 	
 //	private ModelAndView mv;
 
@@ -106,9 +113,15 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 	}
 
 	public ModelAndView mboardSelect(String m_id) {
+		//mMap.getmboardSelect(m_id);
+		ModelAndView mv = new ModelAndView();
 		
 		
-		return null;
+		List<quesboardDto> mbList = aMap.getboardSelect(m_id);
+		mv.addObject("mbLIst", mbList);
+		
+		System.out.println("mbList = "+mbList);
+		return mv;
 	}
 	
 	

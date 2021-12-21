@@ -88,13 +88,11 @@ public class MemberController {
 	@GetMapping("/mboardSelect")
 	public ModelAndView mboardSelect(String m_id) {
 	
-		System.out.println("테스트 검색어"+m_id);
+		System.out.println("테스트 검색어 m_id = "+m_id);
 		mv = mServ.mboardSelect(m_id);
 		
 		
-		mv.setViewName("mmanage");
-		
-		
+		mv.setViewName("quesboard");
 		
 		return mv;
 	}

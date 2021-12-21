@@ -16,6 +16,10 @@
 	<select id="getBoardCnt" resultType="integer">
 		SELECT COUNT(*) FROM QUESTION
 	</select>
+	
+	<select id="getboardSelect" resultType="com.example.movie.dto.quesboardDto">
+	SELECT * FROM QUESTION where m_id = #{m_id}
+	</select>
 
 </mapper>
 

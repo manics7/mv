@@ -99,7 +99,7 @@
 									<td class="text-center d-none d-md-table-cell">${mitem.m_phone}</td>
 									<td class="text-center d-none d-md-table-cell">${mitem.m_addr}</td>
 									<td class="text-center d-none d-md-table-cell">${mitem.m_birth}</td>
-									<td class="text-center d-none d-md-table-cell"><a href="#">확인</a></td>
+									<td class="text-center d-none d-md-table-cell"><a href="./mboardSelect?m_id=${mitem.m_id}">확인</a></td>
 									<td class="text-center d-none d-md-table-cell"><a
 										href="./deleteMember">삭제</a></td>
 

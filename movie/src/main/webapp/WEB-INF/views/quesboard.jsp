@@ -57,6 +57,16 @@
 
 	<div class="container" style="margin-top: 100px">
 		<div class="card shadow">
+
+			<!--
+		
+		<div>
+				<h4>회원정보로 검색한 작성 글</h4>
+				${mbLIst}
+			</div>
+		
+		  -->
+
 			<div class="card-body">
 				<h4 class="card-title">게시판 이름</h4>
 				<table class="table table-hover" id='board_list'>
@@ -67,17 +77,40 @@
 							<th class="text-center d-none d-md-table-cell">작성자</th>
 							<th class="text-center d-none d-md-table-cell">진행사항</th>
 							<th class="text-center d-none d-md-table-cell">작성날짜</th>
+							<th class="text-center d-none d-md-table-cell">답변하기</th>
 						</tr>
 					</thead>
 					<tbody>
+						<!-- 이부분은 검색 -->
+						<c:forEach var="qitem" items="${mbLIst}">
+
+							<tr>
+								<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
+								<td class="text-center d-none d-md-table-cell"><a
+									href='board_read.html'>${qitem.ques_title}</a></td>
+								<td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
+								<td class="text-center d-none d-md-table-cell">${qitem.ques_state}</td>
+								<td class="text-center d-none d-md-table-cell">${qitem.m_id}</td>
+								<td class="text-center d-none d-md-table-cell"><a
+									href='board_read.html'>답변하기</a></td>
+
+							</tr>
+						</c:forEach>
+
+
+
+
 						<c:forEach var="qitem" items="${qlist}">
 
 							<tr>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
-								<td class="text-center d-none d-md-table-cell">${qitem.ques_title}</td>
+								<td class="text-center d-none d-md-table-cell"><a
+									href='board_read.html'>${qitem.ques_title}</a></td>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_state}</td>
 								<td class="text-center d-none d-md-table-cell">${qitem.m_id}</td>
+								<td class="text-center d-none d-md-table-cell"><a
+									href='board_read.html'>답변 작성</a></td>
 
 							</tr>
 						</c:forEach>

@@ -11,5 +11,9 @@ public interface AdminMapper  extends MybatisMapper {
 	List<quesboardDto> getQuesList(Map<String, Integer> qmap);
 
 	int getBoardCnt();
+
+	List<quesboardDto> getboardSelect(String m_id);
+	
+	
 	
 }

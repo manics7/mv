@@ -16,4 +16,6 @@ public interface MemberMapper  extends MybatisMapper {
 	//회원 검색 쿼리
 	List<MemberDto> selectMember(String m_id);
 	
+	void getmboardSelect(String m_id);
+	
 }
