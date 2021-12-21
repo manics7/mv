@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -68,10 +67,8 @@
 			});
 		});
 
-		
-
 	})
-	
+
 	function sel() {
 		var formData = new FormData();
 		$.ajax({
@@ -79,7 +76,7 @@
 			url : "/getFileURL",
 			success : function(res) {
 				console.log(res);
-				$("#img").attr("src",res);
+				$("#img").attr("src", res);
 			},
 			err : function(err) {
 				console.log("err:", err)
@@ -87,64 +84,63 @@
 		});
 	}
 
-		function create() {
-			var formData = new FormData();
-			$.ajax({
-				type : "GET",
-				url : "/fileTest",
-				success : function(res) {
-					console.log(res);
-				},
-				err : function(err) {
-					console.log("err:", err)
-				}
-			});
-		}
-		function del() {
-			var formData = new FormData();
-			$.ajax({
-				type : "GET",
-				url : "/fileDelTest",
-				success : function(res) {
-					console.log(res);
-				},
-				err : function(err) {
-					console.log("err:", err)
-				}
-			});
-		}
+	function create() {
+		var formData = new FormData();
+		$.ajax({
+			type : "GET",
+			url : "/fileTest",
+			success : function(res) {
+				console.log(res);
+			},
+			err : function(err) {
+				console.log("err:", err)
+			}
+		});
+	}
+	function del() {
+		var formData = new FormData();
+		$.ajax({
+			type : "GET",
+			url : "/fileDelTest",
+			success : function(res) {
+				console.log(res);
+			},
+			err : function(err) {
+				console.log("err:", err)
+			}
+		});
+	}
 </script>
 </head>
 <body>
 
-	
+
 	<header>
 		<!-- --------------- header --------------- -->
 		<jsp:include page="header.jsp"></jsp:include>
 	</header>
 
-			<h1>파일테스트</h1>
+	<h1>파일테스트</h1>
 
-<form method="POST" enctype="multipart/form-data" id="fileUploadForm"> 	
-	<div class="filebox">
-		<!-- 파일 입력 처리 영역 -->
-		<label for="file">업로드</label> 
-		<input type="file" name="files"id="file" multiple> 
-		<input type="text" class="upload-name" value="파일선택" readonly>
-		<!-- 업로드할 파일이 있으면 1, 없으면 0 -->
-		<input type="hidden" id="filecheck" value="0" name="fileCheck">
-	</div>
-	<div class="btn-area">
-		<input type="button" class="btn-write" value="파일 업로드" id="uploadBtn">
-		<input type="reset" class="btn-write" value="초기화">
+	<form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+		<div class="filebox">
+			<!-- 파일 입력 처리 영역 -->
+			<label for="file">업로드</label> <input type="file" name="files" id="file" multiple>
+			<input type="text" class="upload-name" value="파일선택" readonly>
+			<!-- 업로드할 파일이 있으면 1, 없으면 0 -->
+			<input type="hidden" id="filecheck" value="0" name="fileCheck">
+		</div>
+		<div class="btn-area">
+			<input type="button" class="btn-write" value="파일 업로드" id="uploadBtn"> 
+			<input type="reset" class="btn-write" value="초기화">
 
-	</div>
-	<div class="btn-area">
-		<input type="button"  value="파일읽어오기" onclick="sel()">
-		 <input type="button"  value="폴더생성" onclick="create()">
-		 <input type="button"	 value=삭제 onclick="del()">
-	</div>
-	<img id="img" alt="" src="">
+		</div>
+		<div class="btn-area">
+			<input type="button" value="파일읽어오기" onclick="sel()"> <input type="button"
+				value="폴더생성" onclick="create()"
+			> <input type="button" value=삭제 onclick="del()">
+		</div>
+		<img id="img" alt="" src="">
 	</form>
 
 </body>
