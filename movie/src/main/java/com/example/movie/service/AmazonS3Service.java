@@ -1,20 +1,18 @@
-package com.example.movie.common;
+package com.example.movie.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
@@ -34,9 +32,9 @@ import lombok.extern.java.Log;
 
 
 @Log
-@Component
+@Service
 @RequiredArgsConstructor
-public class AmazonS3Util {
+public class AmazonS3Service {
 
 	//private HttpSession httpSession;
 
@@ -49,7 +47,6 @@ public class AmazonS3Util {
 
 	private final AmazonS3 amazonS3;
 
-	//테스트용
 	public void test() {
 		
 		//createFolder(bucket, "test");
@@ -67,21 +64,27 @@ public class AmazonS3Util {
 		return getFileURL(bucket, fileName);
 	}
 	
-	public Map<String,String> uploadFile(List<MultipartFile> multipartFiles)  {
-	
-		//원래 파일명과 아마존에 올라간 파일명을 담을 맵
-		Map<String,String> map = new HashMap<String, String>();
-		  
-		multipartFiles.forEach(file -> {
-			UUID uuid = UUID.randomUUID(); // 랜덤이름 생성
+	public List<String> uploadFile(List<MultipartFile> multipartFiles)  {
+
+		//String folderPath= httpSession.getServletContext().getRealPath("/temp");
+		//File folder = new File(folderPath);			
+		//if(folder.isDirectory() == false) {
+		//	folder.mkdir();
+		//}
+		
+		List<String> fileNameList = multipartFiles.stream().map(file -> {
+
+			UUID uuid = UUID.randomUUID(); // 랜덤이름
 			String fileName = bucketURL+uuid.toString()+"_"+file.getOriginalFilename();
 			ObjectMetadata objectMetadata = new ObjectMetadata();
 			objectMetadata.setContentLength(file.getSize());
 			objectMetadata.setContentType(file.getContentType());
+			log.info(fileName);
 		
 			try (InputStream inputStream = file.getInputStream()){
 				amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
-						.withCannedAcl(CannedAccessControlList.PublicRead));
+						.withCannedAcl(CannedAccessControlList.PublicRead)
+						);
 
 			} catch (AmazonServiceException e) {
 	            e.printStackTrace();
@@ -90,16 +93,16 @@ public class AmazonS3Util {
 	        } catch (Exception e) {
 	        	e.printStackTrace();
 			}
-			
-			map.put("originalName", file.getOriginalFilename());
-			map.put("amazonName", fileName);
-		});
-				  
+			return fileName;
+		}).collect(Collectors.toList());
 
-		return map;
+		return fileNameList;
 	}
 	
-	//파일 삭제
+	public void fileUpload(List<MultipartFile> multipartFiles) {
+		
+	}
+
 	public void deleteFile(String fileName) {      
 		try {
 			amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
@@ -129,7 +132,7 @@ public class AmazonS3Util {
         log.info("넘어오는 파일명 : "+fileName);
         return amazonS3.generatePresignedUrl(new GeneratePresignedUrlRequest(bucketName, fileName)).toString();
     }
-    // 폴터내 전체 파일리스트 URL 
+    // 파일 리스트 URL
     public List<String> getFileList(String bucketName, String folder){
     	ObjectListing objectList =  amazonS3.listObjects(bucketName, folder);
     	List<String> url = new ArrayList<String>();

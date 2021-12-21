@@ -1,7 +1,6 @@
 package com.example.movie.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.example.movie.common.AmazonS3Util;
+import com.example.movie.service.AmazonS3Service;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,15 +18,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor //  final이나 @NonNull인 필드 값만 파라미터로 받는 생성자를 만들어줌.
 public class AmazonS3Controller {
 
-	private final AmazonS3Util amazonS3Service;
+	private final AmazonS3Service amazonS3Service;
 
 	// Amazon S3에 파일만 업로드
 	@PostMapping("/fileUpload")
 	@ResponseBody
-	public Map<String,String> uploadFile(@RequestPart(value = "uploadFile") List<MultipartFile> multipartFiles) {
-		
-		Map<String,String> map = amazonS3Service.uploadFile(multipartFiles);		
-		return map;
+	public List<String> uploadFile(@RequestPart(value = "uploadFile") List<MultipartFile> multipartFiles) {
+		//return ApiResponse.success(awsS3Service.uploadImage(multipartFile));
+		List<String> fileNameList = amazonS3Service.uploadFile(multipartFiles);
+		if(multipartFiles.size() == fileNameList.size()) {
+			
+		}
+		//업로드한 파일명볼려고 리턴
+		return fileNameList;
 	}
 
 	// 파일+다른값이 필요할때 
@@ -36,8 +39,10 @@ public class AmazonS3Controller {
 	public void uploadFile2(MultipartHttpServletRequest multipartFiles) {
 		//return ApiResponse.success(awsS3Service.uploadImage(multipartFile));
 		List<MultipartFile> files = multipartFiles.getFiles("uploadFile");
-		Map<String,String> map = amazonS3Service.uploadFile(files);
-		
+		List<String> fileNameList = amazonS3Service.uploadFile(files);
+		if(files.size() == fileNameList.size()) {
+
+		}
 	}
 
 	//@ResponseStatus(HttpStatus.CREATED)
