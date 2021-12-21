@@ -9,6 +9,12 @@
 		insert into business values (#{b_id}, #{b_pw}, #{b_name}, #{b_num}, #{b_tel}, #{b_email})
 	</insert>
 	
+	<!-- 사업자 로그인 -->
+	<select id="getb_pw" parameterType="String" resultType="String">
+		select b_pw from business where b_id=#{b_id}
+		<!-- mapper에서 잡아준 매개변수 = #{ } -->
+	</select>
+	
 </mapper>
 
 

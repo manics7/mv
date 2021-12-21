@@ -14,9 +14,7 @@
 				<li class="suc"><a href="#">빠른예매</a></li>
 			</ul>
 		</div>
-		
 		<div id="sub_menu">
-		
 			<div>
 				<!-- 서치 박스 -->
 				<input class="search_box">
@@ -91,7 +89,7 @@
 	$(function() {
 		// 영화관 검색 클릭시 하단 메뉴 출력
 		$(".search_th").click(function() {
-			$("#sub_menu").toggle(300);
+			$("#sub_menu").slideToggle(300);
 		});
 		
 		// a태그, 클릭시 주소창 # 없앰
@@ -108,7 +106,7 @@
 			$("#login_bg").css("display", "none");
 		});
 		
-		// 사용자, 사업자 클릭시 탭 이동
+		// 이용자, 사업자 클릭시 탭 이동
 		$("#type_user").click(function() {
 			$("#user_tap").css("display", "inline-block");
 			$("#business_tap").css("display", "none");

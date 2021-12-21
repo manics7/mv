@@ -42,16 +42,12 @@ public class MemberService {
 		return view;
 	}
 
+	// 이용자 로그인
 	public String loginProc(MemberDto member, RedirectAttributes rttr) {
 		String view = null;
 		String msg = null;
 		
 		String pw = mMapper.getPw(member.getM_id());
-		try {
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		
 		return view;
 	}

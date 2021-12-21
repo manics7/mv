@@ -18,7 +18,7 @@ public class BusinessService {
 	@Autowired
 	private HttpSession session;
 	
-	// 사용자 회원가입
+	// 사업자 회원가입
 	@Transactional
 	public String businessInsert(BusinessDto business, RedirectAttributes rttr) {
 		String view = null;
@@ -36,6 +36,16 @@ public class BusinessService {
 		}
 		
 		return view;
+	}
+
+	// 사업자 로그인
+	public String bu_loginProc(BusinessDto business, RedirectAttributes rttr) {
+		String view = null;
+		String msg = null;
+		
+		String b_pw = bMapper.getb_pw(business.getB_pw());
+		
+		return null;
 	}
 	
 }

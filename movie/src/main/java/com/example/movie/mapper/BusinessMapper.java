@@ -6,6 +6,9 @@ import com.example.movie.dto.BusinessDto;
 
 public interface BusinessMapper  extends MybatisMapper {
 	
-	// 사용자 회원 가입
+	// 사업자 회원 가입
 	public void businessInsert(BusinessDto business);
+
+	// 사업자 로그인
+	public String getb_pw(String b_id);
 }

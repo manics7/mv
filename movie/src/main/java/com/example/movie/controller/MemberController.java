@@ -14,6 +14,7 @@ public class MemberController {
 	@Autowired
 	private MemberService mServ;
 	
+	// 이용자 로그인
 	@PostMapping("loginProc")
 	public String loginProc(MemberDto member, RedirectAttributes rttr) {
 		

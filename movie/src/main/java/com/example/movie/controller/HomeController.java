@@ -43,14 +43,14 @@ public class HomeController {
 		return view;
 	}
 	
-	// 사용자 회원가입 페이지 이동
+	// 사업자 회원가입 페이지 이동
 	@GetMapping("bu_joinFrm")
 	public String bu_joinFrm() {
 		
 		return "bu_joinFrm";
 	}
 	
-	// 사용자 회원가입
+	// 사업자 회원가입
 	@PostMapping("businessInsert")
 	public String businessInsert(BusinessDto business, RedirectAttributes rttr) {
 		
