@@ -27,9 +27,9 @@ public class AmazonS3Controller {
 		//return ApiResponse.success(awsS3Service.uploadImage(multipartFile));
 		List<String> fileNameList = amazonS3Service.uploadFile(multipartFiles);
 		if(multipartFiles.size() == fileNameList.size()) {
-
+			
 		}
-
+		//업로드한 파일명볼려고 리턴
 		return fileNameList;
 	}
 

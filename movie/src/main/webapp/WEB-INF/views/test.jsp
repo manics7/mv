@@ -136,8 +136,8 @@
 
 		</div>
 		<div class="btn-area">
-			<input type="button" value="파일읽어오기" onclick="sel()"> <input type="button"
-				value="폴더생성" onclick="create()"
+			<input type="button" value="파일읽어오기" onclick="sel()"> 
+			<input type="button"	value="폴더생성" onclick="create()"
 			> <input type="button" value=삭제 onclick="del()">
 		</div>
 		<img id="img" alt="" src="">

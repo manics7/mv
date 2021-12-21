@@ -13,8 +13,7 @@
 		<jsp:include page="header.jsp"></jsp:include>
 	</header>
 
-	<section>
-	
+	<section>	
 	</section>
 	
 	<footer>
