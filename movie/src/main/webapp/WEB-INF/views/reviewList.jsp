@@ -67,7 +67,7 @@ $(function(){
 				</tr>
 			</c:forEach>
 			
-			<!-- 전체 목록 test -->
+			<!-- 전체 목록 -->
 			<c:forEach var="bitem" items="${bList}">
 				<tr class="data_row">
 					<td class="t_no p-10">${bitem.rnum}</td>
