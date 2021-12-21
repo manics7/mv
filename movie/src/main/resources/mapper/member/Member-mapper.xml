@@ -5,9 +5,13 @@
 <mapper namespace="com.example.movie.mapper.MemberMapper">
 	
 	<!-- 이용자 회원 가입 -->
-	<insert id="memberInsert" parameterType="com.example.movie.dto.memberDto">
+	<insert id="memberInsert" parameterType="com.example.movie.dto.MemberDto">
 		insert into member values (#{m_id}, #{m_pw}, #{m_birth}, #{m_tel}, #{m_like}, #{m_email}, #{m_name}, #{m_gender}, default, default, default)
 	</insert>
+	
+	<select id="getPw" parameterType="String" resultType="String">
+		select m_pw from member where m_id=#{m_id}
+	</select>
 	
 </mapper>
 

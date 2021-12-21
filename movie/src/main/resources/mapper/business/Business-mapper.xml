@@ -4,6 +4,11 @@
 
 <mapper namespace="com.example.movie.mapper.BusinessMapper">
 	
+	<!-- 사업자 회원 가입 -->
+	<insert id="businessInsert" parameterType="com.example.movie.dto.BusinessDto">
+		insert into business values (#{b_id}, #{b_pw}, #{b_name}, #{b_num}, #{b_tel}, #{b_email})
+	</insert>
+	
 </mapper>
 
 

@@ -68,7 +68,8 @@
 					</div>
 				</div>
 					<div id="user_tap" class="login_tap">
-						아이디 : <input><br>
+						아이디 : <input name="m_id"><br>
+						<!-- name = Dto와 이름을 같이 -->
 						비밀번호 : <input><br>
 						<button>로그인</button><br>
 						<a>아이디/비밀번호 찾기</a> | 
@@ -76,9 +77,11 @@
 					</div>
 					<div id="business_tap" class="login_tap">
 						사업자 아이디 : <input><br>
-						비밀번호 : <input>
+						비밀번호 : <input><br>
+						<button>로그인</button><br>
+						<a>아이디/비밀번호 찾기</a> | 
+						<a href="./bu_joinFrm">회원가입</a>
 					</div>
-				
 			</div>
 		</div>	
 	</form>
@@ -107,12 +110,12 @@
 		
 		// 사용자, 사업자 클릭시 탭 이동
 		$("#type_user").click(function() {
-			$("#user_tap").css("display", "");
+			$("#user_tap").css("display", "inline-block");
 			$("#business_tap").css("display", "none");
 		});
 		$("#type_business").click(function() {
 			$("#user_tap").css("display", "none");
-			$("#business_tap").css("display", "block");
+			$("#business_tap").css("display", "inline-block");
 		});
 	})
 </script>

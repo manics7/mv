@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.movie.dto.memberDto;
+import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.MemberDto;
+import com.example.movie.service.BusinessService;
 import com.example.movie.service.MemberService;
 
 @Controller
@@ -15,6 +17,9 @@ public class HomeController {
 	
 	@Autowired
 	private MemberService mServ;
+	
+	@Autowired
+	private BusinessService bServ;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -31,9 +36,25 @@ public class HomeController {
 	
 	// 이용자 회원가입
 	@PostMapping("memberInsert")
-	public String memberInsert(memberDto member, RedirectAttributes rttr) {
+	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
 		
 		String view = mServ.memberInsert(member, rttr);
+		
+		return view;
+	}
+	
+	// 사용자 회원가입 페이지 이동
+	@GetMapping("bu_joinFrm")
+	public String bu_joinFrm() {
+		
+		return "bu_joinFrm";
+	}
+	
+	// 사용자 회원가입
+	@PostMapping("businessInsert")
+	public String businessInsert(BusinessDto business, RedirectAttributes rttr) {
+		
+		String view = bServ.businessInsert(business, rttr);
 		
 		return view;
 	}
