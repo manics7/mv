@@ -16,9 +16,7 @@
 	<h1>index</h1>
 	
 	<a type="button" href="./mmanage?pageNum=1">회원관리</a>
-	<input type="submit" class="search" value="f002">
-	<i ></i>
-
+	<input type="submit" class="search">
 	<a href="./quesboard?pageNum=1">문의게시판</a>
 
 </body>

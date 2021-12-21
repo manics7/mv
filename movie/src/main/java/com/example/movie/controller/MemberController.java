@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.dto.MemberDto;
@@ -58,6 +59,7 @@ public class MemberController {
 	}
 
 
+	
 	@GetMapping
 	public String deleteMember(String m_id) {
 		//1. 회원 게시글 보기 
@@ -73,12 +75,28 @@ public class MemberController {
 		return view;	
 	}
 	
-	@GetMapping("/memberSelect")
+	@PostMapping("/memberSelect")
 	public ModelAndView memberSelect(String m_id) {
-		
 		mv = mServ.memberSelect(m_id);
-		return null;
+		System.out.println("m_id = "+m_id);
 		
+		mv.setViewName("mmanage");
+		
+		return mv;
+		
+	}
+	@GetMapping("/mboardSelect")
+	public ModelAndView mboardSelect(String m_id) {
+	
+		System.out.println("테스트 검색어"+m_id);
+		mv = mServ.mboardSelect(m_id);
+		
+		
+		mv.setViewName("mmanage");
+		
+		
+		
+		return mv;
 	}
 	
 }

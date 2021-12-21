@@ -58,11 +58,11 @@
 	<!-- 게시글 리스트 -->
 	<div class="container" style="margin-top: 100px">
 		<div class="card shadow">
-			<form name="searchFrm" action="./memberSelect" method="post" >
-				<input type="submit" placeholder="ID 입력" >
+			<form name="searchFrm" action="./memberSelect" method="post">
 				<div class="card-body">
 					<h4 class="card-title">회원관리</h4>
-
+					<input type="text" placeholder="ID 입력" name="m_id"> <input
+						type="submit" value="검색">
 					<table class="table table-hover" id='board_list'>
 						<thead>
 							<tr>
@@ -76,6 +76,21 @@
 							</tr>
 						</thead>
 						<tbody>
+							<!-- 이부분은 검색 -->
+							<c:forEach var="mitem" items="${mseList}">
+								<tr>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_id}</td>
+									<td><a href='board_read.html'>${mitem.m_name}</a></td>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_phone}</td>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_addr}</td>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_birth}</td>
+									<td class="text-center d-none d-md-table-cell"><a type="button" href="./mboardSelect?m_id=${mitem.m_id}">확인</a></td>
+									<td class="text-center d-none d-md-table-cell"><a
+										href="./deleteMember">삭제</a></td>
+								</tr>
+							</c:forEach>
+
+
 							<c:forEach var="mitem" items="${mList}">
 
 								<tr>
@@ -96,9 +111,7 @@
 					<div class="d-none d-md-block">
 						<!-- <div class="paging">${paging}</div>  -->
 						<div class="pagination justify-content-center">
-
 							<div class="page-item">${paging}</div>
-
 						</div>
 					</div>
 
@@ -109,6 +122,7 @@
 						</ul>
 					</div>
 				</div>
+
 			</form>
 
 		</div>

@@ -23,7 +23,7 @@
 	</delete>
 	
 	<select id="selectMember" resultType="com.example.movie.dto.MemberDto">
-	SELECT * FROM member where m_id = {m_id}
+	SELECT * FROM member where m_id = #{m_id}
 	</select>
 
 
