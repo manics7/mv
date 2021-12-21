@@ -69,6 +69,7 @@
 
 	})
 
+
 	function sel() {
 		var formData = new FormData();
 		$.ajax({
@@ -77,6 +78,7 @@
 			success : function(res) {
 				console.log(res);
 				$("#img").attr("src", res);
+
 			},
 			err : function(err) {
 				console.log("err:", err)
@@ -110,9 +112,11 @@
 			}
 		});
 	}
+
 </script>
 </head>
 <body>
+
 
 
 	<header>
@@ -141,6 +145,7 @@
 			> <input type="button" value=삭제 onclick="del()">
 		</div>
 		<img id="img" alt="" src="">
+
 	</form>
 
 </body>
