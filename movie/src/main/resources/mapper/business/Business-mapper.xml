@@ -15,6 +15,11 @@
 		<!-- mapper에서 잡아준 매개변수 = #{ } -->
 	</select>
 	
+	<!-- 사업자 검색(세션 저장용?) -->
+	<select id="getBusiness" parameterType="String" resultType="com.example.movie.dto.BusinessDto">
+		select * from business where b_id=#{b_id}
+	</select>
+	
 </mapper>
 
 

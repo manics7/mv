@@ -12,7 +12,10 @@ import com.example.movie.dto.MemberDto;
 import com.example.movie.service.BusinessService;
 import com.example.movie.service.MemberService;
 
+import lombok.extern.java.Log;
+
 @Controller
+@Log
 public class HomeController {
 	
 	@Autowired
@@ -37,7 +40,7 @@ public class HomeController {
 	// 이용자 회원가입
 	@PostMapping("memberInsert")
 	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
-		
+		log.info("memberInsert()");
 		String view = mServ.memberInsert(member, rttr);
 		
 		return view;

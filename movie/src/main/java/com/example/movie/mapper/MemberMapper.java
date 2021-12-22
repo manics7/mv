@@ -11,4 +11,7 @@ public interface MemberMapper  extends MybatisMapper {
 	// 이용자 로그인
 	public String getPw(String m_id);
 	
+	// 이용자 검색(세션 저장용?)
+	public MemberDto getMember(String m_id);
+	
 }

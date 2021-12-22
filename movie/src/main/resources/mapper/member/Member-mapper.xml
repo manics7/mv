@@ -15,6 +15,10 @@
 		<!-- mapper에서 잡아준 매개변수 = #{ } -->
 	</select>
 	
+	<!-- 이용자 검색(세션 저장용?) -->
+	<select id="getMember" parameterType="String" resultType="com.example.movie.dto.MemberDto">
+		select * from member where m_id=#{m_id}
+	</select>
 </mapper>
 
 

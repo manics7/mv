@@ -8,7 +8,7 @@
 				<li class="search_th"><a href="#" class="se_th" style="cursor: pointer;">영화관찾기</a></li>
 				<li><a href="#">영화검색</a></li>
 				<li><a href="#">영화관후기</a></li>
-				<li class="suc"><a href="#">마이페이지</a></li>
+				<li class="suc" id="userName"><a href="#">마이페이지</a></li>
 				<li id="login_btn" class="nomal"><a href="#" class="login_btn" style="cursor: pointer;">로그인</a></li>
 				<li class="nomal"><a href="#">회원가입</a></li>
 				<li class="suc"><a href="#">빠른예매</a></li>
@@ -48,7 +48,7 @@
 	</div>
 	
 	<!-- 로그인 창 -->
-	<form>
+	
 		<div id="login_bg">
 			<div id="login_box">
 				<div class="login_box_header">
@@ -65,24 +65,27 @@
 						<span>사업자 로그인</span>
 					</div>
 				</div>
+				<form action="./loginProc" method="post">
 					<div id="user_tap" class="login_tap">
 						아이디 : <input name="m_id"><br>
 						<!-- name = Dto와 이름을 같이 -->
-						비밀번호 : <input><br>
+						비밀번호 : <input type="password" name="m_pw"><br>
 						<button>로그인</button><br>
 						<a>아이디/비밀번호 찾기</a> | 
 						<a href="./joinFrm">회원가입</a>
 					</div>
+				</form>
+				<form action="./bu_loginProc" method="post">
 					<div id="business_tap" class="login_tap">
-						사업자 아이디 : <input><br>
-						비밀번호 : <input><br>
+						사업자 아이디 : <input name="b_id"><br>
+						비밀번호 : <input name="b_pw"><br>
 						<button>로그인</button><br>
 						<a>아이디/비밀번호 찾기</a> | 
 						<a href="./bu_joinFrm">회원가입</a>
 					</div>
+				</form>
 			</div>
 		</div>	
-	</form>
 
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -115,5 +118,19 @@
 			$("#user_tap").css("display", "none");
 			$("#business_tap").css("display", "inline-block");
 		});
-	})
+		
+		// 로그인하면 로그인 정보 출력, 헤더 메뉴 변경
+		var userInfo = "${userInfo.m_name}";
+		
+		if(userInfo != "") {
+			$("#userName").html(userInfo + " 님");
+			$(".suc").css("display", "inline-block");
+			$(".nomal").css("display", "none");
+		}
+		else {
+			$(".suc").css("display", "none");
+			$(".nomal").css("display", "inline-block");	
+		}
+		
+	});
 </script>
