@@ -33,7 +33,7 @@
 	</select>
 	-->
 	
-	<!-- 검색으로 게시글 불러오기test -->
+	<!-- 검색으로 게시글 불러오기 -->
 	<select id="selectSearchList" parameterType="com.example.movie.dto.BoardDto"
 		resultType="com.example.movie.dto.BoardDto">
 		SELECT * FROM RLIST WHERE
@@ -50,6 +50,21 @@
 		</choose>
 	</select>
 	
+	<!-- 영화관 이름 목록 가져오기 -->
+	<select id="getTHList" resultType="com.example.movie.dto.TheaterDto">
+		SELECT TH_NAME AS thname FROM THEATER
+	</select>
+	
+	<!-- 게시글 작성하기 -->
+	<insert id="rvBoardInsert" parameterType="com.example.movie.dto.BoardDto"
+		useGeneratedKeys="true" keyProperty="rnum">
+		<selectKey keyProperty="rnum" resultType="Integer" order="BEFORE">
+		SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO R VALUES(REVIEW_SEQ.NEXTVAL, ${thcode}, ${mid}, ${rtitle}, ${rcontent}, 
+		DEFAULT, DEFAULT, DEFAULT)
+	</insert>	
+							
 </mapper>
 
 

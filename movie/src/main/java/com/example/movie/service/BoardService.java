@@ -8,9 +8,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BoardDto;
+import com.example.movie.dto.TheaterDto;
 import com.example.movie.mapper.BoardMapper;
 import com.example.movie.util.PagingUtil;
 
@@ -84,6 +88,53 @@ public class BoardService {
 		mv.setViewName("reviewList");
 		
 		return mv;
+	}
+	
+	//영화관 이름 불러오기
+	public ModelAndView rvTheaterList() {
+		mv = new ModelAndView();
+		
+		List<TheaterDto> thList = bMapper.getTHList();
+		System.out.println("thList ="+thList);
+		mv.addObject("thList", thList);
+		
+		mv.setViewName("writeRvFrm");
+		
+		
+		return mv;
+	}
+	
+	//게시글 작성 처리
+	@Transactional
+	public String rvBoardInsert(MultipartHttpServletRequest multi,
+								RedirectAttributes rttr) {
+		String view = null;
+		String msg = null;
+		
+		String thname = multi.getParameter("thname");
+		String id = multi.getParameter("mid");
+		String title = multi.getParameter("rtitle");
+		String content = multi.getParameter("rcontent");
+		content = content.trim();
+		
+		BoardDto bDto = new BoardDto();
+		bDto.setThname(thname);
+		bDto.setMid(id);
+		bDto.setRtitle(title);
+		bDto.setRcontent(content);
+		
+		try {
+			bMapper.rvBoardInsert(bDto);
+			view = "redirect:rlist";
+			msg = "글 작성 완료";
+		} catch (Exception e) {
+			view = "redirect:writeRvFrm";
+			msg = "글 작성 실패";
+		}
+		
+		rttr.addFlashAttribute("msg", msg);
+		
+		return view;
 	}
 	
 	

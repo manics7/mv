@@ -136,3 +136,8 @@ td.t_no, td.t_view, td.t_like {
 	color: #fff;
 	float: right;
 }
+
+.wr-btn:hover {
+	background-color: red;
+	cursor: pointer;
+}

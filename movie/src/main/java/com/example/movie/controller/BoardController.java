@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BoardDto;
+import com.example.movie.dto.TheaterDto;
 import com.example.movie.service.BoardService;
 
 @Controller
@@ -36,6 +39,23 @@ public class BoardController {
 		mv = bServ.rvSearchList(bDto);
 		
 		return mv;
+	}
+	
+	//게시글 작성 페이지로 이동
+	@GetMapping("writeRvFrm")
+	public ModelAndView writeRvFrm() {
+		mv = bServ.rvTheaterList();
+		
+		return mv;
+	}
+	
+	//게시글 작성 처리
+	@PostMapping("reviewWrite")
+	public String reviewWrite(MultipartHttpServletRequest multi,
+							RedirectAttributes rttr) {
+		String view = bServ.rvBoardInsert(multi, rttr);
+		
+		return view;
 	}
 	
 } //class end

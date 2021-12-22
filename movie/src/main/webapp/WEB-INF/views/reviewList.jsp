@@ -50,6 +50,14 @@ $(function(){
 				<th class="t_view p-10">조회수</th>
 				<th class="t_like p-10">추천수</th>
 			</tr>
+	
+			<!-- 검색 내역 없을 때
+			<c:if test="${empty sList}">
+					<tr class="data_row">
+						<td colspan="7">검색 목록이 없습니다.</td>
+					</tr>
+			</c:if>
+			 -->
 			
 			<!-- 검색 결과 목록 -->
 			<c:forEach var="bitem" items="${sList}">
@@ -67,7 +75,7 @@ $(function(){
 				</tr>
 			</c:forEach>
 			
-			<!-- 전체 목록222 -->
+			<!-- 전체 목록 -->
 			<c:forEach var="bitem" items="${bList}">
 				<tr class="data_row">
 					<td class="t_no p-10">${bitem.rnum}</td>
@@ -85,7 +93,7 @@ $(function(){
 		</table>
 	</div>
     <div class="btn-area1">
-        <button class="wr-btn" onclick="location.href='./writeFrm'">글쓰기</button>
+        <button class="wr-btn" onclick="location.href='./writeRvFrm'">글쓰기</button>
     </div>
 	<div class="btn-area2">
 		<div class="paging">${paging}</div>
