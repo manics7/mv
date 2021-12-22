@@ -16,6 +16,10 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	//state == 1 ? state.innerHtml("답변완료") : state.innerHtml("미완료");
+</script>
+
 </head>
 <body>
 
@@ -74,9 +78,9 @@
 						<tr>
 							<th class="text-center d-none d-md-table-cell">글번호</th>
 							<th class="text-center d-none d-md-table-cell">제목</th>
-							<th class="text-center d-none d-md-table-cell">작성자</th>
-							<th class="text-center d-none d-md-table-cell">진행사항</th>
 							<th class="text-center d-none d-md-table-cell">작성날짜</th>
+							<th class="text-center d-none d-md-table-cell">진행사항</th>
+							<th class="text-center d-none d-md-table-cell">작성자</th>
 							<th class="text-center d-none d-md-table-cell">답변하기</th>
 						</tr>
 					</thead>
@@ -89,10 +93,10 @@
 								<td class="text-center d-none d-md-table-cell"><a
 									href='/requeboard_read?ques_title=${qitem.ques_title}'>${qitem.ques_title}</a></td>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
-								<td class="text-center d-none d-md-table-cell">${qitem.ques_state}</td>
+								<td class="text-center d-none d-md-table-cell">${qitem.ques_state == "0" ? "미완료" : "답변 완료"}</td>
 								<td class="text-center d-none d-md-table-cell">${qitem.m_id}</td>
 								<td class="text-center d-none d-md-table-cell"><a
-									href='/requeboard_write'>답변작성</a></td>
+									href='/queboard_rewrite'>${qitem.ques_state > 0 ? "답변완료" : "답변작성"}</a></td>
 
 							</tr>
 						</c:forEach>
@@ -104,13 +108,13 @@
 
 							<tr>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
-								<td class="text-center d-none d-md-table-cell">
-								<a href='/requeboard_read?ques_title=${qitem.ques_title}'>${qitem.ques_title}</a></td>
+								<td class="text-center d-none d-md-table-cell"><a
+									href='/requeboard_read?ques_title=${qitem.ques_title}'>${qitem.ques_title}</a></td>
 								<td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
-								<td class="text-center d-none d-md-table-cell">${qitem.ques_state}</td>
+								<td class="text-center d-none d-md-table-cell">${qitem.ques_state == 0 ? "미완료" : "답변 완료"}</td>
 								<td class="text-center d-none d-md-table-cell">${qitem.m_id}</td>
 								<td class="text-center d-none d-md-table-cell"><a
-									href='#'>답변 작성</a></td>
+									href='/queboard_rewrite'>${qitem.ques_state > 0 ? "답변완료" : "답변작성"}</a></td>
 
 							</tr>
 						</c:forEach>
