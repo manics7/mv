@@ -10,9 +10,32 @@
 <script src="resource/js/jquery.serializeObject.js"></script>
 <script src="resource/js/bootstrap.bundle.js"></script>
 <style type="text/css">
-#modal-space {
-height: 500px;
-width: 800px;
+
+.modal-dialog.modal-fullsize {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.modal-content.modal-fullsize {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0; 
+}
+
+
+
+
+.modal-dialog.modal-80size {
+  width: 80%;
+  height: 80%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content.modal-80size {
+  height: auto;
+  min-height: 80%;
 }
 
 </style>
@@ -21,24 +44,35 @@ width: 800px;
 
 $(document).ready(function() {
 	
-	
 });
 
 
-function modal(){
-	
-	
-}
-
 </script>
 </head>
-<body>
-<h1>테스트</h1>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-space">모달 띄우기</button>
-<div id="modal-space" class="modal-dialog modal-dialog-centered">
- 
+<!-- histoty Modal-->
+<div class="modal-content">
+	<div class="modal-header">
+	    <h5 class="modal-title" id="historyModalLabel">빠른예매</h5>
+	    <button type="button" class="btn btn-secondary my-2 my-sm-0">초기화</button>
+	    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+	        <span aria-hidden="true">×</span>
+	    </button>
+	</div>
+	<div class="modal-body">
+	        <div class="container">
+	        
+	        <button type="button" class="btn btn-secondary my-2 my-sm-0" id="rsrvSeat" onclick="rsrvSeat()">좌석선택</button>
+	        </div>
+	</div>
+	<div class="modal-footer">
+	    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+	</div>
 </div>
+<div class="modal fade" id="MoaModal" tabindex="-1" role="dialog"	aria-labelledby="historyModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content"></div>
+		</div>
+	</div>
 
-</body>
 
 </html>

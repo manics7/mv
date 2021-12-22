@@ -22,11 +22,23 @@ public class ReservationController {
 		return "rsrv/reservation"; 
 	}
 	
+	@GetMapping("/modal")
+	public String modal() {
+		
+		return "modal"; 
+	}
+	
 	@GetMapping("/getRsrv")
 	@ResponseBody
 	public List<Reservation> rsrv(){
 		 List<Reservation> list = reservationService.getRsrvList();
 		 return list;
+	}
+	
+	@GetMapping("/rsrvSeat")
+	public String reservationSeat() {
+		
+		return "rsrv/reservationSeat"; 
 	}
 	
 }
