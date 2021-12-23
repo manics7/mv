@@ -17,9 +17,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
-<script type="text/javascript">
-	//회원 작성글 팝업 형태로 출력.
-</script>
 <body>
 
 	<!-- 상단 메뉴 부분 -->
@@ -76,8 +73,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<!-- 이부분은 검색 -->
-							<c:forEach var="mitem" items="${mseList}">
+						<!-- 검색 처리 -->
+						<c:choose>
+						<c:when test="${not empty mseList}">
+						<c:forEach var="mitem" items="${mseList}">
 								<tr>
 									<td class="text-center d-none d-md-table-cell">${mitem.m_id}</td>
 									<td><a href='board_read.html'>${mitem.m_name}</a></td>
@@ -89,7 +88,29 @@
 										href="./deleteMember">삭제</a></td>
 								</tr>
 							</c:forEach>
-
+						</c:when>
+						<c:otherwise>
+						<td class="text-center d-none d-md-table-cell">일치하는 회원 정보가 없습니다.</td>
+						</c:otherwise>
+						
+						</c:choose>
+						
+						
+							<!-- <c:forEach var="mitem" items="${mseList}">
+								<tr>
+									<td><c:if test="${mseList == 'null'}">존재 하지 않는 회원 입니다.</c:if></td>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_id}</td>
+									<td><a href='board_read.html'>${mitem.m_name}</a></td>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_phone}</td>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_addr}</td>
+									<td class="text-center d-none d-md-table-cell">${mitem.m_birth}</td>
+									<td class="text-center d-none d-md-table-cell"><a type="button" href="./mboardSelect?m_id=${mitem.m_id}">확인</a></td>
+									<td class="text-center d-none d-md-table-cell"><a
+										href="./deleteMember">삭제</a></td>
+								</tr>
+							</c:forEach>
+							  -->
+							
 
 							<c:forEach var="mitem" items="${mList}">
 
