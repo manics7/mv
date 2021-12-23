@@ -39,6 +39,12 @@ public class Notice {
 	@Column(name="NOTICE_CONTENT", columnDefinition="공지내용")
 	private String noticeContent;
 	
+	/*
+	 * 서버 Get 요청 @ModelAttribute에는 @DateTimeFormat 사용 
+	 * 서버
+	 *  Post 요청 @RequestBody에는 JSON 객체를 @DateTimeFormat과 @JsonFormat 로 모두 사용
+	 *  2개의 어노테이션 모두가 있으면 선언 시에는 @JsonFormat이 먼저 적용 서버 응답 시 ResponseBody에서는 @JsonFormat 만 적용
+	 */
 	@Column(name="REG_DATE", columnDefinition="작성일")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@DateTimeFormat(pattern="yyyy-MM-dd")

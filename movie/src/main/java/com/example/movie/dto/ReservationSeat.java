@@ -9,11 +9,15 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+
 
 @Data
-@Table(name = "RESERVATION_SEAT")
 @Entity
-@NoArgsConstructor
+@Table(name = "RESERVATION_SEAT")
+@NoArgsConstructor // 기본생성자 생성
+@ToString // toString() 함수 자동생성
 @IdClass(ReservationSeatId.class)
 public class ReservationSeat {
 
@@ -24,8 +28,5 @@ public class ReservationSeat {
 	@Id
 	@Column(name="SEAT_NO", columnDefinition="좌석번호")
 	private Integer seatNo;
-	
-
-	
 	
 }

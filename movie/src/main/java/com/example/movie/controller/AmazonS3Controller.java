@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.example.movie.common.AmazonS3Util;
+import com.example.movie.common.AwsS3;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor //  final이나 @NonNull인 필드 값만 파라미터로 받는 생성자를 만들어줌.
 public class AmazonS3Controller {
 
-	private final AmazonS3Util amazonS3Service;
+	private final AwsS3 amazonS3Service;
 
 	// Amazon S3에 파일만 업로드
 	@PostMapping("/fileUpload")
@@ -36,7 +36,7 @@ public class AmazonS3Controller {
 	public void uploadFile2(MultipartHttpServletRequest multipartFiles) {
 		//return ApiResponse.success(awsS3Service.uploadImage(multipartFile));
 		List<MultipartFile> files = multipartFiles.getFiles("uploadFile");
-		Map<String,String> map = amazonS3Service.uploadFile(files);
+		 amazonS3Service.uploadFile(files);
 		
 	}
 

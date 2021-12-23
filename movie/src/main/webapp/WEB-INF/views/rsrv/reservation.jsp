@@ -11,32 +11,7 @@
 <script src="resource/js/bootstrap.bundle.js"></script>
 <style type="text/css">
 
-.modal-dialog.modal-fullsize {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-.modal-content.modal-fullsize {
-  height: auto;
-  min-height: 100%;
-  border-radius: 0; 
-}
 
-
-
-
-.modal-dialog.modal-80size {
-  width: 80%;
-  height: 80%;
-  margin: 0;
-  padding: 0;
-}
-
-.modal-content.modal-80size {
-  height: auto;
-  min-height: 80%;
-}
 
 </style>
 <script type="text/javascript">

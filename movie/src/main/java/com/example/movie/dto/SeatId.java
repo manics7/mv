@@ -11,15 +11,18 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor(staticName = "of")
-public class ReservationSeatId implements Serializable{
+public class SeatId implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@NonNull
-	private String rsrvNo;
+	private Integer thCode;
 	
 	@NonNull
-	private Integer seatNo;
+	private String roomNo;
+	
+	@NonNull
+	private String seatNo;
 	
 
 	
