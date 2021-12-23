@@ -3,7 +3,6 @@ package com.example.movie.service;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +11,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
 import com.example.movie.mapper.MemberMapper;
-
-	@Configuration
 
 @Service
 public class MemberService {
@@ -28,7 +25,7 @@ public class MemberService {
 	@Transactional
 	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
 		String view = null;
-//		String msg = null;
+		String msg = null;
 		
 		// 비밀번호 암호화 처리
 		// Spring Security에서 제공하는 암호화 인코더 사용
@@ -44,14 +41,14 @@ public class MemberService {
 			mMapper.memberInsert(member);
 			
 			view = "redirect:/";
-//			msg = "회원가입 성공";
+			msg = "회원가입 성공";
 		} catch (Exception e) {
 			// e.printStackTrace();
 			view = "redirect:joinFrm";
-//			msg = "회원가입 실패";
+			msg = "회원가입 실패";
 		}
 		
-//		rttr.addFlashAttribute("msg", msg);
+		rttr.addFlashAttribute("msg", msg);
 		
 		return view;
 	}
@@ -85,6 +82,8 @@ public class MemberService {
 			view = "redirect:/";
 			msg = "아이디 또는 비밀번호가 다릅니다";
 		}
+		
+		rttr.addFlashAttribute("msg", msg);
 		
 		return view;
 	}

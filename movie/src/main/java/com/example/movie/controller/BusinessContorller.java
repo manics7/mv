@@ -2,6 +2,7 @@ package com.example.movie.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,4 +24,9 @@ public class BusinessContorller {
 		return view;
 	}
 	
+	@GetMapping("businessPage")
+	public String businessPage() {
+		
+		return "businessPage";
+	}
 }

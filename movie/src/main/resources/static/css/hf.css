@@ -21,6 +21,7 @@ h2 {
 	padding: 0;
 }
 
+/* --------------- header --------------- */
 #top_wrap {
 	z-index: 450;
 }
@@ -28,8 +29,8 @@ h2 {
 #top_menu {
 	height: 90px;
 	padding: 20px 200px;
-	background-color: rgb(18, 18, 18);
 	color: white;
+	background: linear-gradient(to bottom, rgba(29, 29, 31, 1) 0%, rgba(0, 0, 0, 0) 100%);
 }         
 
 #top_menu>a {
@@ -95,6 +96,7 @@ h2 {
 	width: 100%;
 }
 
+/* --------------- footer --------------- */
 #footer_wrap {
 	position: relative;
 	left: 0;
@@ -103,7 +105,7 @@ h2 {
 	width: 100%;
 }
 
-/* 로그인 창 */
+/* --------------- 로그인 창 --------------- */
 #business_tap {
 	display: none;
 }
@@ -166,6 +168,19 @@ h2 {
 	padding: 15px;
 }
 
+/*
+#login_bg>div>form .login_button {
+	width: 100px;
+	height: 30px;
+	background: #f16a1a;
+	border: none;
+	border-radius: 5px;
+	font-size: 17px;
+	color: white;
+}
+*/
+
+
 .close_btn {
 	background: url(https://img.megabox.co.kr/static/pc/images/common/btn/btn-layer-close.png) no-repeat center;
 	text-indent: -9999px;
@@ -175,4 +190,65 @@ h2 {
 	cursor: pointer;
 	border: 1px solid white;
 	border-radius: 3px;
+}
+
+/* -------------------------------------------------*/
+
+#container{
+    position: absolute; /* 컨테이너는 포지션 요소다*/
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+h1{
+    text-align: center;
+}
+.items{
+    height: 750px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.item{
+    height: 750px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.active{
+    display: flex;
+    height: 750px;
+    width: 1920px;
+    background-color: brown;
+    color: white;
+}
+button, button:active, button:focus{
+    position : absolute; /* 문서 흐름에서 제외되고, 상위 포지션 요소 기준으로 배치 */
+    top: 45%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 20px;
+    border: none;
+    background-color: coral;
+    color: white;
+    outline: none;
+}
+.next{
+    right: 0; /* next 버튼 오른쪽으로 */
+}
+.stepper{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+.step{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: gray;
+    margin: 0 6px;
+}
+.active-step{
+    background-color: brown;
 }

@@ -54,7 +54,7 @@
 				<div class="login_box_header">
 					<h2 id="login_title">로그인</h2>
 					<button class="close_btn">
-						X
+						close button
 					</button>
 				</div>
 				<div id="type">
@@ -70,7 +70,7 @@
 						아이디 : <input name="m_id"><br>
 						<!-- name = Dto와 이름을 같이 -->
 						비밀번호 : <input type="password" name="m_pw"><br>
-						<button>로그인</button><br>
+						<button class="login_button">로그인</button><br>
 						<a>아이디/비밀번호 찾기</a> | 
 						<a href="./joinFrm">회원가입</a>
 					</div>
@@ -78,8 +78,8 @@
 				<form action="./bu_loginProc" method="post">
 					<div id="business_tap" class="login_tap">
 						사업자 아이디 : <input name="b_id"><br>
-						비밀번호 : <input name="b_pw"><br>
-						<button>로그인</button><br>
+						비밀번호 : <input type="password" name="b_pw"><br>
+						<button class="login_button">로그인</button><br>
 						<a>아이디/비밀번호 찾기</a> | 
 						<a href="./bu_joinFrm">회원가입</a>
 					</div>
@@ -118,19 +118,6 @@
 			$("#user_tap").css("display", "none");
 			$("#business_tap").css("display", "inline-block");
 		});
-		
-		// 로그인하면 로그인 정보 출력, 헤더 메뉴 변경
-		var userInfo = "${userInfo.m_name}";
-		
-		if(userInfo != "") {
-			$("#userName").html(userInfo + " 님");
-			$(".suc").css("display", "inline-block");
-			$(".nomal").css("display", "none");
-		}
-		else {
-			$(".suc").css("display", "none");
-			$(".nomal").css("display", "inline-block");	
-		}
 		
 	});
 </script>
