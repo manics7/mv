@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>영화관 후기 게시판</title>
-<link rel="stylesheet" type="text/css" href="resource/css/review.css">
+<link rel="stylesheet" type="text/css" href="resource/css/review2.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script src="https://kit.fontawesome.com/27f70b73f3.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -28,13 +28,16 @@ $(function(){
 		</div>
         <div class="rv_search">
         	<form name="search_form" action="./slist" method="post">
-            	<select name="type">
+            	<select name="type" class="rv_category">
                 	<option selected value="rtitle" name="rtitle">제목</option>
                 	<option value="mid" name="mid">작성자</option>
                 	<option value="thname" name="thname">영화관</option>
             	</select>
             	<input type="text" id="search_text" name="keyword" placeholder="검색어를 입력하세요.">
-            	<input type="submit" value="검색">
+            	<i class="fa fa-search" aria-hidden="true">
+					<input type="submit" value="검색" class="fa-search-btn">
+				</i>
+				
             </form>
         </div>
 	</div>
@@ -51,15 +54,16 @@ $(function(){
 				<th class="t_like p-10">추천수</th>
 			</tr>
 	
-			<!-- 검색 내역 없을 때
+			<!-- 검색 내역 없을 때 
 			<c:if test="${empty sList}">
 					<tr class="data_row">
 						<td colspan="7">검색 목록이 없습니다.</td>
 					</tr>
 			</c:if>
-			 -->
+			-->
+			 
 			
-			<!-- 검색 결과 목록 -->
+			<!-- 검색 결과 목록  
 			<c:forEach var="bitem" items="${sList}">
 				<tr class="data_row">
 					<td class="t_no p-10">${bitem.rnum}</td>
@@ -74,6 +78,8 @@ $(function(){
 					<td class="t_like p-10">${bitem.rlike}</td>
 				</tr>
 			</c:forEach>
+			-->
+			
 			
 			<!-- 전체 목록 -->
 			<c:forEach var="bitem" items="${bList}">

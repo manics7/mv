@@ -58,36 +58,91 @@ public class BoardService {
 		return mv;
 	}
 	
+	//검색한 게시글 불러오기(원래)
+	public ModelAndView rvSearchList(BoardDto bDto) {
+		mv = new ModelAndView();
+		
+		Integer pageNum = null;
+		
+		int num = (pageNum == null) ? 1: pageNum;
+
+		List<BoardDto> sList = bMapper.selectSearchList(bDto);
+
+		mv.addObject("sList", sList);
+		
+		//페이징 처리
+		String pageHtml = getPaging2(num);
+		mv.addObject("paging", pageHtml);
+		
+		session.setAttribute("pageNum", num);
+
+		mv.setViewName("searchRvList");
+
+		return mv;
+	}
+	
+//	//검색한 게시글 불러오기
+//	public ModelAndView rvSearchList(Integer pageNum) {
+//		mv = new ModelAndView();
+//		
+//		int num = (pageNum == null)? 1 : pageNum;
+//		
+//		//게시글 목록 가져오기
+//		Map<String, Integer> smap = new HashMap<String, Integer>();
+//		smap.put("num", num);
+//		smap.put("lcnt", listCnt);
+//
+//		List<BoardDto> sList = bMapper.selectSearchList(smap);
+//
+//		mv.addObject("sList", sList);
+//		
+//		//페이징 처리
+//		String pageHtml = getPaging(num);
+//		mv.addObject("paging", pageHtml);
+//
+//		session.setAttribute("pageNum", num);
+//
+//		mv.setViewName("searchRvList");
+//
+//		return mv;
+//	}
+	
 	//페이징 처리
 	private String getPaging(int num) {
 		String pageHtml = null;
-		
+
 		//전체 글 개수 구하기(DAO)
 		int maxNum = bMapper.getrvBoardCnt();
 		mv.addObject("maxNum", maxNum);
 		//한 페이지에 보여질 페이지 번호 개수
 		int pageCnt = 5;
 		String listName = "rlist";
-		
+
 		PagingUtil paging = new PagingUtil(maxNum, num,
 				listCnt, pageCnt, listName);
-		
+
 		pageHtml = paging.makePaging();
-		
+
 		return pageHtml;
 	}
 	
-	//검색한 게시글 불러오기
-	public ModelAndView rvSearchList(BoardDto bDto) {
-		mv = new ModelAndView();
-		
-		List<BoardDto> sList = bMapper.selectSearchList(bDto);
-		
-		mv.addObject("sList", sList);
-		
-		mv.setViewName("reviewList");
-		
-		return mv;
+	//페이징 처리
+	private String getPaging2(int num) {
+		String pageHtml = null;
+
+		//전체 글 개수 구하기(DAO)
+		int maxNum = bMapper.getrvBoardCnt();
+		mv.addObject("maxNum", maxNum);
+		//한 페이지에 보여질 페이지 번호 개수
+		int pageCnt = 5;
+		String listName = "slist";
+
+		PagingUtil paging = new PagingUtil(maxNum, num,
+				listCnt, pageCnt, listName);
+
+		pageHtml = paging.makePaging();
+
+		return pageHtml;
 	}
 	
 	//영화관 이름 불러오기
@@ -95,11 +150,10 @@ public class BoardService {
 		mv = new ModelAndView();
 		
 		List<TheaterDto> thList = bMapper.getTHList();
-		System.out.println("thList ="+thList);
+		
 		mv.addObject("thList", thList);
 		
 		mv.setViewName("writeRvFrm");
-		
 		
 		return mv;
 	}

@@ -4,6 +4,67 @@
 
 <mapper namespace="com.example.movie.mapper.BoardMapper">
 	
+	<!-- 영화관 후기 게시글 목록 가져오기 -->
+	<select id="getRvList" parameterType="HashMap"
+		resultType="com.example.movie.dto.BoardDto">
+		<![CDATA[
+		SELECT * FROM RLIST
+		WHERE RNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)
+		AND RNUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	<!-- 전체 게시글 수 구하기 -->
+	<select id="getrvBoardCnt" resultType="Integer">
+		SELECT COUNT(*) FROM RLIST
+	</select>
+	
+	<!-- 제목으로 게시글 검색하기 
+	<select id="searchTList" parameterType="HashMap"
+		resultType="com.example.movie.dto.BoardDto">
+		<![CDATA[
+		SELECT * FROM (
+    	SELECT RNUM, THNAME, MID, RTITLE, RCONTENT, RVIEW, RLIKE, RDATE
+    	FROM RLIST WHERE RTITLE LIKE '%${keyword}%'
+    	ORDER BY RNUM DESC)
+    	WHERE RNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)
+		AND RNUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	-->
+	
+	<!-- 검색으로 게시글 불러오기 -->
+	<select id="selectSearchList" parameterType="com.example.movie.dto.BoardDto"
+		resultType="com.example.movie.dto.BoardDto">
+		SELECT * FROM RLIST WHERE
+		<choose>
+			<when test="type != null and type.equals('rtitle')">
+			RTITLE LIKE '%${keyword}%'
+			</when>
+			<when test="type != null and type.equals('mid')">
+			MID LIKE '%${keyword}%'
+			</when>
+			<when test="type != null and type.equals('thname')">
+			THNAME LIKE '%${keyword}%'
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 영화관 이름 목록 가져오기 -->
+	<select id="getTHList" resultType="com.example.movie.dto.TheaterDto">
+		SELECT TH_NAME AS thname FROM THEATER
+	</select>
+	
+	<!-- 게시글 작성하기 -->
+	<insert id="rvBoardInsert" parameterType="com.example.movie.dto.BoardDto"
+		useGeneratedKeys="true" keyProperty="rnum">
+		<selectKey keyProperty="rnum" resultType="Integer" order="BEFORE">
+		SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO R VALUES(REVIEW_SEQ.NEXTVAL, ${thcode}, ${mid}, ${rtitle}, ${rcontent}, 
+		DEFAULT, DEFAULT, DEFAULT)
+	</insert>	
+							
 </mapper>
 
 

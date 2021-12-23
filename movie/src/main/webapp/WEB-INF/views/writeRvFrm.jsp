@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>영화관 후기 작성</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="">
+<link rel="stylesheet" href="resource/css/style.css">
 <script type="text/javascript">
 $(function(){
 	//메시지 출력 부분
