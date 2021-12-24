@@ -9,7 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>index1</h1>
-
+<a href="loginFrm">로그인</a>
 </body>
 </html>
