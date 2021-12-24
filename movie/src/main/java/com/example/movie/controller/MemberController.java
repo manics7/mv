@@ -80,7 +80,14 @@ public class MemberController {
 		mv = mServ.memberSelect(m_id);
 		System.out.println("m_id = "+m_id);
 		
+//		Integer pageNum = 1;
+		
+		String pageHtml = mServ.getsearchPaging(m_id);
+		mv.addObject("paging", pageHtml);
+		
 		mv.setViewName("mmanage");
+		
+	
 		
 		return mv;
 		

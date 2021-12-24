@@ -55,7 +55,7 @@
 	<!-- 게시글 리스트 -->
 	<div class="container" style="margin-top: 100px">
 		<div class="card shadow">
-			<form name="searchFrm" action="./memberSelect" method="post">
+			<form name="searchFrm" action="./memberSelect?pageNum=1" method="post">
 				<div class="card-body">
 					<h4 class="card-title">회원관리</h4>
 					<input type="text" placeholder="ID 입력" name="m_id"> <input

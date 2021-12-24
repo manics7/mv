@@ -34,10 +34,12 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" href="#!">영화관찾기</a></li>
+						<li class="nav-item"><a class="nav-link" href="#!">영화검색</a></li>
+						<li class="nav-item"><a class="nav-link" href="#!">마이페이지</a></li>
+						<li class="nav-item"><a class="nav-link" href="#!">로그아웃</a></li>
 						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="#!">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-						<li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+							aria-current="page" href="#!">빠른예매</a></li>
 					</ul>
 				</div>
 			</div>
@@ -195,17 +197,17 @@
 					</li>
 					<li class="page-item"><a class="page-link" href="#">23(수)</a>
 					</li>
-					<li class="page-item"><a class="page-link" href="#">24(수)</a>
+					<li class="page-item"><a class="page-link" href="#">24(목)</a>
 					</li>
-					<li class="page-item"><a class="page-link" href="#">25(수)</a>
+					<li class="page-item"><a class="page-link" href="#">25(금)</a>
 					</li>
-					<li class="page-item"><a class="page-link" href="#">26(수)</a>
+					<li class="page-item"><a class="page-link" href="#">26(토)</a>
 					</li>
-					<li class="page-item"><a class="page-link" href="#">27(수)</a>
+					<li class="page-item"><a class="page-link" href="#">27(일)</a>
 					</li>
-					<li class="page-item"><a class="page-link" href="#">28(수)</a>
+					<li class="page-item"><a class="page-link" href="#">28(월)</a>
 					</li>
-					<li class="page-item"><a class="page-link" href="#">29(수)</a>
+					<li class="page-item"><a class="page-link" href="#">29(화)</a>
 					</li>
 					<li class="page-item"><a class="page-link" href="#">&raquo;</a>
 					</li>

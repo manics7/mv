@@ -27,6 +27,12 @@
 	</select>
 
 
+<select id="getsearchBoardCnt" resultType="Integer">
+		SELECT count(*) FROM member where m_id = #{m_id}
+	</select>
+
+
+
 </mapper>
 
 

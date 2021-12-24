@@ -17,5 +17,6 @@ public interface MemberMapper  extends MybatisMapper {
 	List<MemberDto> selectMember(String m_id);
 	
 	void getmboardSelect(String m_id);
+	int getsearchBoardCnt(String m_id);
 	
 }

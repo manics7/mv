@@ -92,6 +92,8 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		return pageHtml;
 	}
 
+	
+	
 	public String deletemember(String m_id) {
 		
 		mMap.deleteMember(m_id);
@@ -105,9 +107,11 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 	
 	List<MemberDto> mselectList = mMap.selectMember(m_id);
 		
+	
 	System.out.println("검색 결과 = "+mselectList);
 	mv.addObject("mseList", mselectList);
 		
+	
 		
 		return mv;
 	}
@@ -122,6 +126,26 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		
 		System.out.println("mbList = "+mbList);
 		return mv;
+	}
+
+	public String getsearchPaging(String m_id) {
+		String pageHtml = null;
+		int num = 1;
+		//전체 글 개수 구하기(DAO) -> MAPPER 거쳐서 102라는 숫자가 나옴.
+		int maxNum = mMap.getsearchBoardCnt(m_id); // 회원 id로 작성한 글 갯수 출력.
+		//한 페이지에 보여질 페이지 번호 개수 (하단에 조그맣게)
+		int pageCnt = 5;
+		String listName = "mmanage";
+		//utill의 페이징 처리하는 곳에 maxNum(전체 글개수), num(페이지번호), listCnt(페이지 당 글 개수)를 파라미터로 보내서 처리함.
+		PagingUtil paging = new PagingUtil(maxNum, num, listCnt, 
+				pageCnt, listName);
+
+		pageHtml = paging.makePaging();
+
+		System.out.println("pageCnt(하단에 보여질 페이지넘버) = "+pageCnt);
+		System.out.println("pageHTML = "+pageHtml);
+		
+		return pageHtml;
 	}
 	
 	
