@@ -1,18 +1,20 @@
-package com.example.movie.service;
+package com.example.movie.common;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
@@ -32,9 +34,9 @@ import lombok.extern.java.Log;
 
 
 @Log
-@Service
+@Component
 @RequiredArgsConstructor
-public class AmazonS3Service {
+public class AwsS3 {
 
 	//private HttpSession httpSession;
 
@@ -46,12 +48,6 @@ public class AmazonS3Service {
 	private String bucketURL;
 
 	private final AmazonS3 amazonS3;
-
-	public void test() {
-		
-		//createFolder(bucket, "test");
-		//deleteFile("images/56e93050-6e7a-421c-a121-2323d5c92520_detail_1598870_5_500.jpg");
-	}
 	
 	//테스트용 메소드
 	public String getUrlTest() {
@@ -64,28 +60,57 @@ public class AmazonS3Service {
 		return getFileURL(bucket, fileName);
 	}
 	
-	public List<String> uploadFile(List<MultipartFile> multipartFiles)  {
-
-		//String folderPath= httpSession.getServletContext().getRealPath("/temp");
-		//File folder = new File(folderPath);			
-		//if(folder.isDirectory() == false) {
-		//	folder.mkdir();
-		//}
+	
+	public Map<String,String> uploadFile(MultipartFile file)  {
 		
-		List<String> fileNameList = multipartFiles.stream().map(file -> {
+		//파일업로드 후  원본 파일명과 수정된파일명 맵에 추가
+		Map<String,String> map = new HashMap<String, String>();
+		
+		UUID uuid = UUID.randomUUID(); // 랜덤이름 생성
+		String fileName = bucketURL+uuid.toString()+"_"+file.getOriginalFilename();
+		ObjectMetadata objectMetadata = new ObjectMetadata();
+		objectMetadata.setContentLength(file.getSize());
+		objectMetadata.setContentType(file.getContentType());
+	
+		try (InputStream inputStream = file.getInputStream()){
+			amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+									.withCannedAcl(CannedAccessControlList.PublicRead));
 
-			UUID uuid = UUID.randomUUID(); // 랜덤이름
+			map.put("originalName", file.getOriginalFilename());
+			map.put("newName", fileName);
+			
+		} catch (AmazonServiceException e) {
+            e.printStackTrace();
+        } catch (SdkClientException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+        	e.printStackTrace();
+		}
+
+		return map;
+	}
+	
+	
+	
+	public Map<String,String> uploadFile(List<MultipartFile> multipartFiles)  {
+	
+		//파일업로드 후  원본 파일명과 수정된파일명 맵에 
+		Map<String,String> map = new HashMap<String, String>();
+		
+		multipartFiles.forEach(file -> {
+			UUID uuid = UUID.randomUUID(); // 랜덤이름 생성
 			String fileName = bucketURL+uuid.toString()+"_"+file.getOriginalFilename();
 			ObjectMetadata objectMetadata = new ObjectMetadata();
 			objectMetadata.setContentLength(file.getSize());
 			objectMetadata.setContentType(file.getContentType());
-			log.info(fileName);
 		
 			try (InputStream inputStream = file.getInputStream()){
 				amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
-						.withCannedAcl(CannedAccessControlList.PublicRead)
-						);
+										.withCannedAcl(CannedAccessControlList.PublicRead));
 
+				map.put("originalName", file.getOriginalFilename());
+				map.put("newName", fileName);
+				
 			} catch (AmazonServiceException e) {
 	            e.printStackTrace();
 	        } catch (SdkClientException e) {
@@ -93,16 +118,15 @@ public class AmazonS3Service {
 	        } catch (Exception e) {
 	        	e.printStackTrace();
 			}
-			return fileName;
-		}).collect(Collectors.toList());
+			
+	
+		});
+				  
 
-		return fileNameList;
+		return map;
 	}
 	
-	public void fileUpload(List<MultipartFile> multipartFiles) {
-		
-	}
-
+	//파일 삭제
 	public void deleteFile(String fileName) {      
 		try {
 			amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
@@ -132,7 +156,7 @@ public class AmazonS3Service {
         log.info("넘어오는 파일명 : "+fileName);
         return amazonS3.generatePresignedUrl(new GeneratePresignedUrlRequest(bucketName, fileName)).toString();
     }
-    // 파일 리스트 URL
+    // 폴터내 전체 파일리스트 URL 
     public List<String> getFileList(String bucketName, String folder){
     	ObjectListing objectList =  amazonS3.listObjects(bucketName, folder);
     	List<String> url = new ArrayList<String>();

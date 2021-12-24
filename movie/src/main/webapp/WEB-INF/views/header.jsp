@@ -11,7 +11,7 @@
 				<li class="suc"><a href="#">마이페이지</a></li>
 				<li class="nomal"><a href="#" class="nomal">로그인</a></li>
 				<li class="nomal"><a href="#" class="nomal">회원 가입</a></li>
-				<li class="suc"><a href="#">빠른 예매</a></li>
+				<li id="modal"><a >빠른 예매</a></li>
 			</ul>
 		</div>
 		
@@ -50,11 +50,40 @@
 		
 	</div>
 
+	
+
+<link rel="stylesheet" href="resource/css/bootstrap.min.css">
+<script src="resource/js/bootstrap.bundle.min.js"></script>
 <script src="resource/js/jquery-3.6.0.min.js"></script>
+<script src="resource/js/rsrv.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$(".search_th").click(function() {
 			$("#sub_menu").toggle();
 		})
 	})
+	
+	$("#modal").click(function(){
+		$('#rsrvModal .modal-content').load("rsrv");
+		$('#rsrvModal').modal();
+	})
+	
+	function rsrvSeat(){
+		$('#rsrvModal .modal-content').load("rsrvSeat");
+		 $('#rsrvModal').modal();		
+	}
+	
+	/* $("#rsrvSeat").click(function(){
+		alert("saddsasda");
+		$('#rsrvModal .modal-content').load("rsrvSeat");
+		 $('#rsrvModal').modal();		
+	}); */
+
+
 </script>
+
+<div class="modal fade" id="rsrvModal" tabindex="-1" role="dialog"	aria-labelledby="label" aria-hidden="true" data-backdrop="static">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content"></div>
+		</div>
+	</div> 

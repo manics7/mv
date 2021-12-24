@@ -1,9 +1,12 @@
 package com.example.movie.dto;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -14,6 +17,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Data
+@Entity
+@Table(name = "Question")
 public class Question {
 
 	@Id
@@ -38,6 +43,6 @@ public class Question {
 	@Column(name="QUES_DATE", columnDefinition="질문일자")
 	private Date quesDate;
 
-
+	
 	
 }
