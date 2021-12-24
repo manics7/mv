@@ -23,14 +23,14 @@ public class PagingUtil {
 		StringBuffer sb = new StringBuffer();
 		if(start != 1) {
 			sb.append("<a class='pno' href='" + listName
-					+ "?pageNum=" + (start - 1) + "'>");
+					+ "pageNum=" + (start - 1) + "'>");
 			sb.append("&nbsp;이전&nbsp;</a>");
 		}
 		
 		for(int i = start; i <= end; i++) {
 			if(pageNum != i) {//다른 페이지 번호
 				sb.append("<a class='pno' href='" + listName
-						+ "?pageNum=" + i + "'>");
+						+ "pageNum=" + i + "'>");
 				sb.append("&nbsp;" + i + "&nbsp;</a>");
 			}//<a class='pno' href='list?pageNum=3'> 3 </a>
 			else {//현재 페이지 번호
@@ -41,7 +41,7 @@ public class PagingUtil {
 		
 		if(end != totalPage) {
 			sb.append("<a class='pno' href='" + listName
-					+ "?pageNum=" + (end + 1) + "'>");
+					+ "pageNum=" + (end + 1) + "'>");
 			sb.append("&nbsp;다음&nbsp;</a>");
 		}
 		

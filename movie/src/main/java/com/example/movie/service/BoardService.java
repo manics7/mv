@@ -18,7 +18,10 @@ import com.example.movie.dto.TheaterDto;
 import com.example.movie.mapper.BoardMapper;
 import com.example.movie.util.PagingUtil;
 
+import lombok.extern.java.Log;
+
 @Service
+@Log
 public class BoardService {
 	@Autowired
 	private BoardMapper bMapper;
@@ -33,7 +36,7 @@ public class BoardService {
 	public ModelAndView getRvBoardList(Integer pageNum) {
 		mv = new ModelAndView();
 		
-		String listName = "rlist";
+		String listName = "rlist?";
 		
 		//null or 페이지 번호
 		int num = (pageNum == null)? 1 : pageNum;
@@ -61,14 +64,16 @@ public class BoardService {
 	}
 	
 	//검색한 게시글 불러오기(원래)
-	public ModelAndView rvSearchList(BoardDto bDto) {
+	public ModelAndView rvSearchList(BoardDto bDto, Integer pageNum) {
+		log.info("rvSearchList()");
 		mv = new ModelAndView();
 		
-		String listName = "slist";
-		
-		Integer pageNum = null;
+		String listName = "slist?type="+ bDto.getType() +"&keyword="+ bDto.getKeyword() +"&";
 		
 		int num = (pageNum == null) ? 1: pageNum;
+		
+		bDto.setNum(num);
+		bDto.setLcnt(listCnt);
 
 		List<BoardDto> sList = bMapper.selectSearchList(bDto);
 

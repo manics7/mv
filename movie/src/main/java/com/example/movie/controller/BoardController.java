@@ -17,7 +17,10 @@ import com.example.movie.dto.BoardDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.service.BoardService;
 
+import lombok.extern.java.Log;
+
 @Controller
+@Log
 public class BoardController {
 	
 	@Autowired
@@ -34,9 +37,10 @@ public class BoardController {
 	}
 	
 	//검색한 게시글 목록
-	@PostMapping("slist")
-	public ModelAndView RvSearchList(BoardDto bDto) {
-		mv = bServ.rvSearchList(bDto);
+	@GetMapping("slist")
+	public ModelAndView RvSearchList(BoardDto bDto, Integer pageNum) {
+		log.info("RvSearchList() - " + bDto.getKeyword());
+		mv = bServ.rvSearchList(bDto, pageNum);
 		
 		return mv;
 	}

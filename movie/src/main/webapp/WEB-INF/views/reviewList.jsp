@@ -28,7 +28,7 @@ $(function(){
 			<a>총 ${maxNum}개의 게시물이 있습니다.</a>
 		</div>
         <div class="rv_search">
-        	<form name="search_form" action="./slist" method="post">
+        	<form name="search_form" action="./slist" method="get">
             	<select name="type" class="rv_category">
                 	<option selected value="rtitle" name="rtitle">제목</option>
                 	<option value="mid" name="mid">작성자</option>

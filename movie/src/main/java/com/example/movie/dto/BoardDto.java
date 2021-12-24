@@ -21,4 +21,7 @@ public class BoardDto {
 	private String type; //검색 타입
 	private String keyword; //검색 내용
 	
+	//페이지 번호, 페이지 카운트
+	private int num;
+	private int lcnt;
 }

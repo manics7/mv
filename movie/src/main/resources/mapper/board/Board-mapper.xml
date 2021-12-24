@@ -19,7 +19,7 @@
 		SELECT COUNT(*) FROM RLIST
 	</select>
 	
-	<!-- 검색으로 게시글 불러오기 -->
+	<!-- 검색으로 게시글 불러오기 
 	<select id="selectSearchList" parameterType="com.example.movie.dto.BoardDto"
 		resultType="com.example.movie.dto.BoardDto">
 		SELECT * FROM RLIST WHERE
@@ -35,19 +35,19 @@
 			</when>
 		</choose>
 	</select>
+	-->
 	
 	<!-- 검색으로 게시글 불러오기2 -->
 	<select id="selectSearchList" parameterType="com.example.movie.dto.BoardDto"
 		resultType="com.example.movie.dto.BoardDto">
-        <![CDATA[
-		SELECT * FROM (
-		SELECT * FROM RLIST WHERE
-		RNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)
-		AND RNUM <= #{num} * #{lcnt}
-		ORDER BY RNUM DESC)
-		WHERE
+        select * from
+		(
+		    select rownum as ronum, a.*
+		    from (
+		    select * from rlist
+		    where
 		<choose>
-			<when test="type != null and #{type}.equals('rtitle')">
+			<when test="type != null and type.equals('rtitle')">
 			RTITLE LIKE '%${keyword}%'
 			</when>
 			<when test="type != null and type.equals('mid')">
@@ -57,6 +57,11 @@
 			THNAME LIKE '%${keyword}%'
 			</when>
 		</choose>
+			) a
+		)
+		<![CDATA[
+		WHERE RONUM >= (${num} * ${lcnt}) - (${lcnt} - 1)
+		AND RONUM <= ${num} * ${lcnt}
 		]]>
 	</select>
 	
