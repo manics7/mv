@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class BoardDto {
+	private int ronum;
 	private int rnum;
 	private int thcode;
 	private String mid;

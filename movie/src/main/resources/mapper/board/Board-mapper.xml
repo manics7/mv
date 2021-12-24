@@ -8,15 +8,32 @@
 	<select id="getRvList" parameterType="HashMap"
 		resultType="com.example.movie.dto.BoardDto">
 		<![CDATA[
-		SELECT * FROM RLIST
-		WHERE RNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)
-		AND RNUM <= #{num} * #{lcnt}
+		SELECT * FROM RLIST_1
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)
+		AND RONUM <= #{num} * #{lcnt}
 		]]>
 	</select>
 	
 	<!-- 전체 게시글 수 구하기 -->
 	<select id="getrvBoardCnt" resultType="Integer">
 		SELECT COUNT(*) FROM RLIST
+	</select>
+	
+	<!-- 검색한 게시글 수 구하기 -->
+	<select id="getrvSearchCnt" parameterType="com.example.movie.dto.BoardDto"
+	resultType="Integer">
+		SELECT COUNT(*) FROM RLIST WHERE
+		<choose>
+			<when test="type != null and type.equals('rtitle')">
+			RTITLE LIKE '%${keyword}%'
+			</when>
+			<when test="type != null and type.equals('mid')">
+			MID LIKE '%${keyword}%'
+			</when>
+			<when test="type != null and type.equals('thname')">
+			THNAME LIKE '%${keyword}%'
+			</when>
+		</choose>
 	</select>
 	
 	<!-- 검색으로 게시글 불러오기 

@@ -80,7 +80,7 @@ public class BoardService {
 		mv.addObject("sList", sList);
 		
 		//페이징 처리
-		String pageHtml = getPaging(num, listName);
+		String pageHtml = getPaging2(bDto, listName);
 		mv.addObject("paging", pageHtml);
 		
 		session.setAttribute("pageNum", num);
@@ -126,6 +126,25 @@ public class BoardService {
 		//한 페이지에 보여질 페이지 번호 개수
 		int pageCnt = 5;
 		
+
+		PagingUtil paging = new PagingUtil(maxNum, num,
+				listCnt, pageCnt, listName);
+
+		pageHtml = paging.makePaging();
+
+		return pageHtml;
+	}
+	
+	//검색 페이징 처리
+	private String getPaging2(BoardDto bDto, String listName) {
+		String pageHtml = null;
+
+		//전체 글 개수 구하기(DAO)
+		int maxNum = bMapper.getrvSearchCnt(bDto);
+		mv.addObject("maxNum", maxNum);
+		int num = bDto.getNum();
+		//한 페이지에 보여질 페이지 번호 개수
+		int pageCnt = 5;
 
 		PagingUtil paging = new PagingUtil(maxNum, num,
 				listCnt, pageCnt, listName);

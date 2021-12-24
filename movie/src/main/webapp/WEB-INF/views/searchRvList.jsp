@@ -56,15 +56,15 @@ $(function(){
 	
 			<!-- 검색 내역 없을 때 -->
 			<c:if test="${empty sList}">
-					<tr class="data_row">
-						<td colspan="7">검색 목록이 없습니다.</td>
-					</tr>
+				<tr class="data_row">
+					<td colspan="7">검색 목록이 없습니다.</td>
+				</tr>
 			</c:if>
 			
 			<!-- 검색 결과 목록 -->
 			<c:forEach var="bitem" items="${sList}">
 				<tr class="data_row">
-					<td class="t_no p-10">${bitem.rnum}</td>
+					<td class="t_no p-10">${bitem.ronum}</td>
 					<td class="t_theater p-10">${bitem.thname}</td>
 					<td class="t_title p-30">
 						<a href="./content?rnum=${bitem.rnum}">
@@ -80,23 +80,6 @@ $(function(){
 					<td class="t_like p-10">${bitem.rlike}</td>
 				</tr>
 			</c:forEach>
-			
-			<!-- 전체 목록 
-			<c:forEach var="bitem" items="${bList}">
-				<tr class="data_row">
-					<td class="t_no p-10">${bitem.rnum}</td>
-					<td class="t_theater p-10">${bitem.thname}</td>
-					<td class="t_title p-30">${bitem.rtitle}</td>
-					<td class="t_date p-10">
-						<fmt:formatDate value="${bitem.rdate}"
-							pattern="yy/MM/dd" />
-					</td>
-					<td class="t_id p-10">${bitem.mid}</td>
-					<td class="t_view p-10">${bitem.rview}</td>
-					<td class="t_like p-10">${bitem.rlike}</td>
-				</tr>
-			</c:forEach>
-			-->
 		</table>
 	</div>
     <div class="btn-area1">
