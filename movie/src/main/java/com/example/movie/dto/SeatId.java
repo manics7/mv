@@ -23,8 +23,4 @@ public class SeatId implements Serializable{
 	
 	@NonNull
 	private String seatNo;
-	
-
-	
-	
 }

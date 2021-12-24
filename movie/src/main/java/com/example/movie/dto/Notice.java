@@ -1,26 +1,28 @@
 package com.example.movie.dto;
 
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.example.movie.common.NoticeClass;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-@Data
+@Getter
 @Table(name = "NOTICE")
 @Entity
 @NoArgsConstructor
@@ -47,9 +49,11 @@ public class Notice {
 	 */
 	@Column(name="REG_DATE", columnDefinition="작성일")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@Temporal(TemporalType.DATE)
-	private Date regDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")	
+	//날짜타입(java.util.Date, java.util.Calendar)을 매핑할때 사용.
+	//자바8에서 지원하는 LocalDate, LocalDateTime을 사용할때는 생략 가능(하이버네이트 지원)
+	//@Temporal(TemporalType.DATE) 
+	private LocalDate regDate;
 	
 	@Column(name="VIEWS_CNT", columnDefinition="조회수")
 	private Integer viewCnt;	
@@ -58,6 +62,21 @@ public class Notice {
 	@Column(name="NOTICE_CLASS", columnDefinition="구분")
 	private Integer noticeClass;
 
+	@Builder
+    public Notice(Integer noticeNo, String noticeTitle, String noticeContent, LocalDate regDate
+    					,Integer viewCnt, Integer noticeClass, String noticeClassName) {
+        this.noticeNo = noticeNo;
+        this.noticeTitle = noticeTitle;
+        this.noticeContent = noticeContent;
+        this.regDate = regDate;
+        this.viewCnt = viewCnt;        
+    }
 
+	@PrePersist
+	public void regDate() {
+		if(this.regDate == null) {
+			this.regDate = LocalDate.now();
+		}		
+	}
 	
 }

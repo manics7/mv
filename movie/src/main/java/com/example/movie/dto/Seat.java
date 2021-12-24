@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -21,28 +22,31 @@ import lombok.ToString;
 @Entity
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
+@IdClass(value = SeatId.class)
 public class Seat {
 	
 	@Id
-	@Column(name="ROOM_NO", columnDefinition="사업자, ID")
-	private String bId;
-	
 	@Column(name="TH_CODE", columnDefinition="영화관코드")
 	private Integer thCode;
-
-	@Column(name="SEAT_NO", columnDefinition="영화관이름")
+	
+	@Id
+	@Column(name="ROOM_NO", columnDefinition="상영관코드")
+	private String roomNo;
+	
+	@Id
+	@Column(name="SEAT_NO", columnDefinition="좌석번호")
 	private String seatNo;
 	
-	@Column(name="SEAT_CLASS", columnDefinition="로고 이미지")
+	@Column(name="SEAT_CLASS", columnDefinition="상영관 종류")
 	private String seatClass;
 	
-	@Column(name="SEAT_ROW", columnDefinition="위치정보")
+	@Column(name="SEAT_ROW", columnDefinition="행")
 	private String seatRow;
 	
-	@Column(name="SEAT_COL", columnDefinition="영화관소개")
+	@Column(name="SEAT_COL", columnDefinition="열")
 	private String seatCol;	
 	
-	@Column(name="SEAT_STATUS", columnDefinition="장르")
+	@Column(name="SEAT_STATUS", columnDefinition="상태(벽,통로,좌석)")
 	private String seatStatus;	
 	
 	

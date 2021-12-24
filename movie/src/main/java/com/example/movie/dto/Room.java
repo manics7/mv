@@ -23,12 +23,13 @@ import lombok.ToString;
 @ToString // toString() 함수 자동생성
 public class Room {
 	
-	@Id
-	@Column(name="ROOM_NO", columnDefinition="상영관 번호")
-	private String bId;
-	
+	//@Id
 	@Column(name="TH_CODE", columnDefinition="영화관코드")
 	private Integer thCode;
+	
+	@Id
+	@Column(name="ROOM_NO", columnDefinition="상영관 번호")
+	private String roomNo;		
 
 	@Column(name="ROOM_CLASS", columnDefinition="상영관 종류")
 	private String roomClass;

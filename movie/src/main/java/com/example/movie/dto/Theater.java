@@ -53,6 +53,5 @@ public class Theater {
 	private String thImage;
 	
 	@Column(name="TH_TEL", columnDefinition="전화번호")
-	private String thTel;
-	
+	private String thTel;	
 }

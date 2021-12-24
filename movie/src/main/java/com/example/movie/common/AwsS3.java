@@ -36,7 +36,7 @@ import lombok.extern.java.Log;
 @Log
 @Component
 @RequiredArgsConstructor
-public class AmazonS3Util {
+public class AwsS3 {
 
 	//private HttpSession httpSession;
 
@@ -48,13 +48,6 @@ public class AmazonS3Util {
 	private String bucketURL;
 
 	private final AmazonS3 amazonS3;
-
-	//테스트용
-	public void test() {
-		
-		//createFolder(bucket, "test");
-		//deleteFile("images/56e93050-6e7a-421c-a121-2323d5c92520_detail_1598870_5_500.jpg");
-	}
 	
 	//테스트용 메소드
 	public String getUrlTest() {
@@ -67,11 +60,43 @@ public class AmazonS3Util {
 		return getFileURL(bucket, fileName);
 	}
 	
+	
+	public Map<String,String> uploadFile(MultipartFile file)  {
+		
+		//파일업로드 후  원본 파일명과 수정된파일명 맵에 추가
+		Map<String,String> map = new HashMap<String, String>();
+		
+		UUID uuid = UUID.randomUUID(); // 랜덤이름 생성
+		String fileName = bucketURL+uuid.toString()+"_"+file.getOriginalFilename();
+		ObjectMetadata objectMetadata = new ObjectMetadata();
+		objectMetadata.setContentLength(file.getSize());
+		objectMetadata.setContentType(file.getContentType());
+	
+		try (InputStream inputStream = file.getInputStream()){
+			amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+									.withCannedAcl(CannedAccessControlList.PublicRead));
+
+			map.put("originalName", file.getOriginalFilename());
+			map.put("newName", fileName);
+			
+		} catch (AmazonServiceException e) {
+            e.printStackTrace();
+        } catch (SdkClientException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+        	e.printStackTrace();
+		}
+
+		return map;
+	}
+	
+	
+	
 	public Map<String,String> uploadFile(List<MultipartFile> multipartFiles)  {
 	
-		//원래 파일명과 아마존에 올라간 파일명을 담을 맵
+		//파일업로드 후  원본 파일명과 수정된파일명 맵에 
 		Map<String,String> map = new HashMap<String, String>();
-		  
+		
 		multipartFiles.forEach(file -> {
 			UUID uuid = UUID.randomUUID(); // 랜덤이름 생성
 			String fileName = bucketURL+uuid.toString()+"_"+file.getOriginalFilename();
@@ -81,8 +106,11 @@ public class AmazonS3Util {
 		
 			try (InputStream inputStream = file.getInputStream()){
 				amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
-						.withCannedAcl(CannedAccessControlList.PublicRead));
+										.withCannedAcl(CannedAccessControlList.PublicRead));
 
+				map.put("originalName", file.getOriginalFilename());
+				map.put("newName", fileName);
+				
 			} catch (AmazonServiceException e) {
 	            e.printStackTrace();
 	        } catch (SdkClientException e) {
@@ -91,8 +119,7 @@ public class AmazonS3Util {
 	        	e.printStackTrace();
 			}
 			
-			map.put("originalName", file.getOriginalFilename());
-			map.put("amazonName", fileName);
+	
 		});
 				  
 

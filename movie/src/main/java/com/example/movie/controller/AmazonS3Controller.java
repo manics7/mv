@@ -40,15 +40,6 @@ public class AmazonS3Controller {
 		
 	}
 
-	//@ResponseStatus(HttpStatus.CREATED)
-	@GetMapping("/fileTest")
-	@ResponseBody
-	public String test() throws Exception {
-
-		amazonS3Service.test();
-		return "Ok";
-	}
-
 	@GetMapping("/getFileURL")
 	@ResponseBody
 	public String getFileURL() throws Exception {
