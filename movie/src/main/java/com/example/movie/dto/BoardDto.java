@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class BoardDto {
 	private int rnum;
-	private String thname;
+	private int thcode;
 	private String mid;
 	private String rtitle;
 	private String rcontent;
@@ -15,7 +15,10 @@ public class BoardDto {
 	private int rlike;
 	private Timestamp rdate;
 	
+	private String thname;
+	
 	//검색 필터
 	private String type; //검색 타입
 	private String keyword; //검색 내용
+	
 }

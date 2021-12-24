@@ -34,7 +34,7 @@ public class BoardController {
 	}
 	
 	//검색한 게시글 목록
-	@PostMapping("/slist")
+	@PostMapping("slist")
 	public ModelAndView RvSearchList(BoardDto bDto) {
 		mv = bServ.rvSearchList(bDto);
 		
@@ -54,6 +54,32 @@ public class BoardController {
 	public String reviewWrite(MultipartHttpServletRequest multi,
 							RedirectAttributes rttr) {
 		String view = bServ.rvBoardInsert(multi, rttr);
+		
+		return view;
+	}
+	
+	//게시글 본문 페이지로 이동
+	@GetMapping("content")
+	public ModelAndView reviewContent(Integer rnum) {
+		mv = bServ.getRvContent(rnum);
+		
+		return mv;
+	}
+	
+	//게시글 수정 페이지로 이동
+	@GetMapping("updateRvFrm")
+	public ModelAndView updateRvFrm(int rnum,
+			RedirectAttributes rttr) {
+		mv = bServ.updateRvFrm(rnum, rttr);
+		
+		return mv;
+	}
+	
+	//게시글 수정 처리
+	@PostMapping("boardRvUpdate")
+	public String reviewUpdate(MultipartHttpServletRequest multi,
+			RedirectAttributes rttr) {
+		String view = bServ.reviewUpdate(multi, rttr);
 		
 		return view;
 	}

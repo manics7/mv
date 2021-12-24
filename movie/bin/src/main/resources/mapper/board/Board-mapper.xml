@@ -19,20 +19,6 @@
 		SELECT COUNT(*) FROM RLIST
 	</select>
 	
-	<!-- 제목으로 게시글 검색하기 
-	<select id="searchTList" parameterType="HashMap"
-		resultType="com.example.movie.dto.BoardDto">
-		<![CDATA[
-		SELECT * FROM (
-    	SELECT RNUM, THNAME, MID, RTITLE, RCONTENT, RVIEW, RLIKE, RDATE
-    	FROM RLIST WHERE RTITLE LIKE '%${keyword}%'
-    	ORDER BY RNUM DESC)
-    	WHERE RNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)
-		AND RNUM <= #{num} * #{lcnt}
-		]]>
-	</select>
-	-->
-	
 	<!-- 검색으로 게시글 불러오기 -->
 	<select id="selectSearchList" parameterType="com.example.movie.dto.BoardDto"
 		resultType="com.example.movie.dto.BoardDto">
@@ -50,6 +36,31 @@
 		</choose>
 	</select>
 	
+	<!-- 검색으로 게시글 불러오기2 
+	<select id="selectSearchList" parameterType="com.example.movie.dto.BoardDto"
+		resultType="com.example.movie.dto.BoardDto">
+        <![CDATA[
+		SELECT * FROM (
+		SELECT * FROM RLIST WHERE
+		RNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)
+		AND RNUM <= #{num} * #{lcnt}
+		ORDER BY RNUM DESC)
+		WHERE
+		<choose>
+			<when test="type != null and #{type}.equals('rtitle')">
+			RTITLE LIKE '%${keyword}%'
+			</when>
+			<when test="type != null and type.equals('mid')">
+			MID LIKE '%${keyword}%'
+			</when>
+			<when test="type != null and type.equals('thname')">
+			THNAME LIKE '%${keyword}%'
+			</when>
+		</choose>
+		]]>
+	</select>
+	-->
+	
 	<!-- 영화관 이름 목록 가져오기 -->
 	<select id="getTHList" resultType="com.example.movie.dto.TheaterDto">
 		SELECT TH_NAME AS thname FROM THEATER
@@ -66,7 +77,3 @@
 	</insert>	
 							
 </mapper>
-
-
-
-

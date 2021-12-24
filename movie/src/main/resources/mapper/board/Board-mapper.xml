@@ -36,7 +36,7 @@
 		</choose>
 	</select>
 	
-	<!-- 검색으로 게시글 불러오기2 
+	<!-- 검색으로 게시글 불러오기2 -->
 	<select id="selectSearchList" parameterType="com.example.movie.dto.BoardDto"
 		resultType="com.example.movie.dto.BoardDto">
         <![CDATA[
@@ -59,11 +59,11 @@
 		</choose>
 		]]>
 	</select>
-	-->
+	
 	
 	<!-- 영화관 이름 목록 가져오기 -->
 	<select id="getTHList" resultType="com.example.movie.dto.TheaterDto">
-		SELECT TH_NAME AS thname FROM THEATER
+		SELECT TH_CODE AS thcode, TH_NAME AS thname FROM THEATER
 	</select>
 	
 	<!-- 게시글 작성하기 -->
@@ -72,8 +72,33 @@
 		<selectKey keyProperty="rnum" resultType="Integer" order="BEFORE">
 		SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO R VALUES(REVIEW_SEQ.NEXTVAL, ${thcode}, ${mid}, ${rtitle}, ${rcontent}, 
-		DEFAULT, DEFAULT, DEFAULT)
-	</insert>	
+		INSERT INTO R VALUES
+		(${rnum}, ${thcode}, #{mid}, #{rtitle}, #{rcontent}, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<!-- 게시글 본문 가져오기 -->
+	<select id="getRvContent" parameterType="Integer"
+		resultType="com.example.movie.dto.BoardDto">
+		SELECT * FROM RLIST WHERE rnum=#{rnum}
+	</select>
+	
+	<!-- 조회수 업데이트 -->
+	<update id="viewUpdate" parameterType="Integer">
+		UPDATE R SET REVIEW_VIEW=REVIEW_VIEW+1
+		WHERE REVIEW_NUM=#{RNUM}
+	</update>
+	
+	<!-- 좋아요 업데이트 
+	<update id="likeUpdate" parameterType="Integer">
+		UPDATE R SET REVIEW_LIKE=REVIEW_LIKE+1
+		WHERE REVIEW_NUM=#{RNUM}
+	</update>
+	-->
+	
+	<!-- 게시글 수정하기 -->
+	<update id="boardRvUpdate" parameterType="com.example.movie.dto.BoardDto">
+	UPDATE R SET TH_CODE=${THCODE}, REVIEW_TITLE=#{RTITLE}, REVIEW_CONTENT=#{RCONTENT}
+	WHERE REVIEW_NUM=${RNUM}
+	</update>
 							
 </mapper>

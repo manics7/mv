@@ -14,8 +14,14 @@ public interface BoardMapper extends MybatisMapper {
 	public int getrvBoardCnt();
 	//검색으로 게시글 목록 가져오기
 	public List<BoardDto> selectSearchList(BoardDto bDto);
-	//게시글 작성하기
-	public void rvBoardInsert(BoardDto bDto);
 	//영화관 이름 목록 가져오기
 	public List<TheaterDto> getTHList();
+	//게시글 작성하기
+	public void rvBoardInsert(BoardDto bDto);
+	//게시글 본문 가져오기
+	public BoardDto getRvContent(Integer rnum);
+	//조회수 업데이트
+	public void viewUpdate(Integer rnum);
+	//게시글 수정하기
+	public boolean boardRvUpdate(BoardDto bDto);
 }

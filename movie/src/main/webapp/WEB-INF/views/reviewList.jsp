@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="resource/css/review2.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script src="https://kit.fontawesome.com/27f70b73f3.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	//메시지 출력
@@ -86,7 +87,11 @@ $(function(){
 				<tr class="data_row">
 					<td class="t_no p-10">${bitem.rnum}</td>
 					<td class="t_theater p-10">${bitem.thname}</td>
-					<td class="t_title p-30">${bitem.rtitle}</td>
+					<td class="t_title p-30">
+						<a href="./content?rnum=${bitem.rnum}">
+							${bitem.rtitle}
+						</a>
+					</td>
 					<td class="t_date p-10">
 						<fmt:formatDate value="${bitem.rdate}"
 							pattern="yy/MM/dd" />

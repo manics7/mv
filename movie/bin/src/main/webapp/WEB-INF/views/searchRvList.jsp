@@ -66,11 +66,7 @@ $(function(){
 				<tr class="data_row">
 					<td class="t_no p-10">${bitem.rnum}</td>
 					<td class="t_theater p-10">${bitem.thname}</td>
-					<td class="t_title p-30">
-						<a href="./content?rnum=${bitem.rnum}">
-							${bitem.rtitle}
-						</a>
-					</td>
+					<td class="t_title p-30">${bitem.rtitle}</td>
 					<td class="t_date p-10">
 						<fmt:formatDate value="${bitem.rdate}"
 							pattern="yy/MM/dd" />

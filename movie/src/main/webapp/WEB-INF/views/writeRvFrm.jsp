@@ -34,15 +34,15 @@ $(function(){
 			<!-- name의 value는 DTO의 변수명과 일치하게 -->
 			<input type="hidden" name="mid" value="viu97">
 			
-			<select>
-				<option value="">영화관 선택</option>
+			<select name="thcode">
+				<option value="-10">영화관 선택</option>
 				<c:forEach var="thitem" items="${thList}">
-					<option value="thname">${thitem.thname}</option>
+					<option value="${thitem.thcode}">${thitem.thname}</option>
 				</c:forEach>
 			</select>
 			
-			<input type="text" class="write-input" name="btitle" autofocus placeholder="제목" required>
-				<textarea rows="15" name="bcontents" placeholder="내용입력" class="write-input ta"></textarea>
+			<input type="text" class="write-input" name="rtitle" autofocus placeholder="제목" required>
+				<textarea rows="15" name="rcontent" placeholder="내용입력" class="write-input ta"></textarea>
 				<div class="filebox">
 				<!-- 파일 입력 처리 영역 -->
 					<label for="file">UPLOAD</label>
