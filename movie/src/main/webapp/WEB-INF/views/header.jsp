@@ -87,7 +87,12 @@
 			</div>
 		</div>	
 
+	
+
+<link rel="stylesheet" href="resource/css/bootstrap.min.css">
+<script src="resource/js/bootstrap.bundle.min.js"></script>
 <script src="resource/js/jquery-3.6.0.min.js"></script>
+<script src="resource/js/rsrv.js"></script>
 <script type="text/javascript">
 	$(function() {
 		// 영화관 검색 클릭시 하단 메뉴 출력
