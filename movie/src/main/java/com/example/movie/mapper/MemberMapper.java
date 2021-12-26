@@ -28,6 +28,7 @@ public interface MemberMapper  extends MybatisMapper {
 	public int selectQuestionCnt(String id);
 	// id로 작성한 영화리뷰 갯수
 	public int selectpmvReviewCnt(String id);
+	
 	//영화코드로 영화이름 검색;
 	public String selectMovieName(String mvcd);
 	//에매번호로 결제내역 검색

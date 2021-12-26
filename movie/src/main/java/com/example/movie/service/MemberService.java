@@ -128,9 +128,10 @@ public class MemberService {
 		}
 
 		mv.addObject("qList",qList);
-
+		//전체 글 갯수
+		int maxNum = mDao.selectQuestionCnt(id);
 		//페이징 처리.
-		String pageHtml = getPaging(num,listCnt,View);
+		String pageHtml = getPaging(num,listCnt,View,maxNum);
 		mv.addObject("paging", pageHtml);
 
 		//세션에 페이지번호 저장
@@ -145,32 +146,11 @@ public class MemberService {
 
 		return mv;
 	}
-	private String getPaging(int num, int listCnt,String view) {
+	private String getPaging(int num, int listCnt,String view,int maxNum) {
 		String pageHtml = null;
 
-		//전체 글 개수 구하기(DAO)
-		int maxNum = 0;
-
-		MemberDto member = (MemberDto)session.getAttribute("mb");
-
-		String id = member.getM_id();	
-
-		if(view.equals("mypage")) {
-
-			maxNum = mDao.selectQuestionCnt(id);
-			//한 페이지에 보여질 페이지 번호 개수
-		}
-		if(view.equals("questionFrm")) {
-
-			maxNum = mDao.selectQuestionCnt(id);
-		}
-
-		if(view.equals("pmvReviewFrm")) {
-
-			maxNum = mDao.selectpmvReviewCnt(id);
-		}
-
-		int pageCnt = 2;
+		
+		int pageCnt = 3;
 
 		//돌려써먹기위해 맞는 view로 listName 수정
 		String listName = view;
@@ -251,9 +231,10 @@ public class MemberService {
 		}
 
 		mv.addObject("mvrList",pmvrList);
-
+		//전체 리뷰 갯수
+		int maxNum = mDao.selectpmvReviewCnt(id);
 		//페이징 처리.
-		String pageHtml = getPaging(num,listCnt,View);
+		String pageHtml = getPaging(num,listCnt,View,maxNum);
 		mv.addObject("paging", pageHtml);
 
 		//세션에 페이지번호 저장
@@ -398,7 +379,8 @@ public class MemberService {
 
 			mpList.add(mpDto);
 		}
-
+		//전체 글 갯수
+		int maxNum = mpList.size();
 		//옮길 리스트 안전빵
 		List<mypagePaymentDto> nmpList = new ArrayList<mypagePaymentDto>();
 		//가져온 리스트가 있을때만 페이징처리
@@ -441,7 +423,7 @@ public class MemberService {
 		mv.addObject("qList",nmpList);
 
 		//페이징 처리.
-		String pageHtml = getPaging(num,listCnt,View);
+		String pageHtml = getPaging(num,listCnt,View,maxNum);
 		mv.addObject("paging", pageHtml);
 
 		//세션에 페이지번호 저장

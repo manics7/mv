@@ -87,6 +87,7 @@ a {
 </head>
 <body>
 	<div class="page">
+	<a href ="purchaseFrm">결제내역</a>
 		<div class="title-row">
 			<p>
 				<b>1:1문의</b>
