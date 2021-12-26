@@ -24,6 +24,13 @@ public class HomeController {
 	@Autowired
 	private BusinessService bServ;
 	
+	// test 페이지 이동
+	@GetMapping("test")
+	public String test() {
+		
+		return "test";
+	}
+	
 	@RequestMapping("/")
 	public String index() {
 		
@@ -37,28 +44,11 @@ public class HomeController {
 		return "joinFrm";
 	}
 	
-	// 이용자 회원가입
-	@PostMapping("memberInsert")
-	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
-		log.info("memberInsert()");
-		String view = mServ.memberInsert(member, rttr);
-		
-		return view;
-	}
-	
 	// 사업자 회원가입 페이지 이동
 	@GetMapping("bu_joinFrm")
 	public String bu_joinFrm() {
 		
 		return "bu_joinFrm";
 	}
-	
-	// 사업자 회원가입
-	@PostMapping("businessInsert")
-	public String businessInsert(BusinessDto business, RedirectAttributes rttr) {
-		
-		String view = bServ.businessInsert(business, rttr);
-		
-		return view;
-	}
+
 }

@@ -5,6 +5,9 @@ import com.example.movie.dto.MemberDto;
 
 public interface MemberMapper  extends MybatisMapper {
 	
+	// 이용자 회원가입 아이디 중복체크
+	public int idCheck(String mid);
+	
 	// 이용자 회원 가입
 	public void memberInsert(MemberDto member);
 

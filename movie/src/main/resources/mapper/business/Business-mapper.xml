@@ -4,6 +4,11 @@
 
 <mapper namespace="com.example.movie.mapper.BusinessMapper">
 	
+	<!-- 사업자 회원가입 아이디 중복체크 -->
+	<select id="buIdCheck" parameterType="String" resultType="Integer">
+		select count(*) from business where b_id=#{bid}
+	</select>
+	
 	<!-- 사업자 회원 가입 -->
 	<insert id="businessInsert" parameterType="com.example.movie.dto.BusinessDto">
 		insert into business values (#{b_id}, #{b_pw}, #{b_name}, #{b_num}, #{b_tel}, #{b_email})
@@ -19,6 +24,11 @@
 	<select id="getBusiness" parameterType="String" resultType="com.example.movie.dto.BusinessDto">
 		select * from business where b_id=#{b_id}
 	</select>
+	
+	<!-- Test insertMovie -->
+	<insert id="insertMovie" parameterType="com.example.movie.dto.TestDto">
+		insert into mvtest vales (#{mvname}, #{mvimage}, #{mvtime})
+	</insert>
 	
 </mapper>
 

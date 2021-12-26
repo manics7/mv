@@ -6,52 +6,49 @@
 <meta charset="UTF-8">
 <title>영화 보러 가자~</title>
 <link rel="stylesheet" type="text/css" href="resource/css/hf.css">
-<script src="resource/js/jquery-3.6.0.min.js"></script>
-<script src="resource/js/jquery.serializeObject.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-		
-});
-</script>
+<link rel="stylesheet" type="text/css" href="resource/css/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 </head>
-	<header>
+
+
+
+<div class="slider" style="border: none;">
+    <div>
+    	<img src="https://caching2.lottecinema.co.kr/lotte_image/2021/Clifford/1224/Clifford_1920774.jpg"
+    		 data-video="https://caching2.lottecinema.co.kr/lotte_image/2021/Clifford/1224/Clifford_1280720.mp4"
+    		 alt="클리포드 더 빅 레드독 사랑받는 만큼 커져요 1월 12일 대개봉 전체관람가">
+    </div>
+    <div>
+    	<img src="https://caching2.lottecinema.co.kr/lotte_image/2021/Ts/Ts_1920774.jpg"
+			 data-video="https://caching2.lottecinema.co.kr/lotte_image/2021/Ts/Ts_1280720.mp4"
+    		 alt="특송 1월 12일 대개봉 새해를 여는 첫 번째 범죄 오락 액션 15세 이상 관람가">
+    </div>
+    <div>
+    	<img src="https://caching2.lottecinema.co.kr/lotte_image/2021/Mat/1221/Mat_1920774.jpg"
+    		 data-video="https://caching2.lottecinema.co.kr/lotte_image/2021/Mat/1221/Mat_1280720.mp4"
+    		 alt="매트릭스 리저렉션 SF 액션 블록버스터의 전설 12월 22일 대개봉 모든것이 시작된 곳 전설이 부활한다 15세이상관람가">
+    </div>
+</div>
+
+	<header style="position: absolute; top: 0; left: 0;">
 		<!-- --------------- header --------------- -->
 		<jsp:include page="header.jsp"></jsp:include>
 	</header>
 
 	<section>
-		<div style="width: 100%; height: 1000px;">
-		
-		</div>
-	<div id="container">
-		
-		<div class="items">
-		 	<div class="item active">
-		 		<img alt="" src="https://caching2.lottecinema.co.kr/lotte_image/2021/West/West_1920774.jpg">
-		 	</div>
-		 	<div class="item">
-		 		<img alt="" src="https://caching2.lottecinema.co.kr/lotte_image/2021/Kings/1221/Kings_1920774.jpg">
-		 	</div>
-		 	<div class="item">
-		 		<img alt="" src="https://caching2.lottecinema.co.kr/lotte_image/2021/Mat/1221/Mat_1920774.jpg">
-		 	</div>
-		 	<div class="item">
-		 		<img alt="" src="https://caching2.lottecinema.co.kr/lotte_image/2021/Mat/1221/Mat_1920774.jpg">
-		 	</div>
+	 	<div id="border">
+	 	</div>
+	 	<div id="movie_wrap">
+	 		<div id="movie_boxoffice">
+ 				박스오피스
+	 		</div>
+	 		<div class="boxoffice_list">
+	 			
+	 		</div>
+	 	</div>
+	 	<div id="event">
 	 	</div>
 	 	
-	 	<div class="stepper">
-	 		<div class="step active-step"></div>
-	 		<div class="step"></div>
-	 		<div class="step"></div>
-	 		<div class="step"></div>
-	 	</div>
-	 		<button class="prev">prev</button>
-			<button class="next">next</button>
-		</div> 	
-	</div>
-		
-	 
 	</section>
 	
 	<footer>
@@ -62,6 +59,8 @@ $(document).ready(function() {
 </body>
 
 <script src="resource/js/jquery-3.6.0.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		//메시지 출력 부분
@@ -79,6 +78,10 @@ $(document).ready(function() {
 			$(".suc").css("display", "inline-block");
 			$(".nomal").css("display", "none");
 		}
+		
+		$(document).ready(function(){
+		      $('.slider').bxSlider();
+		    });
 		
 	});
 </script>

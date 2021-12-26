@@ -3,7 +3,7 @@
 
 	<div id="top_wrap">
 		<div id="top_menu">
-			<a href="#" id="top_logo"> logo </a>
+			<a href="./" id="top_logo"><img alt="" src="resource/images/logo.png"></a>
 			<ul>
 				<li class="search_th"><a href="#" class="se_th" style="cursor: pointer;">영화관찾기</a></li>
 				<li><a href="#">영화검색</a></li>
@@ -11,6 +11,7 @@
 				<li class="suc" id="userName"><a href="#">마이페이지</a></li>
 				<li id="login_btn" class="nomal"><a href="#" class="login_btn" style="cursor: pointer;">로그인</a></li>
 				<li class="nomal"><a href="#">회원가입</a></li>
+				<li class="suc"><a href="./logout">로그아웃</a></li>
 				<li class="suc"><a href="#">빠른예매</a></li>
 			</ul>
 		</div>
@@ -59,10 +60,10 @@
 				</div>
 				<div id="type">
 					<div id="type_user" class="login_type">
-						<span>이용자 로그인</span>
+						<span style="cursor: pointer">이용자 로그인</span>
 					</div>
 					<div id="type_business" class="login_type">
-						<span>사업자 로그인</span>
+						<span style="cursor: pointer">사업자 로그인</span>
 					</div>
 				</div>
 				<form action="./loginProc" method="post">
@@ -87,12 +88,7 @@
 			</div>
 		</div>	
 
-	
-
-<link rel="stylesheet" href="resource/css/bootstrap.min.css">
-<script src="resource/js/bootstrap.bundle.min.js"></script>
 <script src="resource/js/jquery-3.6.0.min.js"></script>
-<script src="resource/js/rsrv.js"></script>
 <script type="text/javascript">
 	$(function() {
 		// 영화관 검색 클릭시 하단 메뉴 출력

@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.movie.controller.AmazonS3Controller;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.TestDto;
 import com.example.movie.mapper.BusinessMapper;
 
 @Service
@@ -18,8 +21,26 @@ public class BusinessService {
 	private BusinessMapper bMapper;
 	@Autowired
 	private HttpSession session;
+	@Autowired
+	private AmazonS3Controller amazonS3;
 	
 	ModelAndView mv;
+	
+	// 이용자 회원가입 아이디 중복체크
+	public String buIdCheck(String bid) {
+		
+		String res = null;
+		
+		int cnt = bMapper.buIdCheck(bid);
+		if(cnt == 0) {
+			res = "ok";
+		}
+		else {
+			res = "fail";
+		}
+		
+		return res;
+	}
 	
 	// 사업자 회원가입
 	@Transactional
@@ -87,4 +108,52 @@ public class BusinessService {
 		
 		return view;
 	}
+
+	// 사업자 로그아웃
+	public String bu_logout() {
+		
+		String view = "redirect:/";
+		
+		session.invalidate();
+		
+		return view;
+	}
+
+	// test영화 등록	
+	public String insertMovie(MultipartHttpServletRequest multi, RedirectAttributes rttr) {
+		
+		String view = null;
+		String msg = null;
+		
+		// multi에서 데이터 추출
+		String mvname = multi.getParameter("mvname");
+		String mvtime = multi.getParameter("mvtime");
+		String files = multi.getParameter("files");
+		String check = multi.getParameter("fileCheck");
+		
+		// 게시글 내용 dto에 담아서 dao(mapper)로 보냄
+		TestDto tDto = new TestDto();
+		tDto.setMvname(mvname);
+		tDto.setMvtime(mvtime);
+		
+		try {
+			bMapper.insertMovie(tDto);
+			
+			if(check.equals("1")) {
+				amazonS3.uploadFile2(multi);
+			}
+			
+			view = "redirect:/";
+			msg = "작성 완료!";
+		} catch (Exception e) {
+			e.printStackTrace();
+			view = "redirect:test";
+			msg = "작성 실패!";
+		}
+		
+		rttr.addFlashAttribute("msg", msg);
+		
+		return null;
+	}
+	
 }

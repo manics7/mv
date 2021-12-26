@@ -21,6 +21,22 @@ public class MemberService {
 	
 	ModelAndView mv;
 	
+	// 이용자 회원가입 아이디 중복체크
+		public String idCheck(String mid) {
+
+			String res = null;
+			
+			// mapper에서 카운트 0 또는 1
+			int cnt = mMapper.idCheck(mid);
+			if(cnt == 0) {
+				res = "ok";
+			}
+			else {
+				res = "fail";
+			}
+			return res;
+		}
+	
 	// 이용자 회원가입
 	@Transactional
 	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
@@ -87,4 +103,15 @@ public class MemberService {
 		
 		return view;
 	}
+
+	// 이용자 로그아웃
+	public String logout() {
+		
+		String view = "redirect:/";
+		
+		session.invalidate();
+		
+		return view;
+	}
+	
 }
