@@ -59,7 +59,16 @@ public class MemberController {
 		
 		return mv;
 	}
-	
+	@GetMapping("purchaseCancelFrm")
+	public ModelAndView purchaseCancelFrm (Integer pageNum) {
+		int listCnt = 10;
+		
+		String View = "purchaseCancelFrm";
+		
+		mv = mServ.selectPurchase(pageNum,listCnt,View);
+		
+		return mv;
+	}
 	@GetMapping("questionFrm")
 	public ModelAndView questionFrm(Integer pageNum) {
 		

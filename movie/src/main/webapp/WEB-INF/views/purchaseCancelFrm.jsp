@@ -87,7 +87,6 @@ a {
 </head>
 <body>
 	<div class="page">
-	<a href ="purchaseCancelFrm">결제취소내역</a>
 		<div class="title-row">
 			<p>
 				<b>1:1문의</b>

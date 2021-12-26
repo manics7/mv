@@ -39,6 +39,21 @@
 		SELECT movienm FROM mv_official WHERE of_mv_num =#{mvcd}
 	</select>
 	
+	<select id="selectRsrvByid" parameterType="String"
+		resultType="com.example.movie.dto.reservationDto">
+		SELECT * FROM reservation WHERE m_id =#{id}
+	</select>
+	
+	<select id="selectPaymentByRsrvno" parameterType="String"
+		resultType="com.example.movie.dto.paymentDto">
+		SELECT * FROM payment WHERE rsrv_no=#{rsrvno}
+	</select>
+	
+	<select id="selectPaymentCancel" parameterType="String"
+		resultType="String">
+		SELECT tid FROM payment_cancel WHERE tid =#{tid}
+	</select>	
+	
 	
 	
 	
@@ -63,6 +78,8 @@
 		SELECT th_name FROM theater WHERE th_code =#{thcode}
 	</select>
 	
+	
+
 </mapper>
 
 

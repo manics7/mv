@@ -39,10 +39,10 @@ $(function(){
 <div class="page">
 	<div id="mid"></div>
 	<div>기본정보</div>
-	<div>이름<span id="mname"></span><button class="memberUpdate">변경</button></div>
-	<div>생년월일<span id="mbirth"></span></div>
-	<div>휴대폰 번호<span id="mtel"></span><button class="memberUpdate">변경</button></div>
-	<div>이메일<span id="memail"></span><button class="memberUpdate">변경</button></div>
+	<div>이름: <span id="mname"> </span><button class="memberUpdate">변경</button></div>
+	<div>생년월일: <span id="mbirth"> </span></div>
+	<div>휴대폰 번호: <span id="mtel"> </span><button class="memberUpdate">변경</button></div>
+	<div>이메일: <span id="memail"> </span><button class="memberUpdate">변경</button></div>
 	<div>비밀번호<button class="memberUpdate">변경</button></div>
 
 	<div>
