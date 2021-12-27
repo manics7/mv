@@ -28,7 +28,7 @@ $(function(){
 	if(mid == bid){
 		$("#upbtn").show();
 		$("#delbtn").show();
-		//$("#likebtn").hide();
+		$("#likebtn").hide();
 	}
 	
 });
@@ -36,6 +36,9 @@ $(function(){
 </head>
 <body>
 <table>
+				<tr height="30">
+					<span><a>신고하기</a></span>
+				</tr>
 				<tr height="30">
 					<td width="100" bgcolor="pink" 
 						align="center">NUM</td>
@@ -87,5 +90,44 @@ $(function(){
 					</td>
 				</tr>
 </table>
+			<!-- 댓글 작성 양식 -->
+			<form id="replyFrm">
+				<textarea rows="3" class="write-input ta"
+					name="r_contents" id="comment"
+					placeholder="댓글을 적어주세요~"></textarea>
+				<input type="button" value="댓글 전송"
+					class="btn-write" onclick="replyInsert(${board.bnum})"
+					style="width: 100%; margin-bottom: 30px;">
+			</form>
+			<!-- 댓글 목록 보기 -->
+			<table style="width: 100%"><!-- 제목 테이블 -->
+				<tr bgcolor="pink" align="center" height="30">
+					<td width="20%">WRITER</td>
+					<td width="50%">CONTENTS</td>
+					<td width="30%">DATE</td>
+				</tr>
+			</table>
+			<table id="rtable" style="width: 100%"><!-- 목록 테이블 -->
+				<c:forEach var="r" items="${rList}">
+				<tr>
+					<td width="20%">${r.r_id}</td>
+					<td width="50%">${r.r_contents}</td>
+					<td width="30%">
+						<fmt:formatDate value="${r.r_date}"
+							pattern="yyyy-MM-dd HH:mm:ss"/>
+					</td>
+				</tr>
+				</c:forEach>
+			</table>
 </body>
+<script src="resources/js/jquery.serializeObject.js"></script>
+<script type="text/javascript">
+function delCheck(rnum){
+	var conf = confirm("삭제하시겠습니까?");
+	
+	if(conf == true){
+		location.href='./deleteRv?rnum=' + rnum;
+	}
+}
+</script>
 </html>

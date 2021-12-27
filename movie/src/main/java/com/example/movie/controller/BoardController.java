@@ -81,9 +81,17 @@ public class BoardController {
 	
 	//게시글 수정 처리
 	@PostMapping("boardRvUpdate")
-	public String reviewUpdate(MultipartHttpServletRequest multi,
+	public String boardRvUpdate(MultipartHttpServletRequest multi,
 			RedirectAttributes rttr) {
 		String view = bServ.reviewUpdate(multi, rttr);
+		
+		return view;
+	}
+	
+	//게시글 삭제 처리
+	@GetMapping("deleteRv")
+	public String deleteRv(int rnum, RedirectAttributes rttr) {
+		String view = bServ.reviewDelete(rnum, rttr);
 		
 		return view;
 	}

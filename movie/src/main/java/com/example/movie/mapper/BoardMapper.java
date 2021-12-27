@@ -25,5 +25,7 @@ public interface BoardMapper extends MybatisMapper {
 	//조회수 업데이트
 	public void viewUpdate(Integer rnum);
 	//게시글 수정하기
-	public boolean boardRvUpdate(BoardDto bDto);
+	public boolean RvUpdate(BoardDto bDto);
+	//게시글 삭제하기
+	public boolean RvboardDelete(Integer rnum);
 }

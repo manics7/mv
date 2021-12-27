@@ -241,34 +241,53 @@ public class BoardService {
 		return mv;
 	}
 	
-	@Transactional
 	//게시글 수정 처리
+	@Transactional
 	public String reviewUpdate(MultipartHttpServletRequest multi,
 			RedirectAttributes rttr) {
 		String view = null;
 		
-		int rnum = Integer.parseInt(multi.getParameter("rnum"));
 		String id = multi.getParameter("mid");
-		int thcode = Integer.parseInt(multi.getParameter("thcode"));
+		String rnum = multi.getParameter("rnum");
+		String thcode = multi.getParameter("thcode");
 		String title = multi.getParameter("rtitle");
 		String content = multi.getParameter("rcontent");
 		content = content.trim();
 		
 		BoardDto bDto = new BoardDto();
-		bDto.setRnum(rnum);
+
 		bDto.setMid(id);
-		bDto.setThcode(thcode);
+		bDto.setRnum(Integer.parseInt(rnum));
+		bDto.setThcode(Integer.parseInt(thcode));
 		bDto.setRtitle(title);
 		bDto.setRcontent(content);
 		
 		try {
-			bMapper.boardRvUpdate(bDto);
+			bMapper.RvUpdate(bDto);
 			rttr.addFlashAttribute("msg", "수정 성공");
 		} catch (Exception e) {
+			//e.printStackTrace();
 			rttr.addFlashAttribute("msg", "수정 실패");
 		}
 		
 		view = "redirect:content?rnum=" + rnum;
+		
+		return view;
+	}
+
+	//게시글 삭제 처리
+	@Transactional
+	public String reviewDelete(int rnum, RedirectAttributes rttr) {
+		String view = null;
+		
+		try {
+			bMapper.RvboardDelete(rnum);
+			view = "redirect:rlist";
+			rttr.addFlashAttribute("msg", "삭제 성공");
+		} catch (Exception e) {
+			view = "redirect:content?rnum=" + rnum;
+			rttr.addFlashAttribute("msg", "삭제 실패");
+		}
 		
 		return view;
 	}

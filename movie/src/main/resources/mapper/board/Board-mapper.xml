@@ -36,24 +36,6 @@
 		</choose>
 	</select>
 	
-	<!-- 검색으로 게시글 불러오기 
-	<select id="selectSearchList" parameterType="com.example.movie.dto.BoardDto"
-		resultType="com.example.movie.dto.BoardDto">
-		SELECT * FROM RLIST WHERE
-		<choose>
-			<when test="type != null and type.equals('rtitle')">
-			RTITLE LIKE '%${keyword}%'
-			</when>
-			<when test="type != null and type.equals('mid')">
-			MID LIKE '%${keyword}%'
-			</when>
-			<when test="type != null and type.equals('thname')">
-			THNAME LIKE '%${keyword}%'
-			</when>
-		</choose>
-	</select>
-	-->
-	
 	<!-- 검색으로 게시글 불러오기2 -->
 	<select id="selectSearchList" parameterType="com.example.movie.dto.BoardDto"
 		resultType="com.example.movie.dto.BoardDto">
@@ -82,7 +64,6 @@
 		]]>
 	</select>
 	
-	
 	<!-- 영화관 이름 목록 가져오기 -->
 	<select id="getTHList" resultType="com.example.movie.dto.TheaterDto">
 		SELECT TH_CODE AS thcode, TH_NAME AS thname FROM THEATER
@@ -110,17 +91,22 @@
 		WHERE REVIEW_NUM=#{RNUM}
 	</update>
 	
-	<!-- 좋아요 업데이트 
+	<!-- 좋아요 업데이트 -->
 	<update id="likeUpdate" parameterType="Integer">
 		UPDATE R SET REVIEW_LIKE=REVIEW_LIKE+1
 		WHERE REVIEW_NUM=#{RNUM}
 	</update>
-	-->
 	
 	<!-- 게시글 수정하기 -->
-	<update id="boardRvUpdate" parameterType="com.example.movie.dto.BoardDto">
-	UPDATE R SET TH_CODE=${THCODE}, REVIEW_TITLE=#{RTITLE}, REVIEW_CONTENT=#{RCONTENT}
-	WHERE REVIEW_NUM=${RNUM}
+	<update id="RvUpdate" parameterType="com.example.movie.dto.BoardDto">
+		UPDATE R SET TH_CODE=${thcode}, REVIEW_TITLE=#{rtitle}, REVIEW_CONTENT=#{rcontent}
+		WHERE REVIEW_NUM=#{rnum}
 	</update>
+	
+	<!-- 게시글 삭제하기 -->
+	<delete id="RvboardDelete" parameterType="Integer">
+		DELETE FROM R
+		WHERE REVIEW_NUM=#{RNUM}
+	</delete>
 							
 </mapper>
