@@ -114,10 +114,7 @@ a {
 		</c:forEach>
 		
 		<div id="btn1">
-			<a href="memberUpdateFrm">예매/구매내역</a>
-		</div>
-		<div id="btn1">
-			<a href="memberCouponFrm">영화 할인 쿠폰</a>
+			<a href="purchaseFrm">예매/구매내역</a>
 		</div>
 		<div id="btn1">
 			<a href="watcheMovieFrm">내가 본 영화</a>

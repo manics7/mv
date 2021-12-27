@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.movie.mapper.MemberMapper">
+
+	<select id="pwdSelect" parameterType="String"
+		resultType="String">
+		SELECT m_pw FROM member WHERE m_id=#{id}
+	</select>
+	
+	<select id="memberSelect" parameterType="String"
+		resultType="com.example.movie.dto.MemberDto">
+		SELECT * FROM member WHERE m_id=#{id}
+	</select>
+	
+	<select id="selectQuestion" parameterType="String"
+		resultType="com.example.movie.dto.QuestionDto">
+		SELECT * FROM question WHERE m_id=#{id}
+	</select>
+	
+	<select id="selectQuestionCnt" parameterType="String"
+		resultType="Integer">
+		SELECT COUNT(*) FROM question WHERE m_id=#{id}
+	</select>
+	
+	<select id="selectpmvReviewCnt" parameterType="String"
+		resultType="Integer">
+		SELECT COUNT(*) FROM review_movie WHERE mv_review_id=#{id}
+	</select>
+	
+	<select id="selectpmvReview" parameterType="String"
+		resultType="com.example.movie.dto.mvReviewDto">
+		SELECT * FROM review_movie WHERE mv_review_id =#{id}
+	</select>
+	
+	<select id="selectMovieName" parameterType="String"
+		resultType="String">
+		SELECT movienm FROM mv_official WHERE of_mv_num =#{mvcd}
+	</select>
+	
+	<select id="selectRsrvByid" parameterType="String"
+		resultType="com.example.movie.dto.reservationDto">
+		SELECT * FROM reservation WHERE m_id =#{id}
+	</select>
+	
+	<select id="selectPaymentByRsrvno" parameterType="String"
+		resultType="com.example.movie.dto.paymentDto">
+		SELECT * FROM payment WHERE rsrv_no=#{rsrvno}
+	</select>
+	
+	<select id="selectPaymentCancel" parameterType="String"
+		resultType="String">
+		SELECT tid FROM payment_cancel WHERE tid =#{tid}
+	</select>	
+	
+	
+	
+	
+	
+	<select id="selectSchno" parameterType="String"
+		resultType="String">
+		SELECT sch_no FROM reservation WHERE rsrv_no =#{rsno}
+	</select>
+	
+	<select id="selectThcode" parameterType="String"
+		resultType="String">
+		SELECT th_code FROM schedule WHERE sch_code =#{schno}
+	</select>
+	
+	<select id="selectMoviecode" parameterType="String"
+		resultType="String">
+		SELECT moviecd FROM schedule WHERE sch_code =#{schno}
+	</select>
+	
+	<select id="selectThname" parameterType="String"
+		resultType="String">
+		SELECT th_name FROM theater WHERE th_code =#{thcode}
+	</select>
+	
+	
+
+</mapper>
+
+
+
+

@@ -116,7 +116,7 @@ public class MemberService {
 
 			for(int i = 0; i <= list; i++) {
 				//qList로 옮기고 저장
-				if(aqList.size() < list) {
+				if(aqList.size() <= list) {
 
 					list = aqList.size()-1;
 					//size가 출력해야할list보다 작으면 그만큼만 출력하도록 함 안할시 오류뜸  
@@ -203,7 +203,7 @@ public class MemberService {
 
 			for(int i = 0; i <= list; i++) {
 				//pmvrList로 옮기고 저장
-				if(apmvrList.size() < list) {
+				if(apmvrList.size() <= list) {
 
 					list = apmvrList.size()-1;
 			//size가 출력해야할list보다 적으면 그만큼만 출력하도록 함 안할시 오류뜸  

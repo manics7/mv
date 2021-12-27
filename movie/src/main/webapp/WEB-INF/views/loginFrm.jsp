@@ -23,5 +23,6 @@ $(function(){
 	<input type="submit" value="로그인">
 </form>
 
+<a href="reportFrm">신고관리</a>
 </body>
 </html>

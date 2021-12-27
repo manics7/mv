@@ -4,6 +4,41 @@
 
 <mapper namespace="com.example.movie.mapper.AdminMapper">
 	
+	<select id="selectReportMvReview" parameterType="HashMap"
+		resultType="com.example.movie.dto.reportMvReviewDto">
+		<![CDATA[
+		SELECT * FROM RMVRLIST_1
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	<select id="selectReportMvReviewCnt" resultType="Integer">
+		SELECT COUNT(*) FROM report_mv_review
+	</select>
+	
+	<select id="selectMvReviewByReviewNum" parameterType="Integer"
+		resultType="String">
+		SELECT mv_review_comment FROM review_movie WHERE mv_review_num=#{mvrNum}
+	</select>
+	
+	<select id="selectIdFromMvReview" parameterType="Integer"
+		resultType="String">
+		SELECT mv_review_id FROM review_movie WHERE mv_review_num=#{mvrNum}
+	</select>
+	
+	<update id="updateWarning" parameterType="String">
+		UPDATE member SET m_warning = m_warning+1 WHERE m_id=#{id}
+	</update>
+	
+	<update id="updateRpMvReviewState" parameterType="String">
+		UPDATE report_mv_review SET rp_state =1 WHERE movie_review=#{mvrNum}
+	</update>
+	<delete id="delMvReview" parameterType="Integer">
+		DELETE FROM review_movie WHERE mv_review_num=#{mvrNum}
+	</delete>
+	
+	
 </mapper>
 
 
