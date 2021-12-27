@@ -4,6 +4,13 @@
 
 <mapper namespace="com.example.movie.mapper.BusinessMapper">
 	
+	<!-- 영화관 등록 -->
+	<insert id="theaterAdd" parameterType="com.example.movie.dto.TheaterDto">
+		INSERT INTO theater
+		VALUES (th_code_seq.NEXTVAL, #{b_id}, #{th_name}, #{th_logo}, #{th_location},
+		 #{th_introduce}, #{th_areacode}, #{th_parking}, NULL, #{th_tel})
+	</insert>
+	
 </mapper>
 
 
