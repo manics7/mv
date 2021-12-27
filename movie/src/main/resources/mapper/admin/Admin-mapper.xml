@@ -19,12 +19,12 @@
 	
 	<select id="selectMvReviewByReviewNum" parameterType="Integer"
 		resultType="String">
-		SELECT mv_review_comment FROM review_movie WHERE mv_review_num=#{mvrNum}
+		SELECT mv_review_comment FROM review_movie WHERE mv_review=#{mvrNum}
 	</select>
 	
 	<select id="selectIdFromMvReview" parameterType="Integer"
 		resultType="String">
-		SELECT mv_review_id FROM review_movie WHERE mv_review_num=#{mvrNum}
+		SELECT mv_review_id FROM review_movie WHERE mv_review=#{mvrNum}
 	</select>
 	
 	<update id="updateWarning" parameterType="String">
@@ -35,7 +35,7 @@
 		UPDATE report_mv_review SET rp_state =1 WHERE movie_review=#{mvrNum}
 	</update>
 	<delete id="delMvReview" parameterType="Integer">
-		DELETE FROM review_movie WHERE mv_review_num=#{mvrNum}
+		DELETE FROM review_movie WHERE mv_review=#{mvrNum}
 	</delete>
 	
 	
