@@ -9,10 +9,10 @@
 <link rel="stylesheet" type="text/css" href="resource/css/index.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 </head>
+<body>
+<div class="main_wrap">
 
-
-
-<div class="slider" style="border: none;">
+	<div class="slider" style="border: none;">
     <div>
     	<img src="https://caching2.lottecinema.co.kr/lotte_image/2021/Clifford/1224/Clifford_1920774.jpg"
     		 data-video="https://caching2.lottecinema.co.kr/lotte_image/2021/Clifford/1224/Clifford_1280720.mp4"
@@ -55,6 +55,10 @@
 		<!-- --------------- footer --------------- -->
 		<jsp:include page="footer.jsp"></jsp:include>
 	</footer>
+
+</div>
+
+
 
 </body>
 

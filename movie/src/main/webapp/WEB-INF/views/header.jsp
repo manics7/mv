@@ -113,11 +113,15 @@
 		// 이용자, 사업자 클릭시 탭 이동
 		$("#type_user").click(function() {
 			$("#user_tap").css("display", "inline-block");
+			$("#type_user").css("border-bottom", "2px solid #f16a1a");
 			$("#business_tap").css("display", "none");
+			$("#type_business").css("border-bottom", "2px solid #717171");
 		});
 		$("#type_business").click(function() {
 			$("#user_tap").css("display", "none");
+			$("#type_user").css("border-bottom", "2px solid #717171");
 			$("#business_tap").css("display", "inline-block");
+			$("#type_business").css("border-bottom", "2px solid #f16a1a");
 		});
 		
 	});

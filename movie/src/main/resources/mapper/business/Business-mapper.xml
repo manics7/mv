@@ -27,7 +27,7 @@
 	
 	<!-- Test insertMovie -->
 	<insert id="insertMovie" parameterType="com.example.movie.dto.TestDto">
-		insert into mvtest vales (#{mvname}, #{mvimage}, #{mvtime})
+		insert into mvtest vales (#)
 	</insert>
 	
 </mapper>

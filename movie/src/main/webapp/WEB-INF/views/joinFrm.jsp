@@ -168,7 +168,7 @@
 					pwOk = false;
 				}
 			}
-			else {
+			else{
 				document.getElementById('checkPw').innerHTML = '비밀번호를 확인해주세요';
 				document.getElementById('checkPw').style.display = 'inline-block';
 				document.getElementById('checkPw').style.color = 'red';

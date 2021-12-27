@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.movie.mapper.MemberMapper">
-	
+
 	<!-- 이용자 회원가입 아이디 중복체크 -->
 	<select id="idCheck" parameterType="String" resultType="Integer">
 		select count(*) from member where m_id=#{mid}	

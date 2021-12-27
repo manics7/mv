@@ -21,8 +21,8 @@ import lombok.ToString;
 public class Member {
 
 	@Id
-	@Column(name="M_ID", columnDefinition="아이디")
-	private String mId;
+	@Column(name="M_ID", columnDefinition="아이디") // jpa String m_id;
+	private String mId; // my 
 	
 	@Column(name="M_PW", columnDefinition="비밀번호")
 	private String mPw;
