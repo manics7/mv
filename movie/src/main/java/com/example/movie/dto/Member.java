@@ -28,6 +28,7 @@ import lombok.ToString;
 public class Member {
 	
 	@Id
+
 	@Column(name="M_ID", columnDefinition="아이디")
 	private String mId;
 		
