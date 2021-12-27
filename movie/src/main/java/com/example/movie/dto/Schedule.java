@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -33,17 +35,18 @@ import lombok.ToString;
 public class Schedule {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="SCH_CODE", columnDefinition="상영 시간 키")
-	private String schCode;
+	private Integer schCode;
 	
 	@Column(name="TH_CODE", columnDefinition="영화관코드")
 	private Integer thCode;
 	
 	@Column(name="ROOM_NO", columnDefinition="상영관코드")
-	private String roomNo;
-
-	@Column(name="MOVIECD", columnDefinition="영화코드")
-	private String movieCd;
+	private Integer roomNo;
+	
+	@Column(name="MOVIE_CD", columnDefinition="영화코드")
+	private Integer movieCd;
 	
 	@Column(name="SCH_DATE", columnDefinition="상영날짜")
 	private Date schDate;
@@ -57,7 +60,7 @@ public class Schedule {
 	private List<ScheduleDetail> scheduleDetail;
 	
 	@OneToOne(fetch = FetchType.LAZY) 
-	@JoinColumn(name = "MOVIECD", referencedColumnName = "MOVIECD"
+	@JoinColumn(name = "MOVIE_CD", referencedColumnName = "MOVIE_CD"
 						, insertable = false, updatable = false, nullable = false)
 	private MovieOfficial movieOfficial;
 	

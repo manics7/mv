@@ -3,6 +3,8 @@ package com.example.movie.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,14 +16,15 @@ import lombok.Data;
 public class QuestionFile {
 
 	@Id
-	@Column(name="QUESFILE_NO", columnDefinition="문의사항번호")
-	private Integer quesNo;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="QUES_FILE_NO", columnDefinition="문의사항번호")
+	private Integer quesFileNo;
 	@Column(name="QUES_NO", columnDefinition="회원아이디")
-	private String mId;
-	@Column(name="QUESFILE_PRENAME", columnDefinition="제목")
-	private String quesTitle;
-	@Column(name="QUESFILE_NEWNAME", columnDefinition="문의내용")
-	private String questCont;
+	private Integer quesNo;
+	@Column(name="QUES_FILE_PRENAME", columnDefinition="제목")
+	private String quesFileTitle;
+	@Column(name="QUES_FILE_NEWNAME", columnDefinition="문의내용")
+	private String questFileCont;
 		
 	
 	

@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,12 +42,13 @@ import lombok.ToString;
 public class Reservation {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="RSRV_NO", columnDefinition="예매번호")
-	private String rsrvNo;
+	private Integer rsrvNo;
 	
 	@NonNull
 	@Column(name="SCH_NO", columnDefinition="일정번호")
-	private String schNo;
+	private Integer schNo;
 	
 	@NonNull
 	@Column(name="M_ID", columnDefinition="아이디")
