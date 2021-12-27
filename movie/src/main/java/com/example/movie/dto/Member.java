@@ -29,39 +29,39 @@ public class Member {
 	
 	@Id
 	@Column(name="M_ID", columnDefinition="아이디")
-	private String m_id;
+	private String mId;
 	
-	@Column(name="M_PW", columnDefinition="비밀번 호")
-	private String m_pw;
+	@Column(name="M_PW", columnDefinition="비밀번호")
+	private String mPw;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name="M_BIRTH", columnDefinition="생년월일")
-	private Date m_birth;
+	private Date mBirth;
 	
 	@Column(name="M_TEL", columnDefinition="전화번호")
-	private String m_tel;
+	private String mTel;
 	
 	@Column(name="M_LIKE", columnDefinition="즐겨찾는영화관")
-	private String m_like;
+	private String mLike;
 	
 	@Column(name="M_EMAIL", columnDefinition="이메일")
-	private String m_email;
+	private String mEmail;
 	
 	@Column(name="M_NAME", columnDefinition="이름")
-	private String m_name;
+	private String mName;
 	
 	@Column(name="M_GENDER", columnDefinition="성별")
-	private String m_gender;
+	private String mGender;
 	
 	@Column(name="M_POINT", columnDefinition="포인트")
-	private Integer m_point;
+	private Integer mPoint;
 	
 	@Column(name="M_GRADE", columnDefinition="등급")
-	private Integer m_grade;
+	private Integer mGrade;
 	
 	@Column(name="M_WARNING", columnDefinition="경고횟수")
-	private Integer m_warning;
+	private Integer mWarning;
 	
 }
