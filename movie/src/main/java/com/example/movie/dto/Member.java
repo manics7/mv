@@ -31,7 +31,7 @@ public class Member {
 	@Column(name="M_ID", columnDefinition="아이디")
 	private String m_id;
 	
-	@Column(name="M_PW", columnDefinition="비밀번호")
+	@Column(name="M_PW", columnDefinition="비밀번 호")
 	private String m_pw;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
