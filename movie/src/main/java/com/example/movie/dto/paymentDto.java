@@ -11,7 +11,7 @@ public class paymentDto {
 	private String cid;
 	private String status;
 	private String payment_method_type;
-	private int amount;
-	private int quantity;
+	private String amount;
+	private String quantity;
 	private Timestamp approved_at;
 }

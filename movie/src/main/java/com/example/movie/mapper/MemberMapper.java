@@ -32,17 +32,17 @@ public interface MemberMapper  extends MybatisMapper {
 	//영화코드로 영화이름 검색;
 	public String selectMovieName(String mvcd);
 	//에매번호로 결제내역 검색
-	public paymentDto selectPaymentByRsrvno(String rsrvno);
+	public paymentDto selectPaymentByRsrvno(int rsrvno);
 	//취소한 결제내역 검색
 	public String selectPaymentCancel(String tid);
 	
 	//예매번호로 스케줄번호 검색
-	public String selectSchno (String rsno);
+	public int selectSchno (String rsno);
 	//스케줄번호로 극장코드검색
-	public String selectThcode (String schno);
+	public int selectThcode (int schno);
 	//극장코드로 극장이름검색
-	public String selectThname (String thcode);
+	public String selectThname (int thcode);
 	//스케줄번호로 영화코드 검색
-	public String selectMoviecode (String schno);
+	public String selectMoviecode (int schno);
 	
 }

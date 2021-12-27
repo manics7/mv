@@ -210,7 +210,7 @@ public class MemberService {
 				}
 				mvReviewDto amvr = apmvrList.get(i);
 
-				String movieCd = amvr.getMv_review_of_mv_num();
+				String movieCd = amvr.getMv_review_moviecd();
 
 				String mvname = mDao.selectMovieName(movieCd);
 				//영화이름 같이출력하려고 따로 dto만든후 추가해서 보냄. 꼭 이렇게 해야하는가
@@ -221,7 +221,7 @@ public class MemberService {
 				mvr.setMv_review_date(amvr.getMv_review_date());
 				mvr.setMv_review_id(amvr.getMv_review_id());
 				mvr.setMv_review_num(amvr.getMv_review_num());
-				mvr.setMv_review_of_mv_num(amvr.getMv_review_of_mv_num());
+				mvr.setMv_review_moviecd(amvr.getMv_review_moviecd());
 				mvr.setMv_review_score(amvr.getMv_review_score());
 
 				pmvrList.add(mvr);
@@ -262,13 +262,13 @@ public class MemberService {
 
 		//마이페이지에 출력할 것이므로 ...가져온 id에맞는 예매한 예매리스트
 		List<reservationDto> rsrvList = mDao.selectRsrvByid(id);
-		List<String> rsrvnoList = new ArrayList<String>();
+		List<Integer> rsrvnoList = new ArrayList<Integer>();
 		
 		//예매리스트에서 예매번호만 따로 리스트로 만듦
 		for(int i = 0; i <= rsrvList.size()-1; i++) {
 
 			reservationDto rsrvDto = rsrvList.get(i);
-			String rsrvno = rsrvDto.getRsrv_no();
+			int rsrvno = rsrvDto.getRsrv_no();
 
 			rsrvnoList.add(rsrvno);
 		}
@@ -278,7 +278,7 @@ public class MemberService {
 	//결제내역 테이블에 mid가 없어서.. id로 가져온 예매번호들로 결제내역들가져옴
 		for(int i = 0; i <= rsrvnoList.size()-1; i++) {
 
-			String rsrvno = rsrvnoList.get(i);
+			int rsrvno = rsrvnoList.get(i);
 
 			paymentDto pDto = mDao.selectPaymentByRsrvno(rsrvno);
 
@@ -361,9 +361,9 @@ public class MemberService {
 			//예매번호
 			String prsno = pDto.getRsrv_no();
 			//예매번호로 에매테이블에서 스케줄번호찾기
-			String schno = mDao.selectSchno(prsno);
+			int schno = mDao.selectSchno(prsno);
 			//스케줄번호로 스케줄테이블에서 극장코드 찾기
-			String thcode = mDao.selectThcode(schno);
+			int thcode = mDao.selectThcode(schno);
 			//극장코드로 극장테이블에서 출력할 극장이름 찾기
 			String thname = mDao.selectThname(thcode);
 			//스케줄번호로 스케줄테이블에서 무비코드 찾기
