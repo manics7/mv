@@ -4,10 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>영화 보러 가자~</title>
 <link rel="stylesheet" type="text/css" href="resource/css/hf.css">
+
 <link rel="stylesheet" type="text/css" href="resource/css/index.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<link rel="stylesheet" type="text/css" href="resource/css/bootstrap.css">
+<script src="resource/js/jquery-3.6.0.min.js"></script>
+<script src="resource/js/bootstrap.bundle.js"></script>
+<script src="resource/js/jquery.serializeObject.js"></script>
+
+
 </head>
 <body>
 <div class="main_wrap">
@@ -57,8 +65,6 @@
 	</footer>
 
 </div>
-
-
 
 </body>
 

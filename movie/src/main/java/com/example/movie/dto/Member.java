@@ -1,12 +1,19 @@
 package com.example.movie.dto;
 
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,16 +26,20 @@ import lombok.ToString;
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
 public class Member {
-
-	@Id
-	@Column(name="M_ID", columnDefinition="아이디") // jpa String m_id;
-	private String mId; // my 
 	
+	@Id
+
+	@Column(name="M_ID", columnDefinition="아이디")
+	private String mId;
+		
 	@Column(name="M_PW", columnDefinition="비밀번호")
 	private String mPw;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	@Column(name="M_BIRTH", columnDefinition="생년월일")
-	private String mBirth;
+	private Date mBirth;
 	
 	@Column(name="M_TEL", columnDefinition="전화번호")
 	private String mTel;

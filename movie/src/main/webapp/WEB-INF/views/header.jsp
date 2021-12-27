@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 	<div id="top_wrap">
 		<div id="top_menu">
 			<a href="./" id="top_logo"><img alt="" src="resource/images/logo.png"></a>
 			<ul>
+
 				<li class="search_th"><a href="#" class="se_th" style="cursor: pointer;">영화관찾기</a></li>
 				<li><a href="#">영화검색</a></li>
 				<li><a href="#">영화관후기</a></li>
@@ -13,6 +14,7 @@
 				<li class="nomal"><a href="#">회원가입</a></li>
 				<li class="suc"><a href="./logout">로그아웃</a></li>
 				<li class="suc"><a href="#">빠른예매</a></li>
+
 			</ul>
 		</div>
 		<div id="sub_menu">
@@ -48,6 +50,7 @@
 		</div>
 	</div>
 	
+
 	<!-- 로그인 창 -->
 	
 		<div id="login_bg">
@@ -126,3 +129,10 @@
 		
 	});
 </script>
+	<div class="modal fade" id="rsrvModal" tabindex="-1" role="dialog"	aria-labelledby="label" aria-hidden="true" data-backdrop="static">
+		<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+			<div class="modal-content"></div>
+		</div>
+	</div> 
+	
+<script type="text/javascript"  src="resource/js/rsrv.js"></script>
