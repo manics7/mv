@@ -3,6 +3,8 @@ package com.example.movie.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -25,16 +27,14 @@ import lombok.ToString;
 public class ScheduleDetail {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="SCHDETAIL_SEQ", columnDefinition="상영 시간 키")
 	private String schDetailSeq;
 	
-	@Column(name="SCH_CODE", columnDefinition="영화코드")
-	private String schCode;
-	
-	@Column(name="SCH_DETAIL_START", columnDefinition="영화관코드")
+	@Column(name="SCH_DETAIL_START", columnDefinition="시작시간")
 	private String schDetailStart;
 
-	@Column(name="SCH_DETAIL_END", columnDefinition="상영관코드")
+	@Column(name="SCH_DETAIL_END", columnDefinition="종료시간")
 	private String schDetailEnd;
 
 }
