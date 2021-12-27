@@ -49,6 +49,7 @@ public class MemberController {
 		return mv;
 		
 	}
+	/* 보류한다함
 	@GetMapping("purchaseFrm")
 	public ModelAndView purchaseFrm (Integer pageNum) {
 		int listCnt = 10;
@@ -68,7 +69,7 @@ public class MemberController {
 		mv = mServ.selectPurchase(pageNum,listCnt,View);
 		
 		return mv;
-	}
+	}*/
 	@GetMapping("questionFrm")
 	public ModelAndView questionFrm(Integer pageNum) {
 		

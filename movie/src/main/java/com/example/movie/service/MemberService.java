@@ -249,7 +249,7 @@ public class MemberService {
 	}
 
 	//마이페이지 예매/결제 내역 출력.
-	public ModelAndView selectPurchase (Integer pageNum, int listCnt, String View) {
+/*	public ModelAndView selectPurchase (Integer pageNum, int listCnt, String View) {
 
 		int num = (pageNum == null)? 1 : pageNum;
 
@@ -381,7 +381,7 @@ public class MemberService {
 		}
 		//전체 글 갯수
 		int maxNum = mpList.size();
-		//옮길 리스트 안전빵
+		//옮길 리스트
 		List<mypagePaymentDto> nmpList = new ArrayList<mypagePaymentDto>();
 		//가져온 리스트가 있을때만 페이징처리
 		if(!mpList.isEmpty()) {
@@ -437,7 +437,7 @@ public class MemberService {
 
 
 		return mv;
-	}
+	}*/
 }//classs
 
 
