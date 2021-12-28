@@ -36,7 +36,7 @@
 	
 	<select id="selectMovieName" parameterType="String"
 		resultType="String">
-		SELECT movienm FROM mv_official WHERE of_mv_num =#{mvcd}
+		SELECT movie_nm FROM mvofficial WHERE movie_cd =#{mvcd}
 	</select>
 	
 	<select id="selectRsrvByid" parameterType="String"
@@ -44,7 +44,7 @@
 		SELECT * FROM reservation WHERE m_id =#{id}
 	</select>
 	
-	<select id="selectPaymentByRsrvno" parameterType="String"
+	<select id="selectPaymentByRsrvno" parameterType="Integer"
 		resultType="com.example.movie.dto.paymentDto">
 		SELECT * FROM payment WHERE rsrv_no=#{rsrvno}
 	</select>
@@ -59,21 +59,21 @@
 	
 	
 	<select id="selectSchno" parameterType="String"
-		resultType="String">
+		resultType="Integer">
 		SELECT sch_no FROM reservation WHERE rsrv_no =#{rsno}
 	</select>
 	
-	<select id="selectThcode" parameterType="String"
-		resultType="String">
+	<select id="selectThcode" parameterType="Integer"
+		resultType="Integer">
 		SELECT th_code FROM schedule WHERE sch_code =#{schno}
 	</select>
 	
-	<select id="selectMoviecode" parameterType="String"
+	<select id="selectMoviecode" parameterType="Integer"
 		resultType="String">
-		SELECT moviecd FROM schedule WHERE sch_code =#{schno}
+		SELECT movie_cd FROM schedule WHERE sch_code =#{schno}
 	</select>
 	
-	<select id="selectThname" parameterType="String"
+	<select id="selectThname" parameterType="Integer"
 		resultType="String">
 		SELECT th_name FROM theater WHERE th_code =#{thcode}
 	</select>

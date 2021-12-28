@@ -11,5 +11,5 @@ public class mypagePaymentDto {
 	private String thname;
 	private String rsrv_no;
 	private String amount;
-	private Timestamp approved_at;
+	private Timestamp qpproved_at;
 }

@@ -145,13 +145,4 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-function delCheck(){
-	var conf = confirm("삭제하시겠습니까?");
-	
-	if(conf == true){
-		location.href='./deleteMvReview' + mvrnum;
-	}
-}
-</script>
 </html>

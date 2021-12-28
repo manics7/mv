@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.mvReviewDto;
-import com.example.movie.dto.mypageMvReviewDto;
 import com.example.movie.dto.mypagePaymentDto;
 import com.example.movie.dto.paymentDto;
 import com.example.movie.dto.reservationDto;
@@ -71,6 +70,18 @@ public class MemberService {
 		return view;
 	}
 	
+	public ModelAndView memberUpdateFrm() {
+		mv = new ModelAndView();
+		
+		MemberDto mem = (MemberDto)session.getAttribute("mb");
+		
+		mv.addObject("member",mem);
+		
+		mv.setViewName("memberUpdateFrm");
+		
+		return mv;
+	}
+	
 	//문의글 리스트
 	public ModelAndView selectQuestion(Integer pageNum, int listCnt, String View) {
 		mv = new ModelAndView();
@@ -104,12 +115,12 @@ public class MemberService {
 				//pagenum에 해당하지않는 출력되지 않아야 할 앞의 게시물 리스트에서 삭제
 
 				if(page <= 0) {
-					//1페이지일 경우 page가 0이 되는바람에 forpage가 음수로 되어 반복문난리남.
+				//1페이지일 경우 page가 0이 되는바람에 forpage가 음수
 					break;
 				}
 
 				int j=0;
-				//삭제한걸 자꾸 재정렬해서; 0번째 값 삭제로 고정
+				//삭제한걸 자꾸 재정렬해서 0번째 값 삭제로 고정
 				aqList.remove(j);
 			}
 
@@ -119,7 +130,7 @@ public class MemberService {
 				if(aqList.size() <= list) {
 
 					list = aqList.size()-1;
-					//size가 출력해야할list보다 작으면 그만큼만 출력하도록 함 안할시 오류뜸  
+				//size가 출력해야할list보다 작으면 그만큼만 출력하도록
 				}
 				QuestionDto que = aqList.get(i);
 
@@ -142,8 +153,6 @@ public class MemberService {
 		//호출한곳에 맞는 view로 반환
 		mv.setViewName(View);
 
-
-
 		return mv;
 	}
 	private String getPaging(int num, int listCnt,String view,int maxNum) {
@@ -152,11 +161,11 @@ public class MemberService {
 		
 		int pageCnt = 3;
 
-		//돌려써먹기위해 맞는 view로 listName 수정
-		String listName = view;
+		//맞는 view로 listName 수정
+		//String listName = view;
 
 		PagingUtil paging = new PagingUtil(maxNum, num, listCnt, 
-				pageCnt, listName);
+				pageCnt, view);
 
 		pageHtml = paging.makePaging();
 
@@ -175,7 +184,7 @@ public class MemberService {
 		//id로 리뷰들 가져옴
 		List<mvReviewDto> apmvrList = mDao.selectpmvReview(id);
 
-		List<mypageMvReviewDto> pmvrList = new ArrayList<mypageMvReviewDto>();
+		List<mvReviewDto> pmvrList = new ArrayList<mvReviewDto>();
 
 
 		//가져온 글리스트가 있을때만 페이징처리
@@ -200,7 +209,6 @@ public class MemberService {
 				apmvrList.remove(j);
 			}
 
-
 			for(int i = 0; i <= list; i++) {
 				//pmvrList로 옮기고 저장
 				if(apmvrList.size() <= list) {
@@ -213,17 +221,11 @@ public class MemberService {
 				String movieCd = amvr.getMv_review_moviecd();
 
 				String mvname = mDao.selectMovieName(movieCd);
-				//영화이름 같이출력하려고 따로 dto만든후 추가해서 보냄. 꼭 이렇게 해야하는가
-				mypageMvReviewDto mvr = new mypageMvReviewDto();
-
-				mvr.setMv_name(mvname);
-				mvr.setMv_review_comment(amvr.getMv_review_comment());
-				mvr.setMv_review_date(amvr.getMv_review_date());
-				mvr.setMv_review_id(amvr.getMv_review_id());
-				mvr.setMv_review_num(amvr.getMv_review_num());
-				mvr.setMv_review_moviecd(amvr.getMv_review_moviecd());
-				mvr.setMv_review_score(amvr.getMv_review_score());
-
+			
+				mvReviewDto mvr = amvr;
+				//옮기고 영화이름 추가
+				mvr.setMvName(mvname);
+				//영화이름 추가한거 리스트에 추가
 				pmvrList.add(mvr);
 
 			}
@@ -241,7 +243,6 @@ public class MemberService {
 		//글작성 화면, 글내용 상세보기 화면 등에서 다시 목록으로
 		//돌아갈때 보고 있던 페이지가 나오도록 하기 위해.
 		session.setAttribute("pageNum", num);
-
 
 		mv.setViewName(View);
 
@@ -305,7 +306,7 @@ public class MemberService {
 	
 	if(View.equals("purchaseFrm")) {//결제내역 페이지 에서 호출했을경우
 	
-//id에맞는 예매번호, 그 예매번호에 맞는 결제리스트에서 취소된 결제내역은 삭제후 저장
+//id에맞는 예매번호, 그 예매번호에 맞는 결제리스트에서 취소된 결제내역은 리스트에서 삭제후 저장
 		for(int i = 0; i <= apList.size()-1; i++) {
 
 			paymentDto pDto = apList.get(i);
@@ -328,7 +329,7 @@ public class MemberService {
 		//가져온 결제내역 apList 복사
 		List<paymentDto>ap1List = apList;
 		
-		//apList 초기화후 여기다 넣을거임
+		//apList 초기화
 		apList = new ArrayList<paymentDto>();
 		
 //결제내역 tid 가 취소내역tid에 있을경우(일치할경우) apList에 추가 후 저장
@@ -397,7 +398,7 @@ public class MemberService {
 			for(int i = 0; i <= forpage; i++) {
 
 				if(page <= 0) {
-			//1페이지일 경우 page가 0이 되는바람에 forpage가 음수로 되어 반복문난리남.
+			//1페이지일 경우 page가 0이 되는바람에 forpage가 음수
 					break;
 				}
 

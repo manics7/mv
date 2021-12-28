@@ -83,9 +83,11 @@ public class MemberController {
 	}
 	
 	@GetMapping("memberUpdateFrm")
-	public String memberUpdateFrm() {
+	public ModelAndView memberUpdateFrm() {
 		
-		return "memberUpdateFrm";
+		mv = mServ.memberUpdateFrm();
+		
+		return mv;
 	}
 	
 	@PostMapping("loginProc")

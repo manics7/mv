@@ -77,7 +77,10 @@ a {
 <script type="text/javascript">
 	$(function() {
 		var lname = "${mb.m_name}";
+		var fav = "${mb.m_like}";
+		
 		$("#mname").html(lname + "님,");
+		$("#fav").html(fav);
 	});
 </script>
 </head>
@@ -92,6 +95,7 @@ a {
 		<div class="main_point_box">
 			<div class="pointbox1">
 				<p>선호 극장</p>
+				<a id="fav"></a>
 			</div>
 			<div class="pointbox2">
 				<p>영화 할인쿠폰</p>

@@ -13,5 +13,5 @@ public class paymentDto {
 	private String payment_method_type;
 	private String amount;
 	private String quantity;
-	private Timestamp approved_at;
+	private Timestamp qpproved_at;
 }

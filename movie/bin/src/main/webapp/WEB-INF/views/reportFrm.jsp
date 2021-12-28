@@ -57,39 +57,35 @@
 		<div class="card shadow">
 			<form name="searchFrm" action="reportSerchFrm" method="post">
 				<div class="card-body">
-					<h4 class="card-title">1:1문의</h4>
+					<h4 class="card-title">신고관리</h4>
 					<input type="text" placeholder="ID 입력" name="m_id"> <input
 						type="submit" value="검색">
 					<table class="table table-hover" id='board_list'>
 						<thead>
 							<tr>
-								<th class="text-center d-none d-md-table-cell">문의번호</th>
-								<th class="text-center d-none d-md-table-cell">문의유형</th>
-								<th class="text-center d-none d-md-table-cell">제목</th>
-								<th class="text-center d-none d-md-table-cell">등록일</th>
+								<th class="text-center d-none d-md-table-cell">신고자ID</th>
+								<th class="text-center d-none d-md-table-cell">신고사유</th>
+								<th class="text-center d-none d-md-table-cell">리뷰내용</th>
+								<th class="text-center d-none d-md-table-cell">작성자ID</th>
+								<th class="text-center d-none d-md-table-cell">신고일</th>
 								<th class="text-center d-none d-md-table-cell">상태</th>
-
+								<th class="text-center d-none d-md-table-cell">관리</th>
 							</tr>
 						</thead>
 						<tbody>
 						<!-- 검색 처리 -->
 						<c:choose>
-						<c:when test="${not empty qList}">
-						<c:forEach var="qitem" items="${qList}">
+						<c:when test="${not empty rpList}">
+						<c:forEach var="rpitem" items="${rpList}">
 								<tr>
-									<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
-									<td class="text-center d-none d-md-table-cell">일반</td>
-									<td class="text-center d-none d-md-table-cell">${qitem.ques_title}</td>
-									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${qitem.ques_date}"
+									<td class="text-center d-none d-md-table-cell">${rpitem.rpid}</td>
+									<td class="text-center d-none d-md-table-cell">${rpitem.rpwhy}</td>
+									<td class="text-center d-none d-md-table-cell">${rpitem.contents}</td>
+									<td class="text-center d-none d-md-table-cell">${rpitem.rptid}</td>
+									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${rpitem.rpdate}"
 										pattern="yyyy-MM-dd"/></td>
-									<td class="text-center d-none d-md-table-cell">
-									<c:if test="${qitem.ques_state == '0'}">
-									미답변
-									</c:if>
-									<c:if test="${qitem.ques_state == '1'} ">
-									답변완료
-									</c:if>
-									</td>
+									<td class="text-center d-none d-md-table-cell">${rpitem.state}</td>
+									<td class="text-center d-none d-md-table-cell"><button onclick="delCheck(${rpitem.mvrnum})">경고 및 삭제</button></td>
 								</tr>
 							</c:forEach>
 						</c:when>
@@ -149,4 +145,13 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+function delCheck(){
+	var conf = confirm("삭제하시겠습니까?");
+	
+	if(conf == true){
+		location.href='./deleteMvReview' + mvrnum;
+	}
+}
+</script>
 </html>
