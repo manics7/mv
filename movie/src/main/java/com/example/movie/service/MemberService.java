@@ -1,6 +1,8 @@
 package com.example.movie.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -110,7 +112,7 @@ public class MemberService {
 			int forpage = page-1;
 
 			int list = listCnt -1 ;
-
+			Collections.reverse(aqList);
 			for(int i = 0; i <= forpage; i++) {
 				//pagenum에 해당하지않는 출력되지 않아야 할 앞의 게시물 리스트에서 삭제
 
@@ -136,7 +138,8 @@ public class MemberService {
 
 				qList.add(que);
 			}
-		}
+		} 
+	
 
 		mv.addObject("qList",qList);
 		//전체 글 갯수
