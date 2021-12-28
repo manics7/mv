@@ -28,8 +28,8 @@ public class ScheduleDetail {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="SCHDETAIL_SEQ", columnDefinition="상영 시간 키")
-	private String schDetailSeq;
+	@Column(name="SCH_DETAIL_SEQ", columnDefinition="상영 시간 키")
+	private Integer schDetailSeq;
 	
 	@Column(name="SCH_DETAIL_START", columnDefinition="시작시간")
 	private String schDetailStart;

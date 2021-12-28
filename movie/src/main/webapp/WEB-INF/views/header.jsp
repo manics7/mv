@@ -13,7 +13,7 @@
 				<li id="login_btn" class="nomal"><a href="#" class="login_btn" style="cursor: pointer;">로그인</a></li>
 				<li class="nomal"><a href="#">회원가입</a></li>
 				<li class="suc"><a href="./logout">로그아웃</a></li>
-				<li class="suc"><a href="#">빠른예매</a></li>
+				<li class="suc" id="modal"><a href="#">빠른예매</a></li>
 
 			</ul>
 		</div>
@@ -91,7 +91,6 @@
 			</div>
 		</div>	
 
-<script src="resource/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		// 영화관 검색 클릭시 하단 메뉴 출력
@@ -135,4 +134,5 @@
 		</div>
 	</div> 
 	
+
 <script type="text/javascript"  src="resource/js/rsrv.js"></script>

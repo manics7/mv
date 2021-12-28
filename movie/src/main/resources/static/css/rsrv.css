@@ -36,10 +36,6 @@
  border: none;
 }
 
-
-
-#movieList > ul > li:hover  {background-color: #f16a1a;}
-
 #sidoList > ul > li {
 /* background-color: #f4f4f4; */
 color:#495057;
@@ -67,16 +63,14 @@ color:#495057;
 #timeList {
  overflow: auto;
  height: auto; 
+ min-height: 300px;  
  max-height: 300px;  
 }
 
-#movieInfo {
- overflow: auto;
- height: auto; 
- max-height: 250px;  
-}
+#movieInfo {height: 165px;}
 
-#theaterList > ul > li:hover  {background-color: #f16a1a;}
-#sidoList > ul > li:hover  {background-color: #f16a1a;}
-#dateList > ul > li:hover  {background-color: #f16a1a;}
-#timeList > ul > li:hover  {	background-color: #f16a1a;}
+#movieList > ul > li:hover  {background-color: #f16a1a; color: white;}
+#theaterList > ul > li:hover  {background-color: #f16a1a; color: white;}
+#sidoList > ul > li:hover  {background-color: #f16a1a; color: white;}
+#dateList > ul > li:hover  {background-color: #f16a1a; color: white;}
+#timeList > ul > li:hover  {background-color: #f16a1a; color: white;}

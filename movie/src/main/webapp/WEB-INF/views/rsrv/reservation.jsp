@@ -52,20 +52,8 @@ $(document).ready(function() {
 							</ul>
 				        </div>				        
 						  <div class="col-md-12 mt-2 pr-0 overflow-auto" id="movieList">
-						    <ul class="list-group list-group-flush">
-					           <li class="list-group-item">Lorem</li>
-					           <li class="list-group-item">Ipsum</li>
-					           <li class="list-group-item">Dolor</li>
-					           <li class="list-group-item">Dolor</li>
-					           <li class="list-group-item">Dolor</li>
-					           <li class="list-group-item">Dolor</li>
-					           <li class="list-group-item">Dolor</li>
-					           <li class="list-group-item">Dolor</li>
-					           <li class="list-group-item">Dolor</li>
-					  
-					         </ul>
-						  </div>
-						
+						    <ul class="list-group list-group-flush"></ul>
+						  </div>						
 			 		</div>
 			 		
 			 		<div class="col-md-3 border-right">
@@ -79,49 +67,30 @@ $(document).ready(function() {
 							            				          
 				        
 			 			<div class="row mt-2">
-				 			<div class="col-4 pl-0 pr-0" id="sidoList">			
+				 			<div class="col-4 px-0" id="sidoList">			
 				 				 <ul class="list-group">
-						           <li class="list-group-item">전체</li>
-						           <li class="list-group-item">서울</li>
-						           <li class="list-group-item">부산</li>
-						           <li class="list-group-item">대구</li>
-						           <li class="list-group-item">인천</li>
-						           <li class="list-group-item">광주</li>
-						           <li class="list-group-item">대전</li>
-						           <li class="list-group-item">울산</li>
-						           <li class="list-group-item">세종</li>
-						           <li class="list-group-item">경기</li>
-						           <li class="list-group-item">강원</li>
-						           <li class="list-group-item">충북</li>
-						           <li class="list-group-item">충남</li>
-						           <li class="list-group-item">전북</li>
-						           <li class="list-group-item">전남</li>
-						           <li class="list-group-item">경북</li>
-						           <li class="list-group-item">경남</li>
-						           <li class="list-group-item">제주</li>
+						           <li class="list-group-item my-0 py-2">전체</li>
+						           <li class="list-group-item my-0 py-2">서울</li>
+						           <li class="list-group-item my-0 py-2">부산</li>
+						           <li class="list-group-item my-0 py-2">대구</li>
+						           <li class="list-group-item my-0 py-2">인천</li>
+						           <li class="list-group-item my-0 py-2">광주</li>
+						           <li class="list-group-item my-0 py-2">대전</li>
+						           <li class="list-group-item my-0 py-2">울산</li>
+						           <li class="list-group-item my-0 py-2">세종</li>
+						           <li class="list-group-item my-0 py-2">경기</li>
+						           <li class="list-group-item my-0 py-2">강원</li>
+						           <li class="list-group-item my-0 py-2">충북</li>
+						           <li class="list-group-item my-0 py-2">충남</li>
+						           <li class="list-group-item my-0 py-2">전북</li>
+						           <li class="list-group-item my-0 py-2">전남</li>
+						           <li class="list-group-item my-0 py-2">경북</li>
+						           <li class="list-group-item my-0 py-2">경남</li>
+						           <li class="list-group-item my-0 py-2">제주</li>
 						         </ul> 				
 			 				</div>
 			 				<div class="col-8 pl-0 pr-0" id="theaterList">			 				
-					 			<ul class="list-group ">
-						           <li class="list-group-item">Lorem</li>
-						           <li class="list-group-item">Ipsum</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						           <li class="list-group-item">Dolor</li>
-						         </ul>			
+					 			<ul class="list-group "></ul>			
 			 				</div>
 				 		</div>	
 			 		</div>
@@ -139,34 +108,23 @@ $(document).ready(function() {
 			 						<p class="lead text-center" ><b>1관 2D</b></p>
 			 					</div>
 			 					<div class="col-md-12 pl-0 pr-0" id="timeList">	
-				 					<ul class="list-group list-group-flush">
-							           <li class="list-group-item">Lorem</li>
-							           <li class="list-group-item">Ipsum</li>
-							           <li class="list-group-item">Dolor</li>
-							           <li class="list-group-item">Dolor</li>
-							           <li class="list-group-item">Dolor</li>
-							           <li class="list-group-item">Dolor</li>
-							           <li class="list-group-item">Dolor</li>
-							           <li class="list-group-item">Dolor</li>
-							         </ul>
+				 					<ul class="list-group list-group-flush"></ul>
 						         </div>	
-						         <div class="card mt-1 pl-0 pr-0" style="max-height: 200px;" id="movieInfo">
+						         <div class="card mt-4 pl-0 pr-0" id="movieInfo">
 								  <div class="row no-gutters">
-								    <div class="col-md-5 pl-3">
-								      <img class="img-fluid mt-3" src="resource/images/movie/mm.thumb.jpg" alt="..." >
-								    </div>
+								    <div class="col-md-5 pl-3" id="thumnail"></div>
 								    <div class="col-md-7">
-								      <div class="card-body">
-								       <h6 class="card-subtitle font-weight-bold">아아아아</h6>
-								        <p class="card-text mt-2 mb-2">오오 극장</p>
-								        <p class="card-text mb-2">1관 2D</p>
-								        <p class="card-text mb-2">21.12.26 (일)</p>
-								        <p class="card-text mb-2">11:30 ~13:22</p>
+								      <div class="card-body pt-1">
+								       <h6 class="card-subtitle font-weight-bold" id="movieNm"></h6>
+								        <p class="card-text mt-2 mb-2" id="theaterNm"></p>
+								        <p class="card-text mb-2" id="roomNm">1관 2D</p>
+								        <p class="card-text mb-2" id="schDate"></p>
+								        <p class="card-text mb-2" id="schTime">11:30 ~13:22</p>
 								      </div>
 								    </div>
 								  </div>
 								</div>
-						         <div class="col-md-12">
+						         <div class="col-md-12 mt-2">
 						     	    <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>
 						         </div> 
 						         

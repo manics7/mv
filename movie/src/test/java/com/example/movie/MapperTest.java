@@ -2,22 +2,21 @@ package com.example.movie;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.movie.common.AwsS3;
 import com.example.movie.repository.ReservationRepository;
 import com.example.movie.sample.BonusMapper;
 
@@ -30,14 +29,13 @@ class MapperTest {
 	@Autowired
 	ReservationRepository repository;
 	
-	@Test
-	public void insertTest() {
-		
-	}
+	@Autowired
+	AwsS3 awsS3;
+	
 	
 	
 	//날짜 구하기
-	@Test
+	//@Test
 	void inItDate() {
 		List<Map<String, String>> dateList = new ArrayList<Map<String,String>>();
 		List<DayOfWeek>  days = new ArrayList<DayOfWeek>();
@@ -66,6 +64,19 @@ class MapperTest {
 		System.out.println(dateList.toString());
 	}
 	
+	//@Test
+	void StringToDate() {
+		LocalDate now = LocalDate.now();
+		String date= now.toString();
+		
+		LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		
+		System.out.println(dateTime.toString());
+
+	}
 	
+	@Test
+	void getUrl() {
+	}
 
 }

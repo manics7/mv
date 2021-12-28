@@ -15,6 +15,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,10 @@ import lombok.ToString;
 @DynamicInsert // null 컬럼 입력 제외
 @DynamicUpdate  // null 컬럼 업데이트 제외
 @Entity
-@Table(name = "MV_OFFICIAL")
+@Table(name = "MVOFFICIAL")
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class MovieOfficial {
 
 	@Id	
@@ -39,16 +41,16 @@ public class MovieOfficial {
 	@Column(name="MOVIE_CONTENT", columnDefinition="줄거리")
 	private String movieContent;
 	
-	@Column(name="SHOWTM", columnDefinition="상영시간")
+	@Column(name="SHOW_TM", columnDefinition="상영시간")
 	private Integer showTm;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	@Column(name="OPENDT", columnDefinition="개봉연도")
+	@Column(name="OPEN_DT", columnDefinition="개봉연도")
 	private Date openDt;
 	
-	@Column(name="GENRENM", columnDefinition="장르")
+	@Column(name="GENRE_NM", columnDefinition="장르")
 	private String genreNm;
 	
 	@Column(name="DIRECTORS", columnDefinition="감독")
