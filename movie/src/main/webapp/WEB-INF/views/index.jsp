@@ -1,34 +1,97 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="resource/css/home.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-	rel="stylesheet">
 <meta charset="UTF-8">
-<script src="https://kit.fontawesome.com/4bf78bd3aa.js"
-	crossorigin="anonymous"></script>
-<title>main</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>영화 보러 가자~</title>
+<link rel="stylesheet" type="text/css" href="resource/css/hf.css">
+
+<link rel="stylesheet" type="text/css" href="resource/css/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<link rel="stylesheet" type="text/css" href="resource/css/bootstrap.css">
+<script src="resource/js/jquery-3.6.0.min.js"></script>
+<script src="resource/js/bootstrap.bundle.js"></script>
+<script src="resource/js/jquery.serializeObject.js"></script>
+
+
 </head>
 <body>
-	<h1>TestPage</h1>
-<div style="border : 1px solid gray; padding: 3.5px; width: 200px;">
+<div class="main_wrap">
 
-<a href="./mmanage?pageNum=1">회원관리</a> <br>
-	<a href="./quesboard?pageNum=1">문의게시판</a><br>
-	<a href="./thDetail">영화관 상세 페이지</a><br>
-</div> <br>
+	<div class="slider" style="border: none;">
+    <div>
+    	<img src="https://caching2.lottecinema.co.kr/lotte_image/2021/Clifford/1224/Clifford_1920774.jpg"
+    		 data-video="https://caching2.lottecinema.co.kr/lotte_image/2021/Clifford/1224/Clifford_1280720.mp4"
+    		 alt="클리포드 더 빅 레드독 사랑받는 만큼 커져요 1월 12일 대개봉 전체관람가">
+    </div>
+    <div>
+    	<img src="https://caching2.lottecinema.co.kr/lotte_image/2021/Ts/Ts_1920774.jpg"
+			 data-video="https://caching2.lottecinema.co.kr/lotte_image/2021/Ts/Ts_1280720.mp4"
+    		 alt="특송 1월 12일 대개봉 새해를 여는 첫 번째 범죄 오락 액션 15세 이상 관람가">
+    </div>
+    <div>
+    	<img src="https://caching2.lottecinema.co.kr/lotte_image/2021/Mat/1221/Mat_1920774.jpg"
+    		 data-video="https://caching2.lottecinema.co.kr/lotte_image/2021/Mat/1221/Mat_1280720.mp4"
+    		 alt="매트릭스 리저렉션 SF 액션 블록버스터의 전설 12월 22일 대개봉 모든것이 시작된 곳 전설이 부활한다 15세이상관람가">
+    </div>
+</div>
+
+	<header style="position: absolute; top: 0; left: 0;">
+		<!-- --------------- header --------------- -->
+		<jsp:include page="header.jsp"></jsp:include>
+	</header>
+
+	<section>
+	 	<div id="border">
+	 	</div>
+	 	<div id="movie_wrap">
+	 		<div id="movie_boxoffice">
+ 				박스오피스
+	 		</div>
+	 		<div class="boxoffice_list">
+	 			
+	 		</div>
+	 	</div>
+	 	<div id="event">
+	 	</div>
+	 	
+	</section>
 	
-	<form action="./thDetail">
-		영화 이름 : <input type="text" name="movie_nm"><br> 
-		상영 날짜 : <input type="text" name="sch_date"><br>
-		시작 시간 : <input type="text" name="sch_detail_start"><br> 
-		종료 시간 : <input type="text" name="sch_detail_end"><br> <br>
-		<input type="submit" value="상세페이지 이동">
-	</form>
+	<footer>
+		<!-- --------------- footer --------------- -->
+		<jsp:include page="footer.jsp"></jsp:include>
+	</footer>
+
+</div>
 
 </body>
+
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		//메시지 출력 부분
+		var msg = "${msg}";
+		if(msg != ""){
+			alert(msg);
+		}
+		
+		// 로그인하면 로그인 정보 출력, 헤더 메뉴 변경
+		// "${userInfo.m_name}" - userInfo는 service에서 session에 저장한 이름
+		var userInfo = "${userInfo.m_name}";
+		
+		if(userInfo != "") {
+			$("#userName").html(userInfo + " 님");
+			$(".suc").css("display", "inline-block");
+			$(".nomal").css("display", "none");
+		}
+		
+		$(document).ready(function(){
+		      $('.slider').bxSlider();
+		    });
+		
+	});
+</script>
+
 </html>

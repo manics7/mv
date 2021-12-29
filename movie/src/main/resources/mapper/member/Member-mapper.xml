@@ -4,6 +4,7 @@
 
 <mapper namespace="com.example.movie.mapper.MemberMapper">
 
+
 <select id="getList" parameterType="HashMap"
 		resultType="com.example.movie.dto.MemberDto">
 				<![CDATA[
@@ -13,19 +14,6 @@
 		]]>
 	</select>
 	
-	<!--
-	
-	<select id="getList" parameterType="HashMap"
-		resultType="com.example.movie.dto.MemberDto">
-				
-		SELECT * FROM member
-		WHERE ROWNUM between 1 and 20
-	
-	</select>
-	
-	  -->
-	
-
 	<select id="getBoardCnt" resultType="Integer">
 		SELECT COUNT(*) FROM v_mem
 	</select>
@@ -44,14 +32,27 @@
 		SELECT count(*) FROM member where m_id = #{m_id}
 	</select>
 
-<insert id="">
 
-		
-
-
-</insert>
-
-
+	<!-- 이용자 회원가입 아이디 중복체크 -->
+	<select id="idCheck" parameterType="String" resultType="Integer">
+		select count(*) from member where m_id=#{mid}	
+	</select>
+	
+	<!-- 이용자 회원 가입 -->
+	<insert id="memberInsert" parameterType="com.example.movie.dto.MemberDto">
+		insert into member values (#{m_id}, #{m_pw}, #{m_birth}, #{m_tel}, #{m_like}, #{m_email}, #{m_name}, #{m_gender}, default, default, default)
+	</insert>
+	
+	<!-- 이용자 로그인 -->
+	<select id="getPw" parameterType="String" resultType="String">
+		select m_pw from member where m_id=#{m_id}
+		<!-- mapper에서 잡아준 매개변수 = #{ } -->
+	</select>
+	
+	<!-- 이용자 검색(세션 저장용?) -->
+	<select id="getMember" parameterType="String" resultType="com.example.movie.dto.MemberDto">
+		select * from member where m_id=#{m_id}
+	</select>
 
 </mapper>
 
