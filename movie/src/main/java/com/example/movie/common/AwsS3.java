@@ -27,6 +27,7 @@ import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -40,10 +41,11 @@ public class AwsS3 {
 
 	//private HttpSession httpSession;
 
+	@JsonIgnore
 	@Value("${aws.s3.bucket}")
 	public String bucket;
 
-
+	@JsonIgnore
 	@Value("${aws.s3.bucketURL}")
 	public String bucketURL;
 

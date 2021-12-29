@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BusinessDto;
-import com.example.movie.dto.MemberDto;
 import com.example.movie.service.BusinessService;
 import com.example.movie.service.MemberService;
 
@@ -37,7 +36,7 @@ public class HomeController {
 		
 		
 		
-		return "index";
+		return "MainTestsehun";
 	}
 	
 	// 이용자 회원가입 페이지 이동

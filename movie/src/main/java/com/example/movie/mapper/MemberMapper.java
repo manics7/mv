@@ -6,17 +6,18 @@ import java.util.Map;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.config.MybatisMapper;
-import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.Member;
+import com.example.movie.dto.thdetailDto;
 
 public interface MemberMapper  extends MybatisMapper {
 	//회원정보 목록 가져오기
-	List<MemberDto> getList(Map<String, Integer> mmap);
+	List<Member> getList(Map<String, Integer> mmap);
 	//전체 글 개수 구하기
 	int getBoardCnt();
 	//회원 삭제 쿼리 
 	void deleteMember(String m_id);
 	//회원 검색 쿼리
-	List<MemberDto> selectMember(String m_id);
+	List<Member> selectMember(String m_id);
 	
 	void getmboardSelect(String m_id);
 	int getsearchBoardCnt(String m_id);
@@ -27,12 +28,12 @@ public interface MemberMapper  extends MybatisMapper {
 	public int idCheck(String mid);
 	
 	// 이용자 회원 가입
-	public void memberInsert(MemberDto member);
+	public void memberInsert(Member member);
 
 	// 이용자 로그인
-	public String getPw(String m_id);
+	public String getPw(String mid);
 	
 	// 이용자 검색(세션 저장용?)
-	public MemberDto getMember(String m_id);
+	public Member getMember(String mid);
 	
 }

@@ -8,18 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import org.springframework.web.servlet.ModelAndView;
-
-
-import com.example.movie.dto.quesboardDto;
-import com.example.movie.service.MemberService;
-
-
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.Member;
+import com.example.movie.dto.thdetailDto;
 import com.example.movie.service.MemberService;
 
 import lombok.extern.java.Log;
@@ -53,7 +47,7 @@ public class MemberController {
 
 //		mv = mServ.getMemberList(Integer.parseInt(pageNum));
 
-		List<MemberDto> mList = mServ.getMemberList(Integer.parseInt(pageNum));
+		List<Member> mList = mServ.getMemberList(Integer.parseInt(pageNum));
 		//System.out.println(mList+"mList");
 		// 화면에 전송.
 		mv.addObject("mList", mList);
@@ -72,7 +66,7 @@ public class MemberController {
 	}
 
 
-n
+
 	
 	@GetMapping
 	public String deleteMember(String m_id) {
@@ -117,19 +111,17 @@ n
 		
 		return mv;
 	}
-	@GetMapping("/thDetail")
-	public ModelAndView thDetail(thdetailDto thdto) {
-		
-		ModelAndView mv = mServ.thdetailInsert(thdto);
-		
-		return mv;
-=======
-	@Autowired
-	private MemberService mServ;
+//	@GetMapping("/thDetail")
+//	public ModelAndView thDetail(thdetailDto thdto) {
+//		
+//		ModelAndView mv = mServ.thdetailInsert(thdto);
+//		
+//		return mv;
+
 	
 	// 이용자 회원가입
 		@PostMapping("memberInsert")
-		public String memberInsert(MemberDto member, RedirectAttributes rttr) {
+		public String memberInsert(Member member, RedirectAttributes rttr) {
 			log.info("memberInsert()");
 			String view = mServ.memberInsert(member, rttr);
 			
@@ -148,7 +140,7 @@ n
 	
 	// 이용자 로그인
 	@PostMapping("loginProc")
-	public String loginProc(MemberDto member, RedirectAttributes rttr) {
+	public String loginProc(Member member, RedirectAttributes rttr) {
 		log.info("loginProc()");
 		String view = mServ.loginProc(member, rttr);
 		

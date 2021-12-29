@@ -5,12 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.movie.dto.quesboardDto;
-
-import com.example.movie.mapper.AdminMapper;
-import com.example.movie.util.PagingUtil;
-
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.Member;
+import com.example.movie.dto.quesboardDto;
+import com.example.movie.dto.thdetailDto;
+import com.example.movie.mapper.AdminMapper;
 import com.example.movie.mapper.MemberMapper;
+import com.example.movie.util.PagingUtil;
 
 
 @Service
@@ -44,7 +42,7 @@ public class MemberService {
 	private int listCnt = 4;//페이지 당 게시글 개수
 
 //	public ModelAndView getMemberList(Integer pageNum) {
-	public List<MemberDto> getMemberList(Integer pageNum) {
+	public List<Member> getMemberList(Integer pageNum) {
 		// TODO Auto-generated method stub
 //		mv = new ModelAndView();
 //		pageNum = null;
@@ -62,9 +60,9 @@ System.out.println("pageNum"+pageNum);
 	    //설정하는 부분을 처리하여 10 대신 사용.
 		//페이지 당 게시글 개수와 페이지넘버 넣는것.
 		System.out.println("listCnt = "+listCnt);			
-		List<MemberDto> mList = mMap.getList(mmap);
+		List<Member> mList = mMapper.getList(mmap);
 System.out.println("mList.size = "+mList.size());		
-System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져오는 mapper
+System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가져오는 mapper
 //페이징 처리
 //String pageHtml = getPaging(pageNum);
 
@@ -90,7 +88,7 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		String pageHtml = null;
 
 		//전체 글 개수 구하기(DAO) -> MAPPER 거쳐서 102라는 숫자가 나옴.
-		int maxNum = mMap.getBoardCnt();
+		int maxNum = mMapper.getBoardCnt();
 		//한 페이지에 보여질 페이지 번호 개수 (하단에 조그맣게)
 		int pageCnt = 10;
 		String listName = "mmanage";
@@ -110,7 +108,7 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 	
 	public String deletemember(String m_id) {
 		
-		mMap.deleteMember(m_id);
+		mMapper.deleteMember(m_id);
 		
 		return null;
 	}
@@ -119,7 +117,7 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		
 	ModelAndView mv = new ModelAndView();
 	
-	List<MemberDto> mselectList = mMap.selectMember(m_id);
+	List<Member> mselectList = mMapper.selectMember(m_id);
 		
 	
 	System.out.println("검색 결과 = "+mselectList);
@@ -143,7 +141,7 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		String pageHtml = null;
 		int num = 1;
 		//전체 글 개수 구하기(DAO) -> MAPPER 거쳐서 102라는 숫자가 나옴.
-		int maxNum = mMap.getsearchBoardCnt(m_id); // 회원 id로 작성한 글 갯수 출력.
+		int maxNum = mMapper.getsearchBoardCnt(m_id); // 회원 id로 작성한 글 갯수 출력.
 		//한 페이지에 보여질 페이지 번호 개수 (하단에 조그맣게)
 		int pageCnt = 5;
 		String listName = "mmanage";
@@ -161,7 +159,7 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 
 	public ModelAndView thdetailInsert(thdetailDto thdto) {
 		ModelAndView mv = new ModelAndView();
-		List<thdetailDto> thdetailList = mMap.thdetailInsert(thdto);
+		List<thdetailDto> thdetailList = mMapper.thdetailInsert(thdto);
 		mv.addObject("thdetail", thdetailList);
 		return mv;
 	}
@@ -184,7 +182,7 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 	
 	// 이용자 회원가입
 	@Transactional
-	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
+	public String memberInsert(Member member, RedirectAttributes rttr) {
 		String view = null;
 		String msg = null;
 		
@@ -193,10 +191,10 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 		
 		// Dto에서 비밀번호를 꺼내고, 인코더를 사용해서 암호화
-		String encPw = pwEncoder.encode(member.getM_pw());
+		String encPw = pwEncoder.encode(member.getMPw());
 		
 		// 인코딩한 비밀번호를 Dto에 설정
-		member.setM_pw(encPw);
+		member.setMPw(encPw);
 		
 		try {
 			mMapper.memberInsert(member);
@@ -215,19 +213,19 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 	}
 
 	// 이용자 로그인
-	public String loginProc(MemberDto member, RedirectAttributes rttr) {
+	public String loginProc(Member member, RedirectAttributes rttr) {
 		String view = null;
 		String msg = null;
 		
 		// pw = 암호화되어 저장된 비밀번호, encPw
-		String pw = mMapper.getPw(member.getM_id());
+		String pw = mMapper.getPw(member.getMId());
 		
 		if(pw != null) {
 			BCryptPasswordEncoder enc = new BCryptPasswordEncoder();
 			
-			if(enc.matches(member.getM_pw(), pw)) {
+			if(enc.matches(member.getMPw(), pw)) {
 				// 로그인 성공 - 세션에 회원 정보 저장, member
-				member = mMapper.getMember(member.getM_id());
+				member = mMapper.getMember(member.getMId());
 				
 				// member 정보를 세션에 저장
 				session.setAttribute("userInfo", member);

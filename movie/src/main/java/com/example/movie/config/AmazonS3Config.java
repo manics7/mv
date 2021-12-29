@@ -12,7 +12,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 @Configuration
-@PropertySource(value = "aws.properties")
+@PropertySource(value = "aws.properties",ignoreResourceNotFound = true)
 public class AmazonS3Config {
 
 
