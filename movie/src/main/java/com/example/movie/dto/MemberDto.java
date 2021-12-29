@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class MemberDto {
-
+  
 	private String m_id;
 	private String m_pw;
 	private String m_name;
@@ -14,4 +14,4 @@ public class MemberDto {
 	private int m_gender;
 	private int m_like;	
 	
-}
+

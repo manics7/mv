@@ -3,7 +3,31 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.movie.mapper.AdminMapper">
-	
+
+	<select id="getQuesList" parameterType="HashMap"
+		resultType="com.example.movie.dto.quesboardDto">
+	<![CDATA[
+		SELECT * FROM question
+		WHERE ROWNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND ROWNUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+
+	<select id="getBoardCnt" resultType="integer">
+		SELECT COUNT(*) FROM
+		QUESTION
+	</select>
+
+	<select id="getboardSelect"
+		resultType="com.example.movie.dto.quesboardDto">
+		SELECT * FROM QUESTION where m_id = #{m_id}
+	</select>
+
+	<select id="getboardRead"
+		resultType="com.example.movie.dto.quesboardDto">
+		SELECT * FROM QUESTION where ques_title = #{ques_title}
+	</select>
+
 </mapper>
 
 
