@@ -1,16 +1,19 @@
 package com.example.movie.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.movie.controller.AmazonS3Controller;
+import com.example.movie.common.AwsS3;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.TestDto;
 import com.example.movie.mapper.BusinessMapper;
@@ -22,7 +25,7 @@ public class BusinessService {
 	@Autowired
 	private HttpSession session;
 	@Autowired
-	private AmazonS3Controller amazonS3;
+	private AwsS3 awsS3;
 	
 	ModelAndView mv;
 	
@@ -140,7 +143,8 @@ public class BusinessService {
 			bMapper.insertMovie(tDto);
 			
 			if(check.equals("1")) {
-				amazonS3.uploadFile2(multi);
+				List<MultipartFile> multipartFiles = multi.getFiles("");
+				awsS3.uploadFile(multipartFiles);
 			}
 			
 			view = "redirect:/";
