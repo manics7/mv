@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +28,9 @@
 					<h2>내 영화관</h2>
 				</div>
 				<div id="th_cont">
+					<div>
+						<p>등록된 영화관이 없습니다</p>
+					</div>
 					<button id="th-btn" onclick="location.href='./thaddFrm'">등록</button>
 				</div>					
 			</div>

@@ -39,7 +39,7 @@ public class BusinessController {
 		return view;
 	}
 	
-	
+	//영화관 목록 페이지
 	@GetMapping("theater")
 	public String theater() {
 		logger.info("theater()");

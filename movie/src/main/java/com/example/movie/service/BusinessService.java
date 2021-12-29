@@ -43,8 +43,8 @@ public class BusinessService {
 		String parking = multi.getParameter("thpark");//주차 안내
 		String introduce = multi.getParameter("thintro");//영화관 소개
 		String regeion = multi.getParameter("reNum");//지역 코드
-		String check = multi.getParameter("fileCheck");//로고 이미지
-		String check2 = multi.getParameter("fileCheck2");//영화관 사진
+		String check = multi.getParameter("logoCheck");//로고 이미지
+		String check2 = multi.getParameter("theaterCheck");//영화관 사진
 		
 		//textarea는 실제 데이터 앞 뒤에 공백이 발생하는 경우가 있어서
 		parking = parking.trim();
@@ -65,20 +65,31 @@ public class BusinessService {
 			//check는 로고 이미지, check2는 영화관 사진
 			
 			if(check.equals("1") || check2.equals("1")) {
-	
-				List<MultipartFile> files = multi.getFiles("files");                                                    
-				List<String> fn = amazonS3Service.uploadFile(files);
+				
+				//로고 파일의 이름 가져오기
+				List<MultipartFile> logoFiles = multi.getFiles("logoFiles");                                                    
+				List<String> logoName = amazonS3Service.uploadFile(logoFiles);
 					
-				for(int i = 0; i < fn.size(); i++) {
-					String fileName = amazonS3Service.getFileURL(bucket, bucketURL+fn.get(i));
+				for(int i = 0; i < logoName.size(); i++) {
+					String LfileName = amazonS3Service.getFileURL(bucket, bucketURL+logoName.get(i));
 						
-					theater.setTh_logo(fileName);
+					theater.setTh_logo(LfileName);
+				}
+				
+				//영화관 사진 파일의 이름 가져오기
+				List<MultipartFile> theaterFiles = multi.getFiles("theaterFiles");
+				List<String> theaterName = amazonS3Service.uploadFile(theaterFiles);
+				
+				for(int i = 0; i < theaterName.size(); i++) {
+					String TfileName = amazonS3Service.getFileURL(bucket, bucketURL+theaterName.get(i));
+					
+					theater.setTh_image(TfileName);
+					
+					//dto에 담은 내용을 mapper로 넘기기  
+					buMapper.theaterAdd(theater); 
 				}
 			}
 			
-					
-			//dto에 담은 내용을 mapper로 넘기기
-			buMapper.theaterAdd(theater);                                                                          
 			view = "redirect:theater";
 			msg = "등록 성공";
 			

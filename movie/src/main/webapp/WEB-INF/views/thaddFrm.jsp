@@ -6,119 +6,67 @@
 <meta charset="UTF-8">
 <title>영화관 등록</title>
 <link rel="stylesheet" href="resource/css/theaterList.css">
+<link rel="stylesheet" href="resource/css/theaterAdd.css">
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script src="resource/js/jquery.serializeObject.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-
-		//업로드할 파일을 선택하면 'upload-name' 요소에
-		//파일 이름을 출력하고, 'fileCheck' 요소의 value를
-		//1로 변경
-		$("#file").on("change", function() {
-			//파일 입력창에서 선택한 파일 목록 가져오기
-			var files = $("#file")[0].files;
-			console.log(files);
-
-			var fileName = "";
-
-			if (files.length > 1) {//하나 이상의 파일 선택 시
-				fileName = files[0].name + " 외 " + (files.length - 1) + "개";
-			} else if (files.length == 1) {
-				fileName = files[0].name;
-			}
-
-			$(".upload-name").val(fileName);
-
-			//fileCheck 부분 변경
-			if (fileName == "") {//파일 취소 시.
-				$("#filecheck").val(0);
-				$(".upload-name").val("파일선택");
-			} else {//파일 선택 시.
-				$("#filecheck").val(1);
-			}
-		});
+$(document).ready(function() {
+	
+	//'로고' 파일을 선택할 경우
+	$("#logoFile").on("change", function() {
+		//로고 사진 파일 입력창에서 선택한 파일의 목록 가져오기
+		var Lfiles = $("#logoFile")[0].files;
+		console.log(Lfiles);
 		
-		$("#file2").on("change", function() {
-			//파일 입력창에서 선택한 파일 목록 가져오기
-			var files = $("#file2")[0].files;
-			console.log(files);
-
-			var fileName = "";
-
-			if (files.length > 1) {//하나 이상의 파일 선택 시
-				fileName = files[0].name + " 외 " + (files.length - 1) + "개";
-			} else if (files.length == 1) {
-				fileName = files[0].name;
-			}
-
-			$(".upload-name2").val(fileName);
-
-			//fileCheck 부분 변경
-			if (fileName == "") {//파일 취소 시.
-				$("#filecheck2").val(0);
-				$(".upload-name2").val("파일선택");
-			} else {//파일 선택 시.
-				$("#filecheck2").val(1);
-			}
-		});
-
-		$("#uploadBtn").on("click", function() {
-			console.log("upload");
-			//var form = $('#uploadForm')[0]
-			var formData = new FormData();
-
-			var files = $("#file")[0].files;
-
-			for (i = 0; i < files.length; i++) {
-				formData.append("uploadFile", files[i]);
-			}
-
-			$.ajax({
-				type : "POST",
-				//url : "/fileUpload",
-				url : "/fileUpload2",
-				enctype : 'multipart/form-data',
-				processData : false,
-				contentType : false,
-				data : formData,
-				success : function(res) {
-					console.log(res);
-				},
-				err : function(err) {
-					console.log("err:", err)
-				}
-			});
-		});
+		var LfileName = "";
 		
-		$("#uploadBtn2").on("click", function() {
-			console.log("upload");
-			//var form = $('#uploadForm')[0]
-			var formData = new FormData();
-
-			var files = $("#file2")[0].files;
-
-			for (i = 0; i < files.length; i++) {
-				formData.append("uploadFile2", files[i]);
-			}
-
-			$.ajax({
-				type : "POST",
-				//url : "/fileUpload",
-				url : "/fileUpload2",
-				enctype : 'multipart/form-data',
-				processData : false,
-				contentType : false,
-				data : formData,
-				success : function(res) {
-					console.log(res);
-				},
-				err : function(err) {
-					console.log("err:", err)
-				}
-			});
-		});
-
-	})
+		//'파일선택' 부분에 파일 이름 표시
+		if(Lfiles.length > 1) {//한 개 이상의 파일을 선택할 경우
+			LfileName = Lfiles[0].name + " 외 " + (Lfiles.length - 1) + "개";
+		} else if (Lfiles.length == 1) {
+			LfileName = Lfiles[0].name;
+		}
+		
+		$(".logo-name").val(LfileName);
+		
+		//파일이 선택 됐는지 안 됐는지 체크하는 부분
+		if(LfileName == "") {//취소할 경우
+			$("#logo-check").val(0);
+			$(".logo-name").val("파일선택");
+		} else {//파일을 선택할 경우
+			$("#logo-check").val(1);
+		}
+		
+	});
+	
+	//'영화관 사진' 파일을 선택할 경우
+	$("#theaterFile").on("change", function() {
+		//영화관 사진 파일 입력창에서 선택한 파일의 목록 가져오기
+		var Tfiles = $("#theaterFile")[0].files;
+		console.log(Tfiles);
+		
+		var TfileName = "";
+		
+		//'파일선택' 부분에 파일 이름 표시
+		if(Tfiles.length > 1) {//하나 이상의 파일을 선택할 경우
+			TfileName = Tfiles[0].name + " 외 " + (Tfiles.length - 1) + "개";
+		} else if(Tfiles.length == 1) {
+			TfileName = Tfiles[0].name;
+		}
+		
+		$(".theater-name").val(TfileName);
+		
+		//파일이 선택 됐는지 안 됐는지 체크하는 부분
+		if(TfileName == "") {//취소할 경우
+			$("#theater-check").val(0);
+			$(".theater-name").val("파일선택");
+		} else {//파일을 선택할 경우
+			$("#theater-check").val(1);
+		}
+		
+	});
+	
+}); 
 </script>
 </head>
 <body>
@@ -143,7 +91,7 @@
 				<div id="thadd_cont">
 					<form method="post" enctype="multipart/form-data"
 						action="./theaterAdd" class="thadd_form">
-						<input type="hidden" name="bid" value="btest03">
+						<input type="hidden" name="bid" value="btest02">
 						<span>영화관 이름</span><br>
 						<input type="text" title="영화관 이름" name="thname"><br>
 						<span>주소(오시는 길)</span><br>
@@ -169,18 +117,18 @@
 							<option value="39">제주</option>
 						</select><br>
 						<span>로고 이미지</span>
-						<label for="file">업로드</label>
-						<input type="file" name="files" id="file" multiple>
-						<input type="text" class="upload-name" value="파일선택" readonly>
-						<!-- 업로드할 파일이 있으면 1, 없으면 0 -->
-						<input type="hidden" id="filecheck" value="0" name="fileCheck"><br>
+							<label for="logoFile">업로드</label>
+							<input type="file" name="logoFiles" id="logoFile" multiple>
+							<input type="text" class="logo-name" value="파일선택" readonly>
+							<!-- 업로드할 파일이 있으면 1, 없으면 0 -->
+							<input type="hidden" id="logo-check" value="0" name="logoCheck"><br>
 						<span>영화관 사진</span>
-						<label for="file">업로드</label>
-						<input type="file" name="files" id="file2" multiple>
-						<input type="text" class="upload-name2" value="파일선택" readonly>
-						<!-- 업로드할 파일이 있으면 1, 없으면 0 -->
-						<input type="hidden" id="filecheck2" value="0" name="fileCheck2"><br>
-						<input type="submit" class="thadd-btn" value="등록" id="uploadBtn">
+							<label for="theaterFile">업로드</label>
+							<input type="file" name="theaterFiles" id="theaterFile" multiple>
+							<input type="text" class="theater-name" value="파일선택" readonly>
+							<!-- 업로드할 파일이 있으면 1, 없으면 0 -->
+							<input type="hidden" id="theater-check" value="0" name="theaterCheck"><br>
+							<input type="submit" class="thadd-btn" value="등록" id="uploadBtn">
 					</form>
  				</div>	
 			</div>	

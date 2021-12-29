@@ -8,9 +8,9 @@
 	<insert id="theaterAdd" parameterType="com.example.movie.dto.TheaterDto">
 		INSERT INTO theater
 		VALUES (th_code_seq.NEXTVAL, #{b_id}, #{th_name}, #{th_logo}, #{th_location},
-		 #{th_introduce}, #{th_areacode}, #{th_parking}, NULL, #{th_tel})
+		 #{th_introduce}, #{th_areacode}, #{th_parking}, #{th_image}, #{th_tel})
 	</insert>
-	
+
 </mapper>
 
 
