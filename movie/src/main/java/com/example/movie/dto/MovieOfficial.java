@@ -25,7 +25,7 @@ import lombok.ToString;
 @DynamicInsert // null 컬럼 입력 제외
 @DynamicUpdate  // null 컬럼 업데이트 제외
 @Entity
-@Table(name = "MVOFFICIAL")
+@Table(name = "MV_OFFICIAL")
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
