@@ -25,39 +25,6 @@ display: flex;
 
 }
 
-.member_top{
-    display: flex;
-    justify-content: space-between;
-}
-.member_top_btn_wrap{
-width: 700px;
-margin-bottom: 30px;
-
-}
-.member_top_btn{
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    
-}
-button{
-    background-color: transparent;
-    outline: none;
-    padding: 4px;
-    width: 200px;
-    border: 1px solid gray;
-}
-input{
-    background-color: transparent;
-    outline: none;
-    border: 1px solid gray;
-}
-button:hover{
-    background-color: #f16a1a;
-    color: white;
-}
-
 .cont_sidebar{
 
     width: 184px;
@@ -68,7 +35,7 @@ button:hover{
 .queboard{
     width: 800px;
 }
-.queboard_con{
+.qqueboard_con{
     width: 800px;
 }
 tr{
@@ -80,18 +47,17 @@ th{
     width: 17%;
 }
 td{
-    line-height: 60px;
+   line-height: 60px;
     width: 25%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.pno{
+	display: inline;
+}
 footer{
     background-color: #323232;
     width: 100%;
     height: 150px;
-}
-.tabe_header{
-    display: flex;
-    justify-content: space-between;
 }

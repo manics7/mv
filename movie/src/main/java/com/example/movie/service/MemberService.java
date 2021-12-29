@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.quesboardDto;
+import com.example.movie.dto.thdetailDto;
 import com.example.movie.mapper.AdminMapper;
 import com.example.movie.mapper.MemberMapper;
 import com.example.movie.util.PagingUtil;
@@ -27,7 +28,7 @@ public class MemberService {
 	
 //	private ModelAndView mv;
 
-	private int listCnt = 10;//페이지 당 게시글 개수
+	private int listCnt = 4;//페이지 당 게시글 개수
 
 //	public ModelAndView getMemberList(Integer pageNum) {
 	public List<MemberDto> getMemberList(Integer pageNum) {
@@ -109,10 +110,7 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		
 	
 	System.out.println("검색 결과 = "+mselectList);
-	mv.addObject("mseList", mselectList);
-		
-	
-		
+	mv.addObject("mList", mselectList);
 		return mv;
 	}
 
@@ -146,6 +144,13 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		System.out.println("pageHTML = "+pageHtml);
 		
 		return pageHtml;
+	}
+
+	public ModelAndView thdetailInsert(thdetailDto thdto) {
+		ModelAndView mv = new ModelAndView();
+		List<thdetailDto> thdetailList = mMap.thdetailInsert(thdto);
+		mv.addObject("thdetail", thdetailList);
+		return mv;
 	}
 	
 	

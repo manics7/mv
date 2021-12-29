@@ -17,7 +17,7 @@ public class AdminService {
 	@Autowired
 	public AdminMapper qMap;
 
-	public int listCnt = 10;
+	public int listCnt = 5;
 
 	public List<quesboardDto> getQboardList(Integer pageNum) {
 

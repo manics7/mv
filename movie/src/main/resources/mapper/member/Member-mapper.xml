@@ -4,17 +4,30 @@
 
 <mapper namespace="com.example.movie.mapper.MemberMapper">
 
-	<select id="getList" parameterType="HashMap"
+<select id="getList" parameterType="HashMap"
 		resultType="com.example.movie.dto.MemberDto">
 				<![CDATA[
-		SELECT * FROM member
-		WHERE M_NO >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
-			AND M_NO <= #{num} * #{lcnt}
+		SELECT * FROM v_mem
+		WHERE ROWNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND ROWNUM <= #{num} * #{lcnt}
 		]]>
 	</select>
+	
+	<!--
+	
+	<select id="getList" parameterType="HashMap"
+		resultType="com.example.movie.dto.MemberDto">
+				
+		SELECT * FROM member
+		WHERE ROWNUM between 1 and 20
+	
+	</select>
+	
+	  -->
+	
 
 	<select id="getBoardCnt" resultType="Integer">
-		SELECT COUNT(*) FROM MEMBER
+		SELECT COUNT(*) FROM v_mem
 	</select>
 
 	<delete id="memberdelete" parameterType="String">
@@ -30,6 +43,13 @@
 <select id="getsearchBoardCnt" resultType="Integer">
 		SELECT count(*) FROM member where m_id = #{m_id}
 	</select>
+
+<insert id="">
+
+		
+
+
+</insert>
 
 
 

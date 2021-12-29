@@ -53,21 +53,21 @@ public class PagingUtil {
 		for(int i = start; i <= end; i++) {
 			//현재 페이지 번호에는 링크를 걸지 않는다.
 			if(pageNum != i) {//다른 페이지 번호
-				sb.append("<a class='page-link' href='" + listName
+				sb.append("<li class='pqge-item'><a class='page-link' href='" + listName
 						+ "?pageNum=" + i + "'>");
-				sb.append("&nbsp;" + i + "&nbsp;</a>");
+				sb.append("&nbsp;" + i + "&nbsp;</a></li>");
 			}//<a class='pno' href='list?pageNum=3'> 3 </a>
 			else {//현재 페이지 번호
-				sb.append("<font class='page-link' style='color: red;'>");
-				sb.append("&nbsp;" + i + "&nbsp;</font>");
+				sb.append("<li class='pqge-item'><font class='page-link' style='color: red;'>");
+				sb.append("&nbsp;" + i + "&nbsp;</font></li>");
 			}//<font class='pno' style='color: red;'> 2 </font>
 		}
 		
 		//다음 버튼 처리
 		if(end != totalPage) {
-			sb.append("<a class='page-link' href='" + listName
+			sb.append("<li class='pqge-item'><a class='page-link' href='" + listName
 					+ "?pageNum=" + (end + 1) + "'>");
-			sb.append("&nbsp;다음&nbsp;</a>");
+			sb.append("&nbsp;다음&nbsp;</a></li>");
 		}//<a class='pno' href='list?pageNum=5'> 다음 </a>
 		
 		//StringBuffer에 저장한 내용을 최종 문자열로 변환.

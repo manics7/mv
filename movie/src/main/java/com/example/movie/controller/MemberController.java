@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.quesboardDto;
+import com.example.movie.dto.thdetailDto;
 import com.example.movie.service.MemberService;
 
 @Controller
@@ -104,12 +105,11 @@ public class MemberController {
 		return mv;
 	}
 	@GetMapping("/thDetail")
-	public String thDetail() {
+	public ModelAndView thDetail(thdetailDto thdto) {
 		
+		ModelAndView mv = mServ.thdetailInsert(thdto);
 		
-		
-		
-		return "theater_detail";
+		return mv;
 	}
 	
 }

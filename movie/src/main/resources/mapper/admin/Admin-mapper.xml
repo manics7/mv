@@ -8,8 +8,8 @@
 		resultType="com.example.movie.dto.quesboardDto">
 	<![CDATA[
 		SELECT * FROM question
-		WHERE ques_no >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
-			AND ques_no <= #{num} * #{lcnt}
+		WHERE ROWNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND ROWNUM <= #{num} * #{lcnt}
 		]]>
 	</select>
 

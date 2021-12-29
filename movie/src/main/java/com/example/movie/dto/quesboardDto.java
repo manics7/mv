@@ -1,5 +1,7 @@
 package com.example.movie.dto;
 
+import java.sql.Timestamp;
+
 import lombok.Data;
 
 @Data
@@ -9,5 +11,5 @@ public class quesboardDto {
 	private String ques_title;
 	private String ques_cont;
 	private String ques_state;
-	private String ques_date;
+	private Timestamp ques_date;
 }

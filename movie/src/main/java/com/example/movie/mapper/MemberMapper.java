@@ -3,8 +3,11 @@ package com.example.movie.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.thdetailDto;
 
 public interface MemberMapper  extends MybatisMapper {
 	//회원정보 목록 가져오기
@@ -18,5 +21,7 @@ public interface MemberMapper  extends MybatisMapper {
 	
 	void getmboardSelect(String m_id);
 	int getsearchBoardCnt(String m_id);
+	List<thdetailDto> thdetailInsert(thdetailDto thdto);
+	
 	
 }
