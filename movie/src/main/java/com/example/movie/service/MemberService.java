@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -112,7 +113,9 @@ public class MemberService {
 			int forpage = page-1;
 
 			int list = listCnt -1 ;
+			
 			Collections.reverse(aqList);
+			
 			for(int i = 0; i <= forpage; i++) {
 				//pagenum에 해당하지않는 출력되지 않아야 할 앞의 게시물 리스트에서 삭제
 
@@ -187,18 +190,39 @@ public class MemberService {
 		//id로 리뷰들 가져옴
 		List<mvReviewDto> apmvrList = mDao.selectpmvReview(id);
 
-		List<mvReviewDto> pmvrList = new ArrayList<mvReviewDto>();
-
-
+		List<mvReviewDto> pmvrList = new ArrayList<mvReviewDto>();		
+		
 		//가져온 글리스트가 있을때만 페이징처리
 		if(!apmvrList.isEmpty()) {
-
+			
 			int page = (num -1) * listCnt;
 
 			int forpage = page-1;
 
 			int list = listCnt -1 ;
-
+		//mv_review번호를 비교해 큰수 부터(시퀀스 최신순)리스트 정렬
+			for(int i = 0; i <= apmvrList.size()-1; i++) {
+				
+				for(int j = i+1; j <= apmvrList.size()-1; j++) {
+					
+					mvReviewDto mvr1 = apmvrList.get(i);
+					
+					int mvrnum1 = mvr1.getMv_review();
+					
+					mvReviewDto mvr2 = apmvrList.get(j);
+					
+					int mvrnum2 = mvr2.getMv_review();
+					
+					if(mvrnum1 < mvrnum2) {
+						mvReviewDto mvr3 = mvr1;
+						
+						apmvrList.set(i, mvr2);
+						
+						apmvrList.set(j, mvr3);
+					}
+				}
+			}
+			
 			for(int i = 0; i <= forpage; i++) {
 				//pagenum에 해당하지않는 출력되지 않아야 할 앞의 게시물 리스트에서 삭제
 
@@ -251,6 +275,67 @@ public class MemberService {
 
 		return mv;
 	}
+	
+	@Transactional
+	public String delMvReview(int mvrnum,RedirectAttributes rttr) {
+		String view = null;
+		
+		try {
+			mDao.delMvReview(mvrnum);
+			view = "redirect:pmvReviewFrm";
+
+			rttr.addFlashAttribute("msg", "삭제 성공");
+		}catch(Exception e) {
+			view = "redirect:pmvReviewFrm";
+			rttr.addFlashAttribute("msg", "삭제 실패");
+		}
+		
+		//String view = "redirect:pmvReviewFrm";
+		
+		return view;
+	}
+
+	public ModelAndView mvReviewSearch(String mvname) {
+		
+		MemberDto member = (MemberDto)session.getAttribute("mb");
+		String id = member.getM_id();
+		
+		List<mvReviewDto> mvrList = mDao.selectpmvReview(id);
+			
+		//검색처리
+		for(int i = 0; i <= mvrList.size()-1; i++) {
+			
+			mvReviewDto amvrDto = mvrList.get(i);
+			
+			String movieCd = amvrDto.getMv_review_moviecd();
+			
+			String mvName = mDao.selectMovieName(movieCd);
+			
+			mvReviewDto mvr = amvrDto;
+			//옮기고 영화이름 추가
+			mvr.setMvName(mvName);
+			
+			if(!mvname.equals(mvName)) {
+				
+				mvrList.remove(i);
+				i--;
+			}
+		}
+		mv.addObject("mvrList",mvrList);
+		
+		int maxNum = 1;
+		int num =1;
+		int listCnt =10;
+		String View = "pmvReviewFrm";
+		//페이징 처리.
+		
+		String pageHtml = getPaging(num,listCnt,View,maxNum);
+		mv.addObject("paging", pageHtml);
+		mv.setViewName("pmvReviewFrm");
+		
+		return mv;
+	}
+
 
 	//마이페이지 예매/결제 내역 출력.
 /*	public ModelAndView selectPurchase (Integer pageNum, int listCnt, String View) {

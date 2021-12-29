@@ -25,4 +25,11 @@ public interface AdminMapper  extends MybatisMapper {
 	public boolean updateWarning(String id);
 	//영화리뷰 신고처리 완료후 상태 변경
 	public boolean updateRpMvReviewState(int mvrNum);
+	
+	//신고된 리뷰 신고 테이블에서 삭제
+	public boolean delMvReviewReport(int mvrNum);
+
+	public List<reportMvReviewDto> selectReportMvReviewSort(Map<String, Integer> pmap);
+	
+	public List<reportMvReviewDto> selectReportMvReviewSortDesc(Map<String, Integer> pmap);
 }

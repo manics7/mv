@@ -44,5 +44,7 @@ public interface MemberMapper  extends MybatisMapper {
 	public String selectThname (int thcode);
 	//스케줄번호로 영화코드 검색
 	public String selectMoviecode (int schno);
+	//영화리뷰 삭제
+	public boolean delMvReview(int mvrnum);
 	
 }

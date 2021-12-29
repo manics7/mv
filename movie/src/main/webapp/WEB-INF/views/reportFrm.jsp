@@ -16,6 +16,12 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<style type="text/css">
+	#btn1{
+		background-color: orange;
+		color : white;
+	}
+</style>
 </head>
 <body>
 
@@ -58,45 +64,67 @@
 			<form name="searchFrm" action="reportSerchFrm" method="post">
 				<div class="card-body">
 					<h4 class="card-title">신고관리</h4>
+
 					<input type="text" placeholder="ID 입력" name="m_id"> <input
 						type="submit" value="검색">
-					<table class="table table-hover" id='board_list'>
-						<thead>
-							<tr>
-								<th class="text-center d-none d-md-table-cell">신고자ID</th>
-								<th class="text-center d-none d-md-table-cell">신고사유</th>
-								<th class="text-center d-none d-md-table-cell">리뷰내용</th>
-								<th class="text-center d-none d-md-table-cell">작성자ID</th>
-								<th class="text-center d-none d-md-table-cell">신고일</th>
-								<th class="text-center d-none d-md-table-cell">상태</th>
-								<th class="text-center d-none d-md-table-cell">관리</th>
-							</tr>
-						</thead>
-						<tbody>
-						<!-- 검색 처리 -->
-						<c:choose>
+				</div>
+			</form>
+			<table class="table table-hover" id='board_list'>
+				<thead>
+					<tr>
+						<th class="text-center d-none d-md-table-cell">신고자ID</th>
+						<th class="text-center d-none d-md-table-cell">신고사유</th>
+						<th class="text-center d-none d-md-table-cell">리뷰내용</th>
+						<th class="text-center d-none d-md-table-cell">작성자ID</th>
+						<th class="text-center d-none d-md-table-cell">신고일</th>
+						<th class="text-center d-none d-md-table-cell"><a href="sortByState">상태</a></th>
+						<th class="text-center d-none d-md-table-cell">관리</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 검색 처리 -->
+					<c:choose>
 						<c:when test="${not empty rpList}">
-						<c:forEach var="rpitem" items="${rpList}">
+							<c:forEach var="rpitem" items="${rpList}">
 								<tr>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rpid}</td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rpwhy}</td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.contents}</td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rptid}</td>
-									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${rpitem.rpdate}"
-										pattern="yyyy-MM-dd"/></td>
-									<td class="text-center d-none d-md-table-cell">${rpitem.state}</td>
-									<td class="text-center d-none d-md-table-cell"><button onclick="delCheck(${rpitem.mvrnum})">경고 및 삭제</button></td>
+									<td class="text-center d-none d-md-table-cell"><fmt:formatDate
+											value="${rpitem.rpdate}" pattern="yyyy-MM-dd" /></td>
+									<td class="text-center d-none d-md-table-cell">
+								<c:choose> 
+									<c:when test="${rpitem.state == '0'}">
+										미처리
+									</c:when> 
+									<c:otherwise>
+										처리완료
+									</c:otherwise> 
+								</c:choose> 
+								
+									</td>
+									<td class="text-center d-none d-md-table-cell">
+									<c:choose> 
+									<c:when test="${rpitem.state == '0'}">
+										<button id="btn1" onclick="delCheck(${rpitem.mvrnum})">경고 및 삭제</button>
+									</c:when> 
+									<c:otherwise>
+										처리완료
+									</c:otherwise> 
+								</c:choose> 
+									</td>
 								</tr>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
-						<td class="text-center d-none d-md-table-cell">신고 정보가 없습니다.</td>
+							<td class="text-center d-none d-md-table-cell">신고 정보가 없습니다.</td>
 						</c:otherwise>
-						
-						</c:choose>
-						
-						
-							<!-- <c:forEach var="mitem" items="${mseList}">
+
+					</c:choose>
+
+
+					<!-- <c:forEach var="mitem" items="${mseList}">
 								<tr>
 									<td><c:if test="${mseList == 'null'}">존재 하지 않는 회원 입니다.</c:if></td>
 									<td class="text-center d-none d-md-table-cell">${mitem.m_id}</td>
@@ -110,31 +138,31 @@
 								</tr>
 							</c:forEach>
 							  -->
-							
 
 
-						</tbody>
-					</table>
 
-					<div class="d-none d-md-block">
-						<!-- <div class="paging">${paging}</div>  -->
-						<div class="pagination justify-content-center">
-							<div class="page-item">${paging}</div>
-						</div>
-					</div>
+				</tbody>
+			</table>
 
-					<div class="d-block d-md-none">
-						<ul class="pagination justify-content-center">
-							<li class="page-item"><a href="#" class="page-link">이전</a></li>
-							<li class="page-item"><a href="#" class="page-link">다음</a></li>
-						</ul>
-					</div>
+			<div class="d-none d-md-block">
+				<!-- <div class="paging">${paging}</div>  -->
+				<div class="pagination justify-content-center">
+					<div class="page-item">${paging}</div>
 				</div>
+			</div>
 
-			</form>
-
+			<div class="d-block d-md-none">
+				<ul class="pagination justify-content-center">
+					<li class="page-item"><a href="#" class="page-link">이전</a></li>
+					<li class="page-item"><a href="#" class="page-link">다음</a></li>
+				</ul>
+			</div>
 		</div>
+
+
+
 	</div>
+
 
 	<div class="container-fluid bg-dark text-white"
 		style="margin-top: 50px; padding-top: 30px; padding-bottom: 30px">
@@ -145,4 +173,16 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+function delCheck(mvrnum){
+	var conf = confirm("삭제하시겠습니까?");
+	
+	if(conf == true){
+		location.href='./delAdminMvReview?mvrnum=' + mvrnum;
+	}
+}
+
+
+
+</script>
 </html>

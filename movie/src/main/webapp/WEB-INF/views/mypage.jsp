@@ -3,157 +3,136 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="resource/css/mypage.css">
 <title>마이페이지</title>
-<style type="text/css">
-div {
-	border: 1px solid black;
-}
-
-.page {
-	margin: 15%;
-	border: 1px solid black;
-}
-
-a {
-	text-decoration: none;
-}
-
-#btn2 {
-	float: right;
-	border: 1px solid black;
-}
-
-#btn1 {
-	float: left;
-	size: 10px;
-}
-
-.main_point_box>div {
-	width: 33.1%;
-	height: 150px;
-	float: left;
-}
-
-.title-row>div {
-	display: block;
-	float: left;
-	height: 30px;
-	font-size: 16px;
-	line-height: 1.6;
-	text-align: center;
-
-}
-.data-row>div{
-	float: left;
-	height: 30px;
-	font-size: 16px;
-	line-height: 1.6;
-	text-align: center;
-}
-
-.p-10 {
-	width: 8%;
-}
-
-.p-15 {
-	width: 15%;
-}
-
-.p-30 {
-	width: 30%;
-}
-
-.btn-area {
-	margin-top: 10%;
-	clear: both;
-}
-
-</style>
+<!-- Bootstrap CDN -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		var lname = "${mb.m_name}";
-		var fav = "${mb.m_like}";
-		
-		$("#mname").html(lname + "님,");
-		$("#fav").html(fav);
-	});
-</script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-	<div class="page">
-		<div id="btn2">
-			<a href="memberUpdateFrm">회원정보 수정</a>
-		</div>
-		<div id="mname"></div>
-		<div>환영합니다.</div>
-
-		<div class="main_point_box">
-			<div class="pointbox1">
-				<p>선호 극장</p>
-				<a id="fav"></a>
-			</div>
-			<div class="pointbox2">
-				<p>영화 할인쿠폰</p>
-				<a>0장</a>
-			</div>
-			<div class="pointbox2">
-				<p>고객센터</p>
-				<ol>
-					<li>예매문의 031-8017-8332</li>
-					<li>평일 10:00 ~ 12:00, 13:00 ~ 18:00</li>
-					<li>영화예매/영화안내는 지원하지 않습니다.</li>
-				</ol>
-			</div>
-		</div>
-
-		<div class="title-row">
-			<p>
-				<b>내 문의내역</b>
-			</p>
-			<div class="t-no p-10">번호</div>
-			<div class="t-title p-15">문의유형</div>
-			<div class="t-name p-30">제목</div>
-			<div class="t-date p-30">등록일</div>
-			<div class="t-view p-15">답변상태</div>
-		</div>
-		<c:forEach var="qitem" items="${qList}">
-			<div class="data-row">
-				<div class="t-no p-10">${qitem.ques_no}</div>
-				<div class="t-name p-15">일반</div>
-				<div class="t-title p-30">
-					<!-- 상세보기 화면 이동 url + 게시글번호 -->
-					<a href="./contents?qno=${qitem.ques_no}"> ${qitem.ques_title} </a>
+	<div class="wrap">
+		<div class="main_wrap_wrap">
+			<div class="main_wrap">
+				<div class="sidebar">
+					<div id="btn1">
+						<a href="purchaseFrm">예매/구매내역</a>
+					</div>
+					<div id="btn1">
+						<a href="watcheMovieFrm">내가 본 영화</a>
+					</div>
+					<div id="btn1">
+						<a href="pmvReviewFrm">내가 쓴 감상평</a>
+					</div>
+					<div id="btn1">
+						<a href="questionFrm">1:1문의</a>
+					</div>
 				</div>
-				<div class="t-date p-30">
-					<fmt:formatDate value="${qitem.ques_date}"
-						pattern="yyyy-MM-dd" />
+				<div class="page_cont_wrap">
+					<div class="user_info">
+						<div class="profile_box">
+							<div class="imgbox">
+								<img src="resource/images/profileimag.svg" alt="">
+							</div>
+							<div class="profile_txt">
+								<p class="m_id">${mb.m_name}님</p>
+								<p>환영합니다.</p>
+
+							</div>
+						</div>
+						<a class="txt_box" href="memberUpdateFrm">개인정보 수정</a>
+
+					</div>
+					<div class="main_point_box">
+						<div class="point_box point1">
+							<p class="tit">선호극장 ▶</p>
+							<ol>${mb.m_like}</ol>
+						</div>
+						<div class="point_box point2">
+							<p class="tit">영화 할인쿠폰 ▶</p>
+							<ol>0장
+							</ol>
+						</div>
+						<div class="point_box point3">
+							<p class="tit">고객센터 ▶</p>
+							<ol>
+								<li>예매문의 031-8017-8332</li>
+								<li>평일 10:00 ~ 12:00, 13:00 ~ 18:00</li>
+								<li>영화예매/영화안내는 지원하지 않습니다.</li>
+							</ol>
+						</div>
+					</div>
+					<div class="booking_history">
+						<h3>예매내역</h3>
+						<div class="historylist">
+							<p class="no_data">예매내역이 없습니다.</p>
+						</div>
+					</div>
+					<div class="tbl_list">
+						<h3>내 문의내역</h3>
+						<div class="question_table">
+							<table class="table table-hover" id='board_list'>
+								<thead>
+									<tr>
+										<th class="text-center d-none d-md-table-cell">문의번호</th>
+										<th class="text-center d-none d-md-table-cell">제목</th>
+										<th class="text-center d-none d-md-table-cell">문의유형</th>
+										<th class="text-center d-none d-md-table-cell">등록일</th>
+										<th class="text-center d-none d-md-table-cell">상태</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<!-- 검색 처리 -->
+									<c:choose>
+										<c:when test="${not empty qList}">
+											<c:forEach var="qitem" items="${qList}">
+												<tr>
+													<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
+													<td class="text-center d-none d-md-table-cell">${qitem.ques_title}</td>
+													<td class="text-center d-none d-md-table-cell">일반</td>
+													<td class="text-center d-none d-md-table-cell"><fmt:formatDate
+															value="${qitem.ques_date}" pattern="yyyy-MM-dd" /></td>
+													<td class="text-center d-none d-md-table-cell"><c:if
+															test="${qitem.ques_state == '0'}">
+									미답변
+									</c:if> <c:if test="${qitem.ques_state == '1'} ">
+									답변완료
+									</c:if></td>
+												</tr>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<td class="text-center d-none d-md-table-cell">신고 정보가
+												없습니다.</td>
+										</c:otherwise>
+
+									</c:choose>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
 				</div>
-				<div class="t-view p-15">${qitem.ques_state}</div>
 			</div>
-		</c:forEach>
-		
-		<div id="btn1">
-			<a href="purchaseFrm">예매/구매내역</a>
+
+
 		</div>
-		<div id="btn1">
-			<a href="watcheMovieFrm">내가 본 영화</a>
-		</div>
-		<div id="btn1">
-			<a href="pmvReviewFrm">내가 쓴 감상평</a>
-		</div>
-		<div id="btn1">
-			<a href="questionFrm">1:1문의</a>
-		</div>
-		
-		<div class="btn-area">
-				<div class="paging">${paging}</div>
-		</div>
+
+
 	</div>
-
 </body>
+
 </html>

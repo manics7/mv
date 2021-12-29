@@ -31,7 +31,7 @@ public class MemberController {
 		
 		String view = "mypage";
 		
-		int listCnt = 3;
+		int listCnt = 2;
 		
 		mv = mServ.selectQuestion(pageNum,listCnt,view);
 		
@@ -48,6 +48,55 @@ public class MemberController {
 		
 		return mv;
 		
+	}
+	@GetMapping("questionFrm")
+	public ModelAndView questionFrm(Integer pageNum) {
+		
+		int listCnt = 10;
+		
+		String View = "questionFrm";
+		
+		mv = mServ.selectQuestion(pageNum,listCnt,View);
+		
+		return mv;
+	}
+	
+	@GetMapping("memberUpdateFrm")
+	public ModelAndView memberUpdateFrm() {
+		
+		mv = mServ.memberUpdateFrm();
+		
+		return mv;
+	}
+	
+	@GetMapping("delMvReview")
+	public String delMvReview(int mv_review,RedirectAttributes rttr) {
+		
+		/*int mvrnum = Integer.parseInt(mv_review);*/
+		
+		String cont = "delMvReview";
+		
+		String view = mServ.delMvReview(mv_review,rttr);
+		
+		return view;
+	}	
+	
+
+	@PostMapping("loginProc")
+	public String loginProc(MemberDto member, 
+			RedirectAttributes rttr) {
+		
+		String view = mServ.loginProc(member, rttr);
+		
+		return view;
+	}
+	
+	@PostMapping("mvReviewSearch")
+	public ModelAndView mvReviewSearch(String mvname) {
+		
+		mv = mServ.mvReviewSearch(mvname);
+		
+		return mv;
 	}
 	/* 보류한다함
 	@GetMapping("purchaseFrm")
@@ -70,33 +119,5 @@ public class MemberController {
 		
 		return mv;
 	}*/
-	@GetMapping("questionFrm")
-	public ModelAndView questionFrm(Integer pageNum) {
-		
-		int listCnt = 10;
-		
-		String View = "questionFrm";
-		
-		mv = mServ.selectQuestion(pageNum,listCnt,View);
-		
-		return mv;
-	}
-	
-	@GetMapping("memberUpdateFrm")
-	public ModelAndView memberUpdateFrm() {
-		
-		mv = mServ.memberUpdateFrm();
-		
-		return mv;
-	}
-	
-	@PostMapping("loginProc")
-	public String loginProc(MemberDto member, 
-			RedirectAttributes rttr) {
-		
-		String view = mServ.loginProc(member, rttr);
-		
-		return view;
-	}
-	
+
 }

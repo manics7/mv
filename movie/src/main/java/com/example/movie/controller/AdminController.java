@@ -20,17 +20,36 @@ public class AdminController {
 	
 	@GetMapping("reportFrm")
 	public ModelAndView reportFrm(Integer pageNum) {
+		String view = "reportFrm";
 		
 		mv = aServ.reportedReview(pageNum);
 		
 		return mv;
 	}
 	
-	@GetMapping("deleteMvReview")
-	public String deleteMvReview (int mvrNum,RedirectAttributes rttr) {
+	@GetMapping("delAdminMvReview")
+	public String delAdminMvReview(int mvrnum,RedirectAttributes rttr) {
 		
-		String view = aServ.deleteMvReview(mvrNum,rttr);
+		/*int mvrnum = Integer.parseInt(mv_review);*/
+		
+		
+		String view = aServ.delAdminMvReview(mvrnum,rttr);
 		
 		return view;
+	}
+	
+	@GetMapping("sortByState")
+	public ModelAndView sortByState(Integer pageNum) {
+		
+		mv = aServ.reportedReviewSort(pageNum);
+		
+		return mv;
+	}
+	@GetMapping("sortByStateDesc")
+	public ModelAndView sortByStateDesc(Integer pageNum) {
+		
+		mv = aServ.reportedReviewSort(pageNum);
+		
+		return mv;
 	}
 }

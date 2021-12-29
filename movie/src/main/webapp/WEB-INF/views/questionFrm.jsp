@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>신고관리</title>
+<title>1:1문의</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -55,17 +55,16 @@
 	<!-- 게시글 리스트 -->
 	<div class="container" style="margin-top: 100px">
 		<div class="card shadow">
-			<form name="searchFrm" action="reportSerchFrm" method="post">
+		
 				<div class="card-body">
 					<h4 class="card-title">1:1문의</h4>
-					<input type="text" placeholder="ID 입력" name="m_id"> <input
-						type="submit" value="검색">
+				
 					<table class="table table-hover" id='board_list'>
 						<thead>
 							<tr>
 								<th class="text-center d-none d-md-table-cell">문의번호</th>
-								<th class="text-center d-none d-md-table-cell">문의유형</th>
 								<th class="text-center d-none d-md-table-cell">제목</th>
+								<th class="text-center d-none d-md-table-cell">문의유형</th>
 								<th class="text-center d-none d-md-table-cell">등록일</th>
 								<th class="text-center d-none d-md-table-cell">상태</th>
 
@@ -78,8 +77,8 @@
 						<c:forEach var="qitem" items="${qList}">
 								<tr>
 									<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
-									<td class="text-center d-none d-md-table-cell">일반</td>
 									<td class="text-center d-none d-md-table-cell">${qitem.ques_title}</td>
+									<td class="text-center d-none d-md-table-cell">일반</td>
 									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${qitem.ques_date}"
 										pattern="yyyy-MM-dd"/></td>
 									<td class="text-center d-none d-md-table-cell">

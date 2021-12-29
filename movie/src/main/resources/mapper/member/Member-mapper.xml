@@ -36,7 +36,7 @@
 	
 	<select id="selectMovieName" parameterType="String"
 		resultType="String">
-		SELECT movie_nm FROM mvofficial WHERE movie_cd =#{mvcd}
+		SELECT movie_nm FROM mv_official WHERE movie_cd =#{mvcd}
 	</select>
 	
 	<select id="selectRsrvByid" parameterType="String"
@@ -78,6 +78,9 @@
 		SELECT th_name FROM theater WHERE th_code =#{thcode}
 	</select>
 	
+	<delete id="delMvReview" parameterType="Integer">
+		DELETE FROM review_movie WHERE mv_review=#{mvrnum}
+	</delete>
 	
 
 </mapper>
