@@ -2,7 +2,11 @@
 	var fnObj = {		
 		data : {
 			date : "${rsrvDate}"
-			,selectData : {}
+			,selectData : {
+				movieCd : ''
+				,thCode :''
+				,date : ''
+			}
 			,defaultData: {
 				//movieList : {}
 				//,theaterList {}
@@ -95,20 +99,20 @@
 			 
 			data.forEach(function(item, index){
 			
-				var date = item.date.replaceAll("-","");
+				var date = item.date
 				var dayOfWeek =item.dayOfWeek;						
 				color = (dayOfWeek == '일' ?  "text-danger" : dayOfWeek == "토" ? "text-primary"  : "");
 				year = date.substr(0,4);
-				day  = date.substr(6,2);		
+				day  = date.substr(8,2);		
 						
 				if(index == 0){
-				html+="<span class='list-group-item my-0 py-2'><h5><strong>"+date.substr(4,2) +"<br> " +year +"</strong></h5></span>";
-					month = date.substr(4,2);
+				html+="<span class='list-group-item my-0 py-2'><h5><strong>"+date.substr(5,2) +"<br> " +year +"</strong></h5></span>";
+					month = date.substr(5,2);
 				}
 				
 				//다른년도
 				if(date.substr(4,4) == "0101" || date.substr(6,2) == "01"){
-					html+="<span class='list-group-item my-0 py-2'><h5><strong>"+date.substr(4,2) +"<br> " +year +"</strong></h5></span>";
+					html+="<span class='list-group-item my-0 py-2'><h5><strong>"+date.substr(5,2) +"<br> " +year +"</strong></h5></span>";
 				}									
 				html+=  "<li class='list-group-item my-0 py-2 " +color+" font-weight-bold'  date=" +date +" >"+dayOfWeek +" "+ day+"</li>";							
 			});
@@ -170,7 +174,7 @@
 	    //영화관검색하면 무조건 전체로 변경
 	    if(target == 'theaterList'){
 	    	//$("#sidoList > ul li:first").addClass("list-group-item-warning");
-	    	$("#sidoList > ul li:first").click();
+	    	//$("#sidoList > ul li:first").click();
 	    }
 	    
 	    value =$(id).val().toUpperCase();	    
@@ -202,7 +206,6 @@
 		var src = '';
 		
 		$("#movieNm").text($(this).text());
-		fnObj.data.selectData = {"movieCd" : movieCd};		
 		var movieList = fnObj.data.defaultData.movieList;		
 		movieList.forEach(function(item, index){
 			 if(item.movieCd == movieCd){
@@ -210,15 +213,19 @@
 			 }
 		});  
 		
+		fnObj.data.selectData.movieCd = movieCd;
+		
 		fnObj.selectItem();
 	});
 	
 	//극장 클릭시 극장코드 저장
 	$(document).on("click", "#theaterList li" , function(){
 		var thCode= $(this).attr("thCode");
-		fnObj.data.selectData = {"thCode" : thCode};
 		$("#theaterNm").text($(this).text());
+		fnObj.data.selectData.thCode = thCode;
+		
 		fnObj.selectItem();
+		
 	});
 	
 	//날짜 저장
@@ -228,8 +235,9 @@
 		var month = date.substr(4,2)
 		var day  = date.substr(6,2);	
 		var dayOfWeek = $(this).text().substr(0,1)	
-		fnObj.data.selectData = {"date" : date};
 		$("#schDate").text(year+"."+month+"."+day+" (" + dayOfWeek+")");
+		fnObj.data.selectData.date = date;
+		
 		fnObj.selectItem();
 	});
 	

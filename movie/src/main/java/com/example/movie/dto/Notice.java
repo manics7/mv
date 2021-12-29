@@ -53,7 +53,7 @@ public class Notice {
 	//@Temporal(TemporalType.DATE) 
 	private LocalDate regDate;
 	
-	@Column(name="VIEWS_CNT", columnDefinition="조회수")
+	@Column(name="VIEW_CNT", columnDefinition="조회수")
 	private Integer viewCnt;	
 	
 	@NonNull

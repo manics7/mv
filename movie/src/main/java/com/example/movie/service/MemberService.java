@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.Member;
 import com.example.movie.mapper.MemberMapper;
 
 @Service
@@ -39,7 +39,7 @@ public class MemberService {
 	
 	// 이용자 회원가입
 	@Transactional
-	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
+	public String memberInsert(Member member, RedirectAttributes rttr) {
 		String view = null;
 		String msg = null;
 		
@@ -48,10 +48,10 @@ public class MemberService {
 		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 		
 		// Dto에서 비밀번호를 꺼내고, 인코더를 사용해서 암호화
-		String encPw = pwEncoder.encode(member.getM_pw());
+		String encPw = pwEncoder.encode(member.getMPw());
 		
 		// 인코딩한 비밀번호를 Dto에 설정
-		member.setM_pw(encPw);
+		member.setMPw(encPw);
 		
 		try {
 			mMapper.memberInsert(member);
@@ -70,19 +70,19 @@ public class MemberService {
 	}
 
 	// 이용자 로그인
-	public String loginProc(MemberDto member, RedirectAttributes rttr) {
+	public String loginProc(Member member, RedirectAttributes rttr) {
 		String view = null;
 		String msg = null;
 		
 		// pw = 암호화되어 저장된 비밀번호, encPw
-		String pw = mMapper.getPw(member.getM_id());
+		String pw = mMapper.getPw(member.getMId());
 		
 		if(pw != null) {
 			BCryptPasswordEncoder enc = new BCryptPasswordEncoder();
 			
-			if(enc.matches(member.getM_pw(), pw)) {
+			if(enc.matches(member.getMPw(), pw)) {
 				// 로그인 성공 - 세션에 회원 정보 저장, member
-				member = mMapper.getMember(member.getM_id());
+				member = mMapper.getMember(member.getMId());
 				
 				// member 정보를 세션에 저장
 				session.setAttribute("userInfo", member);

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.Member;
 import com.example.movie.service.MemberService;
 
 import lombok.extern.java.Log;
@@ -21,7 +21,7 @@ public class MemberController {
 	
 	// 이용자 회원가입
 		@PostMapping("memberInsert")
-		public String memberInsert(MemberDto member, RedirectAttributes rttr) {
+		public String memberInsert(Member member, RedirectAttributes rttr) {
 			log.info("memberInsert()");
 			String view = mServ.memberInsert(member, rttr);
 			
@@ -40,7 +40,7 @@ public class MemberController {
 	
 	// 이용자 로그인
 	@PostMapping("loginProc")
-	public String loginProc(MemberDto member, RedirectAttributes rttr) {
+	public String loginProc(Member member, RedirectAttributes rttr) {
 		log.info("loginProc()");
 		String view = mServ.loginProc(member, rttr);
 		

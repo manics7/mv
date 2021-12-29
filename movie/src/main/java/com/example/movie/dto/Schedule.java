@@ -71,15 +71,19 @@ public class Schedule {
 	@JoinColumn(name = "SCH_CODE", referencedColumnName = "SCH_CODE"	, insertable=false, updatable=false, nullable = false)
 	private List<ScheduleDetail> scheduleDetail;
 	
-	//@OneToOne(fetch = FetchType.LAZY) 
-	@OneToOne(fetch = FetchType.LAZY)   
-	@JoinColumn(name = "MOVIE_CD", referencedColumnName = "MOVIE_CD"
-						, insertable = false, updatable = false, nullable = false)
-	private MovieOfficial movieOfficial;
-	
-	@OneToOne(fetch = FetchType.LAZY)   
-	@JoinColumn(name = "TH_CODE", referencedColumnName = "TH_CODE"
-						, insertable = false, updatable = false, nullable = false)
-	private Theater theater;
+	/*
+	 * //@OneToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @OneToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "MOVIE_CD", referencedColumnName = "MOVIE_CD" , insertable
+	 * = false, updatable = false, nullable = false) private MovieOfficial
+	 * movieOfficial;
+	 * 
+	 * @OneToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "TH_CODE", referencedColumnName = "TH_CODE" , insertable =
+	 * false, updatable = false, nullable = false) private Theater theater;
+	 */
 	
 }

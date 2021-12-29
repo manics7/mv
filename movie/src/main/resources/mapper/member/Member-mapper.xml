@@ -10,7 +10,7 @@
 	</select>
 	
 	<!-- 이용자 회원 가입 -->
-	<insert id="memberInsert" parameterType="com.example.movie.dto.MemberDto">
+	<insert id="memberInsert" parameterType="com.example.movie.dto.Member">
 		insert into member values (#{m_id}, #{m_pw}, #{m_birth}, #{m_tel}, #{m_like}, #{m_email}, #{m_name}, #{m_gender}, default, default, default)
 	</insert>
 	
@@ -21,7 +21,7 @@
 	</select>
 	
 	<!-- 이용자 검색(세션 저장용?) -->
-	<select id="getMember" parameterType="String" resultType="com.example.movie.dto.MemberDto">
+	<select id="getMember" parameterType="String" resultType="com.example.movie.dto.Member">
 		select * from member where m_id=#{m_id}
 	</select>
 </mapper>

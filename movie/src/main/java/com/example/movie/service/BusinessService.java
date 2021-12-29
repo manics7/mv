@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.movie.controller.AmazonS3Controller;
+import com.example.movie.common.AwsS3;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.TestDto;
 import com.example.movie.mapper.BusinessMapper;
@@ -22,7 +22,7 @@ public class BusinessService {
 	@Autowired
 	private HttpSession session;
 	@Autowired
-	private AmazonS3Controller amazonS3;
+	private AwsS3 amazonS3;
 	
 	ModelAndView mv;
 	
@@ -140,7 +140,7 @@ public class BusinessService {
 			bMapper.insertMovie(tDto);
 			
 			if(check.equals("1")) {
-				amazonS3.uploadFile2(multi);
+				//amazonS3.uploadFile2(multi);
 			}
 			
 			view = "redirect:/";

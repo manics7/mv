@@ -1,7 +1,7 @@
 package com.example.movie.mapper;
 
 import com.example.movie.config.MybatisMapper;
-import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.Member;
 
 public interface MemberMapper  extends MybatisMapper {
 	
@@ -9,12 +9,12 @@ public interface MemberMapper  extends MybatisMapper {
 	public int idCheck(String mid);
 	
 	// 이용자 회원 가입
-	public void memberInsert(MemberDto member);
+	public void memberInsert(Member member);
 
 	// 이용자 로그인
 	public String getPw(String m_id);
 	
 	// 이용자 검색(세션 저장용?)
-	public MemberDto getMember(String m_id);
+	public Member getMember(String m_id);
 	
 }

@@ -1,19 +1,14 @@
 package com.example.movie.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.dto.Reservation;
-import com.example.movie.dto.Schedule;
 import com.example.movie.service.ReservationService;
 
 @RestController
@@ -47,9 +42,9 @@ public class ReservationController {
 	}
 	
 	@GetMapping("/selectSchList")
-	public void selectSchList(String movieCd, Integer thCode, String date, String sort){
-		//Map<String, Object> map = reservationService.selectSchList(movieCd, thCode, date, sort);
-		//return map;
+	public Map<String, Object> selectSchList(String movieCd, Integer thCode, String date, String sort){
+		Map<String, Object> map = reservationService.selectSchList(movieCd, thCode, date, sort);
+		return map;
 	}
 	
 	

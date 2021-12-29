@@ -71,9 +71,9 @@
 				</div>
 				<form action="./loginProc" method="post">
 					<div id="user_tap" class="login_tap">
-						아이디 : <input name="m_id"><br>
+						아이디 : <input name="mId"><br>
 						<!-- name = Dto와 이름을 같이 -->
-						비밀번호 : <input type="password" name="m_pw"><br>
+						비밀번호 : <input type="password" name="mPw"><br>
 						<button class="login_button">로그인</button><br>
 						<a>아이디/비밀번호 찾기</a> | 
 						<a href="./joinFrm">회원가입</a>
@@ -81,8 +81,8 @@
 				</form>
 				<form action="./bu_loginProc" method="post">
 					<div id="business_tap" class="login_tap">
-						사업자 아이디 : <input name="b_id"><br>
-						비밀번호 : <input type="password" name="b_pw"><br>
+						사업자 아이디 : <input name="bId"><br>
+						비밀번호 : <input type="password" name="mPw"><br>
 						<button class="login_button">로그인</button><br>
 						<a>아이디/비밀번호 찾기</a> | 
 						<a href="./bu_joinFrm">회원가입</a>
