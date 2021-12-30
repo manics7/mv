@@ -54,71 +54,23 @@
 					</div>
 					<div class="main_point_box">
 						<div class="point_box point1">
-							<p class="tit">선호극장 ▶</p>
-							<ol>${mb.m_like}</ol>
+							<p class="tit">등록 영화관 ▶</p>
+							<ol></ol>
 						</div>
 						<div class="point_box point2">
-							<p class="tit">영화 할인쿠폰 ▶</p>
-							<ol>0장
-							</ol>
+							<p class="tit">등록 - ▶</p>
+							<ol></ol>
 						</div>
 						<div class="point_box point3">
 							<p class="tit">고객센터 ▶</p>
 							<ol>
-								<li>예매문의 031-8017-8332</li>
+								<li>사업자문의 031-8017-8332</li>
 								<li>평일 10:00 ~ 12:00, 13:00 ~ 18:00</li>
 								<li>영화예매/영화안내는 지원하지 않습니다.</li>
 							</ol>
 						</div>
 					</div>
-					<div class="booking_history">
-						<h3>예매내역</h3>
-						<div class="historylist">
-							<p class="no_data">예매내역이 없습니다.</p>
-						</div>
-					</div>
-					<div class="tbl_list">
-						<h3>내 문의내역</h3>
-						<div class="question_table">
-							<table class="table table-hover" id='board_list'>
-								<thead>
-									<tr>
-										<th class="text-center d-none d-md-table-cell">문의번호</th>
-										<th class="text-center d-none d-md-table-cell">제목</th>
-										<th class="text-center d-none d-md-table-cell">문의유형</th>
-										<th class="text-center d-none d-md-table-cell">등록일</th>
-										<th class="text-center d-none d-md-table-cell">상태</th>
-
-									</tr>
-								</thead>
-								<tbody>
-									<!-- 검색 처리 -->
-									<c:choose>
-										<c:when test="${not empty qList}">
-											<c:forEach var="qitem" items="${qList}">
-												<tr>
-													<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
-													<td class="text-center d-none d-md-table-cell">${qitem.ques_title}</td>
-													<td class="text-center d-none d-md-table-cell">일반</td>
-													<td class="text-center d-none d-md-table-cell"><fmt:formatDate
-															value="${qitem.ques_date}" pattern="yyyy-MM-dd" /></td>
-													<td class="text-center d-none d-md-table-cell"><c:if
-															test="${qitem.ques_state == '0'}">
-									미답변
-									</c:if> <c:if test="${qitem.ques_state == '1'} ">
-									답변완료
-									</c:if></td>
-												</tr>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<td class="text-center d-none d-md-table-cell">신고 정보가
-												없습니다.</td>
-										</c:otherwise>
-
-									</c:choose>
-								</tbody>
-							</table>
+				
 						</div>
 					</div>
 
@@ -126,10 +78,7 @@
 			</div>
 
 
-		</div>
-
-
-	</div>
+		
 </body>
 
 </html>
