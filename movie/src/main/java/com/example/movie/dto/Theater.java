@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -21,6 +23,7 @@ import lombok.ToString;
 @Entity
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Theater {
 
 	@Id
@@ -43,7 +46,7 @@ public class Theater {
 	@Column(name="TH_INTRODUCE", columnDefinition="영화관소개")
 	private String thIntroduce;	
 	
-	@Column(name="TH_AREACODE", columnDefinition="장르")
+	@Column(name="TH_AREACODE", columnDefinition="시도코드")
 	private String thAreacode;	
 	
 	@Column(name="TH_PARKING", columnDefinition="주차안내")

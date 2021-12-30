@@ -22,7 +22,7 @@ public class HomeController {
 	private MemberService mServ;
 	
 	@Autowired
-	private BusinessService bServ;
+	private BusinessService buServ;
 	
 	// test 페이지 이동
 	@GetMapping("test")

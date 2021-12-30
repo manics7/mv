@@ -41,11 +41,11 @@ public class AwsS3 {
 	//private HttpSession httpSession;
 
 	@Value("${aws.s3.bucket}")
-	private String bucket;
+	public String bucket;
 
 
 	@Value("${aws.s3.bucketURL}")
-	private String bucketURL;
+	public String bucketURL;
 
 	private final AmazonS3 amazonS3;
 	
@@ -92,12 +92,10 @@ public class AwsS3 {
 	
 	
 	
-	public Map<String,String> uploadFile(List<MultipartFile> multipartFiles)  {
+	public List<String> uploadFile(List<MultipartFile> multipartFiles)  {
 	
-		//파일업로드 후  원본 파일명과 수정된파일명 맵에 
-		Map<String,String> map = new HashMap<String, String>();
-		
-		multipartFiles.forEach(file -> {
+		//파일업로드 후  파일명을 list에 반환
+		List<String> fileNameList = multipartFiles.stream().map(file -> {
 			UUID uuid = UUID.randomUUID(); // 랜덤이름 생성
 			String fileName = bucketURL+uuid.toString()+"_"+file.getOriginalFilename();
 			ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -107,9 +105,6 @@ public class AwsS3 {
 			try (InputStream inputStream = file.getInputStream()){
 				amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
 										.withCannedAcl(CannedAccessControlList.PublicRead));
-
-				map.put("originalName", file.getOriginalFilename());
-				map.put("newName", fileName);
 				
 			} catch (AmazonServiceException e) {
 	            e.printStackTrace();
@@ -118,12 +113,11 @@ public class AwsS3 {
 	        } catch (Exception e) {
 	        	e.printStackTrace();
 			}
+			return fileName;
 			
-	
-		});
-				  
+		}).collect(Collectors.toList());				  
 
-		return map;
+		return fileNameList;
 	}
 	
 	//파일 삭제

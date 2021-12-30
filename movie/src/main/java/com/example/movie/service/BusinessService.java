@@ -1,28 +1,37 @@
 package com.example.movie.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.movie.controller.AmazonS3Controller;
+import com.example.movie.common.AwsS3;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.Movie;
 import com.example.movie.dto.TestDto;
 import com.example.movie.mapper.BusinessMapper;
+import com.example.movie.repository.MovieRepository;
 
 @Service
+
 public class BusinessService {
 	@Autowired
-	private BusinessMapper bMapper;
+	private BusinessMapper buMapper;
 	@Autowired
 	private HttpSession session;
 	@Autowired
-	private AmazonS3Controller amazonS3;
+	private AwsS3 awsS3;
+	
+	@Autowired
+	private MovieRepository movieRepository;
 	
 	ModelAndView mv;
 	
@@ -31,7 +40,7 @@ public class BusinessService {
 		
 		String res = null;
 		
-		int cnt = bMapper.buIdCheck(bid);
+		int cnt = buMapper.buIdCheck(bid);
 		if(cnt == 0) {
 			res = "ok";
 		}
@@ -59,7 +68,7 @@ public class BusinessService {
 		business.setB_pw(encBPw);
 		
 		try {
-			bMapper.businessInsert(business);
+			buMapper.businessInsert(business);
 			
 			view = "redirect:/";
 			msg = "사업자 회원가입 성공";
@@ -80,14 +89,14 @@ public class BusinessService {
 		String msg = null;
 		
 		// b_pw = 암호화되어 저장된 비밀번호, encBPw		
-		String b_pw = bMapper.getb_pw(business.getB_id());
+		String b_pw = buMapper.getb_pw(business.getB_id());
 		
 		if(b_pw != null) {
 			BCryptPasswordEncoder enc = new BCryptPasswordEncoder();
 			
 			if(enc.matches(business.getB_pw(), b_pw)) {
 				// 로그인 성공 - 세션에 회원 정보 저장, business				
-				business = bMapper.getBusiness(business.getB_id());
+				business = buMapper.getBusiness(business.getB_id());
 				
 				// business 정보를 세션에 저장
 				session.setAttribute("businessInfo", business);
@@ -137,10 +146,11 @@ public class BusinessService {
 		tDto.setMvtime(mvtime);
 		
 		try {
-			bMapper.insertMovie(tDto);
+			buMapper.insertMovie(tDto);
 			
 			if(check.equals("1")) {
-				amazonS3.uploadFile2(multi);
+				List<MultipartFile> multipartFiles = multi.getFiles("");
+				awsS3.uploadFile(multipartFiles);
 			}
 			
 			view = "redirect:/";
@@ -154,6 +164,25 @@ public class BusinessService {
 		rttr.addFlashAttribute("msg", msg);
 		
 		return null;
+	}
+
+	public String mvInsertProc(Movie movie, RedirectAttributes rttr) {
+		String view = null;
+		String msg = null;
+				
+		try {
+			movieRepository.save(movie);
+			
+			view = "redirect:/";
+			msg = "등록 성공";
+			
+		} catch (Exception e) {
+			 e.printStackTrace();
+			view = "redirect:/";
+			msg = "등록 실패";
+		}
+		
+		return view;
 	}
 	
 }
