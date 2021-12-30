@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.movie.dto.Reservation;
-import com.example.movie.dto.Schedule;
+import com.example.movie.entity.Reservation;
+import com.example.movie.entity.Schedule;
 import com.example.movie.service.ReservationService;
 
 @RestController

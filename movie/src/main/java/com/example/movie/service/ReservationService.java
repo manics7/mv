@@ -21,10 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.movie.common.AwsS3;
-import com.example.movie.dto.MovieOfficial;
-import com.example.movie.dto.Reservation;
-import com.example.movie.dto.Schedule;
-import com.example.movie.dto.Theater;
+import com.example.movie.entity.MovieOfficial;
+import com.example.movie.entity.Reservation;
+import com.example.movie.entity.Schedule;
+import com.example.movie.entity.Theater;
 import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ReservationRepository;
 import com.example.movie.repository.ReservationRepositoryCustom;

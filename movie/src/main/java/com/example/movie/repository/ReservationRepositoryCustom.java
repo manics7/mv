@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.movie.dto.QSchedule;
-import com.example.movie.dto.QScheduleDetail;
-import com.example.movie.dto.Schedule;
+import com.example.movie.entity.QSchedule;
+import com.example.movie.entity.QScheduleDetail;
+import com.example.movie.entity.Schedule;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
