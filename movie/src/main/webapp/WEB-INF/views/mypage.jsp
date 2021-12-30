@@ -14,6 +14,7 @@
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="resource/css/theaterList.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -26,20 +27,16 @@
 	<div class="wrap">
 		<div class="main_wrap_wrap">
 			<div class="main_wrap">
-				<div class="sidebar">
-					<div id="btn1">
-						<a href="purchaseFrm">예매/구매내역</a>
-					</div>
-					<div id="btn1">
-						<a href="watcheMovieFrm">내가 본 영화</a>
-					</div>
-					<div id="btn1">
-						<a href="pmvReviewFrm">내가 쓴 감상평</a>
-					</div>
-					<div id="btn1">
-						<a href="questionFrm">1:1문의</a>
-					</div>
-				</div>
+				<div id="side">
+				<h2><a href="mypage">My Page</a></h2>
+				<ul id="bupage_list">
+					<li><a id="bupage_menu" href="purchaseFrm">예매/구매내역</a></li>
+					<li><a id="bupage_menu" href="watcheMovieFrm">내가 본 영화</a></li>
+					<li><a id="bupage_menu" href="pmvReviewFrm">내가 쓴 감상평</a></li>
+					<li><a id="bupage_menu" href="questionFrm">1:1문의</a></li>
+				</ul>
+			</div>
+					
 				<div class="page_cont_wrap">
 					<div class="user_info">
 						<div class="profile_box">
