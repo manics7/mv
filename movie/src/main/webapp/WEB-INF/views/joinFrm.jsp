@@ -25,7 +25,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="text" id="mid" name="m_id" autofocus="autofocus">
+								<input type="text" id="mid" name="mId" autofocus="autofocus">
 								<input type="button" onclick="check_id()" value="중복확인">
 							</td>
 						</tr>
@@ -33,7 +33,7 @@
 							<th>비밀번호</th>
 						</tr>
 						<tr>
-							<td><input type="password" name="m_pw" id="pw" onchange="check_pw()"></td>
+							<td><input type="password" name="mPw" id="pw" onchange="check_pw()"></td>
 						</tr>
 						<tr>
 							<th>비밀번호 확인</th>
@@ -48,33 +48,33 @@
 							<th>이름</th>
 						</tr>
 						<tr>	
-							<td><input type="text" name="m_name"></td>
+							<td><input type="text" name="mName"></td>
 						</tr>
 						<tr>
 							<th>휴대전화번호</th>
 						</tr>
 						<tr>	
-							<td><input type="number" name="m_tel" placeholder="  예) 01063269166"></td>
+							<td><input type="number" name="mTel" placeholder="  예) 01063269166"></td>
 						</tr>
 						<tr>
 							<th>이메일</th>
 						</tr>
 						<tr>	
-							<td><input type="text" name="m_email" placeholder=" 예) dnckd18@nate.com"></td>
+							<td><input type="text" name="mEmail" placeholder=" 예) dnckd18@nate.com"></td>
 						</tr>
 						<tr>
 							<th>생년월일</th>
 						</tr>
 						<tr>	
-							<td><input type="number" name="m_birth" placeholder="  예) 931004"></td>
+							<td><input type="date" name="mBirth" placeholder="  예) 1993-10-04"></td>
 						</tr>
 						<tr>
 							<th>성별</th>
 						</tr>
 						<tr>	
 							<td>
-								남<input type="radio" name="m_gender" value="1">
-								여<input type="radio" name="m_gender" value="2">
+								남<input type="radio" name="mGender" value="1">
+								여<input type="radio" name="mGender" value="2">
 							</td>
 						</tr>
 						<tr>
@@ -82,7 +82,7 @@
 						</tr>
 						<tr>	
 							<td>
-								<select name="m_like">
+								<select name="mLike">
 									<option value="" selected="selected" disabled="disabled" hidden=""></option>
 									<option value="1">인천 1극장</option>
 									<option value="2">인천 2극장</option>

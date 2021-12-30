@@ -4,24 +4,35 @@
 
 <mapper namespace="com.example.movie.mapper.MemberMapper">
 
+	<resultMap type="com.example.movie.dto.Member" id="member">
+		<id column="m_id" property="mId" />
+		<id column="m_pw" property="mPw" />
+		<id column="m_birth" property="mBirth" />
+		<id column="m_tel" property="mTel" />
+		<id column="m_like" property="mLike" />
+		<id column="m_email" property="mEmail" />
+		<id column="m_name" property="mName"/>
+		<id column="m_gender" property="mGender" />
+	</resultMap>
+
 	<!-- 이용자 회원가입 아이디 중복체크 -->
 	<select id="idCheck" parameterType="String" resultType="Integer">
-		select count(*) from member where m_id=#{mid}	
+		select count(*) from member where m_id=#{mId}	
 	</select>
 	
 	<!-- 이용자 회원 가입 -->
 	<insert id="memberInsert" parameterType="com.example.movie.dto.Member">
-		insert into member values (#{m_id}, #{m_pw}, #{m_birth}, #{m_tel}, #{m_like}, #{m_email}, #{m_name}, #{m_gender}, default, default, default)
+		insert into member values (#{mId}, #{mPw}, #{mBirth}, #{mTel}, #{mLike}, #{mEmail}, #{mName}, #{mGender}, default, default, default)
 	</insert>
 	
 	<!-- 이용자 로그인 -->
 	<select id="getPw" parameterType="String" resultType="String">
-		select m_pw from member where m_id=#{m_id}
+		select m_pw from member where m_id=#{mId}
 		<!-- mapper에서 잡아준 매개변수 = #{ } -->
 	</select>
 	
 	<!-- 이용자 검색(세션 저장용?) -->
-	<select id="getMember" parameterType="String" resultType="com.example.movie.dto.Member">
+	<select id="getMember" parameterType="String" resultMap="member">
 		select * from member where m_id=#{m_id}
 	</select>
 </mapper>

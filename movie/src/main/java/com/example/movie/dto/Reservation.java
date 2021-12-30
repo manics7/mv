@@ -4,6 +4,7 @@ package com.example.movie.dto;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,16 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -72,12 +70,12 @@ public class Reservation {
 	private Integer price;
 
 	
-	@OneToMany(fetch = FetchType.LAZY) //지연로딩 필요할때만 실행
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL) //지연로딩 필요할때만 실행
 	@JoinColumn(name = "RSRV_NO")
 	private List<ReservationSeat> reservationSeat;
 	
-	@NotFound(action=NotFoundAction.IGNORE) // 조인 관계에서 엔티티가 매핑이 안되거나 찾지 못할때 NotFoundAction 에러 무시하는 어노테이션 
-	@ManyToOne(fetch = FetchType.LAZY) 
+	//@NotFound(action=NotFoundAction.IGNORE) // 조인 관계에서 엔티티가 매핑이 안되거나 찾지 못할때 NotFoundAction 에러 무시하는 어노테이션 
+	@OneToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name="M_ID", referencedColumnName="M_ID", insertable=false, updatable=false)  // insertable , updatable Reservation 저장시 멤버는 인서트,업데이트 제외
 	private Member member;
 	

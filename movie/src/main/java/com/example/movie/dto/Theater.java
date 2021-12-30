@@ -1,11 +1,16 @@
 package com.example.movie.dto;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -24,6 +29,7 @@ import lombok.ToString;
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "THEATER")
 public class Theater {
 
 	@Id
@@ -57,4 +63,8 @@ public class Theater {
 	
 	@Column(name="TH_TEL", columnDefinition="전화번호")
 	private String thTel;	
+	
+	@OneToMany(fetch = FetchType.LAZY) //지연로딩 필요할때만 실행
+	@JoinColumn(name = "TH_CODE")
+	private List<Room> room;
 }

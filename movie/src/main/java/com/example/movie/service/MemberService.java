@@ -59,7 +59,7 @@ public class MemberService {
 			view = "redirect:/";
 			msg = "회원가입 성공";
 		} catch (Exception e) {
-			// e.printStackTrace();
+			e.printStackTrace();
 			view = "redirect:joinFrm";
 			msg = "회원가입 실패";
 		}
@@ -85,7 +85,7 @@ public class MemberService {
 				member = mMapper.getMember(member.getMId());
 				
 				// member 정보를 세션에 저장
-				session.setAttribute("userInfo", member);
+				session.setAttribute("userInfo", member.getMName());
 				
 				view = "redirect:/";
 			}

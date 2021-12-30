@@ -77,9 +77,8 @@
 			alert(msg);
 		}
 		
+		var userInfo =  "${userInfo}";  
 		// 로그인하면 로그인 정보 출력, 헤더 메뉴 변경
-		// "${userInfo.m_name}" - userInfo는 service에서 session에 저장한 이름
-		var userInfo = "${userInfo.m_name}";
 		
 		if(userInfo != "") {
 			$("#userName").html(userInfo + " 님");

@@ -17,24 +17,19 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import com.example.movie.common.AwsS3;
 import com.example.movie.dto.MovieOfficial;
-import com.example.movie.dto.QSchedule;
 import com.example.movie.dto.Reservation;
 import com.example.movie.dto.Schedule;
 import com.example.movie.dto.Theater;
 import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ReservationRepository;
+import com.example.movie.repository.ReservationRepositoryCustom;
 import com.example.movie.repository.ScheduleRepositoy;
 import com.example.movie.repository.TheaterRepository;
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Service
 public class ReservationService {
@@ -56,6 +51,9 @@ public class ReservationService {
 	
 	@Autowired
 	AwsS3 awsS3;
+	
+	@Autowired
+	ReservationRepositoryCustom reservationRepositoryCustom;
 	
 	public Map<String, List<Map<String, String>>> getDate() {
 		Map<String, List<Map<String, String>>> map = new HashMap<String, List<Map<String,String>>>();
@@ -100,7 +98,7 @@ public class ReservationService {
 		LocalDate now = LocalDate.now();
 		String date= now.toString();	
 		LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));		
-		LocalDate lastDate= now.plusWeeks(2);//2주간 마지막날
+		LocalDate lastDate= now.plusWeeks(2);//2주 마지막날
 		
 		Date startDate = java.sql.Date.valueOf(dateTime.toLocalDate());
 		Date endDate = java.sql.Date.valueOf(lastDate);
@@ -110,9 +108,13 @@ public class ReservationService {
 		//스케쥴에서 영화,극장코드 중복제거해서 가져오기
 		List<String> movieCdList = scheduleList.stream().map(Schedule::getMovieCd).distinct().collect(Collectors.toList());
 		List<Integer> thCodeList = scheduleList.stream().map(Schedule::getThCode).distinct().collect(Collectors.toList());
-
+		List<Date> schDateList = scheduleList.stream().map(Schedule::getSchDate).distinct().collect(Collectors.toList());
 		//영화, 극장, 날짜 목록 가져오기
-		List<MovieOfficial> movieList = movieOfficialRepository.findAllById(movieCdList);
+		List<MovieOfficial> movieList = movieOfficialRepository.findAllById(movieCdList)
+				.stream()
+				.sorted(Comparator.comparing(MovieOfficial::getMovieNm))
+				.collect(Collectors.toList());
+				
 		List<Theater> theaterList = theaterRepository.findAllById(thCodeList);
 		List<Map<String, String>> dateList = getDefaultDate();
 		
@@ -120,6 +122,7 @@ public class ReservationService {
 		map.put("movieList", movieList);
 		map.put("theaterList", theaterList);		
 		map.put("dateList", dateList);
+		map.put("s", schDateList);
 		
 		//String url = awsS3.getFileURL(awsS3.bucket, awsS3.bucketURL+"mm.thumb.jpg");
 		//String url2 = awsS3.getFileURL(awsS3.bucket, awsS3.bucketURL+"82479_320.jpg");	
@@ -146,60 +149,22 @@ public class ReservationService {
 	}
 	
 	//영화,극장,일자 선택했을때
-	public Map<String, Object>  selectSchList(String movieCd ,Integer thCode, String schDate,  String sort) {
+	public List<Schedule>  selectSchList(String movieCd ,Integer thCode, String schDate) {
 		
-		//List<Schedule> scheduleList = getSchedule();
-		//List<String> movieCdList = scheduleList.stream().map(Schedule::getMovieCd).distinct().collect(Collectors.toList());		
-		//List<MovieOfficial> movieList = getMoiveList(movieCdList,movideCd, sort);
-		//List<Map<String, String>> date = getDefaultDate(); 
-		BooleanBuilder booleanBuilder = new BooleanBuilder();
+		List<Schedule> schList = reservationRepositoryCustom.selectSchList(movieCd, thCode, schDate);
 		
-		//QSchedule qSchedule = new QSchedule("s");
-		QSchedule qSchedule = QSchedule.schedule;
-		
-		JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(entityManager);
-		
-		List<Schedule> schList =  jpaQueryFactory.selectFrom(qSchedule)
-							.where(eqMovieCd(movieCd) , eqThcode(thCode) ,eqSchDate(schDate))
-							//.where(eqThcode(thCode).and(eqSchDate(schDate)))
-							//.where(eqMovieCd(movieCd).and(eqThcode(thCode)).and(eqDate(schDate)))
-						.fetch();
-		
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("schList", schList);
-		
-		return map;
+		return schList;
 	}
 	
 	public List<Reservation> getRsrvList() {
 		List<Reservation> list = reservationRepository.findAll();
 		return list;
 	}
-	
-	public BooleanExpression eqMovieCd(String movieCd) {
-		
-		return StringUtils.isEmpty(movieCd) ? null : QSchedule.schedule.movieCd.eq(movieCd);		
-	}
-	
-	public BooleanExpression eqThcode(Integer thCode) {
-		 return ObjectUtils.isEmpty(thCode)  ? null : QSchedule.schedule.thCode.eq(thCode);
-	}
-	public BooleanExpression eqSchDate(String schDate) {
-		
-		LocalDateTime dateTime  = LocalDateTime.now();
-		Date date =new Date();
-		
-		if(!StringUtils.isEmpty(schDate)) {
-			 dateTime = LocalDateTime.parse(schDate+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-			 date = java.sql.Date.valueOf(dateTime.toLocalDate());
 
-		}		
-				
-		return StringUtils.isEmpty(schDate) ? null : QSchedule.schedule.schDate.eq(date);		 
-	}
-
-	public BooleanExpression eqAll(String movieCd,Integer thcode, String schDate) {
-		return null;
+	public Map<String, Object> getSchduleTime(String movieCd, Integer thCode, String date) {
+		List<Schedule> list= reservationRepositoryCustom.getSchduleTime(movieCd, thCode, date);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("schDetailList", list);
+		return map;
 	}
 }

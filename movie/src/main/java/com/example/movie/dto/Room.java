@@ -21,6 +21,7 @@ import lombok.ToString;
 @Entity
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
+@Table(name = "ROOM")
 public class Room {
 	
 	@Id
@@ -46,8 +47,8 @@ public class Room {
 	@Column(name="ROOM_COL", columnDefinition="전체 열")
 	private Integer roomCol;	
 	
-	@Column(name="ROOM_STATUS", columnDefinition="총 좌석수")
-	private String roomStatus;	
+	@Column(name="SEAT_CNT", columnDefinition="총 좌석수")
+	private Integer seatCnt;	
 	
 	
 }

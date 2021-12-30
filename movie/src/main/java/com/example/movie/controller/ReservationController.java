@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.dto.Reservation;
+import com.example.movie.dto.Schedule;
 import com.example.movie.service.ReservationService;
 
 @RestController
@@ -24,16 +25,6 @@ public class ReservationController {
 		mv.setViewName("rsrv/reservation");
 		return mv;
 	}
-	/**
-	 * 오늘부터 2주간 년월일,요일 만들어온다.
-	 * @return
-	 */
-	@GetMapping("/getDate")
-	public Map<String,List<Map<String, String>>> getDate() {
-		
-		Map<String,List<Map<String, String>>> map = reservationService.getDate();	
-		return map;
-	}	
 	
 	@GetMapping("/getSchedule")
 	public Map<String, Object> getScselectSchListhedule(){
@@ -42,14 +33,17 @@ public class ReservationController {
 	}
 	
 	@GetMapping("/selectSchList")
-	public Map<String, Object> selectSchList(String movieCd, Integer thCode, String date, String sort){
-		Map<String, Object> map = reservationService.selectSchList(movieCd, thCode, date, sort);
-		return map;
+	public List<Schedule> selectSchList(String movieCd, Integer thCode, String date){
+		List<Schedule> list = reservationService.selectSchList(movieCd, thCode, date);
+		return list;
 	}
 	
-	
-	
-	
+	@GetMapping("/getSchduleTime")
+	public Map<String,Object> getSchduleTime(String movieCd, Integer thCode, String date){
+		Map<String,Object> map = reservationService.getSchduleTime(movieCd, thCode, date);
+		return map;
+	}
+		
 	@GetMapping("/getRsrv")
 	public List<Reservation> rsrv(){
 		 List<Reservation> list = reservationService.getRsrvList();
@@ -61,5 +55,4 @@ public class ReservationController {
 		
 		return "rsrv/reservationSeat"; 
 	}	
-	
 }
