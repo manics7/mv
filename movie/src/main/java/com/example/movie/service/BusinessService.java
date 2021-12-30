@@ -102,6 +102,7 @@ public class BusinessService {
 				session.setAttribute("businessInfo", business);
 				
 				view = "redirect:businessPage";
+				msg = "환영합니다";
 			}
 			else {
 				view = "redirect:/";

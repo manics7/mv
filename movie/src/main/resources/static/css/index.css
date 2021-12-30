@@ -35,7 +35,7 @@ header {
 
 #main_wrap {
 	width: 100%;
-	position: absolute;
+	position: relative;
 	top: 0;
 	left: 0;
 	min-width: 1000px;
@@ -44,7 +44,6 @@ header {
 	background-image: linear-gradient(rgba(0, 0, 0, 0.91), rgba(0, 0, 0, 0.91)), URL(https://img.megabox.co.kr/SharedImg/2021/12/16/pP1d3DrHmo5d4rcb4ZLoBsMScFRHlbKn_380.jpg);
 	background-position: center top;
 	background-size: cover;
-/* 	opacity: 0.91; */
 	z-index: -1;
 }
 
@@ -71,9 +70,10 @@ header {
 	padding-top: 2px;
 }
 
-#more-movie>img {
+#more-movie img {
 	background-repeat: no-repeat;
 	vertical-align: middle;
+	padding-bottom: 3px;
 }
 
 #box-office-list {
@@ -93,7 +93,10 @@ header {
 	width: 240px;
 	height: 345.2px;
 	border-radius: 4px;
-	
+}
+
+#box-list a {
+	display: block;
 }
 
 .box-office-list:nth-of-type(4) {
@@ -116,10 +119,11 @@ header {
 #search-box {
 	width: 1000px;
 	height: 75px;
-	background-color: rgba(44, 44, 44, 0.5);
+	background-color: rgba(40, 40, 40, 0.5);
 	margin-top: 50px;
 	vertical-align: middle;
 	padding-top: 22.5px;
+	color: white;
 }
 
 .search-cell {
@@ -129,14 +133,47 @@ header {
 	border-right: 0.5px solid rgb(44, 44, 44);
 }
 
+.search-cell a {
+	line-height: 30px;
+}
+
+.search-cell>div {
+	display: inline-block;
+	border-bottom: 0.5px solid rgb(66, 66, 66); 
+}
+
+.search-cell>div input {
+	display: inline-block;
+	border: none;
+	background-color: rgba(0, 0, 0, 0);
+	text-align: center;
+	color: white;
+}
+
+.search-cell>div button {
+	vertical-align: bottom;
+	width: 26px;
+	height: 26px;
+	display: inline-block;
+	border: none;
+	background-image: URL(https://img.megabox.co.kr/static/pc/images/common/ico/ico-search-white.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: rgba(0, 0, 0, 0); 	
+}
+
 .search-cell:nth-of-type(4) {
 	border: none;
 }
 
+#section_wrap {
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+	z-index: 1;
+}
 
-
-/* #section_container { */
-/* 	width: 1000px; */
-/* 	height: 1500px; */
-/* 	border: 1px solid blue; */
-/* } */
+#section_container {
+	width: 1000px;
+	margin: 50px auto 0 auto;
+}

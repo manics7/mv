@@ -18,7 +18,8 @@
 					<a href="#">회원가입</a>
 				</div>
 				<div id="login_after">
-					<a href="#">마이페이지</a> <a href="#">로그아웃</a>
+					<a href="#" id="userName"></a>
+					<a href="./logout">로그아웃</a>
 				</div>
 			</div>
 		</div>
@@ -53,8 +54,8 @@
 		<form action="./loginProc" method="post">
 			<div id="user_tap" class="login_tap">
 				<div class="login_wrap">
-					<input class="login_input" placeholder="아이디" name="mId">
-					<input class="login_input" placeholder="비밀번호" type="password" name="mPw">
+					<input class="login_input" placeholder="아이디" name="m_id">
+					<input class="login_input" placeholder="비밀번호" type="password" name="m_pw">
 					<button class="login_button">로그인</button>
 					<a>아이디/비밀번호 찾기</a> &nbsp;|&nbsp; <a href="./joinFrm">회원가입</a>
 				</div>
@@ -64,8 +65,8 @@
 		<form action="./bu_loginProc" method="post">
 			<div id="business_tap" class="login_tap">
 				<div class="login_wrap">
-					<input class="login_input" placeholder="아이디" name="bId">
-					<input class="login_input" placeholder="비밀번호" type="password" name="bPw">
+					<input class="login_input" placeholder="아이디" name="b_id">
+					<input class="login_input" placeholder="비밀번호" type="password" name="b_pw">
 					<button class="login_button">로그인</button>
 					<a>아이디/비밀번호 찾기</a> &nbsp;|&nbsp; <a href="./bu_joinFrm">회원가입</a>
 				</div>
@@ -99,4 +100,14 @@ $("#type_business").click(function() {
 	$("#business_tap").css("display", "inline-block");
 	$("#type_business").css("border-bottom", "2px solid #f16a1a");
 });
+
+//로그인하면 로그인 정보 출력, 헤더 메뉴 변경
+// "${userInfo.m_name}" - userInfo는 service에서 session에 저장한 이름
+var userInfo = "${userInfo.m_name}";
+
+if(userInfo != "") {
+	$("#userName").html(userInfo + " 님");
+	$("#login_after").css("display", "inline-block");
+	$("#login_before").css("display", "none");
+}
 </script>

@@ -22,7 +22,7 @@ public class MemberController {
 	// 이용자 회원가입
 		@PostMapping("memberInsert")
 		public String memberInsert(MemberDto member, RedirectAttributes rttr) {
-			log.info("memberInsert()");
+
 			String view = mServ.memberInsert(member, rttr);
 			
 			return view;
@@ -32,7 +32,6 @@ public class MemberController {
 	@GetMapping(value = "idCheck", produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String idCheck(String mid) {
-		
 		String res = mServ.idCheck(mid);
 		
 		return res;
@@ -41,7 +40,6 @@ public class MemberController {
 	// 이용자 로그인
 	@PostMapping("loginProc")
 	public String loginProc(MemberDto member, RedirectAttributes rttr) {
-		log.info("loginProc()");
 		String view = mServ.loginProc(member, rttr);
 		
 		return view;

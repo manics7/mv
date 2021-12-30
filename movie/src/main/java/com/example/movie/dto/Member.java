@@ -40,7 +40,7 @@ public class Member {
 	private String mEmail;
 	
 	@Column(name="M_NAME", columnDefinition="이름")
-	private String mName;
+	private String m_name;
 	
 	@Column(name="M_GENDER", columnDefinition="성별")
 	private String mGender;

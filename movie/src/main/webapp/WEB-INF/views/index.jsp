@@ -72,22 +72,54 @@
 					</div>
 					<div id="search-box">
 						<div class="search-cell">
-							1
+							<div>
+								<input type="text" placeholder="영화명을 입력해주세요!">
+								<button></button>
+							</div>
 						</div>
 						<div class="search-cell">
-							2
+							<a href="#">
+								상영시간표
+							</a>
 						</div>
 						<div class="search-cell">
-							3
+							<a href="#">
+								박스오피스
+							</a>
 						</div>
 						<div class="search-cell">
-							4
+							<a href="#">
+								빠른예매
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div id="section_container"
-				
+			<div id="section_container">
+				<div id="event_wrap">
+					<div>
+						<h2>이벤트</h2>
+					</div>
+					<div>
+						
+					</div>
+				</div>
+				<div id="notice_wrap">
+					<div>
+						<h2>공지사항</h2>
+					</div>
+					<div>
+						
+					</div>
+				</div>
+				<div id="question">
+					<div>
+						<h2>문의사항</h2>
+					</div>
+					<div>
+						
+					</div>
+				</div>
 			</div>
 		</div>
 		
@@ -98,21 +130,12 @@
 </body>
 	<script src="resource/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
-	$(function() {
 		//메시지 출력 부분
 		var msg = "${msg}";
+		var info = "${userInfo.m_name}"
+		
 		if(msg != ""){
-			alert(msg);
-		}
-		
-		// 로그인하면 로그인 정보 출력, 헤더 메뉴 변경
-		// "${userInfo.m_name}" - userInfo는 service에서 session에 저장한 이름
-		var userInfo = "${userInfo.mName}";
-		
-		if(userInfo != "") {
-			$("#userName").html(userInfo + " 님");
-			$(".suc").css("display", "inline-block");
-			$(".nomal").css("display", "none");
+			alert(msg + info + " 님!");
 		}
 	</script>
 </html>

@@ -88,6 +88,7 @@ public class MemberService {
 				session.setAttribute("userInfo", member);
 				
 				view = "redirect:/";
+				msg = "반가워요~ ";
 			}
 			else {
 				view = "redirect:/";

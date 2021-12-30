@@ -42,7 +42,6 @@ public class BusinessController {
 	// 사업자 로그인
 	@PostMapping("bu_loginProc")
 	public String bu_loginProc(BusinessDto business, RedirectAttributes rttr) {
-		
 		String view = buServ.bu_loginProc(business, rttr);
 		
 		return view;
