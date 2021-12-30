@@ -206,7 +206,7 @@ public class MemberService {
 				}
 
 				int j=0;
-				//삭제한걸 자꾸 재정렬해서; 0번째 값 삭제로 고정
+				//0번째 값 삭제로 고정
 				apmvrList.remove(j);
 			}
 
