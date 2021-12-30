@@ -5,22 +5,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+//import org.springframework.web.servlet.ModelAndView;
+
+import com.example.movie.dto.quesboardDto;
+import com.example.movie.mapper.AdminMapper;
+import com.example.movie.util.PagingUtil;
+
+
+import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.reportMvReviewDto;
-import com.example.movie.mapper.AdminMapper;
-import com.example.movie.utill.PagingUtil;
+
 
 @Service
 public class AdminService {
+
 	
-	@Autowired
+	@Autowired 
 	private AdminMapper aMapper;
 	@Autowired
 	private HttpSession session;
@@ -59,10 +67,11 @@ public class AdminService {
 		pmap.put("lcnt", listCnt);
 		
 		List<reportMvReviewDto> rpList = aMapper.selectReportMvReview(pmap);
+		/* 글내용 가져옴
 		List<reportMvReviewDto> arpList = new ArrayList<reportMvReviewDto>();
 		
-		/* 글내용 가져옴
-		 * for(int i = 0; i <= rpList.size()-1; i++) {
+		
+		  for(int i = 0; i <= rpList.size()-1; i++) {
 			
 			reportMvReviewDto rpDto = rpList.get(i);
 			
@@ -157,4 +166,57 @@ public class AdminService {
 		
 		return mv;
 	}
+
+	@Autowired
+	public AdminMapper qMap;
+
+	public int listCnt = 5;
+
+	public List<quesboardDto> getQboardList(Integer pageNum) {
+
+		//ModelAndView mv = new ModelAndView();
+		pageNum = (pageNum == null) ? 1 : pageNum;
+		System.out.println("pageNum = "+pageNum);
+
+		Map<String, Integer> qmap = new HashMap<String, Integer>();
+
+		qmap.put("num", pageNum);
+
+		qmap.put("lcnt", listCnt );
+		System.out.println("lcnt = "+listCnt);
+
+		List<quesboardDto> qList = qMap.getQuesList(qmap);
+
+		//mv.setViewName(null);
+		System.out.println("qList = "+qList);
+
+		return qList;
+	}
+
+	public String getpaging(int num) {
+		String pageHtml = null;
+
+		int maxNum = qMap.getBoardCnt();
+
+		int pageCnt = 10;
+
+		String listName = "quesboard";
+
+		PagingUtil paging = new PagingUtil(maxNum, num, listCnt, 
+				pageCnt, listName);
+		//PagingUtil paging = new PagingUtil(maxNum, pageCnt, maxNum, pageCnt, listName);
+
+		pageHtml = paging.makePaging();
+
+		return pageHtml;
+	}
+
+	public List<quesboardDto> getboardRead(String ques_title) {
+		
+		List<quesboardDto> readqlist = qMap.getboardRead(ques_title);
+		
+		return readqlist;
+	}
+
+
 }

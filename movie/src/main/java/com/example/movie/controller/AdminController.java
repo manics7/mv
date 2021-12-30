@@ -8,10 +8,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.service.AdminService;
 
+import java.util.List;
+
+
+import com.example.movie.dto.quesboardDto;
+
 
 @Controller
 public class AdminController {
-
 	
 	@Autowired
 	private AdminService aServ;
@@ -20,7 +24,6 @@ public class AdminController {
 	
 	@GetMapping("reportFrm")
 	public ModelAndView reportFrm(Integer pageNum) {
-		String view = "reportFrm";
 		
 		mv = aServ.reportedReview(pageNum);
 		
@@ -52,4 +55,42 @@ public class AdminController {
 		
 		return mv;
 	}
+
+	@GetMapping("/quesboard")
+	public ModelAndView quesboard(Integer pageNum) {
+		ModelAndView mv = new ModelAndView();
+
+		List<quesboardDto> qList = aServ.getQboardList(pageNum);
+
+		mv.addObject("qlist", qList);
+
+		//페이징 처리.
+		String pageHtml = aServ.getpaging(pageNum);
+
+		mv.addObject("paging", pageHtml);
+
+
+		mv.setViewName("quesboard");
+
+		System.out.println("qlist = "+qList);
+		return mv;
+	}
+	@GetMapping("/requeboard_read")
+	public ModelAndView requeboardRead(String ques_title) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("ques_title = "+ques_title);
+
+		List<quesboardDto> readqlist = aServ.getboardRead(ques_title);
+
+		mv.addObject("qrlist", readqlist);
+		mv.setViewName("requeboard_read");
+		System.out.println("readqlist = "+readqlist);
+		return mv;
+	}
+	@GetMapping("quesboard_rewrite")
+	public String quesboard_rewrite() {
+		
+		return "quesboard_rewrite";
+	}
+
 }

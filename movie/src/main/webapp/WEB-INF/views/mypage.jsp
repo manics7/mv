@@ -47,7 +47,7 @@
 								<img src="resource/images/profileimag.svg" alt="">
 							</div>
 							<div class="profile_txt">
-								<p class="m_id">${mb.m_name}님</p>
+								<p class="m_id">${userInfo.m_name}님</p>
 								<p>환영합니다.</p>
 
 							</div>
@@ -58,7 +58,7 @@
 					<div class="main_point_box">
 						<div class="point_box point1">
 							<p class="tit">선호극장 ▶</p>
-							<ol>${mb.m_like}</ol>
+							<ol>${userInfo.m_like}</ol>
 						</div>
 						<div class="point_box point2">
 							<p class="tit">영화 할인쿠폰 ▶</p>

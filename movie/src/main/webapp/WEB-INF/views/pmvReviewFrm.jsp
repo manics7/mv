@@ -84,21 +84,21 @@ $(function(){
 						<tbody>
 						<!-- 검색 처리 -->
 						<c:choose>
-						<c:when test="${not empty mvrList}">
-						<c:forEach var="mvritem" items="${mvrList}">
-								<tr>
+							<c:when test="${not empty mvrList}">
+								<c:forEach var="mvritem" items="${mvrList}">
+									<tr>
 							<!-- 	<td class="text-center d-none d-md-table-cell">${mvritem.mv_review}</td> -->
-									<td class="text-center d-none d-md-table-cell">${mvritem.mvName}</td>
-									<td class="text-center d-none d-md-table-cell">${mvritem.mv_review_comment}</td>
-									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${mvritem.mv_review_date}"
-										pattern="yyyy-MM-dd"/></td>
-									<td class="text-center d-none d-md-table-cell">${mvritem.mv_review_score}</td>
-									<td class="text-center d-none d-md-table-cell"><button onclick="delCheck(${mvritem.mv_review})">감상평 삭제</button></td>
-								</tr>
-							</c:forEach>
+										<td class="text-center d-none d-md-table-cell">${mvritem.mvName}</td>
+										<td class="text-center d-none d-md-table-cell">${mvritem.mv_review_comment}</td>
+										<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${mvritem.mv_review_date}"
+											pattern="yyyy-MM-dd"/></td>
+										<td class="text-center d-none d-md-table-cell">${mvritem.mv_review_score}</td>
+										<td class="text-center d-none d-md-table-cell"><button onclick="delCheck(${mvritem.mv_review})">감상평 삭제</button></td>
+									</tr>
+								</c:forEach>
 						</c:when>
 						<c:otherwise>
-						<td class="text-center d-none d-md-table-cell">작성한 감상평이 없습니다.</td>
+							<td class="text-center d-none d-md-table-cell">작성한 감상평이 없습니다.</td>
 						</c:otherwise>
 						
 						</c:choose>
@@ -137,8 +137,7 @@ $(function(){
 							<li class="page-item"><a href="#" class="page-link">다음</a></li>
 						</ul>
 					</div>
-				
-
+			
 		</div>
 	</div>
 

@@ -5,8 +5,20 @@ import java.util.Map;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.reportMvReviewDto;
+import com.example.movie.dto.quesboardDto;
 
-public interface AdminMapper  extends MybatisMapper {
+
+public interface AdminMapper extends MybatisMapper {
+
+	List<quesboardDto> getQuesList(Map<String, Integer> qmap);
+
+	int getBoardCnt();
+
+	List<quesboardDto> getboardSelect(String m_id);
+
+	List<quesboardDto> getboardRead(String ques_title);
+	
+	
 	
 	//신고당한 영화리뷰의 갯수
 	public int selectReportMvReviewCnt();
