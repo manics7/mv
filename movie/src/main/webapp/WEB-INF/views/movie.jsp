@@ -15,7 +15,8 @@
 	</form>
 
 </body>
-	<script src="resources/js/jquery-3.6.0.min.js"></script>
+	<script src="resources/js/jquery-3.6.0.min.js">
+	</script>
 	<script src="resources/js/jquery.serializeObject.js"></script>
 	<script type="text/javascript">
 	</script>
