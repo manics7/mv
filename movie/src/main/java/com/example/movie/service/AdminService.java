@@ -211,9 +211,9 @@ public class AdminService {
 		return pageHtml;
 	}
 
-	public List<quesboardDto> getboardRead(String ques_title) {
+	public List<quesboardDto> getboardRead(int ques_no) {
 		
-		List<quesboardDto> readqlist = qMap.getboardRead(ques_title);
+		List<quesboardDto> readqlist = qMap.getboardRead(ques_no);
 		
 		return readqlist;
 	}

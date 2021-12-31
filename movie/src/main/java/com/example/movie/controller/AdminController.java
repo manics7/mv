@@ -76,14 +76,22 @@ public class AdminController {
 		return mv;
 	}
 	@GetMapping("/requeboard_read")
-	public ModelAndView requeboardRead(String ques_title) {
+	public ModelAndView requeboardRead(int ques_no,Integer view) {
+		
+		int num = (view == null)? 0 : view;
+		
 		ModelAndView mv = new ModelAndView();
-		System.out.println("ques_title = "+ques_title);
+		System.out.println("ques_no = "+ques_no);
 
-		List<quesboardDto> readqlist = aServ.getboardRead(ques_title);
+		List<quesboardDto> readqlist = aServ.getboardRead(ques_no);
 
 		mv.addObject("qrlist", readqlist);
-		mv.setViewName("requeboard_read");
+		if(num == 0) {
+			mv.setViewName("requeboard_read");
+		}
+		else {
+			mv.setViewName("questionContents");
+		}
 		System.out.println("readqlist = "+readqlist);
 		return mv;
 	}

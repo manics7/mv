@@ -159,5 +159,22 @@ public class BusinessService {
 		
 		return null;
 	}
+
+	//사업자페이지 사업자정보 (극장이름) 등.. 출력
+	public ModelAndView businessPage() {
+		
+		mv = new ModelAndView();
+		
+		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
+		String Bid = bDto.getB_id();
+		
+		String thName = bMapper.selectThNameByBid(Bid);
+		
+		mv.addObject("thName", thName);
+		
+		mv.setViewName("businessPage");
+		
+		return mv;
+	}
 	
 }

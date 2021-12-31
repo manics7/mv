@@ -16,7 +16,7 @@ public interface AdminMapper extends MybatisMapper {
 
 	List<quesboardDto> getboardSelect(String m_id);
 
-	List<quesboardDto> getboardRead(String ques_title);
+	List<quesboardDto> getboardRead(int ques_no);
 	
 	
 	

@@ -55,7 +55,7 @@
 					<div class="main_point_box">
 						<div class="point_box point1">
 							<p class="tit">등록 영화관 ▶</p>
-							<ol></ol>
+							<ol>${thName}</ol>
 						</div>
 						<div class="point_box point2">
 							<p class="tit">등록 - ▶</p>

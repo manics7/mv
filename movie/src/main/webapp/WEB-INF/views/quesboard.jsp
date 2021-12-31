@@ -92,7 +92,7 @@
                                        <tr>
                                             <td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
                                             <td class="text-center d-none d-md-table-cell"><a
-                                                    href='/requeboard_read?ques_title=${qitem.ques_title}'>${qitem.ques_title}</a>
+                                                    href='/requeboard_read?ques_no=${qitem.ques_no}'>${qitem.ques_title}</a>
                                             </td>
                                             <td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
                                             <td class="text-center d-none d-md-table-cell">${qitem.ques_state == "0" ? "미완료" : "답변 완료"}</td>

@@ -77,7 +77,8 @@
 						<c:forEach var="qitem" items="${qList}">
 								<tr>
 									<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
-									<td class="text-center d-none d-md-table-cell">${qitem.ques_title}</td>
+									<td class="text-center d-none d-md-table-cell"><a
+                                                    href='/questionContents?ques_no=${qitem.ques_no}'>${qitem.ques_title}</a></td>
 									<td class="text-center d-none d-md-table-cell">일반</td>
 									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${qitem.ques_date}"
 										pattern="yyyy-MM-dd"/></td>

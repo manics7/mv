@@ -25,6 +25,8 @@ public class MemberController {
 
 	@Autowired
 	private MemberService mServ;
+	@Autowired
+	private AdminController aCon;
 	
 	private ModelAndView mv;
 	
@@ -73,6 +75,15 @@ public class MemberController {
 		return mv;
 	}
 	
+	@GetMapping("questionContents")
+	public ModelAndView questionContents(int ques_no) {
+		
+		Integer view = 1;
+		
+		mv = aCon.requeboardRead(ques_no,view);
+		
+		return mv;
+	}
 	@GetMapping("delMvReview")
 	public String delMvReview(int mv_review,RedirectAttributes rttr) {
 		

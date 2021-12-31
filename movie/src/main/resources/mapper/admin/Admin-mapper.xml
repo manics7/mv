@@ -98,9 +98,9 @@
 		SELECT * FROM QUESTION where m_id = #{m_id}
 	</select>
 
-	<select id="getboardRead"
+	<select id="getboardRead" parameterType="Integer"
 		resultType="com.example.movie.dto.quesboardDto">
-		SELECT * FROM QUESTION where ques_title = #{ques_title}
+		SELECT * FROM QUESTION where ques_no = #{ques_no}
 	</select>
 
 
