@@ -29,7 +29,9 @@
 		</nav>
 		<div class="main_wrap">
 			<div class="cont_wrap">
-				<div class="cont_sidebar"></div>
+				<div class="cont_sidebar">
+				<jsp:include page="adminpage_sidebar.jsp"/>
+				</div>
 				<div class="container queboard">
 					<div class="card shadow">
 					<div class="member_top_btn_wrap">

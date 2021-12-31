@@ -32,7 +32,9 @@
             <!-- 상단 메뉴 부분 -->
             <div class="cont_wrap">
                 <!-- 게시글 리스트 -->
-                <div class="cont_sidebar"></div>
+                <div class="cont_sidebar">
+                <jsp:include page="adminpage_sidebar.jsp"/>
+                </div>
                 <div class="container queboard">
                     <div class="card shadow">
                         <!--
