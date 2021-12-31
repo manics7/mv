@@ -33,7 +33,8 @@ display: flex;
 }
 .member_top_btn_wrap{
 width: 700px;
-margin-bottom: 30px;
+margin: 0 auto;
+margin-top: 30px;
 
 }
 .member_top_btn{
@@ -43,19 +44,22 @@ margin-bottom: 30px;
     justify-content: space-between;
     
 }
-button{
+.member_top_btn>a{
     background-color: transparent;
     outline: none;
     padding: 4px;
     width: 200px;
     border: 1px solid gray;
+    text-align: center;
+    text-decoration: none;
+    color: black;
 }
 input{
     background-color: transparent;
     outline: none;
     border: 1px solid gray;
 }
-button:hover{
+.member_top_btn>a:hover{
     background-color: #f16a1a;
     color: white;
 }
@@ -96,4 +100,9 @@ footer{
 .tabe_header{
     display: flex;
     justify-content: space-between;
+}
+.businessbtn{
+	padding: 4px;	
+	border: 1px solid gray;
+	
 }

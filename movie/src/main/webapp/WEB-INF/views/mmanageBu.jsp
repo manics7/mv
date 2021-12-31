@@ -28,17 +28,15 @@
                 <div class="cont_sidebar"></div>
                 <div class="container queboard">
                     <div class="card shadow">
-                        <form name="searchFrm" action="./memberSelect?pageNum=1" method="post">
-                            <div class="card-body">
-                                <div class="member_top_btn_wrap">
+                     <div class="member_top_btn_wrap">
                                     <div class="member_top_btn">
-                                        <button onclick="./mmanage?pageNum=1">일반회원</button>
-                                        <button>불량회원</button>
-                                        <button>사업자</button>
+                                        <a href="./mmanage?pageNum=1">일반회원</a>
+                                        <a href="#">불량회원</a>
+                                        <a href="#">사업자</a>
                                     </div>
-
                                 </div>
-
+                    
+                            <div class="card-body">                            
                                 <div class="member_top">
                                     <h4 class="card-title">사업자관리</h4>
                                     <div class="input_box">
@@ -130,7 +128,7 @@
                                 </div>
                             </div>
 
-                        </form>
+                        
 
                     </div>
 
