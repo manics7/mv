@@ -18,9 +18,10 @@ public interface MemberMapper  extends MybatisMapper {
 	//회원 검색 쿼리
 	List<MemberDto> selectMember(String m_id);
 	
+	
 	void getmboardSelect(String m_id);
+	
 	int getsearchBoardCnt(String m_id);
-	List<thdetailDto> thdetailInsert(thdetailDto thdto);
 	
 	
 	// 이용자 회원가입 아이디 중복체크

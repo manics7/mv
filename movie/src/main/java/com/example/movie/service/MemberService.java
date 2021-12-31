@@ -71,9 +71,9 @@ System.out.println("pageNum"+pageNum);
 	    //설정하는 부분을 처리하여 10 대신 사용.
 		//페이지 당 게시글 개수와 페이지넘버 넣는것.
 		System.out.println("listCnt = "+listCnt);			
-		List<MemberDto> mList = mMap.getList(mmap);
+		List<MemberDto> mList = mMapper.getList(mmap);
 System.out.println("mList.size = "+mList.size());		
-System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져오는 mapper
+System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가져오는 mapper
 //페이징 처리
 //String pageHtml = getPaging(pageNum);
 
@@ -99,7 +99,7 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		String pageHtml = null;
 
 		//전체 글 개수 구하기(DAO) -> MAPPER 거쳐서 102라는 숫자가 나옴.
-		int maxNum = mMap.getBoardCnt();
+		int maxNum = mMapper.getBoardCnt();
 		//한 페이지에 보여질 페이지 번호 개수 (하단에 조그맣게)
 		int pageCnt = 10;
 		String listName = "mmanage";
@@ -117,7 +117,7 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 	
 	public String deletemember(String m_id) {
 		
-		mMap.deleteMember(m_id);
+		mMapper.deleteMember(m_id);
 		
 		return null;
 	}
@@ -126,7 +126,7 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		
 	ModelAndView mv = new ModelAndView();
 	
-	List<MemberDto> mselectList = mMap.selectMember(m_id);
+	List<MemberDto> mselectList = mMapper.selectMember(m_id);
 	
 	System.out.println("검색 결과 = "+mselectList);
 	mv.addObject("mList", mselectList);
@@ -148,7 +148,7 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		String pageHtml = null;
 		int num = 1;
 		//전체 글 개수 구하기(DAO) -> MAPPER 거쳐서 102라는 숫자가 나옴.
-		int maxNum = mMap.getsearchBoardCnt(m_id); // 회원 id로 작성한 글 갯수 출력.
+		int maxNum = mMapper.getsearchBoardCnt(m_id); // 회원 id로 작성한 글 갯수 출력.
 		//한 페이지에 보여질 페이지 번호 개수 (하단에 조그맣게)
 		int pageCnt = 5;
 		String listName = "mmanage";
@@ -164,12 +164,6 @@ System.out.println("BoardCnt = "+mMap.getBoardCnt()); //전체 글 개수 가져
 		return pageHtml;
 	}
 
-	public ModelAndView thdetailInsert(thdetailDto thdto) {
-		ModelAndView mv = new ModelAndView();
-		List<thdetailDto> thdetailList = mMap.thdetailInsert(thdto);
-		mv.addObject("thdetail", thdetailList);
-		return mv;
-	}
 			
 	// 이용자 회원가입 아이디 중복체크
 		public String idCheck(String mid) {

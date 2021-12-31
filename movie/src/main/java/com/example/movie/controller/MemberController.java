@@ -12,8 +12,6 @@ import com.example.movie.service.MemberService;
 
 import lombok.extern.java.Log;
 
-package com.example.movie.controller;
-
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -25,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.dto.quesboardDto;
+import com.example.movie.dto.thdetailDto;
 import com.example.movie.service.MemberService;
 
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -117,12 +116,6 @@ public class MemberController {
 		
 		return mv;
 	}
-	@GetMapping("/thDetail")
-	public ModelAndView thDetail(thdetailDto thdto) {
-		
-		ModelAndView mv = mServ.thdetailInsert(thdto);
-		
-		return mv;
 	
 	// 이용자 회원가입
 		@PostMapping("memberInsert")
