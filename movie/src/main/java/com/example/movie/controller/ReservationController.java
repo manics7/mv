@@ -38,11 +38,12 @@ public class ReservationController {
 		return list;
 	}
 	
-	@GetMapping("/getSchduleTime")
-	public Map<String,Object> getSchduleTime(String movieCd, Integer thCode, String date){
-		Map<String,Object> map = reservationService.getSchduleTime(movieCd, thCode, date);
-		return map;
-	}
+	@GetMapping("/getTimeList")
+	public List<Schedule> getSchduleTime(String movieCd, Integer thCode, String date){
+		List<Schedule> list = reservationService.getTimeList();
+		return list;
+	}	
+	
 		
 	@GetMapping("/getRsrv")
 	public List<Reservation> rsrv(){

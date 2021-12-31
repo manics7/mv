@@ -167,4 +167,10 @@ public class ReservationService {
 		map.put("schDetailList", list);
 		return map;
 	}
+	
+	public List<Schedule> getTimeList() {
+		List<Schedule> list = reservationRepositoryCustom.getTimeList();
+		return list;
+	}
+	
 }
