@@ -1,5 +1,4 @@
 package com.example.movie.mapper;
-
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.mvReviewDto;
 import com.example.movie.dto.paymentDto;
 import com.example.movie.dto.reservationDto;
-import com.example.movie.dto.thdetailDto;
 
 
 public interface MemberMapper  extends MybatisMapper {
@@ -65,8 +63,6 @@ public interface MemberMapper  extends MybatisMapper {
 	
 	void getmboardSelect(String m_id);
 	int getsearchBoardCnt(String m_id);
-	List<thdetailDto> thdetailInsert(thdetailDto thdto);
-	
 	
 	// 이용자 회원가입 아이디 중복체크
 	public int idCheck(String mid);

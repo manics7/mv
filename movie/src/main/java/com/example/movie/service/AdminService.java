@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.mapper.AdminMapper;
-import com.example.movie.util.PagingUtil;
-
+import com.example.movie.utill.PagingUtil;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;

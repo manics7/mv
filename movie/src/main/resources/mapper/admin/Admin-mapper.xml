@@ -102,7 +102,6 @@
 		resultType="com.example.movie.dto.quesboardDto">
 		SELECT * FROM QUESTION where ques_no = #{ques_no}
 	</select>
-
-
+	
 </mapper>
 

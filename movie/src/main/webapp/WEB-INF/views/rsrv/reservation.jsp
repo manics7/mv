@@ -33,7 +33,7 @@ $(document).ready(function() {
 	<div class="modal-body">
 			 <div class="conainner">
 			 	<div class="row">
-			 		<div class="col-md-4 border-right">
+			 		<div class="col-md-4 px-0 border-right">
 			 			<h5 class="align text-center"><strong>영화</strong></h5>
 				         <div class="input-group col-md-12">
 				           <span class="input-group-append">
@@ -44,14 +44,17 @@ $(document).ready(function() {
 				            <input class="form-control border-left-0 border" type="search" placeholder="영화명 검색" id="search" onkeyup="filter(this,'movieList');">					          
 				        </div>
 				        
-				        <div class="col-md-12 mt-2" id="mvSelectBox">
-				        	<ul class="list-group list-group-horizontal">
-							  <li class="list-group-item"><a href="#">가나다순</a></li>
-							  <li class="list-group-item"><a href="#">예매율순</a></li>
-							  <li class="list-group-item"></li>
-							</ul>
+				        <div class="col-md-12 mt-2" id="mvSelectBox">				        
+				        	<ul class="nav nav-tabs">
+							  <li class="nav-item">
+							    <a class="nav-link active" href="#">가나다순</a>
+							  </li>
+							  <li class="nav-item dropdown">
+							    <a class="nav-link"  href="#" >예매율순</a>							   
+							  </li>							 
+							</ul>				        	
 				        </div>				        
-						  <div class="col-md-12 mt-2 pr-0 overflow-auto" id="movieList">
+						  <div class="col-md-12 mt-2 px-0 overflow-auto" id="movieList">
 						    <ul class="list-group list-group-flush"></ul>
 						  </div>						
 			 		</div>
@@ -104,11 +107,12 @@ $(document).ready(function() {
 			 				</div>
 			 				<div class="col-md-8 pl-0 pr-0" >
 			 					<div class="col-md-12 pl-0 pr-0">
-			 						<h5 class="align text-center"><strong>상영시간</strong></h5>
-			 						<p class="lead text-center" ><b>1관 2D</b></p>
+			 						<h5 class="align text-center"><strong>상영시간</strong></h5>			 						
 			 					</div>
 			 					<div class="col-md-12 pl-0 pr-0" id="timeList">	
-				 					<ul class="list-group list-group-flush"></ul>
+				 					<ul class="list-group list-group-flush">
+				 					<p class="lead text-center" ><b name="roomNm">1관 2D</b></p>
+				 					</ul>
 						         </div>	
 						         <div class="card mt-4 pl-0 pr-0" id="movieInfo">
 								  <div class="row no-gutters">
@@ -117,7 +121,7 @@ $(document).ready(function() {
 								      <div class="card-body pt-1">
 								       <h6 class="card-subtitle font-weight-bold" id="movieNm"></h6>
 								        <p class="card-text mt-2 mb-2" id="theaterNm"></p>
-								        <p class="card-text mb-2" id="roomNm">1관 2D</p>
+								        <p class="card-text mb-2" name="roomNm">1관 2D</p>
 								        <p class="card-text mb-2" id="schDate"></p>
 								        <p class="card-text mb-2" id="schTime">11:30 ~13:22</p>
 								      </div>
@@ -136,5 +140,11 @@ $(document).ready(function() {
  
     </div>
 </div>
+<div class="modal fade" id="rsrvSeat" tabindex="-1" role="dialog"	aria-labelledby="label" aria-hidden="true" data-backdrop="static">
+		<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+			<div class="modal-content"></div>
+		</div>
+	</div>
+
 </html>
 

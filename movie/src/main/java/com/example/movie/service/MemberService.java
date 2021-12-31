@@ -28,7 +28,6 @@ import com.example.movie.dto.mvReviewDto;
 import com.example.movie.dto.mypagePaymentDto;
 import com.example.movie.dto.paymentDto;
 import com.example.movie.dto.reservationDto;
-import com.example.movie.dto.thdetailDto;
 import com.example.movie.mapper.MemberMapper;
 import com.example.movie.utill.PagingUtil;
 
@@ -624,12 +623,6 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 		return pageHtml;
 	}
 
-	public ModelAndView thdetailInsert(thdetailDto thdto) {
-		ModelAndView mv = new ModelAndView();
-		List<thdetailDto> thdetailList = mMapper.thdetailInsert(thdto);
-		mv.addObject("thdetail", thdetailList);
-		return mv;
-	}
 			
 	// 이용자 회원가입 아이디 중복체크
 		public String idCheck(String mid) {

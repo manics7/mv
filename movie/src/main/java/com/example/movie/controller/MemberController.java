@@ -1,4 +1,3 @@
-
 package com.example.movie.controller;
 
 
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
-import com.example.movie.dto.thdetailDto;
 import com.example.movie.service.MemberService;
 
 import lombok.extern.java.Log;
@@ -201,13 +199,7 @@ public class MemberController {
 		
 		return mv;
 	}
-	@GetMapping("/thDetail")
-	public ModelAndView thDetail(thdetailDto thdto) {
-		
-		ModelAndView mv = mServ.thdetailInsert(thdto);
-		
-		return mv;
-	}
+
 
 	
 	// 이용자 회원가입

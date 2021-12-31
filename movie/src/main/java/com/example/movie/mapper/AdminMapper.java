@@ -7,6 +7,7 @@ import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.reportMvReviewDto;
 import com.example.movie.dto.quesboardDto;
 
+import com.example.movie.config.MybatisMapper;
 
 public interface AdminMapper extends MybatisMapper {
 
@@ -17,7 +18,6 @@ public interface AdminMapper extends MybatisMapper {
 	List<quesboardDto> getboardSelect(String m_id);
 
 	List<quesboardDto> getboardRead(int ques_no);
-	
 	
 	
 	//신고당한 영화리뷰의 갯수
