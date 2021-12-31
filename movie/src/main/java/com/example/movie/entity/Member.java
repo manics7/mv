@@ -1,4 +1,4 @@
-package com.example.movie.dto;
+package com.example.movie.entity;
 
 
 import java.util.Date;
@@ -28,7 +28,6 @@ import lombok.ToString;
 public class Member {
 	
 	@Id
-
 	@Column(name="M_ID", columnDefinition="아이디")
 	private String mId;
 		

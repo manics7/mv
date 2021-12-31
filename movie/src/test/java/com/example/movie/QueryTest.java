@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,20 +18,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.movie.dto.MovieOfficial;
-import com.example.movie.dto.QMember;
-import com.example.movie.dto.QMovieOfficial;
-import com.example.movie.dto.Schedule;
+import com.example.movie.entity.MovieOfficial;
+import com.example.movie.entity.QMovieOfficial;
+import com.example.movie.entity.Schedule;
 import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ScheduleRepositoy;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
-import oracle.net.aso.m;
-import oracle.net.aso.q;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @PropertySource("classpath:aws.properties")
