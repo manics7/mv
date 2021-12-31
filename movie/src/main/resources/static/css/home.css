@@ -9,6 +9,9 @@ html {
 }
 
 body {
+<<<<<<< HEAD
+
+=======
 	margin: 0;
 	height: 100%;
 	background-color: #bfc7fb;
@@ -438,7 +441,11 @@ span.file-title {
 		max-width: 360px;
 		padding: 0px;
 	}
+>>>>>>> branch 'master' of https://github.com/manics7/mv.git
 	
+<<<<<<< HEAD
+}
+=======
 	.title-row .t-date, .title-row .t-view,
 	.data-row .t-date, .data-row .t-view {
 		display: none;
@@ -463,3 +470,4 @@ span.file-title {
 	}
 	
 }
+>>>>>>> branch 'master' of https://github.com/manics7/mv.git

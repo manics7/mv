@@ -1,39 +1,179 @@
 @charset "UTF-8";
 
-body {
+@font-face {
+    font-family: 'NanumBarunpen';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumBarunpen.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
-li {
-	list-style: none;
-}
-
 a {
-	color: black;
 	text-decoration: none;
 }
 
-.main_wrap {
+li, ol{
+	list-style: none;
+}
+
+header {
+	z-index: 90;
+}
+
+#body_wrap {
 	width: 100%;
 }
 
-/* #border { */
-/* 	position: absolute; */
-/* 	top: 0; */
-/* 	left: 0; */
-/* 	width: 1910px; */
-/* 	height: 764px; */
-/* 	border: 5px solid black; */
-/* 	z-index: 600;  */
-/* } */
+#section_wrap {
+	width: 100%;
+}
 
-#movie_wrap {
-	height: 330px;
-	background-color: rgb(29, 29, 31);
-	margin-top: -65px;
-	padding-top: 45px;
-	color: white;
+#main_wrap {
+	width: 100%;
+	position: relative;
+	top: 0;
+	left: 0;
+	min-width: 1000px;
+	height: 950px;
+	margin: 0 auto;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.91), rgba(0, 0, 0, 0.91)), URL(https://img.megabox.co.kr/SharedImg/2021/12/16/pP1d3DrHmo5d4rcb4ZLoBsMScFRHlbKn_380.jpg);
+	background-position: center top;
+	background-size: cover;
+	z-index: -1;
+}
+
+#box_office {
+	position: relative;
+	font-family: 'NanumBarunpen';
+	width: 1000px;
+	margin: 0 auto;
 	text-align: center;
+}
+
+#box-office-title {
+	display: inline-block;
+	padding-bottom: 2px;
+	margin: 169px auto 20px auto;
+	border-bottom: 2px solid #666666;
+	color: white; 
+}
+
+#more-movie {
+	position: absolute;
+	top: 177px;
+	right: 0;
+	padding-top: 2px;
+}
+
+#more-movie img {
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	padding-bottom: 3px;
+}
+
+#box-office-list {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	height: 398px;
+}
+
+.box-office-list {
+	float: left;
+	margin-right: 13px;
+	border-radius: 3px;
+}
+
+#box-office-list img {
+	width: 240px;
+	height: 345.2px;
+	border-radius: 4px;
+}
+
+#box-list a {
+	display: block;
+}
+
+.box-office-list:nth-of-type(4) {
+	margin-right: 0;
+}
+
+.btn_box {
+	width: 240px;
+	height: 36px;
+	margin-top: 10px;
+	border-radius: 4px;
+	background-color: #037b94;
+}
+
+.btn_box a{
+	line-height:36px;
+	vertical-align: middle;
+}
+
+#search-box {
+	width: 1000px;
+	height: 75px;
+	background-color: rgba(40, 40, 40, 0.5);
+	margin-top: 50px;
+	vertical-align: middle;
+	padding-top: 22.5px;
+	color: white;
+}
+
+.search-cell {
+	width: 250px;
+	height: 30px;
+	float: left;
+	border-right: 0.5px solid rgb(44, 44, 44);
+}
+
+.search-cell a {
+	line-height: 30px;
+}
+
+.search-cell>div {
+	display: inline-block;
+	border-bottom: 0.5px solid rgb(66, 66, 66); 
+}
+
+.search-cell>div input {
+	display: inline-block;
+	border: none;
+	background-color: rgba(0, 0, 0, 0);
+	text-align: center;
+	color: white;
+}
+
+.search-cell>div button {
+	vertical-align: bottom;
+	width: 26px;
+	height: 26px;
+	display: inline-block;
+	border: none;
+	background-image: URL(https://img.megabox.co.kr/static/pc/images/common/ico/ico-search-white.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: rgba(0, 0, 0, 0); 	
+}
+
+.search-cell:nth-of-type(4) {
+	border: none;
+}
+
+#section_wrap {
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+	z-index: 1;
+}
+
+#section_container {
+	width: 1000px;
+	margin: 50px auto 0 auto;
 }

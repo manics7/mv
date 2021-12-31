@@ -22,4 +22,7 @@ public interface BusinessMapper  extends MybatisMapper {
 	// test insertMovie
 	public void insertMovie(TestDto tDto);
 	
+	//사업자가 등록한 극장이름
+	public String selectThNameByBid(String b_id);
+	
 }
