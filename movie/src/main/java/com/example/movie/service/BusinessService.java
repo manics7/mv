@@ -1,5 +1,6 @@
 package com.example.movie.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -168,6 +169,8 @@ public class BusinessService {
 		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
 		String Bid = bDto.getB_id();
 		
+		
+		//List<String> thnList = new ArrayList<String>();
 		String thName = bMapper.selectThNameByBid(Bid);
 		
 		mv.addObject("thName", thName);
