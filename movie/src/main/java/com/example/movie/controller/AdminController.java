@@ -12,6 +12,7 @@ import java.util.List;
 
 
 import com.example.movie.dto.quesboardDto;
+import com.example.movie.mapper.AdminMapper;
 
 
 @Controller
@@ -84,7 +85,18 @@ public class AdminController {
 		System.out.println("ques_no = "+ques_no);
 
 		List<quesboardDto> readqlist = aServ.getboardRead(ques_no);
-
+		
+		quesboardDto qDto = readqlist.get(0);
+		
+		int state = qDto.getQues_state();
+		/*
+		if(state == 1) {
+			quesReplyDto qrDto = aServ.selectQuesReply(ques_no);
+			
+			mv.addObject("reply",qrDto);
+		}
+		*/
+		
 		mv.addObject("qrlist", readqlist);
 		if(num == 0) {
 			mv.setViewName("requeboard_read");
