@@ -13,7 +13,7 @@
 				<li id="login_btn" class="nomal"><a href="#" class="login_btn" style="cursor: pointer;">로그인</a></li>
 				<li class="nomal"><a href="#">회원가입</a></li>
 				<li class="suc"><a href="./logout">로그아웃</a></li>
-				<li class="suc"><a href="#" data-toggle="modal" data-target="#rsrvModal" data-movie="127"  data-thcode="1"  data-id="100" id="modal">빠른예매</a></li>
+				<li class="suc" id="modal"><a href="#">빠른예매</a></li>
 
 			</ul>
 		</div>
