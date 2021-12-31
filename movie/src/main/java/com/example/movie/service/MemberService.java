@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.Member;
+import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.dto.thdetailDto;
 import com.example.movie.mapper.AdminMapper;
@@ -42,12 +43,12 @@ public class MemberService {
 	private int listCnt = 4;//페이지 당 게시글 개수
 
 //	public ModelAndView getMemberList(Integer pageNum) {
-	public List<Member> getMemberList(Integer pageNum) {
+	public List<MemberDto> getMemberList(Integer pageNum) {
 		// TODO Auto-generated method stub
 //		mv = new ModelAndView();
 //		pageNum = null;
 		//null 또는 페이지 번호가 pageNum으로 넘어옴.
-//		int num = (pageNum == null) ? 1 : pageNum;
+		pageNum = (pageNum == null) ? 1 : pageNum;
 		//버튼을 눌러 이동한 직 후 null이 넘어옴.
 System.out.println("pageNum"+pageNum);		
 		//회원 목록 가져오기
@@ -60,7 +61,7 @@ System.out.println("pageNum"+pageNum);
 	    //설정하는 부분을 처리하여 10 대신 사용.
 		//페이지 당 게시글 개수와 페이지넘버 넣는것.
 		System.out.println("listCnt = "+listCnt);			
-		List<Member> mList = mMapper.getList(mmap);
+		List<MemberDto> mList = mMapper.getList(mmap);
 System.out.println("mList.size = "+mList.size());		
 System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가져오는 mapper
 //페이징 처리
@@ -117,7 +118,7 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 		
 	ModelAndView mv = new ModelAndView();
 	
-	List<Member> mselectList = mMapper.selectMember(m_id);
+	List<MemberDto> mselectList = mMapper.selectMember(m_id);
 		
 	
 	System.out.println("검색 결과 = "+mselectList);
@@ -165,12 +166,12 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 	}
 			
 	// 이용자 회원가입 아이디 중복체크
-		public String idCheck(String mid) {
+		public String idCheck(String m_id) {
 
 			String res = null;
 			
 			// mapper에서 카운트 0 또는 1
-			int cnt = mMapper.idCheck(mid);
+			int cnt = mMapper.idCheck(m_id);
 			if(cnt == 0) {
 				res = "ok";
 			}
@@ -182,7 +183,7 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 	
 	// 이용자 회원가입
 	@Transactional
-	public String memberInsert(Member member, RedirectAttributes rttr) {
+	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
 		String view = null;
 		String msg = null;
 		
@@ -191,10 +192,10 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 		
 		// Dto에서 비밀번호를 꺼내고, 인코더를 사용해서 암호화
-		String encPw = pwEncoder.encode(member.getMPw());
+		String encPw = pwEncoder.encode(member.getM_pw());
 		
 		// 인코딩한 비밀번호를 Dto에 설정
-		member.setMPw(encPw);
+		member.setM_pw(encPw);
 		
 		try {
 			mMapper.memberInsert(member);

@@ -17,15 +17,29 @@
 		SELECT COUNT(*) FROM
 		QUESTION
 	</select>
+	<select id="getBusCnt" resultType="integer">
+		SELECT COUNT(*) FROM
+		BUSINESS
+	</select>
+	
 
 	<select id="getboardSelect"
 		resultType="com.example.movie.dto.quesboardDto">
 		SELECT * FROM QUESTION where m_id = #{m_id}
 	</select>
 
-	<select id="getboardRead"
+	<select id="getboardRead" parameterType="Integer"
 		resultType="com.example.movie.dto.quesboardDto">
-		SELECT * FROM QUESTION where ques_title = #{ques_title}
+		SELECT * FROM QUESTION where ques_no = #{ques_no}
+	</select>
+
+	<select id="getbuslist" parameterType="HashMap"
+		resultType="com.example.movie.dto.BusinessDto">
+		<![CDATA[
+		SELECT * FROM BUSINESS
+		WHERE ROWNUM >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
+			AND ROWNUM <= #{pageNum} * #{lcnt}
+		]]>
 	</select>
 
 </mapper>

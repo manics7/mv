@@ -6,7 +6,7 @@
 	
 	<!-- 사업자 회원가입 아이디 중복체크 -->
 	<select id="buIdCheck" parameterType="String" resultType="Integer">
-		select count(*) from business where b_id=#{bid}
+		select count(*) from business where b_id=#{b_id}
 	</select>
 	
 	<!-- 사업자 회원 가입 -->
