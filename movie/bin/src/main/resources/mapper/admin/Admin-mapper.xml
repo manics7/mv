@@ -1,0 +1,60 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.movie.mapper.AdminMapper">
+	
+	<select id="selectReportMvReview" parameterType="HashMap"
+		resultType="com.example.movie.dto.reportMvReviewDto">
+		<![CDATA[
+		SELECT * FROM RMVRLIST_1
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	<select id="selectReportMvReviewCnt" resultType="Integer">
+		SELECT COUNT(*) FROM report_mv_review
+	</select>
+	
+	<select id="selectMvReviewByReviewNum" parameterType="Integer"
+		resultType="String">
+		SELECT mv_review_comment FROM review_movie WHERE mv_review=#{mvrNum}
+	</select>
+	
+	<select id="selectIdFromMvReview" parameterType="Integer"
+		resultType="String">
+		SELECT mv_review_id FROM review_movie WHERE mv_review=#{mvrNum}
+	</select>
+	
+	<update id="updateWarning" parameterType="String">
+		UPDATE member SET m_warning = m_warning+1 WHERE m_id=#{id}
+	</update>
+	
+	<update id="updateRpMvReviewState" parameterType="String">
+		UPDATE report_mv_review SET rp_state =1 WHERE movie_review=#{mvrNum}
+	</update>
+	<delete id="delMvReview" parameterType="Integer">
+		DELETE FROM review_movie WHERE mv_review=#{mvrNum}
+	</delete>
+	
+	
+</mapper>
+
+
+
+
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.movie.mapper.AdminMapper">
+	
+</mapper>
+
+
+
+
+>>>>>>> branch 'master' of https://github.com/manics7/mv.git
