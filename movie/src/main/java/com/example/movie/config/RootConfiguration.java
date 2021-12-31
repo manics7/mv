@@ -81,7 +81,7 @@ public class RootConfiguration   {
 		vendorAdapter.setDatabase(org.springframework.orm.jpa.vendor.Database.ORACLE);
 		vendorAdapter.setDatabasePlatform(Oracle10gDialect.class.getName());	
 
-		final String[] packageLocation = {"com.example.movie.entity","com.example.movie.dto","com.example.movie.sample"};
+		final String[] packageLocation = {"com.example.movie.dto","com.example.movie.sample"};
 		entityManagerFactory.setDataSource(dataSource());		
 		entityManagerFactory.setPackagesToScan(packageLocation);
 		entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
