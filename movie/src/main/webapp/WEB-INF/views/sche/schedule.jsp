@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사업자 영화관 관리</title>
+<title>사업자 상영일정 관리</title>
 <link rel="stylesheet" href="resource/css/theaterList.css">
 </head>
 <body>
@@ -24,15 +24,21 @@
 				</ul>
 			</div>
 			<div id="content">
-				<div id="th_title">
-					<h2>내 영화관</h2>
-				</div>
-				<div id="th_cont">
-					<div>
-						<p>등록된 영화관이 없습니다</p>
-					</div>
-					<button id="th-btn" onclick="location.href='./thaddFrm'">등록</button>
-				</div>					
+				<c:choose>
+					<c:when test="${empty theaterList}">
+						<div id="th_title">
+							<h2>상영 시간표</h2>
+						</div>
+						<div id="th_cont">
+							<p>등록된 상영 일정이 없습니다.</p>
+						</div>
+						<button id="sch-btn" onclick="location.href='./scheduleAdd'">등록</button>
+					</c:when>
+					<c:when test="${!empty theaterList}">
+						
+						<button id="th-btn" onclick="location.href='./thUpdate'">수정</button>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 	</div>

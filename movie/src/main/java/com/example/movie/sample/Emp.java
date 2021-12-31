@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "emp")
 @NoArgsConstructor
+@Table(name = "EMP")
 public class Emp  {
 
 	@Id
@@ -22,17 +22,17 @@ public class Emp  {
 	//@Column(name="ENAME")
 	private String ename;
 	//@Column(name="JOB")
-	private String job;
+	//private String job;
 	//@Column(name="MGR")
-	private Integer mgr;
+	//private Integer mgr;
 	//@Column(name="HIREDATE")
-	private Date hiredate;
+	//private Date hiredate;
 	//@Column(name="SAL")
-	private Integer sal;
+	//private Integer sal;
 	//@Column(name="COMM")
-	private Integer comm;
+	//private Integer comm;
 	//@Column(name="DEPTNO")
-	private Integer deptno;
+	//private Integer deptno;
 	
 	
 }
