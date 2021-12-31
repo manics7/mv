@@ -27,15 +27,23 @@
 	<div class="wrap">
 		<div class="main_wrap_wrap">
 			<div class="main_wrap">
-				<div id="side">
-				<h2><a href="mypage">My Page</a></h2>
-				<ul id="bupage_list">
-					<li><a id="bupage_menu" href="purchaseFrm">예매/구매내역</a></li>
-					<li><a id="bupage_menu" href="watcheMovieFrm">내가 본 영화</a></li>
-					<li><a id="bupage_menu" href="pmvReviewFrm">내가 쓴 감상평</a></li>
-					<li><a id="bupage_menu" href="questionFrm">1:1문의</a></li>
-				</ul>
-			</div>
+			<div class="sidebar">
+				<jsp:include page="mypage_sidebar.jsp"></jsp:include>
+				</div>
+			<!-- 
+			
+			<div id="side">
+					<h2><a href="mypage">My Page</a></h2>
+					<ul id="bupage_list">
+						<li><a id="bupage_menu" href="purchaseFrm">예매/구매내역</a></li>
+						<li><a id="bupage_menu" href="watcheMovieFrm">내가 본 영화</a></li>
+						<li><a id="bupage_menu" href="pmvReviewFrm">내가 쓴 감상평</a></li>
+						<li><a id="bupage_menu" href="questionFrm">1:1문의</a></li>
+					</ul>
+				</div>
+				
+			
+			 -->
 					
 				<div class="page_cont_wrap">
 					<div class="user_info">

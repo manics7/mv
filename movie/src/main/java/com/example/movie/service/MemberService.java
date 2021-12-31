@@ -713,6 +713,7 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 		
 		String view = "redirect:/";
 		
+		
 		session.invalidate();
 		
 		return view;

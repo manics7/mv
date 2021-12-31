@@ -103,5 +103,10 @@
 		SELECT * FROM QUESTION where ques_no = #{ques_no}
 	</select>
 	
+	<select id="selectQuesReply" parameterType="Integer"
+		resultType="com.example.movie.dto.quesReplyDto">
+		SELECT * FROM question_reply where ques_no = #{ques_no}
+	</select>
+	
 </mapper>
 

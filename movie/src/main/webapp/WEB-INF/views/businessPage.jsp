@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="resource/css/mypage.css">
-<title>마이페이지</title>
+<title>사업자페이지</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -27,16 +27,9 @@
 	<div class="wrap">
 		<div class="main_wrap_wrap">
 			<div class="main_wrap">
-			<div id="side">
-				<h2><a href="businessPage">Business Page</a></h2>
-				<ul id="bupage_list">
-					<li><a id="bupage_menu" href="#">영화관 관리</a></li>
-					<li><a id="bupage_menu" href="#">영화 관리</a></li>
-					<li><a id="bupage_menu" href="#">상영관 관리</a></li>
-					<li><a id="bupage_menu" href="#">상영 일정 관리</a></li>
-					<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
-				</ul>
-			</div>
+			<div class="sidebar">
+				<jsp:include page="business_sidebar.jsp"></jsp:include>
+				</div>
 				<div class="page_cont_wrap">
 					<div class="user_info">
 						<div class="profile_box">

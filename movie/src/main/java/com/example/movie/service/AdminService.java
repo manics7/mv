@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 //import org.springframework.web.servlet.ModelAndView;
 
+import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.mapper.AdminMapper;
 import com.example.movie.utill.PagingUtil;
@@ -215,6 +216,14 @@ public class AdminService {
 		List<quesboardDto> readqlist = qMap.getboardRead(ques_no);
 		
 		return readqlist;
+	}
+	
+	//문의답변 전송
+	public quesReplyDto selectQuesReply(int ques_no) {
+		
+		quesReplyDto qrDto = aMapper.selectQuesReply(ques_no);
+		
+		return qrDto;
 	}
 
 
