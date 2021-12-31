@@ -36,11 +36,20 @@ public class ReservationRepositoryCustom {
 		return schList;
 	}	
 	
-	public List<Schedule> getSchduleTime(String movieCd, Integer thCode, String date) {
+	public List<Schedule> getSchduleTime(String movieCd, Integer thCode, String schDate) {
 		
 		LocalDateTime now  = LocalDateTime.now();
 		//시작시간에서  10분 뒤까진 목록에서 보여줄 있도록 +10분추가
-		LocalDateTime startTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).plusMinutes(10);
+		LocalDateTime startTime = LocalDateTime.parse(schDate+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).plusMinutes(10);
+		
+		Date date =new Date();
+
+		if(!schDate.isEmpty()) {
+			startTime = LocalDateTime.parse(schDate+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+			date = java.sql.Date.valueOf(startTime.toLocalDate());
+			
+		}	
+		
 		
 		List<Schedule> schList = jpaQueryFactory
 				.select(schedule)

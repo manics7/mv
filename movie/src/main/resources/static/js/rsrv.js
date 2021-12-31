@@ -130,9 +130,11 @@
 				type : "GET"
 				,url : "/getSchduleTime?"+params      		
 				,success : function(res) {
-					res.forEach(function(item){
+					
+					
+					//res.forEach(function(item){
 						
-					)};
+					//})
 					
 					
 				},error : function(err) {
