@@ -35,7 +35,7 @@ public class MemberController {
 	@GetMapping("mypage")
 	public ModelAndView mypage(Integer pageNum) {
 		
-		String view = "mypage";
+		String view ="mypage";
 		
 		int listCnt = 2;
 		
