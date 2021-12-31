@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 //import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.mapper.AdminMapper;
 import com.example.movie.util.PagingUtil;
@@ -18,7 +19,6 @@ public class AdminService {
 
 	@Autowired
 	public AdminMapper aMap;
-
 	public int listCnt = 4;
 	
 
@@ -100,6 +100,12 @@ public class AdminService {
 		
 	}
 
+public quesReplyDto selectQuesReply(int ques_no) {
+		
+		quesReplyDto qrDto = aMap.selectQuesReply(ques_no);
+		
+		return qrDto;
+	}
 
 
 }

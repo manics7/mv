@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.service.AdminService;
 
@@ -51,26 +52,46 @@ public class AdminController {
 //	}
 	
 	
-	@GetMapping("/requeboard_read")
-	public ModelAndView requeboardRead(int ques_no,Integer view) {
-		
-		int num = (view == null)? 0 : view;
-		
-		ModelAndView mv = new ModelAndView();
-		System.out.println("ques_no = "+ques_no);
-
-		List<quesboardDto> readqlist = aServ.getboardRead(ques_no);
-
-		mv.addObject("qrlist", readqlist);
-		if(num == 0) {
-			mv.setViewName("requeboard_read");
+	
+	//문의사항 상세보기 
+		@GetMapping("/requeboard_read")
+		public ModelAndView requeboardRead(int ques_no,Integer view) {
+			
+			int num = (view == null)? 0 : view;
+			
+			ModelAndView mv = new ModelAndView();
+			System.out.println("ques_no = "+ques_no);
+			
+			//문의번호로 가져옴
+			List<quesboardDto> readqlist = aServ.getboardRead(ques_no);
+			
+			//가져온거 어차피 1개니까 0번째로 꺼냄
+			quesboardDto qDto = readqlist.get(0);
+			
+			//문의글 상태. 0 = 미답변,1=답변완료
+			int state = qDto.getQues_state();
+			
+			//답변 완료일시
+			if(state == 1) {
+				
+				//문의번호로 답변 찾아와서 저장
+				quesReplyDto qrDto = aServ.selectQuesReply(ques_no);
+				
+				mv.addObject("reply",qrDto);
+			}
+			
+			mv.addObject("qrlist", readqlist);
+			
+			//호출한곳(마이페이지,관리자페이지)에 따라 다른 viewname 설정 후 반환
+			if(num == 0) {
+				mv.setViewName("requeboard_read");
+			}
+			else {
+				mv.setViewName("questionContents");
+			}
+			System.out.println("readqlist = "+readqlist);
+			return mv;
 		}
-		else {
-			mv.setViewName("questionContents");
-		}
-		System.out.println("readqlist = "+readqlist);
-		return mv;
-	}
 
 	
 	//1대1 문의글 답변

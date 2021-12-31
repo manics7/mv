@@ -34,7 +34,7 @@
                                     <div class="member_top_btn">
                                         <a href="./mmanage?pageNum=1">일반회원</a>
                                         <a href="#">불량회원</a>
-                                        <a href="#">사업자</a>
+                                        <a class="btn_business" style="background: #f16a1a; color: white;" href="#">사업자</a>
                                     </div>
                                 </div>
                     

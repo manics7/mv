@@ -8,14 +8,14 @@
 <select id="getList" parameterType="HashMap"
 		resultType="com.example.movie.dto.MemberDto">
 				<![CDATA[
-		SELECT * FROM v_mem
-		WHERE ROWNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
-			AND ROWNUM <= #{num} * #{lcnt}
+		SELECT * FROM v_mem1
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
 		]]>
 	</select>
 	
 	<select id="getBoardCnt" resultType="Integer">
-		SELECT COUNT(*) FROM v_mem
+		SELECT COUNT(*) FROM v_mem1
 	</select>
 
 	<delete id="memberdelete" parameterType="String">

@@ -27,9 +27,12 @@ display: flex;
 
 }
 
+
+
 .member_top{
     display: flex;
     justify-content: space-between;
+    padding-left: 16px;
 }
 .member_top_btn_wrap{
 width: 700px;
@@ -43,6 +46,9 @@ margin-top: 30px;
     display: flex;
     justify-content: space-between;
     
+}
+.card-body{
+	padding-top: 35px;
 }
 .member_top_btn>a{
     background-color: transparent;
@@ -105,4 +111,7 @@ footer{
 	padding: 4px;	
 	border: 1px solid gray;
 	
+}
+.btn_nomal{
+
 }

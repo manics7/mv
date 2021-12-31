@@ -30,23 +30,23 @@
 		<div class="main_wrap">
 			<div class="cont_wrap">
 				<div class="cont_sidebar">
-				<jsp:include page="adminpage_sidebar.jsp"/>
+					<jsp:include page="adminpage_sidebar.jsp" />
 				</div>
 				<div class="container queboard">
 					<div class="card shadow">
-					<div class="member_top_btn_wrap">
-									<div class="member_top_btn">
-										<a href="./mmanage?pageNum=1">일반회원</a>
-										<a>불량회원</a>
-										
-										<a href="./getBulist?pageNum=1">사업자</a>
-									</div>
+						<div class="member_top_btn_wrap">
+							<div class="member_top_btn">
+								<a class="btn_nomal" style="background: #f16a1a; color: white;"
+									href="./mmanage?pageNum=1">일반회원</a> 
+								<a>불량회원</a> 
+								<a href="./getBulist?pageNum=1">사업자</a>
+							</div>
 
-								</div>
+						</div>
 						<form name="searchFrm" action="./memberSelect?pageNum=1"
 							method="post">
 							<div class="card-body">
-								
+
 
 								<div class="member_top">
 									<h4 class="card-title">회원관리</h4>
@@ -65,7 +65,7 @@
 											<th class="text-center d-none d-md-table-cell">HP</th>
 
 											<th class="text-center d-none d-md-table-cell">생년월일</th>
-											<th class="text-center d-none d-md-table-cell">신고횟수</th>
+											<th class="text-center d-none d-md-table-cell">경고횟수</th>
 											<th class="text-center d-none d-md-table-cell">회원 게시글 확인</th>
 											<th class="text-center d-none d-md-table-cell">회원 탈퇴처리</th>
 										</tr>
@@ -84,8 +84,8 @@
 														</td>
 														<td class="text-center d-none d-md-table-cell">${mitem.m_birth}
 														</td>
-														<td class="text-center d-none d-md-table-cell">0</td>
-														
+														<td class="text-center d-none d-md-table-cell">${mitem.m_warning}</td>
+
 														<td class="text-center d-none d-md-table-cell"><a
 															type="button" href="./mboardSelect?m_id=${mitem.m_id}">확인</a></td>
 														<td class="text-center d-none d-md-table-cell"><a

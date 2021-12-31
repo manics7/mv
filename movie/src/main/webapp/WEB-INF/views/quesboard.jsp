@@ -67,24 +67,7 @@
                                 </thead>
                                 <tbody>
                                     <!-- 이부분은 검색 결과 출력되는 부분 -->
-                                    <c:forEach var="qitem" items="${mbLIst}">
-
-                                        <tr>
-                                            <td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
-                                            <td class="text-center d-none d-md-table-cell"><a
-                                                    href='/requeboard_read?ques_no=${qitem.ques_no}'>${qitem.ques_title}</a>
-                                            </td>
-                                            <td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
-                                            <td class="text-center d-none d-md-table-cell">${qitem.ques_state == "0" ? "미완료" : "답변 완료"}</td>
-                                            <td class="text-center d-none d-md-table-cell">${qitem.m_id}</td>
-                                            <td class="text-center d-none d-md-table-cell"><a
-                                                    href='/queboard_rewrite'>${qitem.ques_state > 0 ? "답변완료" : "답변작성"}</a>
-                                            </td>
-
-                                        </tr>
-                                        
-
-                                    </c:forEach>
+                                   
 
 
 
@@ -94,7 +77,7 @@
                                        <tr>
                                             <td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
                                             <td class="text-center d-none d-md-table-cell"><a
-                                                    href='/requeboard_read?ques_title=${qitem.ques_title}'>${qitem.ques_title}</a>
+                                                    href='/requeboard_read?ques_no=${qitem.ques_no}'>${qitem.ques_title}</a>
                                             </td>
                                             <td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
                                             <td class="text-center d-none d-md-table-cell">${qitem.ques_state == "0" ? "미완료" : "답변 완료"}</td>

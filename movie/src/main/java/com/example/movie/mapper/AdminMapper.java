@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 
 public interface AdminMapper  extends MybatisMapper {
@@ -21,6 +22,8 @@ public interface AdminMapper  extends MybatisMapper {
 	List<BusinessDto> getbuslist(HashMap<String, Integer> busmap);
 
 	int getBusCnt();
+
+	quesReplyDto selectQuesReply(int ques_no);
 	
 	
 	

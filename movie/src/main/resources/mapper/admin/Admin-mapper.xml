@@ -7,9 +7,9 @@
 	<select id="getQuesList" parameterType="HashMap"
 		resultType="com.example.movie.dto.quesboardDto">
 	<![CDATA[
-		SELECT * FROM question
-		WHERE ROWNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
-			AND ROWNUM <= #{num} * #{lcnt}
+		SELECT * FROM v_question
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
 		]]>
 	</select>
 
@@ -25,12 +25,12 @@
 
 	<select id="getboardSelect"
 		resultType="com.example.movie.dto.quesboardDto">
-		SELECT * FROM QUESTION where m_id = #{m_id}
+		SELECT * FROM v_question where m_id = #{m_id}
 	</select>
 
 	<select id="getboardRead" parameterType="Integer"
 		resultType="com.example.movie.dto.quesboardDto">
-		SELECT * FROM QUESTION where ques_no = #{ques_no}
+		SELECT * FROM v_question where ques_no = #{ques_no}
 	</select>
 
 	<select id="getbuslist" parameterType="HashMap"
@@ -41,6 +41,13 @@
 			AND ROWNUM <= #{pageNum} * #{lcnt}
 		]]>
 	</select>
+	
+	
+	<select id="selectQuesReply" parameterType="Integer"
+		resultType="com.example.movie.dto.quesReplyDto">
+		SELECT * FROM question_reply where ques_no = #{ques_no}
+	</select>
+	
 
 </mapper>
 
