@@ -1,16 +1,22 @@
 package com.example.movie.entity;
 
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
@@ -37,10 +43,16 @@ public class ScheduleDetail {
 	@Column(name="SCH_CODE", columnDefinition="상영 시간 키")
 	private Integer schCode;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")	
 	@Column(name="SCH_DETAIL_START", columnDefinition="시작시간")
-	private String schDetailStart;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date schDetailStart;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")	
 	@Column(name="SCH_DETAIL_END", columnDefinition="종료시간")
-	private String schDetailEnd;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date schDetailEnd;
 
 }

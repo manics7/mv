@@ -128,11 +128,11 @@
 			}
 			$.ajax({
 				type : "GET"
-				,url : "/getSchduleTime?"+params      		
+				,url : "/getTimeList?"+params      		
 				,success : function(res) {
-					res.forEach(function(item){
+					//res.forEach(function(item){
 						
-					)};
+					//)};
 					
 					
 				},error : function(err) {
