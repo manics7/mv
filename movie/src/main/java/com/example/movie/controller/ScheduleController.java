@@ -14,30 +14,26 @@ import com.example.movie.service.ReservationService;
 import com.example.movie.service.ScheduleService;
 
 @RestController
-public class ReservationController {
+public class ScheduleController {
 
 	@Autowired
 	ScheduleService ScheduleService;
-	
-	@Autowired
-	ReservationService reservationService;
-	
-	@GetMapping("/rsrv")
-	public ModelAndView reservation() {
-		ModelAndView mv = new ModelAndView();
 		
-		mv.setViewName("rsrv/reservation");
-		return mv;
-	}
-			
-	@GetMapping("/getRsrv")
-	public List<Reservation> rsrv(){
-		 return null;
+	@GetMapping("/getSchedule")
+	public Map<String, Object> getScselectSchListhedule(){
+		Map<String, Object> map = ScheduleService.getSchedule();
+		return map;
 	}
 	
-	@GetMapping("/rsrvSeat")
-	public String reservationSeat() {
-		
-		return "rsrv/reservationSeat"; 
+	@GetMapping("/selectSchList")
+	public List<Schedule> selectSchList(String movieCd, Integer thCode, String date){
+		List<Schedule> list = ScheduleService.selectSchList(movieCd, thCode, date);
+		return list;
+	}
+	
+	@GetMapping("/getTimeList")
+	public List<Schedule> getSchduleTime(String movieCd, Integer thCode, String date) {
+		List<Schedule> list = ScheduleService.getTimeList(movieCd, thCode, date);
+		return list;
 	}	
 }

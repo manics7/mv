@@ -4,29 +4,7 @@
 			movieList : {}
 			,theaterList : {}
 			,dateList  : {}
-			,schDateList : {}
-			,sidoCode : [
-				{ code : 0 , name :"전국"}
-				,{ code :11 , name :"서울"}
-				,{ code :21 , name :"부산"}
-				,{ code :22 , name :"대구"}
-				,{ code :22 , name :"대구"}
-				,{ code :23 , name :"인천"}
-				,{ code :24 , name :"광주"}
-				,{ code :25 , name :"대전"}
-				,{ code :25 , name :"대전"}
-				,{ code :26 , name :"울산"}
-				,{ code :29 , name :"세종"}
-				,{ code :31 , name :"경기"}
-				,{ code :32 , name :"강원"}
-				,{ code :33 , name :"충북"}
-				,{ code :34 , name :"충남"}
-				,{ code :35 , name :"전북"}
-				,{ code :36 , name :"전남"}
-				,{ code :37 , name :"경북"}
-				,{ code :38 , name :"경남"}
-				,{ code :39 , name :"제주"}				
-			]			
+			,schDateList : {}			
 		},
 		ReceivedData : {
 			movieCd : ''
@@ -43,6 +21,7 @@
 			this.selectData.thCode = '';			
 			this.selectData.date = '';			
 			this.initData();
+			$("#areaList > ul li:first").click();
 		}	
 		,initData : function() {
 			$.ajax({
@@ -64,11 +43,11 @@
 					if(movieCd != ''){
 						$('#movieList li[movieCd=' +movieCd + ' ] ' ).click();
 					}	
-					$("#sidoList > ul li:first").addClass("selected");		
+					$("#areaList > ul li:first").addClass("selected");		
 				
 					
 				},error : function(err) {
-					console.log("err:", err)
+					//console.log("err:", err)
 				}
 			});
 		}
@@ -88,7 +67,7 @@
 			var html = "";
 			
 			data.forEach(function(item, index){		
-				html += "<li class='list-group-item my-0 py-2'  thCode=" +item.thCode +" >"+item.thName +"</li>";		
+				html += "<li class='list-group-item my-0 py-2'  thCode=" +item.thCode +" thAreacode= "+item.thAreacode+" >"+item.thName +"</li>";		
 			});
 			$("#theaterList ul").html(html);
 		
@@ -116,13 +95,9 @@
 		
 			$("#dateList ul").html(html);
 		}
-		,setTimeList : function(){		
-			var paramObj = {	
-					movieCd : fnObj.selectData.movieCd
-					,thCode : fnObj.selectData.thCode
-					,date : fnObj.selectData.date
-			}
-			var params = $.param(paramObj);
+		,getTimeList : function(){		
+			
+			var params = $.param(fnObj.selectData);
 			if(params == null){
 				return;
 			}
@@ -130,10 +105,32 @@
 				type : "GET"
 				,url : "/getTimeList?"+params      		
 				,success : function(res) {
-					//res.forEach(function(item){
-						
-					//)};
+					var html= "";
+					var title = "";
+					var status ="";
+					var rsrvSeatCnt = 0;
 					
+					for(var i=0; i<res.length; i++){			
+							
+						if(res[i].room.roomNo != title){
+							html += "<span class='list-group-item my-0 py-2'><b>" +res[i].room.roomName+' '+res[i].room.roomClass+ "</b></span>";
+						}
+						title = res[i].room.roomName+'\u00A0'+res[i].room.roomClass;
+						
+						for(var j=0; j<res[i].scheduleDetail.length; j++){
+						
+							rsrvSeatCnt = res[i].room.seatCnt-res[i].scheduleDetail[j].rsrvSeatCnt 
+							status = res[i].scheduleDetail[j].schStatus == 'deadline'  ? res[i].scheduleDetail[j].schStatus : '';						
+						
+							if( status != ''){
+								status = " [예매종료]";		
+							}							
+							html += "<input type='hidden' name='schDetailSeq' value="+res[i].scheduleDetail[j].schDetailSeq+" />"
+							html += "<li class='list-group-item my-0 py-2'  roomnm ="+ title + "><b>"+res[i].scheduleDetail[j].schDetailStart+"</b>~"+ res[i].scheduleDetail[j].schDetailEnd													
+							html += status + " <span class='align-right'><b class='text-warning'>"+rsrvSeatCnt+" </b>/"+res[i].room.seatCnt +"석</span> </li>";	
+						}
+					}
+					$("#timeList ul").html(html);
 					
 				},error : function(err) {
 					console.log("err:", err)
@@ -141,12 +138,8 @@
 			});
 		}
 		,selectItem : function(){		
-			var paramObj = {	
-					movieCd : fnObj.selectData.movieCd
-					,thCode : fnObj.selectData.thCode
-					,date : fnObj.selectData.date
-			}
-			var params = $.param(paramObj);
+			
+			var params = $.param(fnObj.selectData);
 			if(params == null){
 				return;
 			}
@@ -156,7 +149,7 @@
 				success : function(res) {
 									
 					if($("#dateList li").hasClass("selected")){				
-					$("#movieList li, #theaterList li").addClass("disabled");	
+						$("#movieList li, #theaterList li").addClass("disabled");	
 						res.forEach(function(item){				
 							$("#movieList li[movieCd=" +item.movieCd+ "]").css("cursor","pointer").removeClass("disabled");	
 							$("#theaterList li[thCode=" +item.thCode+ "]").css("cursor","pointer").removeClass("disabled");	
@@ -164,7 +157,7 @@
 					}
 					
 					if($("#theaterList li").hasClass("selected")){			
-					$("#movieList li, #dateList li").addClass("disabled");			
+						$("#movieList li, #dateList li").addClass("disabled");			
 						res.forEach(function(item){				
 							$("#movieList li[movieCd=" +item.movieCd+ "]").css("cursor","pointer").removeClass("disabled");	
 							$("#dateList li[date=" +item.schDate+ "]").css("cursor","pointer").removeClass("disabled");	
@@ -172,17 +165,17 @@
 					}
 					
 					if($("#movieList li").hasClass("selected")){
-					$("#theaterList li, #dateList li").addClass("disabled");		
+						$("#theaterList li, #dateList li").addClass("disabled");		
 						res.forEach(function(item){
 							$("#theaterList li[thCode=" +item.thCode+ "]").css("cursor","pointer").removeClass("disabled");	
 							$("#dateList li[date=" +item.schDate+ "]").css("cursor","pointer").removeClass("disabled");	
-						});
-											
+						});											
 					}	
+					$("li.disabled")
 					
 					var selectCnt = $("#movieList li.selected, #theaterList li.selected, #dateList li.selected").length;
 					if(selectCnt == 3){
-						fnObj.setTimeList();
+						fnObj.getTimeList();
 					}
 							
 				},
@@ -215,13 +208,13 @@
 		fnObj.ReceivedData.movieCd = "";
 		fnObj.ReceivedData.thCode = "";
 	  });
-		
-	
+			
 	//좌석선택 페이지 로드
 	$(document).on('click',"#rsrvSeat",function() {
 		$('#rsrvModal .modal-content').load("rsrvSeat");
 		$('#rsrvModal').modal();	
 	});
+	
 
 	//리셋
 	$(document).on('click',"#reset",function() {
@@ -237,6 +230,10 @@
 		 //var value =$(this).val().toUpperCase();
 		 //console.log($("#movieList ul > li"));
 	});
+	
+	$(document).on('click',"ul.disabled",function(event) {
+		//$('#confirm').modal();
+	});
 		
 
 	//영화, 극장검색
@@ -246,8 +243,8 @@
 	    
 	    //영화관검색하면 무조건 전체로 변경
 	    if(target == 'theaterList'){
-	    	//$("#sidoList > ul li:first").addClass("list-group-item-warning");
-	    	//$("#sidoList > ul li:first").click();
+	    	$("#areaList > ul li:first").addClass("list-group-item-warning");
+	    	$("#areaList > ul li:first").click();
 	    }
 	    
 	    value =$(id).val().toUpperCase();	    
@@ -262,20 +259,19 @@
 	}
 	
 	//선택시 색상변경
-	$(document).on('click',"#movieList li,#sidoList li,#theaterList li	,#dateList li,#timeList li"	
+	$(document).on('click',"#movieList li,#areaList li,#theaterList li	,#dateList li,#timeList li"	
 	
 		,function() {		
-			if($(this).hasClass("selected")){
-				//$(this).removeClass("selected");
-				//$(this).css("color","#212529");
-			}else{
-				$(this).addClass("selected"); //클릭된 부분을 상단에 정의된 CCS인 selected클래스로 적용
-				$(this).css("color","white");
-			}
-			 
+			
+			$(this).addClass("selected"); //클릭된 부분을 상단에 정의된 CCS인 selected클래스로 적용
+			//$(this).css("color","#212529");			
+			$(this).css("background-color","#f16a1a");
+			$(this).css("color","white");
+			
 			$(this).each(function(){	         
 		   		$(this).siblings().removeClass("selected"); //siblings:형제요소들,    removeClass:선택된 클래스의 특성을 없앰
-		   		$(this).siblings().css("color","");
+		   		$(this).siblings().css("background-color","");
+		   		$(this).css("color","");
 			});
 	});
 	
@@ -313,8 +309,8 @@
 	$(document).on("click", "#dateList li" , function(){
 		var date= $(this).attr("date");
 		var year =  date.substr(0,4);
-		var month = date.substr(4,2)
-		var day  = date.substr(6,2);	
+		var month = date.substr(5,2)
+		var day  = date.substr(8,2);		
 		var dayOfWeek = $(this).text().substr(0,1)	
 		$("#schDate").text(year+"."+month+"."+day+" (" + dayOfWeek+")");
 		fnObj.selectData.date = date;
@@ -322,8 +318,29 @@
 		fnObj.selectItem();
 	});
 	
-	
-	
+	//시간선택 시 선택정보에 값 출력
+	$(document).on("click", "#timeList li" , function(){
+	console.log($(this).attr("roomnm"));
+		$("#roomNm").text($(this).attr("roomnm"));
+		$("#schTime").text($(this).text().substr(0,11));
+	});
 
+	$(document).on("click", "#confirm" , function(){
+	});
 	
+	//지역선택 시 극장목록 검색
+	$(document).on("click", "#areaList li" , function(){
+
+		var theaterList = $("#theaterList li");		
+		var areaCode = $(this).attr("id").substr(-2);
+	    
+	    theaterList.each(function(){
+			if($(this).attr("thareacode") == areaCode || areaCode == '00'){
+				$(this).css("display","flex");
+			}else{
+				$(this).css("display","none");
+			}       
+	    })	
+	   
+	});
 	

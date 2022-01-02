@@ -62,9 +62,6 @@ public class Theater {
 	private String thImage;
 	
 	@Column(name="TH_TEL", columnDefinition="전화번호")
-	private String thTel;	
-	
-	@OneToMany(fetch = FetchType.LAZY) //지연로딩 필요할때만 실행
-	@JoinColumn(name = "TH_CODE")
-	private List<Room> room;
+	private String thTel;
+
 }

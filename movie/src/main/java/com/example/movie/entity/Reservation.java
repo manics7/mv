@@ -43,16 +43,18 @@ public class Reservation {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="RSRV_NO", columnDefinition="예매번호")
 	private Integer rsrvNo;
+
+	@Column(name="SCH_CODE", columnDefinition="상영일정 키 ")
+	private Integer schCode;
 	
-	@NonNull
-	@Column(name="SCH_NO", columnDefinition="일정번호")
-	private Integer schNo;
+	@Column(name="SCH_DETAIL_SEQ", columnDefinition="일정번호")
+	private Integer schDetailSeq;	
 	
 	@NonNull
 	@Column(name="M_ID", columnDefinition="아이디")
 	private String mId;
 	
-	@Column(name="RSRV_DATE", columnDefinition="작성일")
+	@Column(name="RSRV_DATE", columnDefinition="예매일자")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)

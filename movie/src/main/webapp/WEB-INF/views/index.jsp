@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Movie | eivoM</title>
 <link rel="stylesheet" type="text/css" href="resource/css/index.css">
+<script src="resource/js/jquery-3.6.0.min.js"></script>
+<script src="resource/js/bootstrap.bundle.js"></script>
+
 </head>
 <body>
 
@@ -128,7 +131,7 @@
 		</footer>
 	</div>
 </body>
-	<script src="resource/js/jquery-3.6.0.min.js"></script>
+	
 	<script type="text/javascript">
 		//메시지 출력 부분
 		var msg = "${msg}";

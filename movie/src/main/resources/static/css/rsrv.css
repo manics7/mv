@@ -16,9 +16,20 @@
 .btn-warning:hover {background-color: #f16a19; color: white; cursor: pointer; border: none;}
 .btn-warning:not(:hover) {background-color: #f16a19; color: white; border: none;}
 
-.selected {
-	background-color: #f16a1a;
+.disabled{
+    pointer-events:auto;
+    opacity:0.3;
+     background-color: #DDD;
+    color: #999;
 }
+
+.selected {
+	color: white;
+}
+.align-right {
+	float: right;
+}
+
 
 #mvSelectBox > ul > li{
 	border-top: 0;
@@ -27,7 +38,7 @@
 }
 
 #movieList > ul > li
-,#sidoList > ul > li
+,#areaList > ul > li
 ,#theaterList > ul > li
 ,#dateList > ul > li
 ,#timeList > ul > li
@@ -35,7 +46,7 @@
  border: none;
 }
 
-#sidoList > ul > li {
+#areaList > ul > li {
 /* background-color: #f4f4f4; */
 color:#495057;
 }
@@ -47,7 +58,7 @@ color:#495057;
 }
 
 
-#sidoList, #theaterList {
+#areaList, #theaterList {
  overflow: auto;
  height: auto; 
  max-height: 550px;  
@@ -62,18 +73,16 @@ color:#495057;
 #timeList {
  overflow: auto;
  height: auto; 
- min-height: 300px;  
- max-height: 300px;  
+ min-height: 350px;  
+ max-height: 350px;  
 }
 
 #movieInfo {height: 165px;}
 
 #movieList > ul > li:hover  {background-color: #f16a1a; color: white;}
 #theaterList > ul > li:hover  {background-color: #f16a1a; color: white;}
-#sidoList > ul > li:hover  {background-color: #f16a1a; color: white;}
+#areaList > ul > li:hover  {background-color: #f16a1a; color: white;}
 #dateList > ul > li:hover  {background-color: #f16a1a; color: white;}
 #timeList > ul > li:hover  {background-color: #f16a1a; color: white;}
 
-.disabled {
-	opacity: 0.3;	
-}
+
