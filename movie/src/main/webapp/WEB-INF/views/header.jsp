@@ -25,7 +25,7 @@
 		</div>
 		<div id="header_bottom">
 			<ol>
-				<li><a href="#">영화</a></li>
+				<li><a href="./currentMovieList">영화</a></li>
 				<li><a href="#">영화관</a></li>
 				<li><a href="#">영화관후기</a></li>
 				<li><a href="#">이벤트</a></li>

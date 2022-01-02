@@ -4,6 +4,11 @@
 
 <mapper namespace="com.example.movie.mapper.AdminMapper">
 	
+	<!-- 현재상영작 가져오기 -->
+	<select id="getMovieList" parameterType="String" resultType="com.example.movie.dto.MvOfficialDto">
+		select * from mv_official
+	</select>
+	
 </mapper>
 
 
