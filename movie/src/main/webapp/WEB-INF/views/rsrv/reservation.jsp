@@ -37,13 +37,11 @@ $(document).ready(function() {
 			 		<div class="col-md-4 px-0 border-right">
 			 			<h5 class="align text-center"><strong>영화</strong></h5>
 				         <div class="input-group col-md-12">
-				           <span class="input-group-append">
-				               <button class="btn btn-outline-secondary border-right-0 border" type="button">
-				                   <i><img alt="" src="resource/images/icon/search.svg"> </i>
-				               </button>
-				            </span>
-				            <input class="form-control border-left-0 border" type="search" placeholder="영화명 검색" id="search" onkeyup="filter(this,'movieList');">					          
-				        </div>
+				 			 <div class="input-group-append">
+	                   		 	<div class="input-group-text border-right-0 bg-transparent"><i><img alt="" src="resource/images/icon/search.svg"></i></div>
+	                		</div>
+	                		<input class="form-control border-left-0 border" type="search" placeholder="영화관 검색" id="search" onkeyup="filter(this,'theaterList');">	                
+            			</div>
 				        
 				        <div class="col-md-12 mt-2" id="mvSelectBox">				     
 				        	<ul class="nav nav-tabs">
@@ -133,8 +131,8 @@ $(document).ready(function() {
 								    </div>
 								  </div>
 								</div>
-						         <div class="col-md-12 mt-2">
-						     	    <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>
+						         <div class="col-md-12 mt-2">						    
+						     	   <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>
 						         </div> 
 						         
 			 				</div>
@@ -145,12 +143,7 @@ $(document).ready(function() {
  
     </div>
 </div>
-<div class="modal fade" id="rsrvSeat" tabindex="-1" role="dialog"	aria-labelledby="label" aria-hidden="true" data-backdrop="static">
-		<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-			<div class="modal-content"></div>
-		</div>
-	</div>
-	
+    
 <div class="modal fade" id="confirm" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

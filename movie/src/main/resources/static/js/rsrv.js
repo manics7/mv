@@ -192,6 +192,27 @@
 	$(document).on('click',"#modal",function(event) {
 		$('#rsrvModal .modal-content').load("rsrv");		
 	});
+	//좌석선택 페이지 로드
+	$(document).on('click',"#rsrvSeat",function() {
+		$('#rsrvModal .modal-content').load("rsrvSeat");
+		//$('#rsrvModal').modal();	
+	});			
+
+	//리셋
+	$(document).on('click',"#reset",function() {
+		$('#rsrvModal .modal-content').load("rsrv");
+		//$('#rsrvModal').modal();		
+		//setTimeout(2000,function(){
+		fnObj.init();
+		//})
+		
+	});
+	
+	
+	 $('#rsrvModal').on('hidden.bs.modal', function () {
+		fnObj.ReceivedData.movieCd = "";
+		fnObj.ReceivedData.thCode = "";
+	  });
 	
 	//모달화면 보였을때 
 	$('#rsrvModal').on('shown.bs.modal', function (event) {
@@ -199,32 +220,10 @@
 		var target = $(event.relatedTarget);		
 		var movieCd = $(target).data("movie");
 		var thCode = $(target).data("thcode");
-		//console.log(movieCd + "/ " + thCode );
 		//fnObj.ReceivedData.movieCd = movieCd;
 		//fnObj.ReceivedData.thCode = thCode;
 		
 	 });
-	 $('#rsrvModal').on('hidden.bs.modal', function () {
-		fnObj.ReceivedData.movieCd = "";
-		fnObj.ReceivedData.thCode = "";
-	  });
-			
-	//좌석선택 페이지 로드
-	$(document).on('click',"#rsrvSeat",function() {
-		$('#rsrvModal .modal-content').load("rsrvSeat");
-		$('#rsrvModal').modal();	
-	});
-	
-
-	//리셋
-	$(document).on('click',"#reset",function() {
-		$('#rsrvModal .modal-content').load("rsrv");
-		$('#rsrvModal').modal();		
-		//setTimeout(2000,function(){
-		fnObj.init();
-		//})
-		
-	});
 	
 	$(document).on('keyup',"#searchMovie",function() {
 		 //var value =$(this).val().toUpperCase();
