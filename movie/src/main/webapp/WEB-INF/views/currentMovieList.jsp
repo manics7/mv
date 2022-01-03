@@ -32,7 +32,7 @@
 										<!-- 마우스 올리면 상세 내용 보여짐 -->
 										<!-- 클릭시 영화 상세페이지 이동
 										 -->
-										<a href="#">
+										<a href="./movieDetail?movie_cd=${movieList.movie_cd }">
 											<div>
 												${movieList.movie_content }
 											</div>

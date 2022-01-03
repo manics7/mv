@@ -106,7 +106,7 @@ $("#type_business").click(function() {
 var userInfo = "${userInfo.m_name}";
 
 if(userInfo != "") {
-	$("#userName").html(userInfo + " 님");
+	$("#userName").html(userInfo);
 	$("#login_after").css("display", "inline-block");
 	$("#login_before").css("display", "none");
 }

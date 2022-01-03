@@ -25,10 +25,10 @@ public class HomeController {
 	private BusinessService buServ;
 	
 	// test 페이지 이동
-	@GetMapping("test")
+	@GetMapping("movieDetail")
 	public String test() {
 		
-		return "test";
+		return "movieDetail";
 	}
 	
 	@RequestMapping("/")
