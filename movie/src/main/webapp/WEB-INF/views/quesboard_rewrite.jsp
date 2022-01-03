@@ -60,14 +60,22 @@
 		<div class="col-sm-6">
 			<div class="card shadow">
 				<div class="card-body">
-					<form action="board_read.html" method="post">
+					<form action="./quesboard_reply_insert" method="post">
+					<div class="form-group">
+						<label for="board_subject">문의글 번호</label>
+						<input type="text" id="board_subject" name="ques_no" class="form-control" value="${ques_no}"/>
+					</div>
 					<div class="form-group">
 						<label for="board_subject">제목</label>
-						<input type="text" id="board_subject" name="board_subject" class="form-control"/>
+						<input type="text" id="board_subject" name="ques_reply_title" class="form-control"/>
+					</div>
+					<div class="form-group">
+						<label for="board_subject">날짜</label>
+						<input type="text" id="board_subject" name="ques_reply_date" class="form-control"/>
 					</div>
 					<div class="form-group">
 						<label for="board_content">내용</label>
-						<textarea id="board_content" name="board_content" class="form-control" rows="10" style="resize:none"></textarea>
+						<textarea id="board_content" name="ques_reply_cont" class="form-control" rows="10" style="resize:none"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="board_file">첨부 이미지</label>

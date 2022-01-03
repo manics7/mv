@@ -125,5 +125,12 @@ public class MemberController {
 		return view;
 
 	}
+	
+	@GetMapping("thDetail")
+	public String thDetail() {
+		
+		
+		return "theater_detail";
+	}
 
 }

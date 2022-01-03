@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BusinessDto;
@@ -19,6 +20,8 @@ public class BusinessContorller {
 	
 	@Autowired
 	private BusinessService bServ;
+	
+	private ModelAndView mv;
 	
 	// 사업자 회원가입
 		@PostMapping("businessInsert")
@@ -71,5 +74,41 @@ public class BusinessContorller {
 		
 		return view;
 	}
+	
+	
+	//상영관 목록 이동
+		@GetMapping("roomlist")
+		public ModelAndView roomList() {
+			mv = bServ.getRoomList();
+			
+			return mv;
+		}
+		
+		//상영관 삭제
+		@GetMapping("roomDelete")
+		public String roomDelete(int roomseq,
+				RedirectAttributes rttr) {
+			String view = bServ.roomDelete(roomseq, rttr);
+			
+			return view;
+		}
+		
+		//상영관 등록 페이지 이동
+		@GetMapping("roomInsertFrm")
+		public ModelAndView roomInsertFrm() {
+			mv = bServ.roomInsertFrm();
+			
+			return mv;
+		}
+		
+		//상영관 등록 처리
+		@PostMapping("roomInsert")
+		public String roomInsert(MultipartHttpServletRequest multi,
+				RedirectAttributes rttr) {
+			String view = bServ.roomInsert(multi, rttr);
+			
+			return view;
+		}
+	
 	
 } // class end

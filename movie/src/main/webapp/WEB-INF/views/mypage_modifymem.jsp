@@ -19,8 +19,6 @@
     <div class="wrap">
         <nav>
             <!--이부분에 상단매뉴 들어감.-->
-
-
         </nav>
         <div class="main_wrap">
             <div class="cont_wrap">

@@ -7,6 +7,7 @@ import java.util.Map;
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.quesReplyDto;
+import com.example.movie.dto.ques_replyDto;
 import com.example.movie.dto.quesboardDto;
 
 public interface AdminMapper  extends MybatisMapper {
@@ -24,6 +25,8 @@ public interface AdminMapper  extends MybatisMapper {
 	int getBusCnt();
 
 	quesReplyDto selectQuesReply(int ques_no);
+
+	boolean insert_ques_reply(ques_replyDto qrdto);
 	
 	
 	

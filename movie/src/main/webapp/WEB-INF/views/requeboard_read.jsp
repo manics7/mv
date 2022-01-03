@@ -19,7 +19,7 @@
 </head>
 <body>
 
-
+ 
 
 	<!-- 상단 메뉴 부분 -->
 	<nav
@@ -118,7 +118,9 @@
 						<div class="form-group">
 							<div class="text-right">
 								<a href="./quesboard?pageNum=1" class="btn btn-primary">목록보기</a> 
-								<a href="./quesboard_rewrite" class="btn btn-info">답변하기</a> 
+								<c:forEach var="qrlist" items="${qrlist}">
+								<a href="./quesboard_rewrite?ques_no=${qrlist.ques_no}" class="btn btn-info">답변하기</a>
+								</c:forEach>
 								<a href="#" class="btn btn-danger">삭제하기</a>
 							</div>
 						</div>

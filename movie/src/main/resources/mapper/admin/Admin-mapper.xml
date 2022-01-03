@@ -45,8 +45,13 @@
 	
 	<select id="selectQuesReply" parameterType="Integer"
 		resultType="com.example.movie.dto.quesReplyDto">
-		SELECT * FROM question_reply where ques_no = #{ques_no}
+		SELECT * FROM question_reply where ques_no = (#{ques_no})
 	</select>
+	
+	<insert id="insert_ques_reply" parameterType="com.example.movie.dto.ques_replyDto">
+	INSERT INTO question_reply(ques_reply_no_seq, ques_no, ques_reply_cont, ques_reply_title)
+		VALUES (ques_reply_no_seq.nextval,#{ques_no},#{ques_reply_cont},#{ques_reply_title})
+		</insert>
 	
 
 </mapper>

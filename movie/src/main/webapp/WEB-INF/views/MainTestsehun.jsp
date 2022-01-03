@@ -17,6 +17,7 @@
 <a href="./mmanage?pageNum=1">회원관리</a> <br>
 	<a href="./quesboard?pageNum=1">문의게시판</a><br>
 	<a href="./thDetail">영화관 상세 페이지</a><br>
+	<a href="./roomInsertFrm">좌석정보입력 테스트</a><br>
 </div> <br>
 
 	<form action="./thDetail">
