@@ -51,6 +51,15 @@ public class MemberService {
 		
 		MemberDto mem = (MemberDto)session.getAttribute("userInfo");
 		
+		String birth = mem.getM_birth();
+		// 생일 문자열 뒤에 00:00:00을 없애기 위한 반복문
+		for(int i = 10; i <= birth.length()-1; i++) {
+		
+			birth = birth.substring(0,i);
+		}
+		
+		mem.setM_birth(birth);
+		
 		mv.addObject("member",mem);
 		
 		mv.setViewName("memberUpdateFrm");
@@ -572,11 +581,33 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 
 	
 	
-	public String deletemember(String m_id) {
+	public String deletemember(RedirectAttributes rttr) {
 		
+		String msg = null;
+		String view = null;
+		
+		MemberDto mem = (MemberDto)session.getAttribute("userInfo");
+		String m_id = mem.getM_id();
+		
+		try {
+			
 		mMapper.deleteMember(m_id);
 		
-		return null;
+		session.invalidate();
+		msg = "삭제 성공";
+		
+		view = "redirect:/";
+		
+		} catch(Exception e) {
+			
+			msg="삭제 실패";
+			
+			view = "redirect:mypage";
+		}
+		
+		rttr.addFlashAttribute("msg", msg);
+		
+		return view;
 	}
 
 	public ModelAndView memberSelect(String m_id) {

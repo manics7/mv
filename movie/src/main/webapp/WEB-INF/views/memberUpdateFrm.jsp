@@ -17,6 +17,14 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script type="text/javascript">
+$(function(){
+	//메시지 출력 부분
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	});
+</script>
    
 </head>
 
@@ -31,12 +39,14 @@
         </nav>
         <div class="main_wrap">
             <div class="cont_wrap">
-                <div class="cont_sidebar"></div>
+                <div class="cont_sidebar">
+                <jsp:include page="mypage_sidebar.jsp"></jsp:include>
+                </div>
                 <div class="container modify_mem_wrap">
                     <h2 class="modify_mem_title">회원 정보 수정</h2>
                     <div class="profile_box">
                         <div class="imt_box">
-                            <img src="imges/modify_mem_profile.svg" alt="">
+                            <img src="resource/images/modify_mem_profile.svg" alt="">
                         </div>
                         <p class="profile_title">${userInfo.m_id}</p>
                     </div>
@@ -66,8 +76,7 @@
                                     <span class="required">생년월일</span>
                                 </div>
                                 <div>
-                                    <span><fmt:formatDate value="${userInfo.m_birth}"
-										pattern="yyyy-MM-dd"/></span>
+                                    <span>${member.m_birth}</span>
                                 </div>
                             </li>
                             <li>
@@ -95,16 +104,15 @@
                                 <div>
                                     <button class="form_btn"
                                         style="width: 68px; height: 40px; padding:  10px; margin-right: 8px;">변경</button>
-                                    <i style="font-style: normal; color: #767676;">* 마지막 비밀번호 변경 : 2021-12-06 오후
-                                        4:42:30(25)</i>
+                                    <i style="font-style: normal; color: #767676;"></i>
                                 </div>
                             </li>
-                            <li class="addrlist">
+                            <!-- <li class="addrlist">
                                 <div><span>주소</span></div>
 
                                 <!-- <div class="addr_form1_wrap">
 
-                                </div> -->
+                                </div> 
                                 <div style="width: 680px; height: 151px;">
                                     <input class="addrform_1" type="text" style="width: 100px; margin-right: 8px;">
                                     <button class="form_btn" style="width: 123px; height: 40px; padding: 10px;">우편번호
@@ -116,7 +124,7 @@
                                         <input type="text" id="Addr2" name="Addr2" value="">
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <div class="simple_login" style="display: block;">
@@ -136,8 +144,8 @@
                         </table>
                     </div>
                     <div class="btn_box">
-                        <button class="btn_on" style="color: white;">변경</button>
-                        <button>회원탈퇴</button>
+                        <input type =button class="btn_on" style="color: white;">변경
+                        <button onclick="delCheck()">회원탈퇴</button>
                     </div>
 
 
@@ -156,5 +164,13 @@
 
     </div>
 </body>
-
+<script type="text/javascript">
+function delCheck(){
+	var conf = confirm("회원 탈퇴하시겠습니까?");
+	
+	if(conf == true){
+		location.href='./delMember';
+	}
+}
+</script>
 </html>

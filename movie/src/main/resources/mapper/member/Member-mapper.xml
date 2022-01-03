@@ -86,7 +86,7 @@
 		SELECT COUNT(*) FROM v_mem
 	</select>
 
-	<delete id="memberdelete" parameterType="String">
+	<delete id="deleteMember" parameterType="String">
 		DELETE FROM MEMBER WHERE
 		M_ID=#{M_ID}
 	</delete>
