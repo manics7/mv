@@ -3,7 +3,32 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.movie.mapper.BusinessMapper">
-	
+	<!-- 상영관 목록 가져오기 -->
+	<select id="getRoomList" resultType="com.example.movie.dto.RoomDto">
+		SELECT * FROM ROLIST
+	</select>
+	<!-- 상영관 삭제하기 -->
+	<delete id="RoomDelete" parameterType="Integer">
+		DELETE FROM ROOM
+	 	WHERE ROOM_SEQ=#{roomseq}
+	</delete>
+	<!-- 상영관 등록하기 -->
+	<insert id="roomInsert" parameterType="com.example.movie.dto.RoomDto">
+		INSERT INTO ROOM
+		VALUES (ROOM_SEQ.NEXTVAL,#{roomno},#{thcode},#{roclass},#{roname},#{roomrow},#{roomcol},#{seatcnt})
+	</insert>
+	<!-- 좌석정보 등록하기 -->
+	<insert id="seatInsert" parameterType="com.example.movie.dto.SeatDto">
+		INSERT INTO SEAT
+		VALUES (SEAT_SEQ.NEXTVAL,#{thcode},#{roomno},#{seatcol},#{seatrow},#{seatstat},#{seatno})
+	</insert>
+	<!-- 좌석정보 업데이트 
+	<update id="seatUpdate" parameterType="com.example.movie.dto.SeatDto">
+		UPDATE INTO SEAT
+		VALUES (#{seatstat})
+		WHERE 
+	</update>
+	-->
 </mapper>
 
 

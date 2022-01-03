@@ -1,6 +1,8 @@
 package com.example.movie.controller;
 
+
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BoardDto;
+import com.example.movie.dto.ReplyDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.service.BoardService;
 
@@ -95,5 +98,29 @@ public class BoardController {
 		
 		return view;
 	}
+	
+	//댓글 처리
+	@PostMapping(value = "replyIns",
+			produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, List<ReplyDto>> replyInsert(ReplyDto reDto) {
+		log.info("ReplyDto() - " + reDto);
+		Map<String, List<ReplyDto>> remap = bServ.replyInsert(reDto);
+		log.info("remap - " + remap);
+		return remap;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 } //class end

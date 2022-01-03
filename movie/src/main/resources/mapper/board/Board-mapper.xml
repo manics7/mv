@@ -75,7 +75,7 @@
 		<selectKey keyProperty="rnum" resultType="Integer" order="BEFORE">
 		SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO R VALUES
+		INSERT INTO RV VALUES
 		(${rnum}, ${thcode}, #{mid}, #{rtitle}, #{rcontent}, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 	
@@ -87,26 +87,38 @@
 	
 	<!-- 조회수 업데이트 -->
 	<update id="viewUpdate" parameterType="Integer">
-		UPDATE R SET REVIEW_VIEW=REVIEW_VIEW+1
+		UPDATE RV SET REVIEW_VIEW=REVIEW_VIEW+1
 		WHERE REVIEW_NUM=#{RNUM}
 	</update>
 	
 	<!-- 좋아요 업데이트 -->
 	<update id="likeUpdate" parameterType="Integer">
-		UPDATE R SET REVIEW_LIKE=REVIEW_LIKE+1
+		UPDATE RV SET REVIEW_LIKE=REVIEW_LIKE+1
 		WHERE REVIEW_NUM=#{RNUM}
 	</update>
 	
 	<!-- 게시글 수정하기 -->
 	<update id="RvUpdate" parameterType="com.example.movie.dto.BoardDto">
-		UPDATE R SET TH_CODE=${thcode}, REVIEW_TITLE=#{rtitle}, REVIEW_CONTENT=#{rcontent}
+		UPDATE RV SET TH_CODE=${thcode}, REVIEW_TITLE=#{rtitle}, REVIEW_CONTENT=#{rcontent}
 		WHERE REVIEW_NUM=#{rnum}
 	</update>
 	
 	<!-- 게시글 삭제하기 -->
 	<delete id="RvboardDelete" parameterType="Integer">
-		DELETE FROM R
+		DELETE FROM RV
 		WHERE REVIEW_NUM=#{RNUM}
 	</delete>
+	
+	<!-- 댓글 작성하기 -->
+	<insert id="replyInsert" parameterType="com.example.movie.dto.ReplyDto">
+		INSERT INTO RE
+		VALUES (REPLY_SEQ.NEXTVAL,#{rnum},#{mid},#{recontent},DEFAULT,DEFAULT)
+	</insert>
+	
+	<!-- 댓글 목록 출력하기 -->
+	<select id="getReList" parameterType="Integer"
+		resultType="com.example.movie.dto.ReplyDto">
+		SELECT * FROM RELIST WHERE RNUM=#{rnum}
+	</select>
 							
 </mapper>

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BoardDto;
+import com.example.movie.dto.ReplyDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.mapper.BoardMapper;
 import com.example.movie.util.PagingUtil;
@@ -292,8 +293,22 @@ public class BoardService {
 		return view;
 	}
 	
-	
-	
+	//댓글 작성하기
+	@Transactional
+	public Map<String, List<ReplyDto>> replyInsert(ReplyDto reDto) {
+		Map<String, List<ReplyDto>> remap = null;
+		
+		try {
+			bMapper.replyInsert(reDto);
+			List<ReplyDto> reList = bMapper.getReList(reDto.getRnum());
+			remap = new HashMap<String, List<ReplyDto>>();
+			remap.put("reList", reList);
+		} catch (Exception e) {
+			remap = null;
+		}
+		
+		return remap;
+	}
 	
 	
 	

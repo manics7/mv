@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 수정</title>
+<link rel="stylesheet" href="resource/css/review.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -27,11 +28,16 @@ $(function(){
 <body>
 
 <section>
-	<div class="content">
+	<h2 id="rv_title">REVIEW</h2>
+	<div class="rv_content">
 		<form action="./boardRvUpdate" class="write-form"
 			method="post" enctype="multipart/form-data">
-			<h2 class="login-header">글수정</h2>
-			<select name="thcode">
+
+			<input type="text" class="write-input"
+			name="rtitle" autofocus placeholder="제목"
+			value="${bDto.rtitle}" required>
+
+			<select name="thcode" class="th_select">
 				<c:forEach var="thitem" items="${thList}">
 					<c:if test="${thitem.thname eq bDto.thname}">
 						<option value="${thitem.thcode}" selected>${thitem.thname}</option>
@@ -43,12 +49,10 @@ $(function(){
 			</select>
 			<input type="hidden" name="mid" value="viu97">
 			<input type="hidden" name="rnum" value="${bDto.rnum}">
-			<input type="text" class="write-input"
-				name="rtitle" autofocus placeholder="제목"
-				value="${bDto.rtitle}" required>
+			
 			<textarea rows="15" name="rcontent"
 				placeholder="내용을 적어주세요..."
-				class="write-input ta">${bDto.rcontent}</textarea>
+				class="write-textarea">${bDto.rcontent}</textarea>
 			<div class="filebox">
 				<div id="bfile" class="befor-file" style="margin-bottom: 10px;">
 					<c:if test="${empty bfList}">
@@ -70,9 +74,9 @@ $(function(){
 					name="fileCheck">
 			</div>
 			<div class="btn-area">
-				<input class="btn-write" type="submit" value="U">
-				<input class="btn-write" type="reset" value="R">
-				<input class="btn-write" type="button" value="B"
+				<input class="btn-write" type="submit" value="수정하기">
+				<input class="btn-write" type="reset" value="초기화하기">
+				<input class="btn-write" type="button" value="목록으로"
 					onclick="javascript:history.back();">
 			</div>
 		</form>

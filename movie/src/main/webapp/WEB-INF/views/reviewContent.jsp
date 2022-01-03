@@ -8,8 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 본문</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="resources/css/style.css">
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="resource/css/review.css">
+
 <script type="text/javascript">
 $(function(){
 	//메시지 출력 부분
@@ -35,6 +37,10 @@ $(function(){
 </script>
 </head>
 <body>
+<section>
+    <h2 id="rv_title">REVIEW</h2>
+<div class="rv_content">
+    
 <table>
 				<tr height="30">
 					<span><a>신고하기</a></span>
@@ -89,14 +95,14 @@ $(function(){
 						<button id="likebtn">LIKE ${bDto.rlike}</button>
 					</td>
 				</tr>
-</table>
+    </table>
 			<!-- 댓글 작성 양식 -->
-			<form id="replyFrm">
+			<form id="reFrm">
 				<textarea rows="3" class="write-input ta"
-					name="r_contents" id="comment"
+					name="recontent" id="comment"
 					placeholder="댓글을 적어주세요~"></textarea>
 				<input type="button" value="댓글 전송"
-					class="btn-write" onclick="replyInsert(${board.bnum})"
+					class="btn-write" onclick="replyInsert(${bDto.rnum})"
 					style="width: 100%; margin-bottom: 30px;">
 			</form>
 			<!-- 댓글 목록 보기 -->
@@ -107,21 +113,56 @@ $(function(){
 					<td width="30%">DATE</td>
 				</tr>
 			</table>
-			<table id="rtable" style="width: 100%"><!-- 목록 테이블 -->
-				<c:forEach var="r" items="${rList}">
+			<table id="re_table" style="width: 100%"><!-- 목록 테이블 -->
+				<c:forEach var="ritem" items="${reList}">
 				<tr>
-					<td width="20%">${r.r_id}</td>
-					<td width="50%">${r.r_contents}</td>
+					<td width="20%">${ritem.mid}</td>
+					<td width="50%">${ritem.recontent}</td>
 					<td width="30%">
-						<fmt:formatDate value="${r.r_date}"
+						<fmt:formatDate value="${ritem.redate}"
 							pattern="yyyy-MM-dd HH:mm:ss"/>
 					</td>
 				</tr>
 				</c:forEach>
 			</table>
+</div>
+</section>
 </body>
 <script src="resources/js/jquery.serializeObject.js"></script>
 <script type="text/javascript">
+function replyInsert(rnum) {
+	var replyFrm = $("#reFrm").serializeObject();
+	replyFrm.rnum = rnum;
+	replyFrm.mid = "viu97";
+
+	$.ajax({
+		url: "replyIns",
+		type: "post",
+		data: replyFrm,
+		dataType: "json",
+		success: function(result){
+			var dlist = "";
+			var replyList = result.reList;
+			console.log(replyList);
+			
+			for(var i = 0; i < replyList.length; i++) {
+				dlist += "<tr>"
+					+ "<td width='20%'>" + replyList[i].mid + "</td>"
+					+ "<td width='50%'>" + replyList[i].recontent + "</td>"
+					+ "<td width='30%'>" + replyList[i].redate + "</td>"
+					+ "</tr>";
+			}
+			
+			$("#re_table").html(dlist);
+			$("#comment").val("");
+		},
+		error: function(error){
+			console.log(error);
+			alert("댓글 입력 실패");
+		}
+	});
+}
+
 function delCheck(rnum){
 	var conf = confirm("삭제하시겠습니까?");
 	

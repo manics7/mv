@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BoardDto;
+import com.example.movie.dto.ReplyDto;
 import com.example.movie.dto.TheaterDto;
 
 public interface BoardMapper extends MybatisMapper {
@@ -28,4 +29,8 @@ public interface BoardMapper extends MybatisMapper {
 	public boolean RvUpdate(BoardDto bDto);
 	//게시글 삭제하기
 	public boolean RvboardDelete(Integer rnum);
+	//댓글 작성하기
+	public void replyInsert(ReplyDto reDto);
+	//댓글 목록 출력
+	public List<ReplyDto> getReList(Integer rnum);
 }

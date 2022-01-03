@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>영화관 후기 게시판</title>
-<link rel="stylesheet" type="text/css" href="resource/css/review2.css">
+<link rel="stylesheet" href="resource/css/review.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script src="https://kit.fontawesome.com/27f70b73f3.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -22,7 +22,7 @@ $(function(){
 </script>
 </head>
 <body>
-	<h2 id="rv_title">REVIEW</h2>
+	<h2 id="rv_title"><a href="./rlist">REVIEW</a></h2>
 	<div class="rv_header">
 		<div class="rv_info">
 			<a>총 ${maxNum}개의 게시물이 있습니다.</a>
