@@ -136,7 +136,7 @@
 		var info = "${userInfo.m_name}"
 		
 		if(msg != ""){
-			alert(msg + info + " 님!");
+			alert(msg);
 		}
 	</script>
 </html>
