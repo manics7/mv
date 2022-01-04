@@ -4,7 +4,8 @@
 			movieList : {}
 			,theaterList : {}
 			,dateList  : {}
-			,schDateList : {}			
+			,schDateList : {}		
+			,history : ''	
 		},
 		ReceivedData : {
 			movieCd : ''
@@ -14,15 +15,21 @@
 			movieCd : ''
 			,thCode :''
 			,date : ''
-		}					
-		,init : function(){
+			,time : ''
+			,schCode : ''
+			,schDetailSeq : ''
 			
-			this.selectData.movieCd = '';			
-			this.selectData.thCode = '';			
-			this.selectData.date = '';			
-			this.initData();
-			$("#areaList > ul li:first").click();
+		}					
+		,init : function(){			
+			fnObj.initData();
+			if(fnObj.defaultData.history.length > 0){
+				
+				fnObj.getTimeList();
+			}
+			$("#areaList > ul li:first").click();			
+			
 		}	
+		
 		,initData : function() {
 			$.ajax({
 				type : "GET"
@@ -43,13 +50,36 @@
 					if(movieCd != ''){
 						$('#movieList li[movieCd=' +movieCd + ' ] ' ).click();
 					}	
-					$("#areaList > ul li:first").addClass("selected");		
-				
+					$("#areaList > ul li:first").addClass("selected");
 					
+					fnObj.history();			
 				},error : function(err) {
 					//console.log("err:", err)
 				}
 			});
+		}
+		,resetData : function(){
+			fnObj.ReceivedData.movieCd = "";
+			fnObj.ReceivedData.thCode = "";
+			fnObj.selectData.movieCd = '';			
+			fnObj.selectData.thCode = '';			
+			fnObj.selectData.date = '';			
+			fnObj.selectData.schCode = '';			
+			fnObj.selectData.schDetailSeq = '';
+			fnObj.selectData.time = '';
+			fnObj.defaultData.history = '';
+		}		
+		,history: function(){
+	
+			var movieCd = fnObj.selectData.movieCd;
+			var thCode = fnObj.selectData.thCode;
+			var date = fnObj.selectData.date;
+			if(movieCd.length > 0){
+				$('#movieList li[movieCd=' + movieCd + ' ] ' ).click();
+				$('#theaterList li[thCode=' + thCode + ' ] ' ).click();
+				$('#dateList li[date=' + date + ' ] ' ).click();		
+			}
+				
 		}
 		,setMovieList : function(data){
 			
@@ -111,7 +141,7 @@
 					var rsrvSeatCnt = 0;
 					
 					for(var i=0; i<res.length; i++){			
-							
+
 						if(res[i].room.roomNo != title){
 							html += "<span class='list-group-item my-0 py-2'><b>" +res[i].room.roomName+' '+res[i].room.roomClass+ "</b></span>";
 						}
@@ -125,13 +155,18 @@
 							if( status != ''){
 								status = " [예매종료]";		
 							}							
-							html += "<input type='hidden' name='schDetailSeq' value="+res[i].scheduleDetail[j].schDetailSeq+" />"
+							html += "<input type='hidden' name='schCode' value="+res[i].schCode+" />"
+							html += "<input type='hidden' name='schDetailSeq' value="+res[i].scheduleDetail[j].schDetailSeq+" />"						
 							html += "<li class='list-group-item my-0 py-2'  roomnm ="+ title + "><b>"+res[i].scheduleDetail[j].schDetailStart+"</b>~"+ res[i].scheduleDetail[j].schDetailEnd													
-							html += status + " <span class='align-right'><b class='text-warning'>"+rsrvSeatCnt+" </b>/"+res[i].room.seatCnt +"석</span> </li>";	
+							html += status + " <span class='align-right'><b class='text-warning'>"+rsrvSeatCnt+"</b>/"+res[i].room.seatCnt+"석</span></li>";	
 						}
 					}
-					$("#timeList ul").html(html);
+					$("#timeList ul").html(html);					
 					
+					if(fnObj.defaultData.history.length > 0){
+						$('#timeList li').eq(fnObj.selectData.time).click();
+					}
+										
 				},error : function(err) {
 					console.log("err:", err)
 				}
@@ -175,7 +210,7 @@
 					
 					var selectCnt = $("#movieList li.selected, #theaterList li.selected, #dateList li.selected").length;
 					if(selectCnt == 3){
-						fnObj.getTimeList();
+					fnObj.getTimeList();
 					}
 							
 				},
@@ -184,8 +219,22 @@
 				}
 			});
 		}
-		
-		
+		/*
+		, getSeat : function(){
+			
+			$.ajax({
+				type : "POST"
+				,url : "/rsrvSeat?"
+				,data : {"schCode" : fnObj.selectData.schCode, "schDetailSeq" : fnObj.selectData.schDetailSeq}	       		
+				,success : function(res) {
+					console.log(res);
+				},
+				err : function(err) {
+					console.log("err:", err)
+				}
+			});	
+		}		
+		*/
 	}
 	
 	//모달창열기
@@ -194,24 +243,20 @@
 	});
 	//좌석선택 페이지 로드
 	$(document).on('click',"#rsrvSeat",function() {
-		$('#rsrvModal .modal-content').load("rsrvSeat");
+		
+		$('#rsrvModal .modal-content').load("rsrvSeat", {"schCode" : fnObj.selectData.schCode, "schDetailSeq" : fnObj.selectData.schDetailSeq});
 		//$('#rsrvModal').modal();	
 	});			
 
 	//리셋
 	$(document).on('click',"#reset",function() {
-		$('#rsrvModal .modal-content').load("rsrv");
-		//$('#rsrvModal').modal();		
-		//setTimeout(2000,function(){
-		fnObj.init();
-		//})
-		
-	});
-	
+		$('#rsrvModal .modal-content').load("rsrv");		
+		fnObj.resetData();
+		fnObj.init();				
+	});	
 	
 	 $('#rsrvModal').on('hidden.bs.modal', function () {
-		fnObj.ReceivedData.movieCd = "";
-		fnObj.ReceivedData.thCode = "";
+		fnObj.resetData();
 	  });
 	
 	//모달화면 보였을때 
@@ -319,12 +364,12 @@
 	
 	//시간선택 시 선택정보에 값 출력
 	$(document).on("click", "#timeList li" , function(){
-	console.log($(this).attr("roomnm"));
+		fnObj.selectData.time = $(this).index("#timeList li"); 
+		fnObj.selectData.schCode = $(this).prev().prev().val(); //schCode
+		fnObj.selectData.schDetailSeq = $(this).prev().prev().val(); //schDetailSeq
+		
 		$("#roomNm").text($(this).attr("roomnm"));
 		$("#schTime").text($(this).text().substr(0,11));
-	});
-
-	$(document).on("click", "#confirm" , function(){
 	});
 	
 	//지역선택 시 극장목록 검색
@@ -339,7 +384,14 @@
 			}else{
 				$(this).css("display","none");
 			}       
-	    })	
-	   
+	    })	   
 	});
+
+
+	$(document).on("click", "#confirm" , function(){
+	});	
 	
+	$(document).on("click", "#back" , function(){
+		fnObj.defaultData.history = 'history';
+		$('#rsrvModal .modal-content').load("rsrv",fnObj.init());		
+	});

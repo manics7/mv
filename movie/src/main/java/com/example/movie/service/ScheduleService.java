@@ -172,7 +172,7 @@ public class ScheduleService {
 			
 			for (int j = 0; j <  scheduleList.get(i).getScheduleDetail().size(); j++) {
 				
-				Integer rsrvSeatCnt = reservationRepositoryCustom.rsrvSeatCnt(
+				Integer rsrvSeatCnt = reservationRepositoryCustom.getRsrvSeatCnt(
 						scheduleList.get(i).getScheduleDetail().get(j).getSchCode()
 						, scheduleList.get(i).getScheduleDetail().get(j).getSchDetailSeq());
 				

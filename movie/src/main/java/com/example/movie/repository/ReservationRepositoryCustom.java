@@ -1,6 +1,6 @@
 package com.example.movie.repository;
 
-import javax.persistence.EntityManager;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +19,7 @@ public class ReservationRepositoryCustom {
 	private QReservation reservation = new QReservation("rsrv");
 	private QReservationSeat reservationSeat = new QReservationSeat("rsrvSeat");
 	
-	public Integer rsrvSeatCnt(Integer schCode, Integer schDetailSeq) {
+	public Integer getRsrvSeatCnt(Integer schCode, Integer schDetailSeq) {
 		
 	Long rsrvSeatCnt =	jpaQueryFactory
 				.select(reservation.count())
@@ -31,5 +31,19 @@ public class ReservationRepositoryCustom {
 				
 				return rsrvSeatCnt.intValue();
 	}
+	
+	public List<Integer> getRsrvSeatNoList(Integer schCode, Integer schDetailSeq) {
+		
+		List<Integer> getRsrvSeatNoList =	jpaQueryFactory
+					.select(reservationSeat.seatNo)
+					.from(reservation)
+					.join(reservationSeat)
+					.on(reservation.rsrvNo.eq(reservationSeat.rsrvNo))
+					.where(reservation.schCode.eq(schCode).and(reservation.schDetailSeq.eq(schDetailSeq)))
+					.fetch();
+					
+					return getRsrvSeatNoList;
+		}
+
 
 }

@@ -5,13 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resource/css/bootstrap.css">
-<link rel="stylesheet" href="resource/css/rsrv.css">
+<link rel="stylesheet" type="text/css" href="resource/css/rsrv.css">
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script src="resource/js/jquery.serializeObject.js"></script>
 <script src="resource/js/bootstrap.bundle.js"></script>
 <style type="text/css">
-//.btn-outline-secondary:not(:hover) {border-color:#495057; cursor: pointer; border: none;}
-.btn-outline-secondary:hover {background-color: #f16a19; color: white; border: none;}
+button:not(:hover) {}
+.btn-outline-secondary:hover {background-color: #f16a19; color: white; border: none; outline-style: none; outline: none; }
 #selectSeat button{pointer-events: none;}
 .modal-content {min-height: 733px;}
 
@@ -39,28 +39,37 @@
     overflow: hidden;
     background-color: rgb(61, 63, 81);
 }
-.list-group li {border: none;}
+#status li {border: none;}
+#adult_group li {height: 24px; width: 8px; padding: 6,12,6,12; margin: 0,4,0,4;}
+
+.btn-outline-secondary:focus,.btn-outline-secondary:active{
+   outline: none !important;
+   box-shadow: none;
+   background-color: #f16a19;
+}
 
 </style>
 <script type="text/javascript">
 
 
+$(doucment).ready(function(){
+	var  seatInfo  = '${seatInfo}';  
+	console.log(seatInfo);
+})
+
 
 </script>
-<head>
-<link rel="stylesheet" type="text/css" href="resource/css/rsrv.css">
 </head>
-
 <div class="modal-content">
 	<div class="modal-header text-white">
 		<h5 class="modal-title ml-auto">
-			<strong>좌석선택</strong>
+			<strong>빠른예매</strong>
 		</h5>
 		<div class="ml-auto">
-			<button type="button" class="btn btn-outline-light bg-dark text-white font-weight-bold"
+			<button class="btn btn-outline-light bg-dark text-white font-weight-bold"
 				id="reset"
 			>초기화</button>
-			<button class="btn btn-outline-light bg-dark text-white font-weight-bold" type="button"
+			<button class="btn btn-outline-light bg-dark text-white font-weight-bold"
 				data-dismiss="modal"
 			>X</button>
 		</div>
@@ -74,31 +83,63 @@
 							<h5 class="align text-center"><strong>인원선택</strong></h5>
 							<p class="text-center">최대 8인까지 선택가능</p>
 							<p class="mb-1 ml-1">일반</p>
-							 <div class="btn-group mr-2" role="group" aria-label="adult group">					 	
-							   <button type="button" class="btn btn-outline-secondary mx-1">1</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">2</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">3</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">4</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">5</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">6</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">7</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">8</button>
-							 </div>						 
+							 <div class="btn-group btn-group-toggle" data-toggle="buttons">
+							  <label class="btn btn-outline-secondary mx-1">
+							      <input type="radio" name="options" id="option1"> 1
+							  </label>
+							  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option2"> 2
+							  </label>
+							  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option3"> 3
+							    </label>
+							     <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option4" > 4
+							  </label>
+							  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option5"> 5
+							  </label>
+							  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option6"> 6
+							    </label>
+							    	  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option7" >7
+							  </label>
+							  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option8"> 8
+							  </label>							 
+							</div>						 
 							 <p class="mt-2 mb-1 ml-1">청소년</p>
-							 <div class="btn-group mr-2" role="group" aria-label="youth group">					 	
-							   <button type="button" class="btn btn-outline-secondary mx-1">1</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">2</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">3</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">4</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">5</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">6</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">7</button>
-							   <button type="button" class="btn btn-outline-secondary mx-1">8</button>
-							 </div>
+							  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+							  <label class="btn btn-outline-secondary mx-1">
+							      <input type="radio" name="options" id="option1"> 1
+							  </label>
+							  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option2"> 2
+							  </label>
+							  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option3"> 3
+							    </label>
+							     <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option4" > 4
+							  </label>
+							  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option5"> 5
+							  </label>
+							  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option6"> 6
+							    </label>
+							    	  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option7" >7
+							  </label>
+							  <label class="btn btn-outline-secondary mx-1">
+							    <input type="radio" name="options" id="option8"> 8
+							  </label>							 
+							</div>	
 						</div>
 						 
 						<div class="col-md-12 p-auto">
-								<button type="button" class="btn btn-lg btn-block btn-dark" id="">뒤로가기</button>
+								<button  type="button" class="btn btn-lg btn-block btn-dark" id="back" >뒤로가기</button>
 						</div>
 					
 				</div>
@@ -107,17 +148,17 @@
 					<div class="row">
 						<div class="col-md-12">
 							<h5 class="align text-center">
-								<strong class="font-white">좌석선택</strong>
+								<strong class="">좌석선택</strong>
 							</h5>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12" style="min-height: 400px; background-color: gray;">
+						<div class="col-md-12" style="min-height: 410px; background-color: gray;">
 							
 						</div>
 					</div>
 					<div class="row ">
-						<div class="col-md-6 mx-auto">
+						<div class="col-md-6 mx-auto" id="status">
 							<ul class="list-group list-group-horizontal">
 							  <li class="list-group-item pl-1 px-2"><div class="circle1 align-middle mt-1"></div></li>
 							  <li class="list-group-item pl-1"> 일반석</li>
@@ -132,24 +173,24 @@
 						<div class="col-md-7" id="selectSeat">
 							<p class="pb-1 mb-1">선택한 좌석</p>
 							<div class="btn-group mr-2" role="group" aria-label="adult group">					 	
-							   <button type="button" class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
-							   <button type="button" class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
-							   <button type="button" class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
-							   <button type="button" class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>							 			 
+							   <button class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
+							   <button class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
+							   <button class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
+							   <button class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>							 			 
 							 </div>						 
 							 <p class="mt-2 mb-1 ml-1"></p>
 							 <div class="btn-group mr-2" role="group" aria-label="youth group">					 	
-							   <button type="button" class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
-							   <button type="button" class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
-							   <button type="button" class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
-							   <button type="button" class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>				
+							   <button class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
+							   <button class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
+							   <button class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>
+							   <button class="btn btn-outline-secondary btn-lg mr-1" disabled name="seatNo">-</button>				
 							 </div>				
 						</div>
 						<div class="col-md-2">
-							<p class="text-center px-0">총<span>0</span>원 </p>
+							<p class="text-center px-0 text-right">총<span>0</span>원 </p>
 						</div>
 						<div class="col-md-3">
-							<button type="button" class="btn btn-lg btn-block btn-dark" id="">결제수단 ></button>
+							<button  type="button" class="btn btn-lg btn-block btn-dark" id="">결제수단 ></button>
 						</div>
 					</div>
 
