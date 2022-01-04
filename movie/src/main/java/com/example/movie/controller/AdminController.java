@@ -134,6 +134,14 @@ public class AdminController {
 
 		return mv;
 	}
+	@PostMapping(value="mempopup_ctl",
+			produces = "application/json; charset=utf-8")
+	public ModelAndView mempopup_ctl(String m_id) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("m_id = " + m_id);
+		mv = aServ.selectpopupmem(m_id);
+		return mv;
+	}
 
 
 

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.ques_replyDto;
 import com.example.movie.dto.quesboardDto;
@@ -23,6 +24,8 @@ public class AdminService {
 	@Autowired
 	public AdminMapper aMap;
 	public int listCnt = 4;
+	
+	public ModelAndView mv;
 
 
 	public List<quesboardDto> getQboardList(Integer pageNum) {
@@ -132,6 +135,19 @@ public class AdminService {
 		} catch (Exception e) {
 			mv.setViewName("redirect:quesboard?pageNum=1");
 		}
+		return mv;
+	}
+
+	public ModelAndView selectpopupmem(String m_id) {
+		MemberDto mdto = new MemberDto();
+		mv = new ModelAndView();
+		
+		mdto = aMap.getMemberSelect(m_id);
+		
+		mv.addObject("mem_popup", mdto);
+		
+		mv.setViewName("mmanage");
+		
 		return mv;
 	}
 

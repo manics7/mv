@@ -32,15 +32,15 @@
                     <div class="card shadow">
                      <div class="member_top_btn_wrap">
                                     <div class="member_top_btn">
-                                        <a href="./mmanage?pageNum=1">일반회원</a>
-                                        <a href="#">불량회원</a>
-                                        <a class="btn_business" style="background: #f16a1a; color: white;" href="#">사업자</a>
+                                        <a style="border : 1px solid #e1e1e1;" href="./mmanage?pageNum=1">일반회원</a>
+                                        <a style="border : 1px solid #e1e1e1;" href="#">불량회원</a>
+                                        <a class="btn_business" style="background: #f16a1a; color: white; border : none;" href="#">사업자</a>
                                     </div>
                                 </div>
                     
                             <div class="card-body">                            
                                 <div class="member_top">
-                                    <h4 class="card-title">사업자관리</h4>
+                                    <h4 class="card-title">회원관리(사업자)</h4>
                                     <div class="input_box">
                                         <input type="text" placeholder="ID 입력" name="m_id"> <input type="submit"
                                             value="검색">
@@ -54,10 +54,7 @@
                                             <th class="text-center d-none d-md-table-cell">사업자ID</th>
                                             <th class="text-center d-none d-md-table-cell">회사명</th>
                                             <th class="text-center d-none d-md-table-cell">HP</th>
-                                            <th class="text-center d-none d-md-table-cell">주소</th>
-                                            <th class="text-center d-none d-md-table-cell">생년월일</th>
-                                            <th class="text-center d-none d-md-table-cell">회원 게시글 확인</th>
-                                            <th class="text-center d-none d-md-table-cell">회원 탈퇴처리</th>
+                                            <th class="text-center d-none d-md-table-cell">등록 정보</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -69,15 +66,13 @@
                                                     <tr>
                                                         <td class="text-center d-none d-md-table-cell">${busList.b_id}
                                                         </td>
-                                                        <td><a href='board_read.html'>${busList.b_name}</a></td>
+                                                        <td style= "text-align : center;"><a href='#'>${busList.b_name}</a></td>
                                                         <td class="text-center d-none d-md-table-cell">${busList.b_tel}
                                                         </td>
-                                                        <td class="text-center d-none d-md-table-cell">${busList.b_email}
-                                                        </td>                                                      
-                                                        <td class="text-center d-none d-md-table-cell"><a type="button"
-                                                                href="./mboardSelect?m_id=${busList.b_id}">확인</a></td>
+                                                                                                       
+                                                      
                                                         <td class="text-center d-none d-md-table-cell"><a
-                                                                href="./deleteMember">삭제</a></td>
+                                                                href="./deleteMember" style="color : #f16a1a">확인</a></td>
                                                     </tr>
 
                                                 </c:forEach>

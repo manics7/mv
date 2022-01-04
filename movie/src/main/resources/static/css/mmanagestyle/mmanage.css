@@ -40,6 +40,9 @@ margin: 0 auto;
 margin-top: 30px;
 
 }
+.btn_nomal{
+	border: none;
+}
 .member_top_btn{
     width: 100%;
     margin: 0 auto;
@@ -114,4 +117,17 @@ footer{
 }
 .btn_nomal{
 
+}
+
+
+<!-- 회원관리 팝업 -->
+
+.mmange_popup_wrap{
+	z-index: 999;
+	position : absolute;
+	top: 0;
+	left: 0;
+	width: 500px;
+	height: 600px;
+	border: 1px soolid black;
 }

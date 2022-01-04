@@ -53,6 +53,9 @@
 		VALUES (ques_reply_no_seq.nextval,#{ques_no},#{ques_reply_cont},#{ques_reply_title})
 		</insert>
 	
+	<select id="getMemberSelect" parameterType="String" resultType="com.example.movie.dto.MemberDto">
+	SELECT * FROM member where m_id = #{m_id}
+	</select>
 
 </mapper>
 
