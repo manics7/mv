@@ -1,19 +1,8 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.movie.mapper.MemberMapper">
-
-	<select id="pwdSelect" parameterType="String"
-		resultType="String">
-		SELECT m_pw FROM member WHERE m_id=#{id}
-	</select>
-	
-	<select id="memberSelect" parameterType="String"
-		resultType="com.example.movie.dto.MemberDto">
-		SELECT * FROM member WHERE m_id=#{id}
-	</select>
 	
 	<select id="selectQuestion" parameterType="String"
 		resultType="com.example.movie.dto.QuestionDto">
@@ -37,7 +26,7 @@
 	
 	<select id="selectMovieName" parameterType="String"
 		resultType="String">
-		SELECT movie_nm FROM mvofficial WHERE movie_cd =#{mvcd}
+		SELECT movie_nm FROM mv_official WHERE movie_cd =#{mvcd}
 	</select>
 	
 	<select id="selectRsrvByid" parameterType="String"
@@ -79,23 +68,58 @@
 		SELECT th_name FROM theater WHERE th_code =#{thcode}
 	</select>
 	
+	<delete id="delMvReview" parameterType="Integer">
+		DELETE FROM review_movie WHERE mv_review=#{mvrnum}
+	</delete>
 	
 
-</mapper>
-
-
-
-
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.example.movie.mapper.MemberMapper">
+<select id="getList" parameterType="HashMap"
+		resultType="com.example.movie.dto.MemberDto">
+				<![CDATA[
+		SELECT * FROM v_mem
+		WHERE ROWNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND ROWNUM <= #{num} * #{lcnt}
+		]]>
+</select>
 	
+	<select id="getBoardCnt" resultType="Integer">
+		SELECT COUNT(*) FROM v_mem
+	</select>
+
+	<delete id="memberdelete" parameterType="String">
+		DELETE FROM MEMBER WHERE
+		M_ID=#{M_ID}
+	</delete>
+	
+	<select id="selectMember" resultType="com.example.movie.dto.MemberDto">
+	SELECT * FROM member where m_id = #{m_id}
+	</select>
+
+
+<select id="getsearchBoardCnt" resultType="Integer">
+		SELECT count(*) FROM member where m_id = #{m_id}
+	</select>
+
+
+	<!-- 이용자 회원가입 아이디 중복체크 -->
+	<select id="idCheck" parameterType="String" resultType="Integer">
+		select count(*) from member where m_id=#{mid}	
+	</select>
+	
+	<!-- 이용자 회원 가입 -->
+	<insert id="memberInsert" parameterType="com.example.movie.dto.MemberDto">
+		insert into member values (#{m_id}, #{m_pw}, #{m_birth}, #{m_tel}, #{m_like}, #{m_email}, #{m_name}, #{m_gender}, default, default, default)
+	</insert>
+	
+	<!-- 이용자 로그인 -->
+	<select id="getPw" parameterType="String" resultType="String">
+		select m_pw from member where m_id=#{m_id}
+		<!-- mapper에서 잡아준 매개변수 = #{ } -->
+	</select>
+	
+	<!-- 이용자 검색(세션 저장용?) -->
+	<select id="getMember" parameterType="String" resultType="com.example.movie.dto.MemberDto">
+		select * from member where m_id=#{m_id}
+	</select>
+
 </mapper>
-
-
-
-
->>>>>>> branch 'master' of https://github.com/manics7/mv.git
