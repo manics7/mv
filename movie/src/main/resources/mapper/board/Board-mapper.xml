@@ -4,8 +4,121 @@
 
 <mapper namespace="com.example.movie.mapper.BoardMapper">
 	
+<!-- 영화관 후기 게시글 목록 가져오기 -->
+	<select id="getRvList" parameterType="HashMap"
+		resultType="com.example.movie.dto.BoardDto">
+		<![CDATA[
+		SELECT * FROM RLIST_1
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)
+		AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	<!-- 전체 게시글 수 구하기 -->
+	<select id="getrvBoardCnt" resultType="Integer">
+		SELECT COUNT(*) FROM RLIST
+	</select>
+	
+	<!-- 검색한 게시글 수 구하기 -->
+	<select id="getrvSearchCnt" parameterType="com.example.movie.dto.BoardDto"
+	resultType="Integer">
+		SELECT COUNT(*) FROM RLIST WHERE
+		<choose>
+			<when test="type != null and type.equals('rtitle')">
+			RTITLE LIKE '%${keyword}%'
+			</when>
+			<when test="type != null and type.equals('mid')">
+			MID LIKE '%${keyword}%'
+			</when>
+			<when test="type != null and type.equals('thname')">
+			THNAME LIKE '%${keyword}%'
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 검색으로 게시글 불러오기2 -->
+	<select id="selectSearchList" parameterType="com.example.movie.dto.BoardDto"
+		resultType="com.example.movie.dto.BoardDto">
+        select * from
+		(
+		    select rownum as ronum, a.*
+		    from (
+		    select * from rlist
+		    where
+		<choose>
+			<when test="type != null and type.equals('rtitle')">
+			RTITLE LIKE '%${keyword}%'
+			</when>
+			<when test="type != null and type.equals('mid')">
+			MID LIKE '%${keyword}%'
+			</when>
+			<when test="type != null and type.equals('thname')">
+			THNAME LIKE '%${keyword}%'
+			</when>
+		</choose>
+			) a
+		)
+		<![CDATA[
+		WHERE RONUM >= (${num} * ${lcnt}) - (${lcnt} - 1)
+		AND RONUM <= ${num} * ${lcnt}
+		]]>
+	</select>
+	
+	<!-- 영화관 이름 목록 가져오기 -->
+	<select id="getTHList" resultType="com.example.movie.dto.TheaterDto">
+		SELECT TH_CODE AS thcode, TH_NAME AS thname FROM THEATER
+	</select>
+	
+	<!-- 게시글 작성하기 -->
+	<insert id="rvBoardInsert" parameterType="com.example.movie.dto.BoardDto"
+		useGeneratedKeys="true" keyProperty="rnum">
+		<selectKey keyProperty="rnum" resultType="Integer" order="BEFORE">
+		SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO RV VALUES
+		(${rnum}, ${thcode}, #{mid}, #{rtitle}, #{rcontent}, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<!-- 게시글 본문 가져오기 -->
+	<select id="getRvContent" parameterType="Integer"
+		resultType="com.example.movie.dto.BoardDto">
+		SELECT * FROM RLIST WHERE rnum=#{rnum}
+	</select>
+	
+	<!-- 조회수 업데이트 -->
+	<update id="viewUpdate" parameterType="Integer">
+		UPDATE RV SET REVIEW_VIEW=REVIEW_VIEW+1
+		WHERE REVIEW_NUM=#{RNUM}
+	</update>
+	
+	<!-- 좋아요 업데이트 -->
+	<update id="likeUpdate" parameterType="Integer">
+		UPDATE RV SET REVIEW_LIKE=REVIEW_LIKE+1
+		WHERE REVIEW_NUM=#{RNUM}
+	</update>
+	
+	<!-- 게시글 수정하기 -->
+	<update id="RvUpdate" parameterType="com.example.movie.dto.BoardDto">
+		UPDATE RV SET TH_CODE=${thcode}, REVIEW_TITLE=#{rtitle}, REVIEW_CONTENT=#{rcontent}
+		WHERE REVIEW_NUM=#{rnum}
+	</update>
+	
+	<!-- 게시글 삭제하기 -->
+	<delete id="RvboardDelete" parameterType="Integer">
+		DELETE FROM RV
+		WHERE REVIEW_NUM=#{RNUM}
+	</delete>
+	
+	<!-- 댓글 작성하기 -->
+	<insert id="replyInsert" parameterType="com.example.movie.dto.ReplyDto">
+		INSERT INTO RE
+		VALUES (REPLY_SEQ.NEXTVAL,#{rnum},#{mid},#{recontent},DEFAULT,DEFAULT)
+	</insert>
+	
+	<!-- 댓글 목록 출력하기 -->
+	<select id="getReList" parameterType="Integer"
+		resultType="com.example.movie.dto.ReplyDto">
+		SELECT * FROM RELIST WHERE RNUM=#{rnum}
+	</select>
+							
 </mapper>
-
-
-
-

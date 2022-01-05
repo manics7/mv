@@ -23,6 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.MovieOfficialDto;
+import com.example.movie.dto.ReviewMovieDto;
+import com.example.movie.mapper.AdminMapper;
 import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.mvReviewDto;
 import com.example.movie.dto.mypagePaymentDto;
@@ -39,7 +42,7 @@ public class MemberService {
 	@Autowired
 	private HttpSession session;
 	@Autowired
-	private AdminMapper aMap;
+	private AdminMapper aMapper;
 	@Autowired
 	private MemberMapper mMapper;
 	
@@ -50,6 +53,15 @@ public class MemberService {
 		mv = new ModelAndView();
 		
 		MemberDto mem = (MemberDto)session.getAttribute("userInfo");
+		
+		String birth = mem.getM_birth();
+		// 생일 문자열 뒤에 00:00:00을 없애기 위한 반복문
+		for(int i = 10; i <= birth.length()-1; i++) {
+		
+			birth = birth.substring(0,i);
+		}
+		
+		mem.setM_birth(birth);
 		
 		mv.addObject("member",mem);
 		
@@ -572,11 +584,33 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 
 	
 	
-	public String deletemember(String m_id) {
+	public String deletemember(RedirectAttributes rttr) {
 		
+		String msg = null;
+		String view = null;
+		
+		MemberDto mem = (MemberDto)session.getAttribute("userInfo");
+		String m_id = mem.getM_id();
+		
+		try {
+			
 		mMapper.deleteMember(m_id);
 		
-		return null;
+		session.invalidate();
+		msg = "삭제 성공";
+		
+		view = "redirect:/";
+		
+		} catch(Exception e) {
+			
+			msg="삭제 실패";
+			
+			view = "redirect:mypage";
+		}
+		
+		rttr.addFlashAttribute("msg", msg);
+		
+		return view;
 	}
 
 	public ModelAndView memberSelect(String m_id) {
@@ -596,7 +630,7 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 		ModelAndView mv = new ModelAndView();
 		
 		
-		List<quesboardDto> mbList = aMap.getboardSelect(m_id);
+		List<quesboardDto> mbList = aMapper.getboardSelect(m_id);
 		mv.addObject("mbLIst", mbList);
 		
 		System.out.println("mbList = "+mbList);
@@ -713,9 +747,28 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 		
 		String view = "redirect:/";
 		
+		
 		session.invalidate();
 		
 		return view;
+	}
+
+	// 영화 상세 페이지 이동
+	public ModelAndView movieDetail(String movie_cd) {
+
+		mv = new ModelAndView();
+		
+		// 영화 상세 정보
+		MovieOfficialDto mvOfficialDto = aMapper.movieDetail(movie_cd);
+		// 관람평 목록 가져오기
+		List<ReviewMovieDto> reviewMovie = aMapper.reviewMovie(movie_cd);
+		
+		mv.addObject("mvOfficial", mvOfficialDto);
+		mv.addObject("reviewMovie", reviewMovie);
+		
+		mv.setViewName("movieDetail");
+		
+		return mv;
 	}
 	
 }

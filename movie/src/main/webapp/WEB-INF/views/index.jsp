@@ -28,6 +28,7 @@
 					</div>
 					<div id="box-office-list">
 						<ol id="box-list">
+							<!-- <c:forEach> 돌림 -->
 							<li class="box-office-list">
 								<a href="">
 									<img src="https://img.megabox.co.kr/SharedImg/2021/12/16/ixl5QxDVs5Gn8nQN3rslK8BUmgFVklj8_420.jpg" alt="스파이더맨: 노 웨이 홈" class="poster" onerror="noImg(this, 'main');">
@@ -135,7 +136,7 @@
 		var info = "${userInfo.m_name}"
 		
 		if(msg != ""){
-			alert(msg + info + " 님!");
+			alert(msg);
 		}
 	</script>
 </html>

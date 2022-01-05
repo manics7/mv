@@ -33,7 +33,7 @@ public class Room {
 	private Integer thCode;
 	
 	@Column(name="ROOM_NO", columnDefinition="상영관 번호")
-	private String roomNo;		
+	private Integer roomNo;		
 
 	@Column(name="ROOM_CLASS", columnDefinition="상영관 종류")
 	private String roomClass;

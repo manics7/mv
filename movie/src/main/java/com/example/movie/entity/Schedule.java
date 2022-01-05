@@ -11,10 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -61,19 +64,21 @@ public class Schedule {
 	private Integer schTime;
 
 	// cascade 특정 엔티티를 영속상태(영속성 컨텍스트에서 저장)로 만들 때 연관된 엔티티도 함꼐 영속 상태로 만들떄 사용
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "SCH_CODE", referencedColumnName = "SCH_CODE", insertable = false, updatable = false, nullable = false)
+	//@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "SCH_CODE", referencedColumnName = "SCH_CODE", insertable = false, updatable = false, nullable = false)
+	@Transient
 	private List<ScheduleDetail> scheduleDetail;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MOVIE_CD", referencedColumnName = "MOVIE_CD" , insertable = false, updatable = false, nullable = false)
 	private MovieOfficial  movieOfficial;
 
-
 	@OneToOne(fetch = FetchType.LAZY)	  
 	@JoinColumn(name = "TH_CODE", referencedColumnName = "TH_CODE" , insertable =	false, updatable = false, nullable = false) 
 	private Theater theater;
-
+	
+	@Transient
+	private Room room;
 
 }
