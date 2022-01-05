@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1문의</title>
+<title>영화등록</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -64,9 +64,8 @@
 							<tr>
 								<th class="text-center d-none d-md-table-cell">영화코드</th>
 								<th class="text-center d-none d-md-table-cell">영화이름</th>
-								<th class="text-center d-none d-md-table-cell">문의유형</th>
+								<th class="text-center d-none d-md-table-cell">개봉연도</th>
 								<th class="text-center d-none d-md-table-cell">상태</th>
-								<th class="text-center d-none d-md-table-cell">등록</th>
 
 							</tr>
 						</thead>
