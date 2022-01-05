@@ -22,7 +22,7 @@ import com.example.movie.mapper.BusinessMapper;
 @Service
 public class BusinessService {
 	@Autowired
-	private BusinessMapper bMapper;
+	private BusinessMapper buMapper;
 	@Autowired
 	private HttpSession session;
 	@Autowired
@@ -35,7 +35,7 @@ public class BusinessService {
 		
 		String res = null;
 		
-		int cnt = bMapper.buIdCheck(bid);
+		int cnt = buMapper.buIdCheck(bid);
 		if(cnt == 0) {
 			res = "ok";
 		}
@@ -63,7 +63,7 @@ public class BusinessService {
 		business.setB_pw(encBPw);
 		
 		try {
-			bMapper.businessInsert(business);
+			buMapper.businessInsert(business);
 			
 			view = "redirect:/";
 			msg = "사업자 회원가입 성공";
@@ -84,14 +84,14 @@ public class BusinessService {
 		String msg = null;
 		
 		// b_pw = 암호화되어 저장된 비밀번호, encBPw		
-		String b_pw = bMapper.getb_pw(business.getB_id());
+		String b_pw = buMapper.getb_pw(business.getB_id());
 		
 		if(b_pw != null) {
 			BCryptPasswordEncoder enc = new BCryptPasswordEncoder();
 			
 			if(enc.matches(business.getB_pw(), b_pw)) {
 				// 로그인 성공 - 세션에 회원 정보 저장, business				
-				business = bMapper.getBusiness(business.getB_id());
+				business = buMapper.getBusiness(business.getB_id());
 				
 				// business 정보를 세션에 저장
 				session.setAttribute("businessInfo", business);
@@ -141,7 +141,7 @@ public class BusinessService {
 		tDto.setMvtime(mvtime);
 		
 		try {
-			bMapper.insertMovie(tDto);
+			buMapper.insertMovie(tDto);
 			
 			if(check.equals("1")) {
 				List<MultipartFile> multipartFiles = multi.getFiles("");
@@ -171,7 +171,7 @@ public class BusinessService {
 		
 		
 		//List<String> thnList = new ArrayList<String>();
-		String thName = bMapper.selectThNameByBid(Bid);
+		String thName = buMapper.selectThNameByBid(Bid);
 		
 		mv.addObject("thName", thName);
 		
