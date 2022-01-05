@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	text-indent: -2px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#checkPw {
+	display: none;
+	margin-bottom: 30px;
+	padding: 0;
+}
+
+#joinFrm {
+	background-color: rgb(200, 200, 200);
+}
+
+#join_wrap {
+	margin: 0 auto;
+	width: 700px;
+	background-color: white;
+}
+
+#logo_box {
+	text-align: center;
+	height: 130;
+}
+
+#logo_box img {
+	width: 150px;
+}
+
+#title_box {
+	margin: 15px 20px;
+	border-bottom: 2px solid; 	
+}
+
+#join_table {
+	margin: 0 auto;
+}
+
+#join_table th {
+	padding-left: 5px;
+	width: 220px;
+	text-align: left;
+}
+
+#join_table p {
+	margin-top: 0px;
+	margin-bottom: 20px;
+}
+
+#join_table input {
+	margin-bottom: 15px;
+	width: 250px;
+	height: 30px;
+}
+
+#join_table input[type="radio"] {
+	width: 110px;
+	height: 20px;
+	margin: 0 auto;
+	vertical-align: text-top;
+	text-align: left;
+}
+
+#join_table input[type="button"] {
+	width: 258px;
+	height: 36px;
+}
+
+#join_table :nth-child(16) {
+	height: 58px;
+	vertical-align: top;
+}
+
+#join_table select {
+	width: 258px;
+	height: 36px;
+	margin-bottom: 20px;
+}
+
+#join_table button {
+	margin: auto auto 50px auto;
+	padding: 0;
+	text-align: center;
+	width: 260px;
+	height: 36px;
+	font-size: 18px;
+	background-color: #f16a1a;
+	border: none;
+	color: white;
+	border-radius: 5px;
+	cursor: pointer;
+}

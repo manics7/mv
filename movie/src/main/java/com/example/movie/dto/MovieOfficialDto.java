@@ -15,19 +15,19 @@ import lombok.Data;
 @Data
 public class MovieOfficialDto {
 
-	private String movie_Cd;
-	private String movie_Nm;
-	private String movie_Content;
-	private Integer show_Tm;
+	private String movie_cd;
+	private String movie_nm;
+	private String movie_content;
+	private Integer show_tm;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	private Date open_Dt;
-	private String genre_Nm;
+	private Date open_dt;
+	private String genre_nm;
 	private String directors;
 	private String actors;
-	private String show_Types;
-	private String watch_Grade_Nm;
+	private String show_types;
+	private String watch_grade_nm;
 	private String poster;
 	private String stillcut1;
 	private String stillcut2;

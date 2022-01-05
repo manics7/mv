@@ -8,9 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,14 +30,15 @@ import com.example.movie.repository.ScheduleDetailRepository;
 import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.common.AwsS3;
 import com.example.movie.dto.BusinessDto;
-import com.example.movie.dto.MovieOfficial;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.RoomDto;
 import com.example.movie.dto.Schedule;
 import com.example.movie.dto.ScheduleDetail;
 import com.example.movie.dto.TheaterDto;
-
-
+import com.example.movie.entity.MovieOfficial;
+import com.example.movie.dto.RoomDto;
+import com.example.movie.dto.SeatDto;
+import com.example.movie.mapper.BusinessMapper;
 
 @Service
 public class BusinessService {
@@ -191,7 +194,7 @@ public class BusinessService {
 		try {
 			//업로드 파일이 있을 경우
 			//check는 로고 이미지, check2는 영화관 사진
-			
+		
 			if(check.equals("1") || check2.equals("1")) {
 				
 				//로고 파일의 이름 가져오기
@@ -233,6 +236,150 @@ public class BusinessService {
 		
 		rttr.addFlashAttribute("msg", msg);
 		
+		return view;
+	}
+
+	//사업자페이지 사업자정보 (극장이름) 등.. 출력
+	public ModelAndView businessPage() {
+		
+		mv = new ModelAndView();
+		
+		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
+		String Bid = bDto.getB_id();
+		
+		
+		//List<String> thnList = new ArrayList<String>();
+		String thName = buMapper.selectThNameByBid(Bid);
+		
+		mv.addObject("thName", thName);
+		
+		mv.setViewName("businessPage");
+		
+		return mv;
+	}
+	
+	//상영관 목록 가져오기
+	public ModelAndView getRoomList() {
+		mv = new ModelAndView();
+
+		List<RoomDto> roomList = buMapper.getRoomList();
+
+		mv.addObject("roomList", roomList);
+
+		mv.setViewName("roomList");
+
+		return mv;
+	}
+
+	//상영관 삭제하기
+	@Transactional
+	public String roomDelete(int roomseq, RedirectAttributes rttr) {
+		String view = null;
+
+		try {
+			buMapper.RoomDelete(roomseq);
+
+			view = "redirect:roomlist";
+			rttr.addFlashAttribute("msg", "삭제 성공");
+		} catch (Exception e) {
+			view = "redirect:roomlist";
+			rttr.addFlashAttribute("msg", "삭제 실패");
+		}
+
+		return view;
+	}
+
+	//상영관 등록 페이지 이동
+	public ModelAndView roomInsertFrm() {
+		mv = new ModelAndView();
+
+		mv.setViewName("roomInsertFrm");
+
+		return mv;
+	}
+
+	//상영관 등록 처리
+	@Transactional
+	public String roomInsert(HttpServletRequest request,
+			RedirectAttributes rttr) {
+		String view = null;
+		String msg = null;
+		
+		int roomno = Integer.parseInt(request.getParameter("roomno"));
+		int thcode = Integer.parseInt(request.getParameter("thcode"));
+		String roclass = request.getParameter("roclass");
+		String roname = request.getParameter("roname");
+		int roomrow = Integer.parseInt(request.getParameter("roomrow"));
+		int roomcol = Integer.parseInt(request.getParameter("roomcol"));
+		int seatcnt = Integer.parseInt(request.getParameter("seatcnt"));
+		String[] seatNoArray = request.getParameterValues("seatno");
+		String[] seatNotArray = request.getParameterValues("seatNot");
+		int col = 1;
+		int row = 1;
+		//배열 자르기
+		String seatNoAll = seatNoArray[0];
+		seatNoArray = seatNoAll.split(",");
+		//배열 자르기
+		String seatNotAll = seatNotArray[0];
+		seatNotArray = seatNotAll.split(",");
+
+		RoomDto roDto = new RoomDto();
+		roDto.setRoom_no(roomno);
+		roDto.setTh_code(thcode);
+		roDto.setRoom_class(roclass);
+		roDto.setRoom_name(roname);
+		roDto.setRoom_row(roomrow);
+		roDto.setRoom_col(roomcol);
+		roDto.setSeat_cnt(seatcnt);
+
+		try {
+			buMapper.roomInsert(roDto);
+
+			for(int i = 0; i <= (roomrow*roomcol)-1; i++) {
+				SeatDto seDto = new SeatDto();
+				seDto.setThcode(thcode);
+				seDto.setRoomno(roomno);
+
+				String seatNo = seatNoArray[i];
+				seDto.setSeatno(seatNo);
+
+				if(col <= roomcol) {
+					seDto.setSeatcol(col);
+					col++;
+				}
+				else {
+					col=1;
+					seDto.setSeatcol(col);
+					col++;
+					row++;
+				}
+				if(row <= roomrow) {
+					seDto.setSeatrow(row);
+				}
+
+				for(int j = 0; j <= seatNotArray.length-1; j++) {
+					String seatNot = seatNotArray[j];
+					if(seatNo.equals(seatNot)) {
+						seDto.setSeatstat(0);
+						break;
+					} else {
+						seDto.setSeatstat(1);
+					}
+				}
+
+				buMapper.seatInsert(seDto);
+			}
+
+			//buMapper.seatUpdate(seDto);
+			view = "redirect:roomlist";
+			msg = "상영관 등록 완료";
+		} catch (Exception e) {
+			view = "redirect:roomInsertFrm";
+			msg = "상영관 등록 실패";
+		}
+
+		rttr.addFlashAttribute("msg", msg);
+
 		return view;
 	}
 	

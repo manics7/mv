@@ -1,72 +1,44 @@
 package com.example.movie.controller;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.movie.dto.Reservation;
-import com.example.movie.dto.Schedule;
 import com.example.movie.service.ReservationService;
+import com.example.movie.service.ScheduleService;
 
-@RestController
+@Controller
 public class ReservationController {
-	/*
+	
+	@Autowired
+	ScheduleService ScheduleService;
+	
 	@Autowired
 	ReservationService reservationService;
 	
-	@GetMapping("/rsrv")
-	public ModelAndView reservation() {
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("rsrv/reservation");
-		return mv;
-	}
-	/**
-	 * 오늘부터 2주간 년월일,요일 만들어온다.
-	 * @return
-	 */
-	/*
-	@GetMapping("/getDate")
-	public Map<String,List<Map<String, String>>> getDate() {
-		
-		Map<String,List<Map<String, String>>> map = reservationService.getDate();	
-		return map;
-	}	
+	ModelAndView modelAndView;
+
 	
-	@GetMapping("/getSchedule")
-	public Map<String, Object> getScselectSchListhedule(){
-		Map<String, Object> map = reservationService.getSchedule();
+	@PostMapping("/getSeat")
+	@ResponseBody
+	public Map<String, Object> getSeat(Integer schCode ,Integer schDetailSeq) {
+		Map<String, Object>  map = reservationService.getSeat(schCode, schDetailSeq);
 		return map;
 	}
 	
-	@GetMapping("/selectSchList")
-	public void selectSchList(String movieCd, Integer thCode, String date, String sort){
-		//Map<String, Object> map = reservationService.selectSchList(movieCd, thCode, date, sort);
-		//return map;
-	}
+	//@PostMapping("/rsrvSeat")
+	public ModelAndView reservationSeat(Integer schCode ,Integer schDetailSeq) {
+		modelAndView = new ModelAndView();
+			
+		Map<String, Object>  map = reservationService.getSeat(schCode, schDetailSeq);
 	
-	
-	
-	
-	@GetMapping("/getRsrv")
-	public List<Reservation> rsrv(){
-		 List<Reservation> list = reservationService.getRsrvList();
-		 return list;
-	}
-	
-	@GetMapping("/rsrvSeat")
-	public String reservationSeat() {
-		
-		return "rsrv/reservationSeat"; 
+		modelAndView.addObject("seatInfo", map);
+		modelAndView.setViewName("rsrv/reservationSeat");
+		 
+		return modelAndView;
 	}	
-	*/
-	
 }

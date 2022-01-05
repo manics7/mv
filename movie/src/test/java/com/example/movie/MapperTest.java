@@ -7,6 +7,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -64,15 +65,20 @@ class MapperTest {
 		System.out.println(dateList.toString());
 	}
 	
-	//@Test
+	@Test
 	void StringToDate() {
 		LocalDate now = LocalDate.now();
-		String date= now.toString();
+		//String date= now.toString();		
+		//LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		
-		LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		
-		System.out.println(dateTime.toString());
+		//System.out.println(dateTime.toString());
 
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.KOREA);
+		LocalDate date = LocalDate.parse("2021-12-29", formatter);
+		LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));		
+		
+		Date startDate = java.sql.Date.valueOf(dateTime.toLocalDate());
+		System.out.println("//////////////////// "+startDate);
 	}
 	
 	@Test

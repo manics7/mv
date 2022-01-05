@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.movie.mapper.BusinessMapper">
+	
+	<!-- 사업자 회원가입 아이디 중복체크 -->
+	<select id="buIdCheck" parameterType="String" resultType="Integer">
+		select count(*) from business where b_id=#{bid}
+	</select>
+	
+	<!-- 사업자 회원 가입 -->
+	<insert id="businessInsert" parameterType="com.example.movie.dto.BusinessDto">
+		insert into business values (#{b_id}, #{b_pw}, #{b_name}, #{b_num}, #{b_tel}, #{b_email})
+	</insert>
+	
+	<!-- 사업자 로그인 -->
+	<select id="getb_pw" parameterType="String" resultType="String">
+		select b_pw from business where b_id=#{b_id}
+		<!-- mapper에서 잡아준 매개변수 = #{ } -->
+	</select>
+	
+	<!-- 사업자 검색(세션 저장용?) -->
+	<select id="getBusiness" parameterType="String" resultType="com.example.movie.dto.BusinessDto">
+		select * from business where b_id=#{b_id}
+	</select>
+	
+	<!-- Test insertMovie -->
+	<insert id="insertMovie" parameterType="com.example.movie.dto.TestDto">
+		insert into mvtest vales (#)
+	</insert>
+	
+	<select id="selectThNameByBid" parameterType="String" resultType="String">
+		select th_name from theater where b_id=#{b_id}
+	</select>
+	
+</mapper>
+
+
+
+

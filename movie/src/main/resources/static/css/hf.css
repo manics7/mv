@@ -1,0 +1,275 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'NanumBarunpen';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumBarunpen.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+li {
+	list-style: none;
+}
+
+#header_wrap {
+	width: 100%;
+	height: 90px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	background-color: rgba(0, 0, 0, 0.8);
+	border-bottom: 1px solid #444444;
+}
+
+.contain_wrap {
+	position: relative;
+	width: 1000px;
+	margin: 0 auto;
+}
+
+#logo {
+	width: 140px;
+	position: absolute;
+	left: 50%;
+	margin: 13px 0 0 -70px;
+}
+
+#header_top a {
+	color: #666666;
+	font-family: 'NanumBarunpen';
+}
+
+#header_left {
+	position: absolute;
+	top: 15px;
+	left: 0;
+	font-size: 15px;
+	margin-left: 15px;
+}
+
+#header_left a:nth-child(2) {
+	margin-left: 15px;
+}
+
+#header_right {
+	position: absolute;
+	top: 15px;
+	right: 0;
+	font-size: 15px;
+	margin-right: 15px;
+}
+
+#header_right a:nth-child(1) {
+	margin-right: 15px;
+}
+
+#login_after {
+	display: none;
+}
+
+#header_bottom li {
+	float: left;
+	margin-top: 50px;
+	font-size: 18px;
+	font-family: 'NanumBarunpen';
+}
+
+#header_bottom li>a {
+	position: absolute;
+}
+
+#header_bottom li:nth-child(2)>a {
+	left: 137px;
+}
+
+#header_bottom li:nth-child(3)>a {
+	left: 280px;
+}
+
+#header_bottom li:nth-child(4)>a {
+	right: 302px;
+}
+
+#header_bottom li:nth-child(5)>a {
+	right: 151px;
+}
+
+#header_bottom li:nth-child(6)>a {
+	right: 0;
+}
+
+/* --------------- 로그인 창 css --------------- */
+#business_tap {
+	display: none;
+}
+
+#login_bg {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 500;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: #000000!important;
+}
+
+#login_bg a {
+	text-decoration: none;
+	color: black;
+}
+
+#login_box {
+	width: 700px;
+	height: 500px;
+	z-index: 501;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	background-color: rgb(255, 255, 255);
+	/* 화면 가운데 배치 */
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	-transform: translate(-50%, -50%);
+	border-radius: 4px;
+}
+
+#login_bg #type{
+	display: inline-block;
+	width: 700px;
+	height: 45px;
+	text-align: center;
+}
+
+.login_type {
+	display: inline-block;
+	float: left;
+	width: 346px;
+	height: 30px;
+	border-bottom: 1px solid rgb(51, 51, 51);
+	text-align: center;
+	margin:0 2px 15px 2px; 
+}
+
+#type_user {
+	border-bottom: 2px solid #f16a1a;	
+}
+
+#type_business {
+	border-bottom: 2px solid #717171;
+}
+
+#login_title {
+	color: white;
+}
+
+.login_box_header {
+	background-color: #f16a1a;
+	margin-bottom: 15px;
+	padding: 15px;
+	border-radius: 4px 4px 0 0;
+}
+
+.login_box_header>h2 {
+ display: inline-block;
+}
+
+#login_bg .login_wrap {
+	display: inline-block;
+	width: 300px;
+	text-align: center;
+	float: left;
+	margin: 25px 0 0 25px;
+}
+
+.login_input {
+	width: 200px;
+	height: 40px;
+	margin: 0 auto 20px auto;
+}
+
+.login_button {
+	width: 200px;
+	height: 40px;
+	margin-top: 10px;
+	border: none;
+	background-color: rgb(222, 222, 222);
+}
+
+.ad_poster {
+	display: inline-block;
+	padding: 25px;
+	border: 1px solid orange;
+	width: 270px;
+	height: 300px;
+	margin: auto;
+	float: right;
+	margin: 25px 40px 0 0;
+}
+
+.close_btn {
+	background: url(https://img.megabox.co.kr/static/pc/images/common/btn/btn-layer-close.png) no-repeat center;
+	text-indent: -9999px;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	border: 1px solid white;
+	border-radius: 3px;
+	float: right;
+}
+
+/* --------------- footer --------------- */
+#footer_wrap {
+	position: relative;
+	width: 100%;
+	margin-top: 50px;
+	background-color: rgb(200, 200, 200);
+}
+
+#contain_wrap {
+	width: 1000px;
+	margin: 0 auto;
+/* 	background-color: rgb(200, 200, 200); */
+}
+
+#footer_top {
+	position: relative;
+	font-size: 14px;
+	padding: 20px 0 0 10px;
+}
+
+#footer_bottom img {
+	width: 120px;
+}
+
+#footer_bottom {
+	width:1000px;
+	height: 100px;
+	margin-top: 30px;
+}
+
+.footer_bottom {
+	display: inline-block;
+	float: left;
+	font-size: 16px;
+}
+
+#footer_logo {
+	margin-right: 15px;  
+}

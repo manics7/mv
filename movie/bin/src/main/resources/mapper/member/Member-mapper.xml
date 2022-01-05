@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.movie.mapper.MemberMapper">
+	
+	<select id="selectQuestion" parameterType="String"
+		resultType="com.example.movie.dto.QuestionDto">
+		SELECT * FROM question WHERE m_id=#{id}
+	</select>
+	
+	<select id="selectQuestionCnt" parameterType="String"
+		resultType="Integer">
+		SELECT COUNT(*) FROM question WHERE m_id=#{id}
+	</select>
+	
+	<select id="selectpmvReviewCnt" parameterType="String"
+		resultType="Integer">
+		SELECT COUNT(*) FROM review_movie WHERE mv_review_id=#{id}
+	</select>
+	
+	<select id="selectpmvReview" parameterType="String"
+		resultType="com.example.movie.dto.mvReviewDto">
+		SELECT * FROM review_movie WHERE mv_review_id =#{id}
+	</select>
+	
+	<select id="selectMovieName" parameterType="String"
+		resultType="String">
+		SELECT movie_nm FROM mv_official WHERE movie_cd =#{mvcd}
+	</select>
+	
+	<select id="selectRsrvByid" parameterType="String"
+		resultType="com.example.movie.dto.reservationDto">
+		SELECT * FROM reservation WHERE m_id =#{id}
+	</select>
+	
+	<select id="selectPaymentByRsrvno" parameterType="Integer"
+		resultType="com.example.movie.dto.paymentDto">
+		SELECT * FROM payment WHERE rsrv_no=#{rsrvno}
+	</select>
+	
+	<select id="selectPaymentCancel" parameterType="String"
+		resultType="String">
+		SELECT tid FROM payment_cancel WHERE tid =#{tid}
+	</select>	
+	
+	
+	
+	
+	
+	<select id="selectSchno" parameterType="String"
+		resultType="Integer">
+		SELECT sch_no FROM reservation WHERE rsrv_no =#{rsno}
+	</select>
+	
+	<select id="selectThcode" parameterType="Integer"
+		resultType="Integer">
+		SELECT th_code FROM schedule WHERE sch_code =#{schno}
+	</select>
+	
+	<select id="selectMoviecode" parameterType="Integer"
+		resultType="String">
+		SELECT movie_cd FROM schedule WHERE sch_code =#{schno}
+	</select>
+	
+	<select id="selectThname" parameterType="Integer"
+		resultType="String">
+		SELECT th_name FROM theater WHERE th_code =#{thcode}
+	</select>
+	
+	<delete id="delMvReview" parameterType="Integer">
+		DELETE FROM review_movie WHERE mv_review=#{mvrnum}
+	</delete>
+	
+
+<select id="getList" parameterType="HashMap"
+		resultType="com.example.movie.dto.MemberDto">
+				<![CDATA[
+		SELECT * FROM v_mem
+		WHERE ROWNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND ROWNUM <= #{num} * #{lcnt}
+		]]>
+</select>
+	
+	<select id="getBoardCnt" resultType="Integer">
+		SELECT COUNT(*) FROM v_mem
+	</select>
+
+	<delete id="memberdelete" parameterType="String">
+		DELETE FROM MEMBER WHERE
+		M_ID=#{M_ID}
+	</delete>
+	
+	<select id="selectMember" resultType="com.example.movie.dto.MemberDto">
+	SELECT * FROM member where m_id = #{m_id}
+	</select>
+
+
+<select id="getsearchBoardCnt" resultType="Integer">
+		SELECT count(*) FROM member where m_id = #{m_id}
+	</select>
+
+
+	<!-- 이용자 회원가입 아이디 중복체크 -->
+	<select id="idCheck" parameterType="String" resultType="Integer">
+		select count(*) from member where m_id=#{mid}	
+	</select>
+	
+	<!-- 이용자 회원 가입 -->
+	<insert id="memberInsert" parameterType="com.example.movie.dto.MemberDto">
+		insert into member values (#{m_id}, #{m_pw}, #{m_birth}, #{m_tel}, #{m_like}, #{m_email}, #{m_name}, #{m_gender}, default, default, default)
+	</insert>
+	
+	<!-- 이용자 로그인 -->
+	<select id="getPw" parameterType="String" resultType="String">
+		select m_pw from member where m_id=#{m_id}
+		<!-- mapper에서 잡아준 매개변수 = #{ } -->
+	</select>
+	
+	<!-- 이용자 검색(세션 저장용?) -->
+	<select id="getMember" parameterType="String" resultType="com.example.movie.dto.MemberDto">
+		select * from member where m_id=#{m_id}
+	</select>
+
+</mapper>

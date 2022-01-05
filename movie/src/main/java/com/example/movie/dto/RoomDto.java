@@ -14,4 +14,6 @@ public class RoomDto {
 	private int seat_cnt; //총 좌석수
 	private int room_no; //상영관 번호
 	
+	private String thname;//뷰의 영화관 이름
+	
 }

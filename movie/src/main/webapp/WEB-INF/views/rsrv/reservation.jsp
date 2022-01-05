@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="resource/css/rsrv.css">
+<link rel="stylesheet" type="text/css" href="resource/css/bootstrap.css">
 <script type="text/javascript">
 
 	       
@@ -22,7 +23,7 @@ $(document).ready(function() {
 <!-- histoty Modal-->
 <div class="modal-content">
 	<div class="modal-header text-white">
-		<h5 class="modal-title ml-auto"><strong>빠른예매</strong></h5>
+		<h5 class="modal-title ml-auto" ><strong>빠른예매</strong></h5>
 		<div class="ml-auto">
 			<button type="button" class="btn btn-outline-light bg-dark text-white" id="reset">예매 다시하기</button>
 			<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
@@ -33,25 +34,32 @@ $(document).ready(function() {
 	<div class="modal-body">
 			 <div class="conainner">
 			 	<div class="row">
-			 		<div class="col-md-4 border-right">
+			 		<div class="col-md-4 px-0 border-right">
 			 			<h5 class="align text-center"><strong>영화</strong></h5>
 				         <div class="input-group col-md-12">
-				           <span class="input-group-append">
-				               <button class="btn btn-outline-secondary border-right-0 border" type="button">
-				                   <i><img alt="" src="resource/images/icon/search.svg"> </i>
-				               </button>
-				            </span>
-				            <input class="form-control border-left-0 border" type="search" placeholder="영화명 검색" id="search" onkeyup="filter(this,'movieList');">					          
-				        </div>
+				 			 <div class="input-group-append">
+	                   		 	<div class="input-group-text border-right-0 bg-transparent"><i><img alt="" src="resource/images/icon/search.svg"></i></div>
+	                		</div>
+	                		<input class="form-control border-left-0 border" type="search" placeholder="영화관 검색" id="search" onkeyup="filter(this,'theaterList');">	                
+            			</div>
 				        
-				        <div class="col-md-12 mt-2" id="mvSelectBox">
-				        	<ul class="list-group list-group-horizontal">
-							  <li class="list-group-item"><a href="#">가나다순</a></li>
-							  <li class="list-group-item"><a href="#">예매율순</a></li>
-							  <li class="list-group-item"></li>
-							</ul>
+				        <div class="col-md-12 mt-2" id="mvSelectBox">				     
+				        	<ul class="nav nav-tabs">
+							  <li class="nav-item">
+							    <a class="nav-link active" href="#">가나다순</a>
+							  </li>
+							  <li class="nav-item active">
+							    <a class="nav-link">예매율순</a>							   
+							  </li>						
+							  <li class="nav-item">
+							    <a class="nav-link" ></a>
+							  </li>
+							  <li class="nav-item">
+							    <a class="nav-link disabled"></a>
+							  </li>
+							</ul>   				        				        	
 				        </div>				        
-						  <div class="col-md-12 mt-2 pr-0 overflow-auto" id="movieList">
+						  <div class="col-md-12 mt-2 px-0 overflow-auto" id="movieList">
 						    <ul class="list-group list-group-flush"></ul>
 						  </div>						
 			 		</div>
@@ -67,26 +75,26 @@ $(document).ready(function() {
 							            				          
 				        
 			 			<div class="row mt-2">
-				 			<div class="col-4 px-0" id="sidoList">			
+				 			<div class="col-4 px-0" id="areaList">			
 				 				 <ul class="list-group">
-						           <li class="list-group-item my-0 py-2">전체</li>
-						           <li class="list-group-item my-0 py-2">서울</li>
-						           <li class="list-group-item my-0 py-2">부산</li>
-						           <li class="list-group-item my-0 py-2">대구</li>
-						           <li class="list-group-item my-0 py-2">인천</li>
-						           <li class="list-group-item my-0 py-2">광주</li>
-						           <li class="list-group-item my-0 py-2">대전</li>
-						           <li class="list-group-item my-0 py-2">울산</li>
-						           <li class="list-group-item my-0 py-2">세종</li>
-						           <li class="list-group-item my-0 py-2">경기</li>
-						           <li class="list-group-item my-0 py-2">강원</li>
-						           <li class="list-group-item my-0 py-2">충북</li>
-						           <li class="list-group-item my-0 py-2">충남</li>
-						           <li class="list-group-item my-0 py-2">전북</li>
-						           <li class="list-group-item my-0 py-2">전남</li>
-						           <li class="list-group-item my-0 py-2">경북</li>
-						           <li class="list-group-item my-0 py-2">경남</li>
-						           <li class="list-group-item my-0 py-2">제주</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-00">전체</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-11">서울</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-21">부산</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-22">대구</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-23">인천</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-24">광주</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-25">대전</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-26">울산</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-29">세종</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-31">경기</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-32">강원</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-33">충북</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-34">충남</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-35">전북</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-36">전남</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-37">경북</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-38">경남</li>
+						           <li class="list-group-item my-0 py-2" id="areaCode-39">제주</li>
 						         </ul> 				
 			 				</div>
 			 				<div class="col-8 pl-0 pr-0" id="theaterList">			 				
@@ -104,28 +112,27 @@ $(document).ready(function() {
 			 				</div>
 			 				<div class="col-md-8 pl-0 pr-0" >
 			 					<div class="col-md-12 pl-0 pr-0">
-			 						<h5 class="align text-center"><strong>상영시간</strong></h5>
-			 						<p class="lead text-center" ><b>1관 2D</b></p>
+			 						<h5 class="align text-center"><strong>상영시간</strong></h5>			 						
 			 					</div>
 			 					<div class="col-md-12 pl-0 pr-0" id="timeList">	
 				 					<ul class="list-group list-group-flush"></ul>
 						         </div>	
-						         <div class="card mt-4 pl-0 pr-0" id="movieInfo">
+						         <div class="card mt-2 pl-0 pr-0" id="movieInfo">
 								  <div class="row no-gutters">
 								    <div class="col-md-5 pl-3" id="thumnail"></div>
 								    <div class="col-md-7">
 								      <div class="card-body pt-1">
 								       <h6 class="card-subtitle font-weight-bold" id="movieNm"></h6>
 								        <p class="card-text mt-2 mb-2" id="theaterNm"></p>
-								        <p class="card-text mb-2" id="roomNm">1관 2D</p>
+								        <p class="card-text mb-2" id="roomNm"></p>
 								        <p class="card-text mb-2" id="schDate"></p>
-								        <p class="card-text mb-2" id="schTime">11:30 ~13:22</p>
+								        <p class="card-text mb-2" id="schTime"></p>
 								      </div>
 								    </div>
 								  </div>
 								</div>
-						         <div class="col-md-12 mt-2">
-						     	    <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>
+						         <div class="col-md-12 mt-2">						    
+						     	   <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>
 						         </div> 
 						         
 			 				</div>
@@ -136,5 +143,26 @@ $(document).ready(function() {
  
     </div>
 </div>
+    
+<div class="modal fade" id="confirm" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">알림</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        선택하신 영화관에 원하시는 상영스케쥴이 없습니다. 계속하시겠습니까?(선택한 날짜 및 시간이 해제됩니다.)
+      </div>
+      <div class="modal-footer">        
+        <button type="button" class="btn btn-primary" id="confirm">확인</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>	
+
 </html>
 

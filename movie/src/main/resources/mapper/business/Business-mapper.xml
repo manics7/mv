@@ -43,10 +43,36 @@
 	</select>
 	
 	<!-- 상영관 검색 -->
-	<select id="getRoomList" resultType="com.example.movie.dto.RoomDto">
+	<select id="getRoominfoList" resultType="com.example.movie.dto.RoomDto">
 		SELECT * FROM ROOM
 	</select>
 			
+	<select id="selectThNameByBid" parameterType="String" resultType="String">
+		select th_name from theater where b_id=#{b_id}
+	</select>
+	
+	<!-- 상영관 목록 가져오기 -->
+	<select id="getRoomList" resultType="com.example.movie.dto.RoomDto">
+		SELECT * FROM ROLIST
+	</select>
+	
+	<!-- 상영관 삭제하기 -->
+	<delete id="RoomDelete" parameterType="Integer">
+		DELETE FROM ROOM
+	 	WHERE ROOM_SEQ=#{room_seq}
+	</delete>
+	
+	<!-- 상영관 등록하기 -->
+	<insert id="roomInsert" parameterType="com.example.movie.dto.RoomDto">
+		INSERT INTO ROOM
+		VALUES (ROOM_SEQ.NEXTVAL,#{room_no},#{th_code},#{room_class},#{room_name},#{room_row},#{room_col},#{seat_cnt})
+	</insert>
+	
+	<!-- 좌석정보 등록하기 -->
+	<insert id="seatInsert" parameterType="com.example.movie.dto.SeatDto">
+		INSERT INTO SEAT
+		VALUES (SEAT_SEQ.NEXTVAL,#{th_code},#{room_no},#{seat_col},#{seat_row},#{seat_stat},#{seat_no})
+	</insert>
 </mapper>
 
 
