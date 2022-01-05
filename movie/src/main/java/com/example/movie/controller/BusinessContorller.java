@@ -83,15 +83,6 @@ public class BusinessContorller {
 		return view;
 	}
 	
-	// test영화 등록
-	@PostMapping("insertMovie")
-	public String insertMovie(MultipartHttpServletRequest multi, RedirectAttributes rttr) {
-		
-		String view = buServ.insertMovie(multi, rttr);
-		
-		return view;
-	}
-	
 	//상영관 목록 이동
 	@GetMapping("roomlist")
 	public ModelAndView roomList() {

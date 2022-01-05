@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.movie.entity.Reservation;
 import com.example.movie.entity.Room;
 import com.example.movie.entity.Schedule;
 import com.example.movie.entity.ScheduleDetail;
@@ -57,6 +58,10 @@ public class ReservationService {
 		return map;
 	}
 	
-	
+	public List<Reservation> getRsrvList() {
+		List<Reservation> list = reservationRepository.findAll();
+		return list;
+	}
+
 	
 }
