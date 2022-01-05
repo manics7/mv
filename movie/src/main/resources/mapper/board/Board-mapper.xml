@@ -4,7 +4,7 @@
 
 <mapper namespace="com.example.movie.mapper.BoardMapper">
 	
-	<!-- 영화관 후기 게시글 목록 가져오기 -->
+<!-- 영화관 후기 게시글 목록 가져오기 -->
 	<select id="getRvList" parameterType="HashMap"
 		resultType="com.example.movie.dto.BoardDto">
 		<![CDATA[

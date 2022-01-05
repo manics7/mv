@@ -2,14 +2,6 @@ package com.example.movie.mapper;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.servlet.ModelAndView;
-
-import com.example.movie.config.MybatisMapper;
-import com.example.movie.dto.MemberDto;
-
-
-import java.util.List;
-
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.QuestionDto;

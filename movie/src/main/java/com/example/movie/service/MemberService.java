@@ -23,6 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.MovieOfficialDto;
+import com.example.movie.dto.ReviewMovieDto;
+import com.example.movie.mapper.AdminMapper;
 import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.mvReviewDto;
 import com.example.movie.dto.mypagePaymentDto;
@@ -39,7 +42,7 @@ public class MemberService {
 	@Autowired
 	private HttpSession session;
 	@Autowired
-	private AdminMapper aMap;
+	private AdminMapper aMapper;
 	@Autowired
 	private MemberMapper mMapper;
 	
@@ -627,7 +630,7 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 		ModelAndView mv = new ModelAndView();
 		
 		
-		List<quesboardDto> mbList = aMap.getboardSelect(m_id);
+		List<quesboardDto> mbList = aMapper.getboardSelect(m_id);
 		mv.addObject("mbLIst", mbList);
 		
 		System.out.println("mbList = "+mbList);
@@ -748,6 +751,24 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 		session.invalidate();
 		
 		return view;
+	}
+
+	// 영화 상세 페이지 이동
+	public ModelAndView movieDetail(String movie_cd) {
+
+		mv = new ModelAndView();
+		
+		// 영화 상세 정보
+		MovieOfficialDto mvOfficialDto = aMapper.movieDetail(movie_cd);
+		// 관람평 목록 가져오기
+		List<ReviewMovieDto> reviewMovie = aMapper.reviewMovie(movie_cd);
+		
+		mv.addObject("mvOfficial", mvOfficialDto);
+		mv.addObject("reviewMovie", reviewMovie);
+		
+		mv.setViewName("movieDetail");
+		
+		return mv;
 	}
 	
 }

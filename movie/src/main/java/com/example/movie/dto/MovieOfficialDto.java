@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import lombok.Data;
 
 @Data
-public class mvOfficialDto {
+public class MovieOfficialDto {
 	
 	private String movie_cd;
 	private String movie_nm;

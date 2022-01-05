@@ -22,7 +22,7 @@ public class AdminController {
 	private AdminService aServ;
 	
 	private ModelAndView mv;
-	
+
 	@GetMapping("reportFrm")
 	public ModelAndView reportFrm(Integer pageNum) {
 		
@@ -119,7 +119,17 @@ public class AdminController {
 	@GetMapping("quesboard_rewrite")
 	public String quesboard_rewrite() {
 		
-		return "quesboard_rewrite";
+		return null;
+		// 이거 본 사람 확인 부탁해요~
+	}
+
+	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
+	@GetMapping("currentMovieList")
+	public ModelAndView currentMovieList() {
+
+		mv = aServ.getMovieList();
+		
+		return mv;
 	}
 	
 	@GetMapping("adminMovieList")
@@ -129,5 +139,5 @@ public class AdminController {
 		
 		return mv;
 	}
-
 }
+

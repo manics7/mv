@@ -4,22 +4,27 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.movie.config.MybatisMapper;
-import com.example.movie.dto.reportMvReviewDto;
 import com.example.movie.dto.MovieDto;
-import com.example.movie.dto.mvOfficialDto;
+import com.example.movie.dto.MovieOfficialDto;
+import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
-
-import com.example.movie.config.MybatisMapper;
+import com.example.movie.dto.reportMvReviewDto;
 
 public interface AdminMapper extends MybatisMapper {
 
-	List<quesboardDto> getQuesList(Map<String, Integer> qmap);
+	// 현재상영작 불러오기
+	public List<MovieOfficialDto> getMovieList();
 
-	int getBoardCnt();
+	// 영화 상세 페이지 이동
+	public MovieOfficialDto movieDetail(String movie_cd);
+
+	// 관람평 목록 가져오기
+	public List<ReviewMovieDto> reviewMovie(String movie_cd);
 
 	List<quesboardDto> getboardSelect(String m_id);
 
+	
 	List<quesboardDto> getboardRead(int ques_no);
 	
 	//문의사항 답변 불러오기
@@ -49,12 +54,10 @@ public interface AdminMapper extends MybatisMapper {
 	//사업자가 요청한 영화 목록
 	public List<MovieDto> selectMovieRequest();
 	//관리자가 등록한 영화 목록
-	public List<mvOfficialDto> selectMvOfficial();
+	public List<MovieOfficialDto> selectMvOfficial();
 	
 	public List<reportMvReviewDto> selectReportMvReviewSort(Map<String, Integer> pmap);
 	
 	public List<reportMvReviewDto> selectReportMvReviewSortDesc(Map<String, Integer> pmap);
 
-	
-	
 }
