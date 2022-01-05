@@ -26,7 +26,7 @@
 						<tr>
 							<td>
 								<input type="text" id="mid" name="m_id" autofocus="autofocus">
-								<input type="button" id="duCheck" onclick="check_id()" value="중복확인">
+								<input type="button" onclick="check_id()" value="중복확인">
 							</td>
 						</tr>
 						<tr>
@@ -115,6 +115,7 @@
 		// 아이디 중복 체크 확인
 		function check_id() {
 			var idid = $("#mid").val();
+			console.log(idid);
 			
 			if(idid == "") {
 				alert("아이디를 입력하세요");

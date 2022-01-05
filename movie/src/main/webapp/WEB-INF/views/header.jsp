@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+
 <link rel="stylesheet" type="text/css" href="resource/css/hf.css">
 
 <div id="header_wrap">
@@ -75,7 +76,6 @@
 	</div>
 </div>
 
-<script src="resource/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 //로그인 클릭시 모달 창 띄움
 $("#login_btn").click(function() {

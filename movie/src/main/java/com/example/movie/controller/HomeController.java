@@ -23,7 +23,7 @@ public class HomeController {
 	private MemberService mServ;
 	
 	@Autowired
-	private BusinessService buServ;
+	private BusinessService bServ;
 	
 	private ModelAndView mv;
 	

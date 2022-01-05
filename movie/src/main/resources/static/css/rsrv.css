@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+::-webkit-scrollbar { width: 5px;  height: 5px; /*스크롤바의 너비*/ } 
+::-webkit-scrollbar-track {background: #efefef; -webkit-border-radius: 10px; border-radius:10px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2)}
+::-webkit-scrollbar-thumb {height: 50px; width: 50px; background: rgba(0,0,0,.2); -webkit-border-radius: 8px; border-radius: 8px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.1)}
+
+.form-control:focus {
+    outline: 0 !important;
+    border-color: initial;
+    box-shadow: none;
+}
+.modal-header {background-color: #1d1d1d;}
+
+.list-group-item-warning {background-color: #f16a19;}
+.btn-warning {background-color: #f16a19; color: white; border: none;}
+.btn-warning:hover {background-color: #f16a19; color: white; cursor: pointer; border: none;}
+.btn-warning:not(:hover) {background-color: #f16a19; color: white; border: none;}
+
+.selected {
+	background-color: #f16a1a;
+}
+
+#mvSelectBox > ul > li{
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;	
+}
+
+#movieList > ul > li
+,#sidoList > ul > li
+,#theaterList > ul > li
+,#dateList > ul > li
+,#timeList > ul > li
+,#movieInfo  {
+ border: none;
+}
+
+#sidoList > ul > li {
+/* background-color: #f4f4f4; */
+color:#495057;
+}
+
+#movieList {
+  overflow: scroll;
+  height: auto; 
+  max-height: 500px;  
+}
+
+
+#sidoList, #theaterList {
+ overflow: auto;
+ height: auto; 
+ max-height: 550px;  
+}
+
+#dateList {
+ overflow: auto;
+ height: auto; 
+ max-height: 600px;  
+}
+
+#timeList {
+ overflow: auto;
+ height: auto; 
+ min-height: 300px;  
+ max-height: 300px;  
+}
+
+#movieInfo {height: 165px;}
+
+#movieList > ul > li:hover  {background-color: #f16a1a; color: white;}
+#theaterList > ul > li:hover  {background-color: #f16a1a; color: white;}
+#sidoList > ul > li:hover  {background-color: #f16a1a; color: white;}
+#dateList > ul > li:hover  {background-color: #f16a1a; color: white;}
+#timeList > ul > li:hover  {background-color: #f16a1a; color: white;}
+
+.disabled {
+	opacity: 0.3;	
+}

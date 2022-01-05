@@ -30,6 +30,30 @@
 		insert into mvtest vales (#)
 	</insert>
 	
+	<select id="selectThNameByBid" parameterType="String" resultType="String">
+		select th_name from theater where b_id=#{b_id}
+	</select>
+	
+	<!-- 상영관 목록 가져오기 -->
+	<select id="getRoomList" resultType="com.example.movie.dto.RoomDto">
+		SELECT * FROM ROLIST
+	</select>
+	<!-- 상영관 삭제하기 -->
+	<delete id="RoomDelete" parameterType="Integer">
+		DELETE FROM ROOM
+	 	WHERE ROOM_SEQ=#{roomseq}
+	</delete>
+	<!-- 상영관 등록하기 -->
+	<insert id="roomInsert" parameterType="com.example.movie.dto.RoomDto">
+		INSERT INTO ROOM
+		VALUES (ROOM_SEQ.NEXTVAL,#{roomno},#{thcode},#{roclass},#{roname},#{roomrow},#{roomcol},#{seatcnt})
+	</insert>
+	<!-- 좌석정보 등록하기 -->
+	<insert id="seatInsert" parameterType="com.example.movie.dto.SeatDto">
+		INSERT INTO SEAT
+		VALUES (SEAT_SEQ.NEXTVAL,#{thcode},#{roomno},#{seatcol},#{seatrow},#{seatstat},#{seatno})
+	</insert>
+	
 </mapper>
 
 
