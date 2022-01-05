@@ -26,7 +26,7 @@
 	
 	<select id="selectMovieName" parameterType="String"
 		resultType="String">
-		SELECT movie_nm FROM mv_official WHERE movie_cd =#{mvcd}
+		SELECT movie_nm FROM movie_official WHERE movie_cd =#{mvcd}
 	</select>
 	
 	<select id="selectRsrvByid" parameterType="String"

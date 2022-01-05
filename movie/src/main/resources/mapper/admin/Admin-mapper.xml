@@ -115,7 +115,7 @@
 	
 	<select id="selectMvOfficial" parameterType="String"
 		resultType="com.example.movie.dto.mvOfficialDto">
-		SELECT * FROM mv_official
+		SELECT * FROM movie_official
 	</select>
 	
 </mapper>
