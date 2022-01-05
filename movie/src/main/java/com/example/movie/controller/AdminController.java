@@ -121,5 +121,13 @@ public class AdminController {
 		
 		return "quesboard_rewrite";
 	}
+	
+	@GetMapping("adminMovieList")
+	public ModelAndView adminMovieList(Integer pageNum) {
+		
+		mv = aServ.adminMovieList(pageNum);
+		
+		return mv;
+	}
 
 }

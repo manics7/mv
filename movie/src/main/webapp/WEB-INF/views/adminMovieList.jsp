@@ -62,33 +62,32 @@
 					<table class="table table-hover" id='board_list'>
 						<thead>
 							<tr>
-								<th class="text-center d-none d-md-table-cell">문의번호</th>
-								<th class="text-center d-none d-md-table-cell">제목</th>
+								<th class="text-center d-none d-md-table-cell">영화코드</th>
+								<th class="text-center d-none d-md-table-cell">영화이름</th>
 								<th class="text-center d-none d-md-table-cell">문의유형</th>
-								<th class="text-center d-none d-md-table-cell">등록일</th>
 								<th class="text-center d-none d-md-table-cell">상태</th>
+								<th class="text-center d-none d-md-table-cell">등록</th>
 
 							</tr>
 						</thead>
 						<tbody>
 						<!-- 검색 처리 -->
 						<c:choose>
-						<c:when test="${not empty qList}">
-						<c:forEach var="qitem" items="${qList}">
+						<c:when test="${not empty mvList}">
+						<c:forEach var="mvitem" items="${mvList}">
 								<tr>
-									<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
+									<td class="text-center d-none d-md-table-cell">${mvitem.movie_cd}</td>
 									<td class="text-center d-none d-md-table-cell"><a
-                                                    href='/questionContents?ques_no=${qitem.ques_no}'>${qitem.ques_title}</a></td>
+									href='/movieDetail?mv_seq=${mvitem.mv_seq}'>${mvitem.movie_nm}</a></td>
 									<td class="text-center d-none d-md-table-cell">일반</td>
-									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${qitem.ques_date}"
-										pattern="yyyy-MM-dd"/></td>
+							
 									<td class="text-center d-none d-md-table-cell">
 									<c:choose>
-										<c:when test="${qitem.ques_state == '0'}">
-											미답변
+										<c:when test="${mvitem.state == '0'}">
+											미등록
 										</c:when>
-										<c:when test="${qitem.ques_state == '1'}">
-											답변완료
+										<c:when test="${mvitem.state == '1'}">
+											등록완료
 										</c:when>
 									</c:choose>
 									</td>
@@ -96,7 +95,7 @@
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
-						<td class="text-center d-none d-md-table-cell">신고 정보가 없습니다.</td>
+						<td class="text-center d-none d-md-table-cell">영화 요청이 없습니다.</td>
 						</c:otherwise>
 						
 						</c:choose>

@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>회원정보 수정</title>
+    <title>사업자정보 수정</title>
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="resource/css/mypage_modifymem.css">
@@ -28,7 +28,7 @@ $(function(){
    
 </head>
 
-<body> 
+<body>
 
 
     <div class="wrap">
@@ -48,7 +48,7 @@ $(function(){
                         <div class="imt_box">
                             <img src="resource/images/modify_mem_profile.svg" alt="">
                         </div>
-                        <p class="profile_title">${userInfo.m_id}</p>
+                        <p class="profile_title">${businessInfo.b_id}</p>
                     </div>
                     <div class="member_info">
                         <div class="top">
@@ -58,13 +58,12 @@ $(function(){
                         <ul style="padding-left: 0;">
                             <li>
                                 <div>
-                                    <span class="required">이름</span>
+                                    <span class="required">대표자 이름</span>
                                 </div>
                                 <div>
-                                	${userInfo.m_name}
+                                	${businessInfo.b_name}
                                     <button class="form_btn"
                                         style="width: 68px; height: 40px; padding:  10px; margin-right: 8px;">변경</button>
-                                    <i style="font-style: normal; color: #767676;">개명으로 이름이 변경된 경우 이름 변경가능</i>
                                     <input type="hidden" name="" value="">
                                     <input type="hidden" name="" value="">
                                 </div>
@@ -73,17 +72,17 @@ $(function(){
                             </li>
                             <li>
                                 <div>
-                                    <span class="required">생년월일</span>
+                                    <span class="required">사업자 등록 번호</span>
                                 </div>
                                 <div>
-                                    <span>${member.m_birth}</span>
+                                    <span>${businessInfo.b_num}</span>
                                 </div>
                             </li>
                             <li>
                                 <div style="width: 110px;">
-                                    <span class="required">휴대폰번호</span>
+                                    <span class="required">연락처</span>
                                 </div>
-                                <span style="margin-right: 8px;">${userInfo.m_tel}</span>
+                                <span style="margin-right: 8px;">${businessInfo.b_tel}</span>
                                 <button class="form_btn" style="width: 68px; height: 40px; padding:  10px;">변경</button>
 
                             </li>
@@ -92,7 +91,7 @@ $(function(){
                                     <span class="required">이메일</span>
                                 </div>
                                 <div>
-                                    <input type="text" name="m_mail" value="${userInfo.m_email}"> <br>
+                                    <input type="text" name="m_mail" value="${businessInfo.b_email}"> <br>
                                     <p class="t1" id="input_capslock_notice04" style="display: none; color: red;">* Caps
                                         Lock이 눌려 있습니다.</p>
                                 </div>
@@ -144,8 +143,7 @@ $(function(){
                         </table>
                     </div>
                     <div class="btn_box">
-                        <button onclick="memberUpdate()" class="btn_on" style="color: white;">변경</button>
-                        <button onclick="delCheck()">회원탈퇴</button>
+                        <button onclick="businessUpdate()" class="btn_on" style="color: white;">변경</button>
                     </div>
 
 
@@ -165,18 +163,11 @@ $(function(){
     </div>
 </body>
 <script type="text/javascript">
-function delCheck(){
-	var conf = confirm("회원 탈퇴하시겠습니까?");
-	
-	if(conf == true){
-		location.href='./delMember';
-	}
-}
-function memberUpdate(){
+function businessUpdate(){
 	var conf = confirm("수정 하시겠습니까?");
 	
 	if(conf == true){
-		location.href='./memberUpdateProc';
+		location.href='./businessUpdateProc';
 	}
 }
 </script>

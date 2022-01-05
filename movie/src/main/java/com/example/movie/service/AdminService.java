@@ -1,6 +1,7 @@
 package com.example.movie.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 //import org.springframework.web.servlet.ModelAndView;
 
+import com.example.movie.dto.MovieDto;
+import com.example.movie.dto.mvOfficialDto;
+import com.example.movie.dto.mvReviewDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.mapper.AdminMapper;
@@ -225,6 +229,113 @@ public class AdminService {
 		
 		return qrDto;
 	}
+	//관리자 영화등록
+	public ModelAndView adminMovieList(Integer pageNum) {
+		
+		int num = (pageNum == null)? 1 : pageNum;
+		int listCnt = 6;
+		int maxNum;
+		
+		mv = new ModelAndView();
+		
+		List<MovieDto> movieList = aMapper.selectMovieRequest();
+		List<MovieDto> movieList1 = new ArrayList<MovieDto>();
+		
+		List<mvOfficialDto> movieOfList = aMapper.selectMvOfficial();
+		
+		for(int i = 0; i <= movieList.size()-1; i++) {
+			
+			MovieDto mvDto1 = movieList.get(i);
+			
+			//중복요청 출력할 리스트에서 제거
+			for(int j = i+1; j <= movieList.size()-1; j++) {
+				
+				MovieDto mvDto2 = movieList.get(j);
+				
+				String mvc1 = mvDto1.getMovie_cd();
+				String mvc2 = mvDto2.getMovie_cd();
+				
+				if(mvc1.equals(mvc2)) {
+					
+					movieList.remove(j);
+					j--;
+				}
+			}
+			
+			for(int k = 0; k <= movieOfList.size()-1; k++) {
+				
+				mvOfficialDto mOfDto = movieOfList.get(k);
+				
+				String mvc1 = mvDto1.getMovie_cd();
+				String mvc2 = mOfDto.getMovie_cd();
+				
+				if(mvc1.equals(mvc2)) {
+			//이미 등록된 영화 상태값 1	
+					mvDto1.setState(1);
+					movieList.set(i, mvDto1);
+					
+			//이미 등록된 영화요청 DB에서 지움
+				/*	aMapper.delMvRequest(mvc1);
+					movieList.remove(i);*/
+				}
+				
+			}
+		}
+			maxNum = movieList.size();
+			
+			//////페이징처리 필요
+			if(!movieList.isEmpty()) {
+
+				int page = (num -1) * listCnt;
+
+				int forpage = page-1;
+
+				int list = listCnt -1 ;
+				
+				Collections.reverse(movieList);
+				
+				for(int i = 0; i <= forpage; i++) {
+
+					if(page <= 0) {
+						break;
+					}
+					int j=0;
+					movieList.remove(j);
+					
+				}
+				for(int i = 0; i <= list; i++) {
+					//pmvrList로 옮기고 저장
+					if(movieList.size() <= list) {
+
+						list = movieList.size()-1;
+				//size가 출력해야할list보다 적으면 그만큼만 출력하도록 함 안할시 오류뜸  
+					}
+					MovieDto amvr = movieList.get(i);
+		
+					movieList1.add(amvr);
+
+				}
+			}
+			
+			
+			String view = "adminMovieList";
+			
+			String pageHtml = getPaging(num,listCnt,view,maxNum);
+			mv.addObject("paging", pageHtml);
+			
+			//세션에 페이지번호 저장
+			//글작성 화면, 글내용 상세보기 화면 등에서 다시 목록으로
+			//돌아갈때 보고 있던 페이지가 나오도록 하기 위해.
+			session.setAttribute("pageNum", num);
+			
+		
+		
+		mv.addObject("mvList", movieList1);
+		mv.setViewName("adminMovieList");
+		
+		return mv;
+	
 
 
+	}
 }

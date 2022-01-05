@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.reportMvReviewDto;
+import com.example.movie.dto.MovieDto;
+import com.example.movie.dto.mvOfficialDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 
@@ -44,8 +46,15 @@ public interface AdminMapper extends MybatisMapper {
 	//신고된 리뷰 신고 테이블에서 삭제
 	public boolean delMvReviewReport(int mvrNum);
 	
+	//사업자가 요청한 영화 목록
+	public List<MovieDto> selectMovieRequest();
+	//관리자가 등록한 영화 목록
+	public List<mvOfficialDto> selectMvOfficial();
+	
 	public List<reportMvReviewDto> selectReportMvReviewSort(Map<String, Integer> pmap);
 	
 	public List<reportMvReviewDto> selectReportMvReviewSortDesc(Map<String, Integer> pmap);
+
+	
 	
 }

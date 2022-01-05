@@ -48,6 +48,12 @@ public class MemberController {
 		
 		return view;
 	}
+	////미완
+	@GetMapping("memberUpdateProc")
+	public String memberUpdateProc() {
+		String view = "mypage";
+		return view;
+	}
 	
 	@GetMapping("pmvReviewFrm")
 	public ModelAndView pmvReviewFrm(Integer pageNum) {

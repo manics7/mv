@@ -108,5 +108,15 @@
 		SELECT * FROM question_reply where ques_no = #{ques_no}
 	</select>
 	
+	<select id="selectMovieRequest"
+		resultType="com.example.movie.dto.MovieDto">
+		SELECT * FROM movie
+	</select>
+	
+	<select id="selectMvOfficial" parameterType="String"
+		resultType="com.example.movie.dto.mvOfficialDto">
+		SELECT * FROM mv_official
+	</select>
+	
 </mapper>
 
