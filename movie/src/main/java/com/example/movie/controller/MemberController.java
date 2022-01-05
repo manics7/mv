@@ -41,6 +41,20 @@ public class MemberController {
 		
 		return mv;
 	}
+	@GetMapping("delMember")
+	public String delMember(RedirectAttributes rttr) {
+		
+		String view = mServ.deletemember(rttr);
+		
+		return view;
+	}
+	////미완
+	@GetMapping("memberUpdateProc")
+	public String memberUpdateProc() {
+		String view = "mypage";
+		return view;
+	}
+	
 	@GetMapping("pmvReviewFrm")
 	public ModelAndView pmvReviewFrm(Integer pageNum) {
 		
@@ -86,8 +100,6 @@ public class MemberController {
 	public String delMvReview(int mv_review,RedirectAttributes rttr) {
 		
 		/*int mvrnum = Integer.parseInt(mv_review);*/
-		
-		String cont = "delMvReview";
 		
 		String view = mServ.delMvReview(mv_review,rttr);
 		
@@ -154,21 +166,6 @@ public class MemberController {
 		mv.setViewName("mmanage");
 
 		return mv;
-	}
-	
-	@GetMapping
-	public String deleteMember(String m_id) {
-		//1. 회원 게시글 보기 
-		//2. 회원 게시글 삭제 
-		//3. 회원 정보 삭제 
-		//또는 회원 회원 게시글 및 회원 정보 삭제 
-		
-	
-		String view = mServ.deletemember(m_id);
-		
-		
-		
-		return view;	
 	}
 	
 	@PostMapping("/memberSelect")

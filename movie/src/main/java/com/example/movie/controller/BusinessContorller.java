@@ -58,6 +58,19 @@ public class BusinessContorller {
 		
 		return mv;
 	}
+	@GetMapping("businessUpdateFrm")
+	public String businessUpdateFrm() {
+		String view = "businessUpdateFrm";
+		
+		return view;
+	}
+	////미완
+	@GetMapping("businessUpdateProc")
+	public String businessUpdateProc() {
+		String view = "businessPage";
+		
+		return view;
+	}
 	
 	// 사업자 로그아웃
 	@GetMapping("bu_logout")
