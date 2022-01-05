@@ -23,7 +23,7 @@
 			<div id="main_wrap">
 				<div id="box_office">
 					<div id="box-office-title">
-						박스오피스
+						박스오피스1
 					</div>
 					<div id="more-movie">
 						<a href="#">
