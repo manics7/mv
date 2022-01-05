@@ -19,7 +19,7 @@ import lombok.extern.java.Log;
 public class BusinessContorller {
 	
 	@Autowired
-	private BusinessService bServ;
+	private BusinessService buServ;
 	
 	private ModelAndView mv;
 	
@@ -27,7 +27,7 @@ public class BusinessContorller {
 		@PostMapping("businessInsert")
 		public String businessInsert(BusinessDto business, RedirectAttributes rttr) {
 			
-			String view = bServ.businessInsert(business, rttr);
+			String view = buServ.businessInsert(business, rttr);
 			
 			return view;
 		}
@@ -36,7 +36,7 @@ public class BusinessContorller {
 	@GetMapping(value = "buIdCheck", produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String buIdCheck(String bid) {
-		String res = bServ.buIdCheck(bid);
+		String res = buServ.buIdCheck(bid);
 		
 		return res;
 	}
@@ -45,7 +45,7 @@ public class BusinessContorller {
 	@PostMapping("bu_loginProc")
 	public String bu_loginProc(BusinessDto business, RedirectAttributes rttr) {
 		
-		String view = bServ.bu_loginProc(business, rttr);
+		String view = buServ.bu_loginProc(business, rttr);
 		
 		return view;
 	}
@@ -61,7 +61,7 @@ public class BusinessContorller {
 	@GetMapping("bu_logout")
 	public String bu_logout() {
 		
-		String view = bServ.bu_logout();
+		String view = buServ.bu_logout();
 		
 		return view;
 	}
@@ -70,7 +70,7 @@ public class BusinessContorller {
 	@PostMapping("insertMovie")
 	public String insertMovie(MultipartHttpServletRequest multi, RedirectAttributes rttr) {
 		
-		String view = bServ.insertMovie(multi, rttr);
+		String view = buServ.insertMovie(multi, rttr);
 		
 		return view;
 	}
@@ -79,7 +79,7 @@ public class BusinessContorller {
 	//상영관 목록 이동
 		@GetMapping("roomlist")
 		public ModelAndView roomList() {
-			mv = bServ.getRoomList();
+			mv = buServ.getRoomList();
 			
 			return mv;
 		}
@@ -88,7 +88,7 @@ public class BusinessContorller {
 		@GetMapping("roomDelete")
 		public String roomDelete(int roomseq,
 				RedirectAttributes rttr) {
-			String view = bServ.roomDelete(roomseq, rttr);
+			String view = buServ.roomDelete(roomseq, rttr);
 			
 			return view;
 		}
@@ -96,7 +96,7 @@ public class BusinessContorller {
 		//상영관 등록 페이지 이동
 		@GetMapping("roomInsertFrm")
 		public ModelAndView roomInsertFrm() {
-			mv = bServ.roomInsertFrm();
+			mv = buServ.roomInsertFrm();
 			
 			return mv;
 		}
@@ -105,7 +105,7 @@ public class BusinessContorller {
 		@PostMapping("roomInsert")
 		public String roomInsert(MultipartHttpServletRequest multi,
 				RedirectAttributes rttr) {
-			String view = bServ.roomInsert(multi, rttr);
+			String view = buServ.roomInsert(multi, rttr);
 			
 			return view;
 		}

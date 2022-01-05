@@ -10,6 +10,7 @@ import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.ques_replyDto;
 import com.example.movie.dto.quesboardDto;
+import com.example.movie.dto.reportMvReviewDto;
 
 public interface AdminMapper  extends MybatisMapper {
 
@@ -30,6 +31,21 @@ public interface AdminMapper  extends MybatisMapper {
 	boolean insert_ques_reply(ques_replyDto qrdto);
 
 	MemberDto getMemberSelect(String m_id);
+
+	int selectReportMvReviewCnt();
+
+	List<reportMvReviewDto> selectReportMvReviewSort(Map<String, Integer> pmap);
+
+	String selectIdFromMvReview(int mvrNum);
+
+	void updateRpMvReviewState(int mvrNum);
+
+	void delMvReview(int mvrNum);
+
+	void updateWarning(String rptId);
+
+
+	List<reportMvReviewDto> selectReportMvReview(Map<String, Integer> pmap);
 	
 	
 	

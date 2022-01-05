@@ -3,6 +3,70 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.movie.mapper.AdminMapper">
+	
+	<select id="selectReportMvReview" parameterType="HashMap"
+		resultType="com.example.movie.dto.reportMvReviewDto">
+		<![CDATA[
+		SELECT * FROM RMVRLIST_1
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	<select id="selectReportMvReviewSort" parameterType="HashMap"
+		resultType="com.example.movie.dto.reportMvReviewDto">
+		select * from(select rownum as ronum, a.*from a(select * from rmvrlist order by state ))
+	<![CDATA[
+	WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	<select id="selectReportMvReviewSortDesc" parameterType="HashMap"
+		resultType="com.example.movie.dto.reportMvReviewDto">
+		select * from
+	(
+    select rownum as ronum, a.*
+    from (
+    select * from rmvrlist
+    order by state desc
+    ) a
+	)
+	<![CDATA[
+	WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	<select id="selectReportMvReviewCnt" resultType="Integer">
+		SELECT COUNT(*) FROM report_mv_review
+	</select>
+	
+	<select id="selectMvReviewByReviewNum" parameterType="Integer"
+		resultType="String">
+		SELECT mv_review_comment FROM review_movie WHERE mv_review=#{mvrNum}
+	</select>
+	
+	<select id="selectIdFromMvReview" parameterType="Integer"
+		resultType="String">
+		SELECT mv_review_id FROM review_movie WHERE mv_review=#{mvrNum}
+	</select>
+	
+	<update id="updateWarning" parameterType="String">
+		UPDATE member SET m_warning = m_warning+1 WHERE m_id=#{id}
+	</update>
+	
+	<update id="updateRpMvReviewState" parameterType="Integer">
+		UPDATE report_mv_review SET rp_state =1 WHERE movie_review=#{mvrNum}
+	</update>
+	
+	<delete id="delMvReview" parameterType="Integer">
+		DELETE FROM review_movie WHERE mv_review=#{mvrNum}
+	</delete>
+	
+	<delete id="delMvReviewReport" parameterType="Integer">
+		DELETE FROM report_mv_review WHERE movie_review=#{mvrNum}
+	</delete>
 
 	<select id="getQuesList" parameterType="HashMap"
 		resultType="com.example.movie.dto.quesboardDto">
@@ -55,10 +119,8 @@
 	
 	<select id="getMemberSelect" parameterType="String" resultType="com.example.movie.dto.MemberDto">
 	SELECT * FROM member where m_id = #{m_id}
+		SELECT * FROM QUESTION where ques_no = #{ques_no}
 	</select>
-
+	
 </mapper>
-
-
-
 

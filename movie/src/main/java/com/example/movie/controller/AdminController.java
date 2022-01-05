@@ -15,32 +15,74 @@ import com.example.movie.dto.ques_replyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.service.AdminService;
 
+
 @Controller
 public class AdminController {
-
+	
 	@Autowired
-	public AdminService aServ;
-	public ModelAndView mv;
+	private AdminService aServ;
+	
+	private ModelAndView mv;
+	
+	@GetMapping("reportFrm")
+	public ModelAndView reportFrm(Integer pageNum) {
+		
+		mv = aServ.reportedReview(pageNum);
+		
+		return mv;
+	}
+	
+	@GetMapping("delAdminMvReview")
+	public String delAdminMvReview(int mvrnum,RedirectAttributes rttr) {
+		
+		/*int mvrnum = Integer.parseInt(mv_review);*/
+		
+		
+		String view = aServ.delAdminMvReview(mvrnum,rttr);
+		
+		return view;
+	}
+	
+	@GetMapping("sortByState")
+	public ModelAndView sortByState(Integer pageNum) {
+		
+		mv = aServ.reportedReviewSort(pageNum);
+		
+		return mv;
+	}
+	
+	@GetMapping("sortByStateDesc")
+	public ModelAndView sortByStateDesc(Integer pageNum) {
+		
+		mv = aServ.reportedReviewSort(pageNum);
+		
+		return mv;
+	}
+
 
 	@GetMapping("/quesboard")
 	public ModelAndView quesboard(Integer pageNum) {
-		ModelAndView mv = new ModelAndView();
+	ModelAndView mv = new ModelAndView();
 
-		List<quesboardDto> qList = aServ.getQboardList(pageNum);
+	List<quesboardDto> qList = aServ.getQboardList(pageNum);
 
-		mv.addObject("qlist", qList);
+	mv.addObject("qlist", qList);
 
-		//페이징 처리.
-		String pageHtml = aServ.getpaging(pageNum);
+	//페이징 처리.
+	String pageHtml = aServ.getpaging(pageNum);
 
-		mv.addObject("paging", pageHtml);
+	mv.addObject("paging", pageHtml);
 
 
-		mv.setViewName("quesboard");
+	mv.setViewName("quesboard");
 
-		System.out.println("qlist = "+qList);
-		return mv;
-	}
+	System.out.println("qlist = "+qList);
+	return mv;
+	
+	
+}
+		
+	
 	//	@GetMapping("/requeboard_read")
 	//	public ModelAndView requeboardRead(String ques_title) {
 	//		ModelAndView mv = new ModelAndView();
@@ -53,39 +95,53 @@ public class AdminController {
 	//		System.out.println("readqlist = "+readqlist);
 	//		return mv;
 	//	}
+	
+//	@GetMapping("/requeboard_read")
+//	public ModelAndView requeboardRead(int ques_no,Integer view) {
+//		
+//		int num = (view == null)? 0 : view;
+//		
+//		ModelAndView mv = new ModelAndView();
+//		System.out.println("ques_no = "+ques_no);
 
 
 
 	//문의사항 상세보기 
 	@GetMapping("/requeboard_read")
-	public ModelAndView requeboardRead(int ques_no,Integer view) {
-
+	public ModelAndView requeboardRead(int ques_no, Integer view) {
 		int num = (view == null)? 0 : view;
-
 		ModelAndView mv = new ModelAndView();
 		System.out.println("ques_no = "+ques_no);
-
 		//문의번호로 가져옴
 		List<quesboardDto> readqlist = aServ.getboardRead(ques_no);
-
 		//가져온거 어차피 1개니까 0번째로 꺼냄
 		quesboardDto qDto = readqlist.get(0);
-
 		//문의글 상태. 0 = 미답변,1=답변완료
 		int state = qDto.getQues_state();
-
 		//답변 완료일시
 		if(state == 1) {
-
 			//문의번호로 답변 찾아와서 저장
 			quesReplyDto qrDto = aServ.selectQuesReply(ques_no);
-
 			mv.addObject("reply",qrDto);
 		}
-
+		
+//		List<quesboardDto> readqlist = aServ.getboardRead(ques_no);
+//		
+//		quesboardDto qDto = readqlist.get(0);
+//		
+//		int state = qDto.getQues_state();
+		/*
+		if(state == 1) {
+			quesReplyDto qrDto = aServ.selectQuesReply(ques_no);
+			
+			mv.addObject("reply",qrDto);
+		}
+		*/
 		mv.addObject("qrlist", readqlist);
 
+
 		//호출한곳(마이페이지,관리자페이지)에 따라 다른 viewname 설정 후 반환
+
 		if(num == 0) {
 			mv.setViewName("requeboard_read");
 		}
@@ -119,7 +175,7 @@ public class AdminController {
 	//사업자회원 정보 출력 
 	@GetMapping("getBulist")
 	public ModelAndView getbulist(Integer pageNum) {
-		System.out.println("Business pageNum = "+pageNum);
+		System.out.println("Business pageNum = "+ pageNum);
 		ModelAndView mv = new ModelAndView();
 		//사업자 정보 인출
 		List<BusinessDto> busList = aServ.getbulist(pageNum);
@@ -134,15 +190,14 @@ public class AdminController {
 
 		return mv;
 	}
-	@PostMapping(value="mempopup_ctl",
-			produces = "application/json; charset=utf-8")
-	public ModelAndView mempopup_ctl(String m_id) {
-		ModelAndView mv = new ModelAndView();
-		System.out.println("m_id = " + m_id);
-		mv = aServ.selectpopupmem(m_id);
-		return mv;
-	}
-
-
+	
 
 }
+//	@PostMapping(value="mempopup_ctl",
+//			produces = "application/json; charset=utf-8")
+//	public ModelAndView mempopup_ctl(String m_id) {
+//		ModelAndView mv = new ModelAndView();
+//		System.out.println("m_id = " + m_id);
+//		mv = aServ.selectpopupmem(m_id);
+//		return mv;
+//	}

@@ -51,6 +51,9 @@
 	</insert>
 	
 	
+	<select id="selectThNameByBid" parameterType="String" resultType="String">
+		select th_name from theater where b_id=#{b_id}
+	</select>
 	
 </mapper>
 

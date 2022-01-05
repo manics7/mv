@@ -19,18 +19,17 @@ import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import com.example.movie.common.AwsS3;
-import com.example.movie.dto.MovieOfficial;
-import com.example.movie.dto.Reservation;
-import com.example.movie.dto.Schedule;
-import com.example.movie.dto.Theater;
+import com.example.movie.entity.MovieOfficial;
+import com.example.movie.entity.Reservation;
+import com.example.movie.entity.Schedule;
+import com.example.movie.entity.Theater;
 import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ReservationRepository;
+import com.example.movie.repository.ReservationRepositoryCustom;
 import com.example.movie.repository.ScheduleRepositoy;
 import com.example.movie.repository.TheaterRepository;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Service
 public class ReservationService {
@@ -52,6 +51,9 @@ public class ReservationService {
 	
 	@Autowired
 	AwsS3 awsS3;
+	
+	@Autowired
+	ReservationRepositoryCustom reservationRepositoryCustom;
 	
 	public Map<String, List<Map<String, String>>> getDate() {
 		Map<String, List<Map<String, String>>> map = new HashMap<String, List<Map<String,String>>>();
@@ -96,7 +98,7 @@ public class ReservationService {
 		LocalDate now = LocalDate.now();
 		String date= now.toString();	
 		LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));		
-		LocalDate lastDate= now.plusWeeks(2);//2주간 마지막날
+		LocalDate lastDate= now.plusWeeks(2);//2주 마지막날
 		
 		Date startDate = java.sql.Date.valueOf(dateTime.toLocalDate());
 		Date endDate = java.sql.Date.valueOf(lastDate);
@@ -106,9 +108,13 @@ public class ReservationService {
 		//스케쥴에서 영화,극장코드 중복제거해서 가져오기
 		List<String> movieCdList = scheduleList.stream().map(Schedule::getMovieCd).distinct().collect(Collectors.toList());
 		List<Integer> thCodeList = scheduleList.stream().map(Schedule::getThCode).distinct().collect(Collectors.toList());
-
+		List<Date> schDateList = scheduleList.stream().map(Schedule::getSchDate).distinct().collect(Collectors.toList());
 		//영화, 극장, 날짜 목록 가져오기
-		List<MovieOfficial> movieList = movieOfficialRepository.findAllById(movieCdList);
+		List<MovieOfficial> movieList = movieOfficialRepository.findAllById(movieCdList)
+				.stream()
+				.sorted(Comparator.comparing(MovieOfficial::getMovieNm))
+				.collect(Collectors.toList());
+				
 		List<Theater> theaterList = theaterRepository.findAllById(thCodeList);
 		List<Map<String, String>> dateList = getDefaultDate();
 		
@@ -116,6 +122,7 @@ public class ReservationService {
 		map.put("movieList", movieList);
 		map.put("theaterList", theaterList);		
 		map.put("dateList", dateList);
+		map.put("s", schDateList);
 		
 		//String url = awsS3.getFileURL(awsS3.bucket, awsS3.bucketURL+"mm.thumb.jpg");
 		//String url2 = awsS3.getFileURL(awsS3.bucket, awsS3.bucketURL+"82479_320.jpg");	
@@ -142,21 +149,11 @@ public class ReservationService {
 	}
 	
 	//영화,극장,일자 선택했을때
-	public Map<String, Object>  selectSchList(String movideCd ,Integer thCode, String date,  String sort) {
+	public List<Schedule>  selectSchList(String movieCd ,Integer thCode, String schDate) {
 		
-		//List<Schedule> scheduleList = getSchedule();
-		//List<String> movieCdList = scheduleList.stream().map(Schedule::getMovieCd).distinct().collect(Collectors.toList());		
-		//List<MovieOfficial> movieList = getMoiveList(movieCdList,movideCd, sort);
-		//List<Map<String, String>> date = getDefaultDate(); 
+		List<Schedule> schList = reservationRepositoryCustom.selectSchList(movieCd, thCode, schDate);
 		
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		//map.put("movieList", movieList);
-		//map.put("date", date);
-		if(!movideCd.equals("") && !ObjectUtils.isEmpty(thCode) && !date.equals("")) {
-			//세개다 선택이면 시간불러온다.
-		}
-		return map;
+		return schList;
 	}
 	
 	public List<Reservation> getRsrvList() {
@@ -164,5 +161,16 @@ public class ReservationService {
 		return list;
 	}
 
+	public Map<String, Object> getSchduleTime(String movieCd, Integer thCode, String date) {
+		List<Schedule> list= reservationRepositoryCustom.getSchduleTime(movieCd, thCode, date);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("schDetailList", list);
+		return map;
+	}
+	
+	public List<Schedule> getTimeList() {
+		List<Schedule> list = reservationRepositoryCustom.getTimeList();
+		return list;
+	}
 	
 }

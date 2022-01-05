@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.movie.dto.Member;
+import com.example.movie.entity.Member;
+
+
+
 import com.example.movie.dto.MemberDto;
-import com.example.movie.dto.thdetailDto;
+//import com.example.movie.dto.thdetailDto;
 import com.example.movie.service.MemberService;
 
 import lombok.extern.java.Log;
@@ -22,10 +25,112 @@ import lombok.extern.java.Log;
 @Controller
 @Log
 public class MemberController {
-	private final static Logger LOG = Logger.getGlobal();
+
 	@Autowired
-	public MemberService mServ;
-	public ModelAndView mv;
+	private MemberService mServ;
+	
+	private ModelAndView mv;
+	@Autowired
+	private AdminController aCon;
+	
+	
+	private final static Logger LOG = Logger.getGlobal();
+	
+	@GetMapping("mypage")
+	public ModelAndView mypage(Integer pageNum) {
+		
+		String view ="mypage";
+		
+		int listCnt = 2;
+		
+		mv = mServ.selectQuestion(pageNum,listCnt,view);
+		
+		return mv;
+	}
+	@GetMapping("pmvReviewFrm")
+	public ModelAndView pmvReviewFrm(Integer pageNum) {
+		
+		String view = "pmvReviewFrm";
+
+		int listCnt = 10;
+		
+		mv = mServ.pmvReviewFrm(pageNum,listCnt,view);
+		
+		return mv;
+		
+	}
+	@GetMapping("questionFrm")
+	public ModelAndView questionFrm(Integer pageNum) {
+		
+		int listCnt = 10;
+		
+		String View = "questionFrm";
+		
+		mv = mServ.selectQuestion(pageNum,listCnt,View);
+		
+		return mv;
+	}
+	
+	@GetMapping("memberUpdateFrm")
+	public ModelAndView memberUpdateFrm() {
+		
+		mv = mServ.memberUpdateFrm();
+		
+		return mv;
+	}
+	
+	@GetMapping("questionContents")
+	public ModelAndView questionContents(int ques_no) {
+		
+		Integer view = 1;
+		
+		mv = aCon.requeboardRead(ques_no,view);
+		
+		return mv;
+	}
+	@GetMapping("delMvReview")
+	public String delMvReview(int mv_review,RedirectAttributes rttr) {
+		
+		/*int mvrnum = Integer.parseInt(mv_review);*/
+		
+		String cont = "delMvReview";
+		
+		String view = mServ.delMvReview(mv_review,rttr);
+		
+		return view;
+	}	
+	
+	
+	@PostMapping("mvReviewSearch")
+	public ModelAndView mvReviewSearch(String mvname) {
+		
+		mv = mServ.mvReviewSearch(mvname);
+		
+		return mv;
+	}
+	/* 보류한다함
+	@GetMapping("purchaseFrm")
+	public ModelAndView purchaseFrm (Integer pageNum) {
+		int listCnt = 10;
+		
+		String View = "purchaseFrm";
+		
+		mv = mServ.selectPurchase(pageNum,listCnt,View);
+		
+		return mv;
+	}
+	@GetMapping("purchaseCancelFrm")
+	public ModelAndView purchaseCancelFrm (Integer pageNum) {
+		int listCnt = 10;
+		
+		String View = "purchaseCancelFrm";
+		
+		mv = mServ.selectPurchase(pageNum,listCnt,View);
+		
+		return mv;
+	}*/
+
+
 	@GetMapping("/mmanage")
 	public ModelAndView mmanageFrm(String pageNum) throws Exception {
 		LOG.info("info Log = " + pageNum);
@@ -45,7 +150,7 @@ public class MemberController {
 		return mv;
 	}
 
-
+	
 	@GetMapping
 	public String deleteMember(String m_id) {
 		//1. 회원 게시글 보기 
@@ -88,6 +193,9 @@ public class MemberController {
 	//		return mv;
 
 
+
+
+	
 	// 이용자 회원가입
 	@PostMapping("memberInsert")
 	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
@@ -134,3 +242,4 @@ public class MemberController {
 	}
 
 }
+

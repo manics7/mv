@@ -1,5 +1,6 @@
-package com.example.movie.dto;
 
+
+package com.example.movie.dto;
 
 import lombok.Data;
 
@@ -16,4 +17,6 @@ public class MemberDto {
 	private int m_point;
 	private int m_grade;
 	private int m_warning;
+
+	
 }
