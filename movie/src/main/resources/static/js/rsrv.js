@@ -219,22 +219,45 @@
 				}
 			});
 		}
-		/*
+		
 		, getSeat : function(){
 			
 			$.ajax({
 				type : "POST"
-				,url : "/rsrvSeat?"
+				,url : "/getSeat"
 				,data : {"schCode" : fnObj.selectData.schCode, "schDetailSeq" : fnObj.selectData.schDetailSeq}	       		
 				,success : function(res) {
 					console.log(res);
+					var row = res.room.roomRow;
+					var col = res.room.roomCol;
+					var rsrvSeatNoList =res.rsrvSeatNoList;
+					var seatList =res.seatList;
+					var html = "";
+					
+					for(var i=0; i<seatList.length; i++){							
+						
+						//console.log('i%col =  '  + i%col);
+						if(i%row == 0){
+							html +=  "<div class='row'>";
+							//html += "<a class='btn btn-outline-dark' href='#' role='button' row="+seatList[i].seatRow +" col="+seatList[i].seatCol+" seatNo="+seatList[i].seatNo+" >"  + seatList[i].seatNo + "</a>";
+									
+						}
+							html +=  "<a class='btn btn-outline-dark' href='#' role='button' row="+seatList[i].seatRow +" col="+seatList[i].seatCol+" seatNo="+seatList[i].seatNo+" >"  + seatList[i].seatNo + "</a>";
+							
+						if(i%row == 0){
+						html+="</div>";
+						}
+										
+						console.log(html);	
+					}
+					$("#seatBox").html(html);
 				},
 				err : function(err) {
 					console.log("err:", err)
 				}
 			});	
 		}		
-		*/
+		
 	}
 	
 	//모달창열기
@@ -244,7 +267,8 @@
 	//좌석선택 페이지 로드
 	$(document).on('click',"#rsrvSeat",function() {
 		
-		$('#rsrvModal .modal-content').load("rsrvSeat", {"schCode" : fnObj.selectData.schCode, "schDetailSeq" : fnObj.selectData.schDetailSeq});
+		$('#rsrvModal .modal-content').load("rsrvSeat", fnObj.getSeat);
+		//$('#rsrvModal .modal-content').load("rsrvSeat", {"schCode" : fnObj.selectData.schCode, "schDetailSeq" : fnObj.selectData.schDetailSeq});
 		//$('#rsrvModal').modal();	
 	});			
 

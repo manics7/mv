@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,11 +40,20 @@ public class ReservationController {
 		 return null;
 	}
 	
-	//@GetMapping("/rsrvSeat")
-	//public String rsrvSeat() {
-	//	return "rsrv/reservationSeat";		
-	//}
-	@PostMapping("/rsrvSeat")
+	@GetMapping("/rsrvSeat")
+	public String rsrvSeat() {
+		return "rsrv/reservationSeat";		
+		
+	}
+	
+	@PostMapping("/getSeat")
+	@ResponseBody
+	public Map<String, Object> getSeat(Integer schCode ,Integer schDetailSeq) {
+		Map<String, Object>  map = reservationService.getSeat(schCode, schDetailSeq);
+		return map;
+	}
+	
+	//@PostMapping("/rsrvSeat")
 	public ModelAndView reservationSeat(Integer schCode ,Integer schDetailSeq) {
 		modelAndView = new ModelAndView();
 			

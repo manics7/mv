@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -37,6 +38,9 @@ import lombok.ToString;
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //  @OneToMany 같은 관계 설정으로 무한로딩될때 해결법 
+//@SequenceGenerator (	name = "[만들 시퀀스 이름]MOVIE_SEQ_GENERATOR",
+//   sequenceName = "[DB에 만든 시퀀스 이름]MOVIE_SEQ",
+//    initialValue = 1, allocationSize = 1)	//매핑할 데이터 베이스 스퀀스 이름)
 public class Reservation {
 
 	@Id

@@ -47,6 +47,12 @@ button:not(:hover) {}
    box-shadow: none;
    background-color: #f16a19;
 }
+.seat {
+	width: 25px;
+	height: 20px;
+	margin-left: 1px;
+	background-color: rgb(200, 200, 200);
+}
 
 </style>
 <script type="text/javascript">
@@ -138,7 +144,7 @@ $(doucment).ready(function(){
 							</div>	
 						</div>
 						 
-						<div class="col-md-12 p-auto">
+						<div class="col-md-12 px-auto">
 								<button  type="button" class="btn btn-lg btn-block btn-dark" id="back" >뒤로가기</button>
 						</div>
 					
@@ -153,7 +159,7 @@ $(doucment).ready(function(){
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12" style="min-height: 410px; background-color: gray;">
+						<div class="col-md-12" style="min-height: 410px; background-color: g" id="seatBox">
 							
 						</div>
 					</div>
