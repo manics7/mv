@@ -1,5 +1,7 @@
 package com.example.movie.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.MvOfficialDto;
+import com.example.movie.dto.ReviewMovieDto;
+import com.example.movie.mapper.AdminMapper;
 import com.example.movie.mapper.MemberMapper;
 
 @Service
@@ -18,6 +23,8 @@ public class MemberService {
 	private MemberMapper mMapper;
 	@Autowired
 	private HttpSession session;
+	@Autowired
+	private AdminMapper adminMapper;
 	
 	ModelAndView mv;
 	
@@ -113,6 +120,24 @@ public class MemberService {
 		session.invalidate();
 		
 		return view;
+	}
+
+	// 영화 상세 페이지 이동
+	public ModelAndView movieDetail(String movie_cd) {
+
+		mv = new ModelAndView();
+		
+		// 영화 상세 정보
+		MvOfficialDto mvOfficialDto = adminMapper.movieDetail(movie_cd);
+		// 관람평 목록 가져오기
+		List<ReviewMovieDto> reviewMovie = adminMapper.reviewMovie(movie_cd);
+		
+		mv.addObject("mvOfficial", mvOfficialDto);
+		mv.addObject("reviewMovie", reviewMovie);
+		
+		mv.setViewName("movieDetail");
+		
+		return mv;
 	}
 	
 }

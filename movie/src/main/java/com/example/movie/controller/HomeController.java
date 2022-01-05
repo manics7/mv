@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BusinessDto;
@@ -24,12 +25,7 @@ public class HomeController {
 	@Autowired
 	private BusinessService buServ;
 	
-	// test 페이지 이동
-	@GetMapping("movieDetail")
-	public String test() {
-		
-		return "movieDetail";
-	}
+	private ModelAndView mv;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -51,4 +47,13 @@ public class HomeController {
 		return "bu_joinFrm";
 	}
 
+	// 영화 상세 페이지 이동
+	@GetMapping("movieDetail")
+	public ModelAndView movieDetail(String movie_cd) {
+		
+		mv = mServ.movieDetail(movie_cd);
+		
+		return mv;
+	}
+	
 }
