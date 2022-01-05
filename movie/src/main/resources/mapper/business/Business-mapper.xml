@@ -36,7 +36,17 @@
 	<select id="getTheaterList" parameterType="String" resultType="com.example.movie.dto.TheaterDto">
 		SELECT * FROM theater WHERE b_id=#{b_id}
 	</select>
-		
+	
+	<!-- 영화 검색 -->
+	<select id="getMovieList" resultType="com.example.movie.dto.MovieOfficialDto">
+		SELECT * FROM MOVIE_OFFICIAL
+	</select>
+	
+	<!-- 상영관 검색 -->
+	<select id="getRoomList" resultType="com.example.movie.dto.RoomDto">
+		SELECT * FROM ROOM
+	</select>
+			
 </mapper>
 
 

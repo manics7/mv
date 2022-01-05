@@ -28,7 +28,7 @@ import com.example.movie.dto.Schedule;
 import com.example.movie.dto.Theater;
 import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ReservationRepository;
-import com.example.movie.repository.ScheduleRepositoy;
+import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.repository.TheaterRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -42,7 +42,7 @@ public class ReservationService {
 	ReservationRepository reservationRepository;
 	
 	@Autowired
-	ScheduleRepositoy scheduleRepositoy;
+	ScheduleRepository scheduleRepositoy;
 	
 	@Autowired
 	MovieOfficialRepository movieOfficialRepository;
@@ -89,7 +89,7 @@ public class ReservationService {
 		}
 		return dateList;
 	}
-
+	/*
 	//처음화면 세팅을 위한 스케쥴에 해당하는 영화,상영관,날짜 목록을 가져온다.
 	public Map<String, Object> getSchedule() {
 		
@@ -126,7 +126,7 @@ public class ReservationService {
 		
 		return map;
 	}
-	
+	/*
 	public List<MovieOfficial>getMoiveList(List<String> movieCdList, String movideCd,  String sort){
 	
 		//받아온걸 이름순으로 정렬
@@ -140,6 +140,7 @@ public class ReservationService {
 		
 		return movieList;
 	}
+	*/
 	
 	//영화,극장,일자 선택했을때
 	public Map<String, Object>  selectSchList(String movideCd ,Integer thCode, String date,  String sort) {
@@ -158,6 +159,7 @@ public class ReservationService {
 		}
 		return map;
 	}
+	
 	
 	public List<Reservation> getRsrvList() {
 		List<Reservation> list = reservationRepository.findAll();

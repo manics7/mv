@@ -18,7 +18,7 @@ import com.example.movie.service.ReservationService;
 
 @RestController
 public class ReservationController {
-
+	/*
 	@Autowired
 	ReservationService reservationService;
 	
@@ -33,6 +33,7 @@ public class ReservationController {
 	 * 오늘부터 2주간 년월일,요일 만들어온다.
 	 * @return
 	 */
+	/*
 	@GetMapping("/getDate")
 	public Map<String,List<Map<String, String>>> getDate() {
 		
@@ -66,5 +67,6 @@ public class ReservationController {
 		
 		return "rsrv/reservationSeat"; 
 	}	
+	*/
 	
 }

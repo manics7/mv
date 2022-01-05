@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.MovieOfficialDto;
+import com.example.movie.dto.RoomDto;
 import com.example.movie.dto.Theater;
 import com.example.movie.dto.TheaterDto;
 
@@ -28,4 +30,9 @@ public interface BusinessMapper  extends MybatisMapper {
 	//영화관 정보 검색
 	public List<TheaterDto> getTheaterList(String b_id);
 	
+	//영화 이름 검색
+	public List<MovieOfficialDto> getMovieList();
+	
+	//상영관 검색
+	public List<RoomDto> getRoomList();
 }

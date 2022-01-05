@@ -20,7 +20,7 @@
 					<li><a id="bupage_menu" href="./theater">영화관 관리</a></li>
 					<li><a id="bupage_menu" href="#">영화 관리</a></li>
 					<li><a id="bupage_menu" href="#">상영관 관리</a></li>
-					<li><a id="bupage_menu" href="#">상영 일정 관리</a></li>
+					<li><a id="bupage_menu" href="./schedule">상영 일정 관리</a></li>
 					<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
 				</ul>
 			</div>
@@ -53,9 +53,10 @@
 							<div id="theater_parking">${theaterList.th_parking}</div>
 							<div id="theater_images">
 								<span>사진</span><br>
+								<!-- <div id="theater_image">${theaterList.th_image}</div>
 								<div id="theater_image">${theaterList.th_image}</div>
 								<div id="theater_image">${theaterList.th_image}</div>
-								<div id="theater_image">${theaterList.th_image}</div>
+								 -->
 							</div>
 						</div>
 						<button id="th-btn" onclick="location.href='./thUpdate'">수정</button>

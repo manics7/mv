@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.example.movie.dto.Schedule;
 
 @Repository
-public interface ScheduleRepositoy extends JpaRepository<Schedule, Integer> {
+public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 
 	List<Schedule> findBySchDateBetween(Date startDate, Date endDate);
 	

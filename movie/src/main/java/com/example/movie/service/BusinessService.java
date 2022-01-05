@@ -1,7 +1,15 @@
 package com.example.movie.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,13 +17,22 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.movie.mapper.BusinessMapper;
+import com.example.movie.repository.MovieOfficialRepository;
+import com.example.movie.repository.ScheduleDetailRepository;
+import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.common.AwsS3;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.MovieOfficial;
+import com.example.movie.dto.MovieOfficialDto;
+import com.example.movie.dto.RoomDto;
+import com.example.movie.dto.Schedule;
+import com.example.movie.dto.ScheduleDetail;
 import com.example.movie.dto.TheaterDto;
 
 
@@ -29,6 +46,15 @@ public class BusinessService {
 	private HttpSession session;
 	@Autowired
 	private AwsS3 awsS3;
+	
+	@Autowired
+	MovieOfficialRepository movieOfficialRepository;
+	
+	@Autowired
+	ScheduleRepository scheduleRepository;
+	
+	@Autowired
+	ScheduleDetailRepository scheduleDetailRepository;
 	
 	@Value("${aws.s3.bucket}")
 	private String bucket;
@@ -176,6 +202,7 @@ public class BusinessService {
 				for(int i = 0; i < logoName.size(); i++) {
 					String LfileName = awsS3.getFileURL(bucket, bucketURL+logoName.get(i));
 					
+					//dto에 넣기
 					theater.setTh_logo(LfileName);
 				}
 				
@@ -229,4 +256,134 @@ public class BusinessService {
 		return mv;
 	}
 	
+	//영화 검색 
+	public ModelAndView getInfoList() {
+		mv = new ModelAndView();
+		
+		//영화관 검색
+		String bId;
+		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
+		bId = bDto.getB_id();
+		
+		List<TheaterDto> theaterList = new ArrayList<TheaterDto>();
+		theaterList = buMapper.getTheaterList(bId);
+			
+		//영화
+		List<MovieOfficialDto> movieList = new ArrayList<MovieOfficialDto>();
+		movieList = buMapper.getMovieList();
+		
+		//상영관
+		List<RoomDto> roomList = new ArrayList<RoomDto>();
+		roomList = buMapper.getRoomList();
+		
+		mv.addObject("movieList", movieList);
+		mv.addObject("roomList", roomList);
+		mv.addObject("theaterList", theaterList);
+		
+		mv.setViewName("sche/scheduleAdd");
+		
+		return mv;
+	}
+
+	public String testInsert(Date roomStartTime, Date roomEndTime, Integer thcode, 
+			String[] mvcode, Integer room, String mvdate, String wait) {
+		
+		//상영관 시작 시간을 date에서 calendar로 변환
+		Calendar startCalendar = Calendar.getInstance();		
+		startCalendar.setTime(roomStartTime);
+		
+		//상영관 종료 시간을 date에서 calendar로 변환
+		Calendar endCalendar = Calendar.getInstance();
+		endCalendar.setTime(roomEndTime);
+		
+		//localDateTime localDateTime = LocalDateTime.now();
+		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		//상영관 시작 시간
+		//LocalDateTime roomStartTime = LocalDateTime.parse(starttime, formatter);
+		//상영관 종료 시간
+		//LocalDateTime roomEndTime = LocalDateTime.parse(endtime, formatter);
+		
+		for(int i = 0; i < mvcode.length; i++) {
+			//영화코드(숫자)를 받은 변수 mvcd
+			String mvcd = mvcode[i];
+			
+			//받아온 영화코드로 관리자가 등록한 영화 테이블 내용 검색
+			Optional<MovieOfficial> mv = movieOfficialRepository.findById(mvcd);
+			if(mv.isPresent()) {//내용이 있으면?
+				
+				//받아 온 상영날짜를 date 형태로 변환
+				SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
+				Date movieDate;
+				try {
+					movieDate = dateFormat.parse(mvdate);
+					
+					//대기 시간
+					int waittingTime;
+					waittingTime = Integer.parseInt(wait);
+					
+					//상영시간표 dto에 넣음
+					Schedule schedule = new Schedule();
+					schedule.setMovieCd(mv.get().getMovieCd());//영화코드
+					schedule.setThCode(thcode);//영화관코드
+					schedule.setRoomNo(room);//상영관 번호
+					schedule.setSchDate(movieDate);//상영날짜
+					schedule.setSchTime(waittingTime);//상영 전 대기시간
+					
+					//영화 러닝타임 가져옴
+					int runningTime = mv.get().getShowTm();
+					
+					//러닝타임 + 휴식(대기) 시간
+					int realTime = runningTime + waittingTime;	
+					
+					//영화 끝난 시간 = 상영관 시작시간 + 영화 러닝타임
+					Calendar movieEndCalendar = startCalendar;
+					movieEndCalendar.add(Calendar.MINUTE, runningTime);
+					//LocalDateTime movieEndTime = roomStartTime.plusMinutes(runningTime);
+					
+					//영화 종료 시간이 상영관 종료 시간을 넘을 경우 값을 넣지 않는다
+					if(movieEndCalendar.before(endCalendar)) {
+					
+						//상영시간표를 db에 넣기
+						scheduleRepository.save(schedule);
+					
+						//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+					
+						//영화 종료 시간을 calendar에서 date로 변환(db에 넣기 위함)
+						Date movieEndTime = new Date(movieEndCalendar.getTimeInMillis());
+						
+						//String mvStartTime = roomStartTime.toString();
+						//Date movieStartTime = format.parse(mvStartTime);
+					
+						//영화 시작 시간을 calendar에서 date로 변환(db에 넣기 위함)
+						Date movieStartTime = new Date(startCalendar.getTimeInMillis());
+					
+						//String mvEndTime = movieEndTime.toString();
+						//Date dmovieEndTime = format.parse(mvEndTime);
+					
+						//상영시간표 상세
+						ScheduleDetail scheduleDetail = new ScheduleDetail();
+					
+						scheduleDetail.setSchCode(schedule.getSchCode());//상영시간표 키
+						scheduleDetail.setSchDetailStart(movieStartTime);//영화 시작 시간
+						scheduleDetail.setSchDetailEnd(movieEndTime);//영화 종료 시간
+					
+						//상영시간표 상세를 db에 넣기
+						scheduleDetailRepository.save(scheduleDetail);
+					
+						//영화 시작 시간 = 저번 영화 시간 + (러닝 타임 + 휴식 시간)
+						startCalendar.add(Calendar.MINUTE, realTime);
+					
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+			}
+		}
+		
+		String view = "redirect:schedule";
+		
+		return view;
+	
+	}
 }

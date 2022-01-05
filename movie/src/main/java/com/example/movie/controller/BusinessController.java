@@ -1,8 +1,11 @@
 package com.example.movie.controller;
 
 import java.io.Console;
+import java.text.ParseException;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,7 +98,7 @@ public class BusinessController {
 	}	
 	
 	//상영 시간표 목록 페이지
-	@GetMapping("schdule")
+	@GetMapping("schedule")
 	public String schedule() {
 		
 		return "sche/schedule";
@@ -103,9 +106,23 @@ public class BusinessController {
 	
 	//상영 시간표 등록 페이지
 	@GetMapping("scheduleAdd")
-	public String scheduleAdd() {
+	public ModelAndView scheduleAdd() {
 		
-		return "sche/scheduleAdd";
+		mv = buServ.getInfoList();
+		
+		return mv;
 	}
+	
+	//상영관 등록
+	@PostMapping("scheduleInsert")
+	public String scheduleInsert(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date roomStartTime, 
+			@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date roomEndTime, 
+			Integer thcode, String mvcode[], Integer room, String mvdate, String wait) {
+		
+		String view = buServ.testInsert(roomStartTime, roomEndTime, thcode, mvcode, room, mvdate, wait);
+		
+		return view;
+	}
+	
 
 } // class end

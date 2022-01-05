@@ -15,6 +15,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,10 +41,11 @@ import lombok.ToString;
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@SequenceGenerator (name = "SCHEDULE_SEQ_GENERATOR", sequenceName = "SCH_CODE_SEQ", initialValue = 1, allocationSize = 1)
 public class Schedule {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SCHEDULE_SEQ_GENERATOR")
 	@Column(name="SCH_CODE", columnDefinition="상영 시간 키")
 	private Integer schCode;
 	

@@ -78,10 +78,10 @@ $(document).ready(function() {
 			<div id="side">
 				<h2><a href="#">Business Page</a></h2>
 				<ul id="bupage_list">
-					<li><a id="bupage_menu" href="#">영화관 관리</a></li>
+					<li><a id="bupage_menu" href="./theater">영화관 관리</a></li>
 					<li><a id="bupage_menu" href="#">영화 관리</a></li>
 					<li><a id="bupage_menu" href="#">상영관 관리</a></li>
-					<li><a id="bupage_menu" href="#">상영 일정 관리</a></li>
+					<li><a id="bupage_menu" href="./schedule">상영 일정 관리</a></li>
 					<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
 				</ul>
 			</div>
@@ -98,9 +98,13 @@ $(document).ready(function() {
                         <!-- 로고 사진 등록-->
                         <div id="thadd_logo">
                             <div id="thadd_num">1</div>
-                            <div id="thadd_info_title">로고 사진</div>
+                            <div id="thadd_info_title">
+                                <p>로고 사진</p>
+                            </div>
                             <div id="logo_wrap">
-                                <p>우리 영화관을 대표하는 로고 사진을 등록해주세요!</p>
+                                <div id="thfileadd_title">
+                                    <p>우리 영화관을 대표하는 로고 사진을 등록해주세요!</p>
+                                </div>
                                 <label for="logoFile">업로드</label>
                                 <input type="file" name="logoFiles" id="logoFile" multiple>
                                 <input type="text" class="logo-name" value="파일선택" readonly>
@@ -110,9 +114,13 @@ $(document).ready(function() {
                         </div>
                         <div id="thadd_image">
                             <div id="thadd_num">2</div>
-                            <div id="thadd_info_title">영화관 사진</div>
+                            <div id="thadd_info_title">
+                               <p>영화관 사진</p>
+                            </div>
                             <div id="image_wrap">
-                                <p>우리 영화관을 보여줄 수 있는 사진을 등록해주세요!</p>
+                                <div id="thfileadd_title">
+                                    <p>우리 영화관을 보여줄 수 있는 사진을 등록해주세요!</p>
+                                </div>
                                 <label for="theaterFile">업로드</label>
                                 <input type="file" name="theaterFiles" id="theaterFile" multiple>
                                 <input type="text" class="theater-name" value="파일선택" readonly>
