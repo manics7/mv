@@ -10,7 +10,7 @@ import com.example.movie.service.AdminService;
 
 import java.util.List;
 
-
+import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.mapper.AdminMapper;
 
@@ -22,7 +22,7 @@ public class AdminController {
 	private AdminService aServ;
 	
 	private ModelAndView mv;
-	
+
 	@GetMapping("reportFrm")
 	public ModelAndView reportFrm(Integer pageNum) {
 		
@@ -76,6 +76,7 @@ public class AdminController {
 		System.out.println("qlist = "+qList);
 		return mv;
 	}
+	//문의사항 상세보기 
 	@GetMapping("/requeboard_read")
 	public ModelAndView requeboardRead(int ques_no,Integer view) {
 		
@@ -83,21 +84,28 @@ public class AdminController {
 		
 		ModelAndView mv = new ModelAndView();
 		System.out.println("ques_no = "+ques_no);
-
+		
+		//문의번호로 가져옴
 		List<quesboardDto> readqlist = aServ.getboardRead(ques_no);
 		
+		//가져온거 어차피 1개니까 0번째로 꺼냄
 		quesboardDto qDto = readqlist.get(0);
 		
+		//문의글 상태. 0 = 미답변,1=답변완료
 		int state = qDto.getQues_state();
-		/*
+		
+		//답변 완료일시
 		if(state == 1) {
+			
+			//문의번호로 답변 찾아와서 저장
 			quesReplyDto qrDto = aServ.selectQuesReply(ques_no);
 			
 			mv.addObject("reply",qrDto);
 		}
-		*/
 		
 		mv.addObject("qrlist", readqlist);
+		
+		//호출한곳(마이페이지,관리자페이지)에 따라 다른 viewname 설정 후 반환
 		if(num == 0) {
 			mv.setViewName("requeboard_read");
 		}
@@ -107,10 +115,29 @@ public class AdminController {
 		System.out.println("readqlist = "+readqlist);
 		return mv;
 	}
+	
 	@GetMapping("quesboard_rewrite")
 	public String quesboard_rewrite() {
 		
-		return "quesboard_rewrite";
+		return null;
+		// 이거 본 사람 확인 부탁해요~
 	}
 
+	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
+	@GetMapping("currentMovieList")
+	public ModelAndView currentMovieList() {
+
+		mv = aServ.getMovieList();
+		
+		return mv;
+	}
+	
+	@GetMapping("adminMovieList")
+	public ModelAndView adminMovieList(Integer pageNum) {
+		
+		mv = aServ.adminMovieList(pageNum);
+		
+		return mv;
+	}
 }
+

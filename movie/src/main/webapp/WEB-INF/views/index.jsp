@@ -6,9 +6,6 @@
 <meta charset="UTF-8">
 <title>Movie | eivoM</title>
 <link rel="stylesheet" type="text/css" href="resource/css/index.css">
-<script src="resource/js/jquery-3.6.0.min.js"></script>
-<script src="resource/js/bootstrap.bundle.js"></script>
-
 </head>
 <body>
 
@@ -31,6 +28,7 @@
 					</div>
 					<div id="box-office-list">
 						<ol id="box-list">
+							<!-- <c:forEach> 돌림 -->
 							<li class="box-office-list">
 								<a href="">
 									<img src="https://img.megabox.co.kr/SharedImg/2021/12/16/ixl5QxDVs5Gn8nQN3rslK8BUmgFVklj8_420.jpg" alt="스파이더맨: 노 웨이 홈" class="poster" onerror="noImg(this, 'main');">
@@ -131,14 +129,14 @@
 		</footer>
 	</div>
 </body>
-	
+	<script src="resource/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 		//메시지 출력 부분
 		var msg = "${msg}";
 		var info = "${userInfo.m_name}"
 		
 		if(msg != ""){
-			alert(msg + info + " 님!");
+			alert(msg);
 		}
 	</script>
 </html>

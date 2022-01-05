@@ -1,7 +1,4 @@
-
 package com.example.movie.dto;
-
-import java.sql.Timestamp;
 
 import lombok.Data;
 
