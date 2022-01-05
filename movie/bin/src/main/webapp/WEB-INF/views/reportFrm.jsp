@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>신고관리</title>
+<title>신고 관리</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -16,6 +16,14 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	//메시지 출력 부분
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	});
+</script>
 </head>
 <body>
 
@@ -55,20 +63,21 @@
 	<!-- 게시글 리스트 -->
 	<div class="container" style="margin-top: 100px">
 		<div class="card shadow">
-			<form name="searchFrm" action="reportSerchFrm" method="post">
+			<form name="searchFrm" action="mvReviewSearch" method="post">
 				<div class="card-body">
 					<h4 class="card-title">신고관리</h4>
-					<input type="text" placeholder="ID 입력" name="m_id"> <input
+					<input type="text" placeholder="ID 입력" name="mvname"> <input
 						type="submit" value="검색">
+				</div>
+			</form>
 					<table class="table table-hover" id='board_list'>
 						<thead>
 							<tr>
-								<th class="text-center d-none d-md-table-cell">신고자ID</th>
-								<th class="text-center d-none d-md-table-cell">신고사유</th>
-								<th class="text-center d-none d-md-table-cell">리뷰내용</th>
-								<th class="text-center d-none d-md-table-cell">작성자ID</th>
-								<th class="text-center d-none d-md-table-cell">신고일</th>
-								<th class="text-center d-none d-md-table-cell">상태</th>
+							<!-- 	<th class="text-center d-none d-md-table-cell">번호</th> -->
+								<th class="text-center d-none d-md-table-cell">영화명</th>
+								<th class="text-center d-none d-md-table-cell">내용</th>
+								<th class="text-center d-none d-md-table-cell">등록일</th>
+								<th class="text-center d-none d-md-table-cell">평점</th>
 								<th class="text-center d-none d-md-table-cell">관리</th>
 							</tr>
 						</thead>
@@ -76,24 +85,43 @@
 						<!-- 검색 처리 -->
 						<c:choose>
 						<c:when test="${not empty rpList}">
-						<c:forEach var="rpitem" items="${rpList}">
+							<c:forEach var="rpitem" items="${rpList}">
 								<tr>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rpid}</td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rpwhy}</td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.contents}</td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rptid}</td>
-									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${rpitem.rpdate}"
-										pattern="yyyy-MM-dd"/></td>
-									<td class="text-center d-none d-md-table-cell">${rpitem.state}</td>
-									<td class="text-center d-none d-md-table-cell"><button onclick="delCheck(${rpitem.mvrnum})">경고 및 삭제</button></td>
+									<td class="text-center d-none d-md-table-cell"><fmt:formatDate
+											value="${rpitem.rpdate}" pattern="yyyy-MM-dd" /></td>
+									<td class="text-center d-none d-md-table-cell">
+								<c:choose> 
+									<c:when test="${rpitem.state == '0'}">
+										미처리
+									</c:when> 
+									<c:otherwise>
+										처리완료
+									</c:otherwise> 
+								</c:choose> 
+								
+									</td>
+									<td class="text-center d-none d-md-table-cell">
+									<c:choose> 
+									<c:when test="${rpitem.state == '0'}">
+										<button id="btn1" onclick="delCheck(${rpitem.mvrnum})">경고 및 삭제</button>
+									</c:when> 
+									<c:otherwise>
+										처리완료
+									</c:otherwise> 
+								</c:choose> 
+									</td>
 								</tr>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
-						<td class="text-center d-none d-md-table-cell">신고 정보가 없습니다.</td>
+							<td class="text-center d-none d-md-table-cell">신고 정보가 없습니다.</td>
 						</c:otherwise>
-						
-						</c:choose>
+
+					</c:choose>
 						
 						
 							<!-- <c:forEach var="mitem" items="${mseList}">
@@ -129,10 +157,7 @@
 							<li class="page-item"><a href="#" class="page-link">다음</a></li>
 						</ul>
 					</div>
-				</div>
-
-			</form>
-
+			
 		</div>
 	</div>
 
@@ -146,11 +171,11 @@
 	</div>
 </body>
 <script type="text/javascript">
-function delCheck(){
+function delCheck(mv_review){
 	var conf = confirm("삭제하시겠습니까?");
 	
 	if(conf == true){
-		location.href='./deleteMvReview' + mvrnum;
+		location.href='./delAdminMvReview?mv_review=' + mv_review;
 	}
 }
 </script>
