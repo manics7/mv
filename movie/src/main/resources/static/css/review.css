@@ -155,11 +155,21 @@ td.t_no, td.t_view, td.t_like {
 
 /******************************글작성*******************************/
 
+/* 신고하기 버튼 */
+#report_btn {
+	float: right;
+	border: none;
+	background-color: white;
+}
+#report_btn:hover {
+	border-bottom: 1px solid;
+}
+
 /* 글작성 전체폼 */
 .rv_content {
 	width: 1024px;
-	border-top: 2px solid black;
-	border-bottom: 2px solid black;
+	/* border-top: 2px solid black;
+	border-bottom: 2px solid black; */
 	margin: 0 auto;
 	margin-top: 40px;
 	padding: 15px;
