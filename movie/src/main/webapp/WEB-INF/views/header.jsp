@@ -31,7 +31,7 @@
 				<li><a href="#">영화관후기</a></li>
 				<li><a href="#">이벤트</a></li>
 				<li><a href="#">허전해~</a></li>
-				<li><a href="#">빠른예매</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#rsrvModal" data-movie="127"  data-thcode="1"  data-id="100" id="modal">빠른예매</a></li>
 			</ol>
 		</div>
 	</div>
@@ -75,7 +75,15 @@
 		</form>
 	</div>
 </div>
+	<div class="modal fade" id="rsrvModal" tabindex="-1" role="dialog"	aria-labelledby="label" aria-hidden="true" data-backdrop="static">
+		<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+			<div class="modal-content"></div>
+		</div>
+	</div> 
+	
 
+
+<script type="text/javascript"  src="resource/js/rsrv.js"></script>
 <script type="text/javascript">
 //로그인 클릭시 모달 창 띄움
 $("#login_btn").click(function() {

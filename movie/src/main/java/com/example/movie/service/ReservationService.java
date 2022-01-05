@@ -1,176 +1,62 @@
 package com.example.movie.service;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.persistence.EntityManager;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.movie.common.AwsS3;
-import com.example.movie.entity.MovieOfficial;
-import com.example.movie.entity.Reservation;
+import com.example.movie.entity.Room;
 import com.example.movie.entity.Schedule;
-import com.example.movie.entity.Theater;
-import com.example.movie.repository.MovieOfficialRepository;
+import com.example.movie.entity.ScheduleDetail;
+import com.example.movie.entity.Seat;
 import com.example.movie.repository.ReservationRepository;
 import com.example.movie.repository.ReservationRepositoryCustom;
+import com.example.movie.repository.RoomRepository;
+import com.example.movie.repository.ScheduleDetailRepositoy;
 import com.example.movie.repository.ScheduleRepositoy;
-import com.example.movie.repository.TheaterRepository;
+import com.example.movie.repository.SeatRepository;
 
 @Service
 public class ReservationService {
 
 	@Autowired
-	EntityManager entityManager;
-	
-	@Autowired
 	ReservationRepository reservationRepository;
 	
+	@Autowired
+	ReservationRepositoryCustom reservationRepositoryCustom;
+
 	@Autowired
 	ScheduleRepositoy scheduleRepositoy;
 	
 	@Autowired
-	MovieOfficialRepository movieOfficialRepository;
+	ScheduleDetailRepositoy scheduleDetailRepositoy;
 	
 	@Autowired
-	TheaterRepository theaterRepository;
+	RoomRepository roomRepository;
 	
 	@Autowired
-	AwsS3 awsS3;
+	SeatRepository seatRepository;
 	
-	@Autowired
-	ReservationRepositoryCustom reservationRepositoryCustom;
-	
-	public Map<String, List<Map<String, String>>> getDate() {
-		Map<String, List<Map<String, String>>> map = new HashMap<String, List<Map<String,String>>>();
+	public Map<String, Object> getSeat(Integer schCode, Integer schDetailSeq) {
+		Optional<Schedule> scheduleOpt = scheduleRepositoy.findById(schCode);		
+		Optional<ScheduleDetail> schDetailOpt = scheduleDetailRepositoy.findById(schDetailSeq); 
 		
-		List<Map<String, String>> date = getDefaultDate();
+		Schedule schedule = scheduleOpt.orElse(null);
+		Room room = roomRepository.findByThCodeAndRoomNo(schedule.getThCode(), schedule.getRoomNo());
 		
-		map.put("date", date);
-		return map;
-	}
+		List<Seat> seatList = seatRepository.findByThCodeAndRoomNo(schedule.getThCode(), schedule.getRoomNo());
+		List<Integer>seatNoList = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
+		Map<String,Object> map = new HashMap<String, Object>();
 		
-	public List<Map<String, String>> getDefaultDate(){
-		List<Map<String, String>> dateList = new ArrayList<Map<String,String>>();
-		List<DayOfWeek>  days = new ArrayList<DayOfWeek>();
-		//DayOfWeek.of(0)
-		LocalDate startDate = LocalDate.now(); 
-		LocalDate endDate= startDate.plusWeeks(2);//2주간 마지막날
-		Period period = Period.between(startDate,endDate); // 몇일간인지 구하기
-		int term = period.getDays(); 
-	
-		//DayOfWeek dayOfWeek = startDate.getDayOfWeek();		
-		//  term 동안 년월일,요일 구하기
-		for (int i = 0; i < term; i++) {					
-			
-			String date =  startDate.plusDays(i).toString(); // 년
-			//String year =  startDate.plusDays(i).getYear()+""; // 년
-			//String month = StringUtils.stripStart(startDate.plusDays(i).getMonth().getValue()+"", "0");  // 달에서 0 제외
-			//String day = StringUtils.stripStart(startDate.plusDays(i).getDayOfMonth()+"", "0"); // 일에서 0제외
-			String dayOfWeek = startDate.plusDays(i).getDayOfWeek().getDisplayName(TextStyle.NARROW, Locale.KOREAN);
-			
-			//System.out.println(year + " / " + month + "/" + day);						
-			Map<String, String> map = new HashMap<String, String>();			
-			map.put("date", date);
-			map.put("dayOfWeek", dayOfWeek);
-			dateList.add(map);		
-		}
-		return dateList;
-	}
-
-	//처음화면 세팅을 위한 스케쥴에 해당하는 영화,상영관,날짜 목록을 가져온다.
-	public Map<String, Object> getSchedule() {
-		
-		LocalDate now = LocalDate.now();
-		String date= now.toString();	
-		LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));		
-		LocalDate lastDate= now.plusWeeks(2);//2주 마지막날
-		
-		Date startDate = java.sql.Date.valueOf(dateTime.toLocalDate());
-		Date endDate = java.sql.Date.valueOf(lastDate);
-		
-		List<Schedule> scheduleList = scheduleRepositoy.findBySchDateBetween(startDate, endDate);
-
-		//스케쥴에서 영화,극장코드 중복제거해서 가져오기
-		List<String> movieCdList = scheduleList.stream().map(Schedule::getMovieCd).distinct().collect(Collectors.toList());
-		List<Integer> thCodeList = scheduleList.stream().map(Schedule::getThCode).distinct().collect(Collectors.toList());
-		List<Date> schDateList = scheduleList.stream().map(Schedule::getSchDate).distinct().collect(Collectors.toList());
-		//영화, 극장, 날짜 목록 가져오기
-		List<MovieOfficial> movieList = movieOfficialRepository.findAllById(movieCdList)
-				.stream()
-				.sorted(Comparator.comparing(MovieOfficial::getMovieNm))
-				.collect(Collectors.toList());
-				
-		List<Theater> theaterList = theaterRepository.findAllById(thCodeList);
-		List<Map<String, String>> dateList = getDefaultDate();
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("movieList", movieList);
-		map.put("theaterList", theaterList);		
-		map.put("dateList", dateList);
-		map.put("s", schDateList);
-		
-		//String url = awsS3.getFileURL(awsS3.bucket, awsS3.bucketURL+"mm.thumb.jpg");
-		//String url2 = awsS3.getFileURL(awsS3.bucket, awsS3.bucketURL+"82479_320.jpg");	
-		//String url3 = awsS3.getFileURL(awsS3.bucket, awsS3.bucketURL+"84949_320.jpg");	
-		//System.out.println(url1 + "//////////////////////////////////////////////////");
-		//System.out.println(url2 + "//////////////////////////////////////////////////");
-		//System.out.println(url3 + "//////////////////////////////////////////////////");
-		
+		map.put("room", room);
+		map.put("seatList", seatList);
+		map.put("rsrvSeatNoList", seatNoList);
 		return map;
 	}
 	
-	public List<MovieOfficial>getMoiveList(List<String> movieCdList, String movideCd,  String sort){
 	
-		//받아온걸 이름순으로 정렬
-		List<MovieOfficial> movieList = movieOfficialRepository.findAllById(movieCdList)
-				.stream()
-				.sorted(Comparator.comparing(MovieOfficial::getMovieNm))
-				.collect(Collectors.toList());
-		if(sort.equals("reservation")) {
-		//예매율순으로 가져올거	
-		}
-		
-		return movieList;
-	}
-	
-	//영화,극장,일자 선택했을때
-	public List<Schedule>  selectSchList(String movieCd ,Integer thCode, String schDate) {
-		
-		List<Schedule> schList = reservationRepositoryCustom.selectSchList(movieCd, thCode, schDate);
-		
-		return schList;
-	}
-	
-	public List<Reservation> getRsrvList() {
-		List<Reservation> list = reservationRepository.findAll();
-		return list;
-	}
-
-	public Map<String, Object> getSchduleTime(String movieCd, Integer thCode, String date) {
-		List<Schedule> list= reservationRepositoryCustom.getSchduleTime(movieCd, thCode, date);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("schDetailList", list);
-		return map;
-	}
-	
-	public List<Schedule> getTimeList() {
-		List<Schedule> list = reservationRepositoryCustom.getTimeList();
-		return list;
-	}
 	
 }

@@ -31,7 +31,7 @@ public class ReservationSeat {
 	
 	//@Id
 	@Column(name="RSRV_NO", columnDefinition="예매번호")
-	private String rsrvNo;
+	private Integer rsrvNo;
 	
 	//@Id
 	@Column(name="SEAT_NO", columnDefinition="좌석번호")
