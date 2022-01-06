@@ -129,5 +129,13 @@ public class AdminController {
 		
 		return mv;
 	}
+	
+	@GetMapping("movieDetail")
+	public ModelAndView movieDetail(int mv_seq) {
+		
+		mv = aServ.movieDetail(mv_seq);
+		
+		return mv;
+	}
 
 }

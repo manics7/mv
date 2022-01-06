@@ -78,7 +78,7 @@
 									<td class="text-center d-none d-md-table-cell">${mvitem.movie_cd}</td>
 									<td class="text-center d-none d-md-table-cell"><a
 									href='/movieDetail?mv_seq=${mvitem.mv_seq}'>${mvitem.movie_nm}</a></td>
-									<td class="text-center d-none d-md-table-cell">일반</td>
+									<td class="text-center d-none d-md-table-cell">${mvitem.open_dt}</td>
 							
 									<td class="text-center d-none d-md-table-cell">
 									<c:choose>
