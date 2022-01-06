@@ -69,7 +69,7 @@
 		WHERE mv_review=#{mvrnum}
 	</delete>
 
-
+<!-- 회원정보 목록 출력 -->
 	<select id="getList" parameterType="HashMap"
 		resultType="com.example.movie.dto.MemberDto">
 				<![CDATA[
