@@ -32,7 +32,9 @@
             <!-- 상단 메뉴 부분 -->
             <div class="cont_wrap">
                 <!-- 게시글 리스트 -->
-                <div class="cont_sidebar"></div>
+                <div class="cont_sidebar">
+                <jsp:include page="adminpage_sidebar.jsp"/>
+                </div>
                 <div class="container queboard">
                     <div class="card shadow">
                         <!--
@@ -60,29 +62,18 @@
                                         <th class="text-center">작성날짜</th>
                                         <th class="text-center">진행사항</th>
                                         <th class="text-center">작성자</th>
+                                        
+                                        <!--
+                                        
                                         <th class="text-center">답변하기</th>
+                                        
+                                          -->
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- 이부분은 검색 결과 출력되는 부분 -->
-                                    <c:forEach var="qitem" items="${mbLIst}">
-
-                                        <tr>
-                                            <td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
-                                            <td class="text-center d-none d-md-table-cell"><a
-                                                    href='/requeboard_read?ques_title=${qitem.ques_title}'>${qitem.ques_title}</a>
-                                            </td>
-                                            <td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
-                                            <td class="text-center d-none d-md-table-cell">${qitem.ques_state == "0" ? "미완료" : "답변 완료"}</td>
-                                            <td class="text-center d-none d-md-table-cell">${qitem.m_id}</td>
-                                            <td class="text-center d-none d-md-table-cell"><a
-                                                    href='/queboard_rewrite'>${qitem.ques_state > 0 ? "답변완료" : "답변작성"}</a>
-                                            </td>
-
-                                        </tr>
-                                        
-
-                                    </c:forEach>
+                                   
 
 
 
@@ -97,10 +88,15 @@
                                             <td class="text-center d-none d-md-table-cell">${qitem.ques_date}</td>
                                             <td class="text-center d-none d-md-table-cell">${qitem.ques_state == "0" ? "미완료" : "답변 완료"}</td>
                                             <td class="text-center d-none d-md-table-cell">${qitem.m_id}</td>
+                                            <!--
+                                            
                                             <td class="text-center d-none d-md-table-cell"><a
                                                     href='/queboard_rewrite'>${qitem.ques_state > 0 ? "답변완료" : "답변작성"}</a>
                                             </td>
-
+                                            
+                                            
+                                              -->
+                                            
                                         </tr>
                                     </c:forEach>
                                 </tbody>

@@ -1,9 +1,11 @@
 package com.example.movie.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.example.movie.config.MybatisMapper;
+import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.ReviewMovieDto;
@@ -22,10 +24,17 @@ public interface AdminMapper extends MybatisMapper {
 	// 관람평 목록 가져오기
 	public List<ReviewMovieDto> reviewMovie(String movie_cd);
 
-	List<quesboardDto> getboardSelect(String m_id);
+	//회원 정보 출력 에서 회원 작성 글 선택 시 출력 되는 해당 회원의 1대1문의게시글 항목 가져오기
+	List<quesboardDto> getquesboardSelect(String m_id);
 
+	//1대1문의게시판 읽기 
+	List<quesboardDto> getquesboardRead(int ques_no);
 	
-	List<quesboardDto> getboardRead(int ques_no);
+	//1대1문의사항 게시판 목록 가져오기
+	public List<quesboardDto> getQuesList(Map<String, Integer> qmap);
+	
+	//1대1문의사항 게시판 작성 글 수
+	public int getquesBoardCnt();
 	
 	//문의사항 답변 불러오기
 	public quesReplyDto selectQuesReply(int ques_num);
@@ -57,7 +66,10 @@ public interface AdminMapper extends MybatisMapper {
 	public List<MovieOfficialDto> selectMvOfficial();
 	
 	public List<reportMvReviewDto> selectReportMvReviewSort(Map<String, Integer> pmap);
-	
-	public List<reportMvReviewDto> selectReportMvReviewSortDesc(Map<String, Integer> pmap);
+	//사업자 회원 목록 출력
+	public List<BusinessDto> getbuslist(HashMap<String, Integer> busmap);
+	//사업자 회원 목록 페이징시 필요한 목록 수
+	public int getBusCnt();
+
 
 }
