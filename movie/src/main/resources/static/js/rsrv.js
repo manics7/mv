@@ -19,7 +19,7 @@
 			,schCode : ''
 			,schDetailSeq : ''
 			
-		}					
+		}			
 		,init : function(){			
 			fnObj.initData();
 			if(fnObj.defaultData.history.length > 0){
@@ -233,24 +233,49 @@
 					var rsrvSeatNoList =res.rsrvSeatNoList;
 					var seatList =res.seatList;
 					var html = "";
-					
+					var matrix = [];
+					var status = '';
+					var seatNo = '';
+					//화면에 보여줄 좌석을 한줄씩 만든다.
 					for(var i=0; i<seatList.length; i++){							
-						
-						//console.log('i%col =  '  + i%col);
-						if(i%row == 0){
-							html +=  "<div class='row'>";
-							//html += "<a class='btn btn-outline-dark' href='#' role='button' row="+seatList[i].seatRow +" col="+seatList[i].seatCol+" seatNo="+seatList[i].seatNo+" >"  + seatList[i].seatNo + "</a>";
-									
-						}
-							html +=  "<a class='btn btn-outline-dark' href='#' role='button' row="+seatList[i].seatRow +" col="+seatList[i].seatCol+" seatNo="+seatList[i].seatNo+" >"  + seatList[i].seatNo + "</a>";
-							
-						if(i%row == 0){
-						html+="</div>";
-						}
-										
-						console.log(html);	
+						//로우생성
+						var rowIdx = Math.floor(i/col);
+						if(!matrix[rowIdx]){ 
+                    		matrix[rowIdx]=[];
+                    	}
+                    	//로우 담을 열추가
+                    	matrix[rowIdx].push({
+                   				index:i
+                   				, row:rowIdx
+                   				, seatNo : seatList[i].seatNo
+                   				, seatStatus : seatList[i].seatStatus
+                   		});
+                   		
 					}
-					$("#seatBox").html(html);
+					console.log(matrix);					
+					for(var i=0; i<matrix.length; i++){
+						html += "<div class='row'>";
+						html += "<div class='col-sm-12 text-center'><span class='mr-2'><b>"+String.fromCharCode(65 + i) +"</b></span>";
+					
+							for(var j=0; j<matrix[i].length; j++){	
+								
+								status = matrix[i][j].seatStatus == 1 ? 'terrain'  : 'possible';								
+								seatNo = status == 'terrain' ? ' ' : matrix[i][j].seatNo; 
+								
+								for(var k=0; k<rsrvSeatNoList.length; k++){
+									status = ( rsrvSeatNoList[k] == matrix[i][j].seatNo ? 'reservation' : status);
+								}
+								html += "<a class='btn btn-outline-dark mx-1 my-1 px-0 "+ status +" ' href='#'  seatNo="+seatNo+" data-toggle='button'  >"
+								+ seatNo + "</a>";
+							}
+							
+						html +=  "</div>";
+						html +=  "</div>";
+					}
+					
+					$("#seat").html(html);
+					
+					$(".terrain").addClass("disabled");
 				},
 				err : function(err) {
 					console.log("err:", err)
@@ -419,3 +444,34 @@
 		fnObj.defaultData.history = 'history';
 		$('#rsrvModal .modal-content').load("rsrv",fnObj.init());		
 	});
+	//$("#youth button")
+	$(document).on("click", "#youthCnt, #adultCnt" , function(e){
+	
+		var youthCnt = $('#youthCnt input:radio:checked').val();
+		var adultCnt = $('#adultCnt input:radio:checked').val();
+		var sumCnt = Number(youthCnt)+Number(adultCnt);
+		
+		var youthPrice = Number(youthCnt*7000);
+		var adultPrice = Number(adultCnt*9000);
+		
+		if(sumCnt > 8 ){
+			if($(this).attr("aria-label") == 'First group'){
+				$("#adultCnt label").removeClass("active");
+				$("#adultCnt label").eq(0).addClass("active");
+				$("#price").html(youthPrice.toLocaleString('ko-KR'));
+			}else{				
+				$("#youthCnt label").removeClass("active");
+				$("#youthCnt label").eq(0).addClass("active"); 
+				$("#price").html(adultPrice.toLocaleString('ko-KR'));
+			}		
+			e.preventDefault();
+			alert("최대 8명");
+			
+			return;
+		}
+	
+		$("#price").html(Number(youthPrice+adultPrice).toLocaleString('ko-KR'));
+				
+	
+	});
+	

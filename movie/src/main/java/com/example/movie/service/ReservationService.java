@@ -41,7 +41,7 @@ public class ReservationService {
 	@Autowired
 	SeatRepository seatRepository;
 	
-	public Map<String, Object> getSeat(Integer schCode, Integer schDetailSeq) {
+	public Map<String, Object> getSeat(Integer schCode, Integer schDetailSeq) throws Exception{
 		Optional<Schedule> scheduleOpt = scheduleRepositoy.findById(schCode);		
 		Optional<ScheduleDetail> schDetailOpt = scheduleDetailRepositoy.findById(schDetailSeq); 
 		
@@ -49,7 +49,7 @@ public class ReservationService {
 		Room room = roomRepository.findByThCodeAndRoomNo(schedule.getThCode(), schedule.getRoomNo());
 		
 		List<Seat> seatList = seatRepository.findByThCodeAndRoomNo(schedule.getThCode(), schedule.getRoomNo());
-		List<Integer>seatNoList = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
+		List<String>seatNoList = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
 		Map<String,Object> map = new HashMap<String, Object>();
 		
 		map.put("room", room);
