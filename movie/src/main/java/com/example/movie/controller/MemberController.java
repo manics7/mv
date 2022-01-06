@@ -138,6 +138,7 @@ public class MemberController {
 	//회원 정보 출력
 	@GetMapping("/mmanage")
 	public ModelAndView mmanageFrm(String pageNum) throws Exception {
+		System.out.println("page_num = "+pageNum);
 		LOG.info("info Log = " + pageNum);
 
 		ModelAndView mv = new ModelAndView();

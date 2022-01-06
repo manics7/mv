@@ -625,6 +625,7 @@ public class MemberService {
 	}
 	//검색한 회원 1대1 작성 글 목록 페이징 처리
 	public String getsearchPaging(String m_id) {
+		System.out.println();
 		String pageHtml = null;
 		int num = 1;
 		//전체 글 개수 구하기(DAO) -> MAPPER 거쳐서 102라는 숫자가 나옴.
