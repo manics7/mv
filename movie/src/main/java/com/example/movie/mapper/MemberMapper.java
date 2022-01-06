@@ -5,6 +5,7 @@ import java.util.Map;
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.QuestionDto;
+import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.mvReviewDto;
 import com.example.movie.dto.paymentDto;
 import com.example.movie.dto.reservationDto;
@@ -66,4 +67,10 @@ public interface MemberMapper  extends MybatisMapper {
 	// 이용자 검색(세션 저장용?)
 	public MemberDto getMember(String m_id);
 
+	// 이용자 관람평 작성
+	public void insertReviewMovie(ReviewMovieDto reviewMovieDto);
+
+	// 이용자 관람평 목록 다시 검색
+	public List<ReviewMovieDto> selectReviewMovieList(String mv_review_moviecd);
+	
 }
