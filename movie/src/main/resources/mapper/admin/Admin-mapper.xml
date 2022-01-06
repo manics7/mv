@@ -34,6 +34,12 @@
 		]]>
 	</select>
 	
+	<select id="getquesboardSelect"
+		resultType="com.example.movie.dto.quesboardDto">
+		SELECT * FROM v_question where m_id = #{m_id}
+	</select>
+	
+	
 	<select id="selectReportMvReviewSortDesc" parameterType="HashMap"
 		resultType="com.example.movie.dto.reportMvReviewDto">
 		select * from
@@ -83,17 +89,34 @@
 	</delete>
 	
 	
-
+<!-- 문의글 목록 출력 -->
 	<select id="getQuesList" parameterType="HashMap"
 		resultType="com.example.movie.dto.quesboardDto">
 	<![CDATA[
-		SELECT * FROM question
-		WHERE ROWNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
-			AND ROWNUM <= #{num} * #{lcnt}
+		SELECT * FROM v_question
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
 		]]>
 	</select>
-	
-	
+	<!--  문의글 목록 수 -->
+	<select id="getquesBoardCnt" resultType="integer">
+		SELECT COUNT(*) FROM
+		QUESTION
+	</select>
+	<!-- 사업자 회원 목록 출력 -->
+		<select id="getbuslist" parameterType="HashMap"
+		resultType="com.example.movie.dto.BusinessDto">
+		<![CDATA[
+		SELECT * FROM BUSINESS
+		WHERE ROWNUM >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
+			AND ROWNUM <= #{pageNum} * #{lcnt}
+		]]>
+	</select>
+	<!-- 사업자 목록 수  -->
+		<select id="getBusCnt" resultType="integer">
+		SELECT COUNT(*) FROM
+		BUSINESS
+	</select>
 	<!-- 영화 상세 페이지 이동 -->
 	<select id="movieDetail" parameterType="String" resultType="com.example.movie.dto.MovieOfficialDto">
 		select * from movie_official where movie_cd=#{movie_cd}
