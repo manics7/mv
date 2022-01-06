@@ -25,7 +25,9 @@
 </head>
 <body>
     <div class="wrap">
-        <nav></nav>
+        <nav>
+        <jsp:include page="admin_header.jsp"></jsp:include>
+        </nav>
 
 
         <div class="main_wrap">

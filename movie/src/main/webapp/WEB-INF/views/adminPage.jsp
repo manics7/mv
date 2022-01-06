@@ -24,9 +24,13 @@
 
 
 	<div class="wrap">
-		<nav>
-			<!--이부분에 상단매뉴 들어감.-->
-			<div class="admmin_nav_wrap">
+	
+	 
+	<nav>
+	<jsp:include page="admin_header.jsp"></jsp:include>
+	<!--  
+	
+	<div class="admmin_nav_wrap">
 			<ul class="admin_nav"> 
 			<li class="admin_nav_item cont1"> <a href="./mmanage?pageNum=1">회원관리</a> </li>
 			<li class="admin_nav_item cont2"> <a href="./watcheMovieFrm"></a> 영화관리</li>
@@ -36,7 +40,13 @@
 			
 			</ul>
 			</div>
+	
+	-->
+			
 		</nav>
+	
+	
+		
 		<div class="main_wrap">
 			<div class="cont_wrap">
 				<div class="cont_sidebar">

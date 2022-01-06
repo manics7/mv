@@ -25,7 +25,7 @@
 
 	<div class="wrap">
 		<nav>
-			<!--이부분에 상단매뉴 들어감.-->
+			<jsp:include page="admin_header.jsp"></jsp:include>
 		</nav>
 		<div class="main_wrap">
 			<div class="cont_wrap">
