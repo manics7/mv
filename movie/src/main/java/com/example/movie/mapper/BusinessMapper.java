@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.MovieOfficialDto;
+import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.RoomDto;
 import com.example.movie.dto.SeatDto;
-import com.example.movie.dto.TestDto;
-
+import com.example.movie.dto.TheaterDto;
 
 public interface BusinessMapper  extends MybatisMapper {
 	
@@ -23,8 +24,17 @@ public interface BusinessMapper  extends MybatisMapper {
 	// 사업자 검색(세션 저장용?)
 	public BusinessDto getBusiness(String b_id);
 	
-	// test insertMovie
-	public void insertMovie(TestDto tDto);
+	//영화관 등록
+	public void theaterAdd(TheaterDto theater);
+	
+	//영화관 정보 검색
+	public List<TheaterDto> getTheaterList(String b_id);
+	
+	//영화 이름 검색
+	public List<MovieOfficialDto> getMovieList();
+	
+	//상영관 검색
+	public List<RoomDto> getRoominfoList();
 	
 	//사업자가 등록한 극장이름
 	public String selectThNameByBid(String b_id);
@@ -37,5 +47,5 @@ public interface BusinessMapper  extends MybatisMapper {
 	public void roomInsert(RoomDto roDto);
 	//좌석정보 등록하기
 	public void seatInsert(SeatDto seDto);
-	
+
 }

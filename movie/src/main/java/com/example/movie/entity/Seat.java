@@ -30,20 +30,14 @@ public class Seat {
 	@Column(name="SEAT_SEQ", columnDefinition="좌석 시퀀스")
 	private Integer seatSeq;
 	
-	//@Id
 	@Column(name="TH_CODE", columnDefinition="영화관코드")
 	private Integer thCode;
 	
-	//@Id
 	@Column(name="ROOM_NO", columnDefinition="상영관코드")
 	private Integer roomNo;
 	
-	//@Id
 	@Column(name="SEAT_NO", columnDefinition="좌석번호")
 	private String seatNo;
-	
-	@Column(name="SEAT_CLASS", columnDefinition="상영관 종류")
-	private String seatClass;
 	
 	@Column(name="SEAT_ROW", columnDefinition="행")
 	private Integer seatRow;

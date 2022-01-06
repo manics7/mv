@@ -1,18 +1,16 @@
 package com.example.movie.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.movie.service.AdminService;
-
-import java.util.List;
-
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
-import com.example.movie.mapper.AdminMapper;
+import com.example.movie.service.AdminService;
 
 
 @Controller

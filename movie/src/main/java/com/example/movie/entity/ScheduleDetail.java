@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -43,16 +44,21 @@ public class ScheduleDetail {
 	@Column(name="SCH_CODE", columnDefinition="상영 시간 키")
 	private Integer schCode;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", timezone = "Asia/Seoul")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")	
 	@Column(name="SCH_DETAIL_START", columnDefinition="시작시간")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date schDetailStart;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", timezone = "Asia/Seoul")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")	
 	@Column(name="SCH_DETAIL_END", columnDefinition="종료시간")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date schDetailEnd;
-
+	
+	@Transient
+	private String schStatus;
+	
+	@Transient
+	private Integer rsrvSeatCnt;
 }
