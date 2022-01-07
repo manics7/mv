@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MovieDto;
@@ -70,12 +72,13 @@ public interface AdminMapper extends MybatisMapper {
 	public List<BusinessDto> getbuslist(HashMap<String, Integer> busmap);
 	//사업자 회원 목록 페이징시 필요한 목록 수
 	public int getBusCnt();
-	
 	//영화시퀀스번호로 사업자 영화가져옴
 	public MovieDto selectMovieBySeq(int mv_seq);
 
 	public void adminMovieInsert(MovieOfficialDto mvofficialDto);
-	
+
+	public ModelAndView quesboard_replywrite(quesReplyDto qrdto);
+
 
 
 }

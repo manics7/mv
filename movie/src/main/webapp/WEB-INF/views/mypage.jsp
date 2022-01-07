@@ -80,7 +80,7 @@
 						</div>
 					</div>
 					<div class="booking_history">
-						<h3>예매내역</h3>
+						<h3 style="font-size : 14px; color:#222; font-weight:700; margin-bottom : 24px;" class="booking_title">예매내역</h3>
 						<div class="historylist">
 							<p class="no_data">예매내역이 없습니다.</p>
 						</div>
