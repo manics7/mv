@@ -24,20 +24,27 @@ public class ReservationController {
 	ModelAndView modelAndView;
 
 	@GetMapping("/rsrv")
-	public String rsrv() {
+	public ModelAndView reservation() {
+		ModelAndView mv = new ModelAndView();
 		
-		return "rsrv/reservation";
+		mv.setViewName("rsrv/reservation");
+		return mv;
+	}
+	
+	@GetMapping("/rsrvSeat")
+	public String reservationSeat() {		
+		return "rsrv/reservationSeat";
 	}
 	
 	@PostMapping("/getSeat")
 	@ResponseBody
-	public Map<String, Object> getSeat(Integer schCode ,Integer schDetailSeq) {
+	public Map<String, Object> getSeat(Integer schCode ,Integer schDetailSeq) throws Exception {
 		Map<String, Object>  map = reservationService.getSeat(schCode, schDetailSeq);
 		return map;
 	}
 	
 	//@PostMapping("/rsrvSeat")
-	public ModelAndView reservationSeat(Integer schCode ,Integer schDetailSeq) {
+	public ModelAndView reservationSeat(Integer schCode ,Integer schDetailSeq) throws Exception {
 		modelAndView = new ModelAndView();
 			
 		Map<String, Object>  map = reservationService.getSeat(schCode, schDetailSeq);

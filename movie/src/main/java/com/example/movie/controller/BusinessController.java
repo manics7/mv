@@ -200,6 +200,4 @@ public class BusinessController {
 		
 		return tempMovie;
 	}
-	
-	
 } // class end

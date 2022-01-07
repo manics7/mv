@@ -147,4 +147,19 @@
 		SELECT * FROM movie_official
 	</select>
 	
+	<select id="selectMovieBySeq" parameterType="Integer"
+		resultType="com.example.movie.dto.MovieDto">
+		SELECT * FROM movie where mv_seq =#{mv_seq}
+	</select>
+	
+	<insert id="adminMovieInsert" parameterType="com.example.movie.dto.MovieOfficialDto">
+		insert into movie_official values (#{movie_cd}, #{movie_nm}, #{movie_content},
+		#{show_tm}, #{open_dt}, #{genre_nm}, #{directors}, #{actors}, #{show_types},
+		#{watch_grade_nm}, #{poster,jdbcType=VARCHAR}, #{stillcut1,jdbcType=VARCHAR}, 
+		#{stillcut2,jdbcType=VARCHAR}, #{stillcut3,jdbcType=VARCHAR}, 
+		#{stillcut4,jdbcType=VARCHAR}, #{stillcut5,jdbcType=VARCHAR})
+	</insert>
+	
+	
+	
 </mapper>

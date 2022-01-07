@@ -71,7 +71,7 @@
 	<!-- 좌석정보 등록하기 -->
 	<insert id="seatInsert" parameterType="com.example.movie.dto.SeatDto">
 		INSERT INTO SEAT
-		VALUES (SEAT_SEQ.NEXTVAL,#{th_code},#{room_no},#{seat_col},#{seat_row},#{seat_stat},#{seat_no})
+		VALUES (SEAT_SEQ.NEXTVAL,#{th_code},#{room_no},#{seat_col},#{seat_row},#{seat_status},#{seat_no})
 	</insert>
 </mapper>
 

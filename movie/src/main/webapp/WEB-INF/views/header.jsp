@@ -82,9 +82,8 @@
 	</div> 
 	
 
-
 <script src="resource/js/jquery-3.6.0.min.js"></script>
-
+<script src="resource/js/bootstrap.bundle.js"></script>
 <script type="text/javascript"  src="resource/js/rsrv.js"></script>
 <script src="resource/js/bootstrap.bundle.js"></script>
 <script type="text/javascript">

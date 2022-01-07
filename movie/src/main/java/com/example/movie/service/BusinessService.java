@@ -197,6 +197,7 @@ public class BusinessService {
 		theater.setTh_areacode(regeion);//지역 코드
 
 		try {
+			
 			//업로드 파일이 있을 경우
 			//check는 로고 이미지, check2는 영화관 사진
 
@@ -227,12 +228,14 @@ public class BusinessService {
 					//dto에 담은 내용을 mapper로 넘기기  
 					buMapper.theaterAdd(theater); 
 				}
+
 			}
 			//영화관 정보 페이지로 이동
 			view = "redirect:theater";
 			msg = "등록 성공";
 
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 			//다시 등록 페이지
 			view = "redirect:theaterAdd";
@@ -309,14 +312,15 @@ public class BusinessService {
 			RedirectAttributes rttr) {
 		String view = null;
 		String msg = null;
-
-		int roomno = Integer.parseInt(request.getParameter("roomno"));
-		int thcode = Integer.parseInt(request.getParameter("thcode"));
-		String roclass = request.getParameter("roclass");
-		String roname = request.getParameter("roname");
-		int roomrow = Integer.parseInt(request.getParameter("roomrow"));
-		int roomcol = Integer.parseInt(request.getParameter("roomcol"));
-		int seatcnt = Integer.parseInt(request.getParameter("seatcnt"));
+		
+		int roomno = Integer.parseInt(request.getParameter("room_no"));
+		int thcode = Integer.parseInt(request.getParameter("th_code"));
+		String roclass = request.getParameter("room_class");
+		String roname = request.getParameter("room_name");
+		int roomrow = Integer.parseInt(request.getParameter("room_row"));
+		int roomcol = Integer.parseInt(request.getParameter("room_col"));
+		int seatcnt = Integer.parseInt(request.getParameter("seat_cnt"));
+    
 		String[] seatNoArray = request.getParameterValues("seatno");
 		String[] seatNotArray = request.getParameterValues("seatNot");
 		int col = 1;
@@ -342,33 +346,33 @@ public class BusinessService {
 
 			for(int i = 0; i <= (roomrow*roomcol)-1; i++) {
 				SeatDto seDto = new SeatDto();
-				seDto.setThcode(thcode);
-				seDto.setRoomno(roomno);
+				seDto.setTh_code(thcode);
+				seDto.setRoom_no(roomno);
 
 				String seatNo = seatNoArray[i];
-				seDto.setSeatno(seatNo);
+				seDto.setSeat_no(seatNo);
 
 				if(col <= roomcol) {
-					seDto.setSeatcol(col);
+					seDto.setSeat_col(col);
 					col++;
 				}
 				else {
 					col=1;
-					seDto.setSeatcol(col);
+					seDto.setSeat_col(col);
 					col++;
 					row++;
 				}
 				if(row <= roomrow) {
-					seDto.setSeatrow(row);
+					seDto.setSeat_row(row);
 				}
 
 				for(int j = 0; j <= seatNotArray.length-1; j++) {
 					String seatNot = seatNotArray[j];
 					if(seatNo.equals(seatNot)) {
-						seDto.setSeatstat(0);
+						seDto.setSeat_status(0);
 						break;
 					} else {
-						seDto.setSeatstat(1);
+						seDto.setSeat_status(1);
 					}
 				}
 
