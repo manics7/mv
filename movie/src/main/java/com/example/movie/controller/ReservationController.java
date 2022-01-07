@@ -23,7 +23,6 @@ public class ReservationController {
 	
 	ModelAndView modelAndView;
 
-
 	@GetMapping("/rsrv")
 	public ModelAndView reservation() {
 		ModelAndView mv = new ModelAndView();
@@ -36,7 +35,6 @@ public class ReservationController {
 	public String reservationSeat() {		
 		return "rsrv/reservationSeat";
 	}
-
 	
 	@PostMapping("/getSeat")
 	@ResponseBody

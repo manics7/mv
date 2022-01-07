@@ -21,7 +21,7 @@
 						박스오피스
 					</div>
 					<div id="more-movie">
-						<a href="#">
+						<a href="./currentMovieList">
 							더많은 영화보기 
 							<img alt="" src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-more-cross-gray.png">
 						</a>
@@ -84,7 +84,7 @@
 							</a>
 						</div>
 						<div class="search-cell">
-							<a href="#">
+							<a href="./currentMovieList">
 								박스오피스
 							</a>
 						</div>
