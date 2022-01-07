@@ -19,13 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.movie.common.AwsS3;
 import com.example.movie.repository.ReservationRepository;
-import com.example.movie.sample.BonusMapper;
 
 
 class MapperTest {
 
-	@Autowired
-	BonusMapper bonusMapperl;
+
 	
 	@Autowired
 	ReservationRepository repository;

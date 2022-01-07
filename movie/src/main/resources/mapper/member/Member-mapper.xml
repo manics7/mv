@@ -73,14 +73,14 @@
 	<select id="getList" parameterType="HashMap"
 		resultType="com.example.movie.dto.MemberDto">
 				<![CDATA[
-		SELECT * FROM v_mem
-		WHERE ROWNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
-			AND ROWNUM <= #{num} * #{lcnt}
+		SELECT * FROM v_mem1
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
 		]]>
 	</select>
 
 	<select id="getBoardCnt" resultType="Integer">
-		SELECT COUNT(*) FROM v_mem
+		SELECT COUNT(*) FROM v_mem1
 	</select>
 
 	<delete id="deleteMember" parameterType="String">
@@ -132,6 +132,14 @@
 	<!-- 이용자 관람평 목록 다시 검색 -->
 	<select id="selectReviewMovieList" parameterType="String" resultType="com.example.movie.dto.ReviewMovieDto">
 		select * from review_movie where mv_review_moviecd=#{movie_cd} 
+	</select>
+	
+	<select id="inserttheaterinfo" parameterType="Integer" resultType="com.example.movie.dto.TheaterDto">
+	select * from theater where th_code=${th_code}
+	</select>
+	
+	<select id="selectmovieschedule" resultType="com.example.movie.dto.Theater_detailDto">
+	select * from thdetail 
 	</select>
 
 </mapper>

@@ -198,7 +198,7 @@ public class BusinessService {
 				
 				//로고 사진 파일이 있으면 파일 이름을 dto에 담기
 				for(int i = 0; i < logoName.size(); i++) {
-					String LfileName = awsS3.getFileURL(bucket, bucketURL+logoName.get(i));
+					String LfileName = awsS3.getFileURL(bucket, logoName.get(i));
 					
 					//dto에 넣기
 					theater.setTh_logo(LfileName);
@@ -210,7 +210,7 @@ public class BusinessService {
 				
 				//영화관 사진 파일이 있으면 파일 이름을 dto에 담기
 				for(int i = 0; i < theaterName.size(); i++) {
-					String TfileName = awsS3.getFileURL(bucket, bucketURL+theaterName.get(i));
+					String TfileName = awsS3.getFileURL(bucket,theaterName.get(i));
 					
 					theater.setTh_image(TfileName);
 					

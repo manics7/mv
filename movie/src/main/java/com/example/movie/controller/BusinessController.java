@@ -168,6 +168,10 @@ public class BusinessController {
 
 		return view;
 	}
+//	@GetMapping()
+//	public ModelAndView theater_detail_insert() {
+//		
+//	}
 
 
 

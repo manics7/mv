@@ -101,7 +101,7 @@
 	<!--  문의글 목록 수 -->
 	<select id="getquesBoardCnt" resultType="integer">
 		SELECT COUNT(*) FROM
-		QUESTION
+		v_question
 	</select>
 	<!-- 사업자 회원 목록 출력 -->
 		<select id="getbuslist" parameterType="HashMap"
@@ -146,5 +146,20 @@
 		resultType="com.example.movie.dto.MovieOfficialDto">
 		SELECT * FROM movie_official
 	</select>
+
+		<select id="getquesboardRead" parameterType="Integer"
+		resultType="com.example.movie.dto.quesboardDto">
+		SELECT * FROM v_question where ques_no = #{ques_no}
+	</select>
+	
+	<select id="selectMovieBySeq" parameterType="Integer"
+		resultType="com.example.movie.dto.MovieDto">
+		SELECT * FROM movie where mv_seq =#{mv_seq}
+	</select>
+	
+	<insert id="quesboard_replywrite" parameterType="com.example.movie.dto.quesReplyDto">
+	INSERT INTO question_reply VALUES(#{ques_reply_no},#{ques_no},#{ques_reply_cont},sysdate,#{ques_reply_state});
+	</insert>
+	
 	
 </mapper>

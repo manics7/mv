@@ -167,7 +167,6 @@ public class AdminService {
 
 		//jsp 파일 이름 지정
 		mv.setViewName("reportFrm");
-
 		Integer sort = 0;
 
 		session.setAttribute("sort", sort);
@@ -270,7 +269,6 @@ public class AdminService {
 					String mvc2 = mvDto2.getMovie_cd();
 
 					if(mvc1.equals(mvc2)) {
-
 						movieList.remove(j);
 						j--;
 					}
@@ -383,6 +381,24 @@ public class AdminService {
 
 			return pageHtml;
 		}
+	public ModelAndView admin_movie_read(int mv_seq) {
+			
+			mv = new ModelAndView();
+			
+			MovieDto mvDto = aMapper.selectMovieBySeq(mv_seq);
+			
+			mv.addObject("movie", mvDto);
+			
+			mv.setViewName("admin_movie_read");
+			
+			return mv;
+		}
+
+	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
+		mv = new ModelAndView();
+		mv = aMapper.quesboard_replywrite(qrdto);
+		return mv;
+	}
 
 //		public ModelAndView quesboard_reply_insert(quesReplyDto qrdto) {
 //			return null;

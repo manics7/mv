@@ -96,19 +96,19 @@ a {
 	<div class="admin_nav_wrap">
 		<ul class="admin_nav">
 			<li class="admin_nav_item logo">
-				<div class="logo1">&nbsp;Admin&nbsp;</div>
+				<div class="logo1">&nbsp;Business&nbsp;</div>
 				<div class="logo2">&nbsp;Page&nbsp;</div>
 			</li>
 			<li class="admin_nav_item cont1"><a class="yellow underline"
-				href="./mmanage?pageNum=1">회원관리</a></li>
+				href="./mmanage?pageNum=1">영화관관리</a></li>
 			<li class="admin_nav_item cont2"><a class="yellow underline"
 				href="./adminMovieList">영화관리</a></li>
 			<li class="admin_nav_item cont3"><a class="yellow underline"
-				href="./quesboard?pageNum=1">문의관리</a></li>
+				href="./quesboard?pageNum=1">상영관관리</a></li>
 			<li class="admin_nav_item cont4"><a class="yellow underline"
-				href="pmvReviewFrm">영화관관리</a></li>
+				href="pmvReviewFrm">쌍영 일정 관리</a></li>
 			<li class="admin_nav_item cont5"><a class="yellow underline"
-				href="questionFrm">신고관리</a></li>
+				href="questionFrm">이벤트 관리</a></li>
 
 		</ul>
 

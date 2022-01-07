@@ -71,6 +71,9 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+<nav>
+	<jsp:include page="business_header.jsp"></jsp:include>
+	</nav>
 <section>
 <div class="detail">
 	<div class="inner">
@@ -173,5 +176,10 @@ $(document).ready(function() {
 	</div>
 </div>
 </section>
+    <div class="footer_wrap">
+        <footer></footer>
+
+    </div>
+
 </body>
 </html>
