@@ -71,10 +71,10 @@ CREATE TABLE movie (
 	movie_nm	nvarchar2(50)		NULL,
 	show_tm	number		NULL,
 	open_dt	date		NULL,
-	genre_nm	number		NULL,
+	genre_nm	nvarchar2(50)		NULL,
 	directors	nvarchar2(50)		NULL,
 	actors	nvarchar2(50)		NULL,
-	show_types	number		NULL,
+	show_types	nvarchar2(50)		NULL,
 	watch_grade_nm	number		NULL
 );
 

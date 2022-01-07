@@ -541,7 +541,7 @@ public class BusinessService {
 	
 	// 사업자 영화목록 임시 저장
 	@Transactional
-	public void insertApiMovie(String date) throws Exception{
+	public List<TempMovie> insertApiMovie(String date) throws Exception{
 
 		JSONParser jsonparser = new JSONParser();
 		JSONObject jsonobject = (JSONObject)jsonparser.parse(readUrl(date));
@@ -550,8 +550,8 @@ public class BusinessService {
 		for(int i = 0 ; i < array.size(); i++){
 
 			JSONObject entity = (JSONObject)array.get(i);
-			String movieNm = (String) entity.get("movieNm");
 			String movieCd = (String) entity.get("movieCd");
+			String movieNm = (String) entity.get("movieNm");
 			String repGenreNm = (String) entity.get("repGenreNm");
 			String openDt = (String) entity.get("openDt");
 			String genreAlt = (String) entity.get("genreAlt");
@@ -571,17 +571,16 @@ public class BusinessService {
 			tempMovieRepository.save(tempMovie);
 		}
 
+		List<TempMovie> tempMovie =  tempMovieRepository.findByOpenDtLessThanEqual(date.replaceAll("-", ""));
+		
+		return tempMovie;
+		
 	}
 
 	// 사업자 영화목록 임시 저장'' 
 	private String readUrl(String date) throws Exception {
 
 		String Date = date.substring(0, 4);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+Date);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+Date);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+Date);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+Date);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+Date);
 
 		BufferedInputStream reader = null;
 
