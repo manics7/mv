@@ -1,6 +1,7 @@
 package com.example.movie.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.service.MemberService;
 
 import lombok.extern.java.Log;
@@ -135,62 +137,45 @@ public class MemberController {
 		return mv;
 	}*/
 
-
+	//회원 정보 출력
 	@GetMapping("/mmanage")
 	public ModelAndView mmanageFrm(String pageNum) throws Exception {
 		LOG.info("info Log = " + pageNum);
 
 		ModelAndView mv = new ModelAndView();
 
-		// pageNum에 들어오는 데이터
-		// 1. null - url에 페이지번호를 작성하지 않을 때
-		// 첫번째 페이지가 보여지는 상황.(버튼을 눌러 이동한 직후)
-		// 2. 페이지 번호 숫자.
-
-		//		mv = mServ.getMemberList(Integer.parseInt(pageNum));
-
 		List<MemberDto> mList = mServ.getMemberList(Integer.parseInt(pageNum));
-		//System.out.println(mList+"mList");
-		// 화면에 전송.
-		mv.addObject("mList", mList);
-		// 여기에 다른 받고싶은 데이터 리스트 있음 추가.
 
-		// 페이징 처리.
+		mv.addObject("mList", mList);
+
 		String pageHtml = mServ.getPaging(Integer.parseInt(pageNum));
 		mv.addObject("paging", pageHtml);
 
-		// 세션에 페이지번호 저장 할 필요는 여기서 없을거같음.
 
-		// jsp 파일 이름 지정
 		mv.setViewName("mmanage");
 
 		return mv;
 	}
-
+	//회원정보 검색 시 해당 회원 목록 m_id로 가져오기 
 	@PostMapping("/memberSelect")
 	public ModelAndView memberSelect(String m_id) {
 		mv = mServ.memberSelect(m_id);
 		System.out.println("m_id = "+m_id);
-
-		//		Integer pageNum = 1;
-
 		String pageHtml = mServ.getsearchPaging(m_id);
 		mv.addObject("paging", pageHtml);
 
 		mv.setViewName("mmanage");
 
-
-
 		return mv;
-
 	}
+
+	//회원정보로 1대1문의 글 가져오기 (m_id로 검색)
+
 	@GetMapping("/mboardSelect")
 	public ModelAndView mboardSelect(String m_id) {
 
 		System.out.println("테스트 검색어 m_id = "+m_id);
 		mv = mServ.mboardSelect(m_id);
-
-
 		mv.setViewName("quesboard");
 
 		return mv;
@@ -233,7 +218,16 @@ public class MemberController {
 		String view = mServ.logout();
 
 		return view;
-
+	}
+	
+	// 이용자 관람평 작성
+	@PostMapping(value = "insertReviewMovie", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, List<ReviewMovieDto>> insertReviewMovie(ReviewMovieDto reviewMovieDto) {
+		
+		Map<String, List<ReviewMovieDto>> insertReviewMap = mServ.insertReviewMovie(reviewMovieDto);
+		
+		return insertReviewMap;
 	}
 
 }

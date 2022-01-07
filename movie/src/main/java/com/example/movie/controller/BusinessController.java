@@ -1,8 +1,11 @@
 package com.example.movie.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,82 +19,120 @@ import com.example.movie.service.BusinessService;
 
 import lombok.extern.java.Log;
 
+
 @Controller
 @Log
 public class BusinessController {
-	
+
 	@Autowired
 	private BusinessService buServ;
-	
+
 	private ModelAndView mv;
-	
+
 	// 사업자 회원가입
-		@PostMapping("businessInsert")
-		public String businessInsert(BusinessDto business, RedirectAttributes rttr) {
-			
-			String view = buServ.businessInsert(business, rttr);
-			
-			return view;
-		}
-	
+	@PostMapping("businessInsert")
+	public String businessInsert(BusinessDto business, RedirectAttributes rttr) {
+
+		String view = buServ.businessInsert(business, rttr);
+
+		return view;
+	}
+
+
+
 	// 사업자 회원가입 아이디 중복체크
 	@GetMapping(value = "buIdCheck", produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String buIdCheck(String bid) {
 		String res = buServ.buIdCheck(bid);
-		
+
 		return res;
 	}
 
 	// 사업자 로그인
 	@PostMapping("bu_loginProc")
 	public String bu_loginProc(BusinessDto business, RedirectAttributes rttr) {
-		
+
 		String view = buServ.bu_loginProc(business, rttr);
-		
+
 		return view;
 	}
-	
+
 	// 사업자 메인 페이지 이동
 	@GetMapping("businessPage")
-	public ModelAndView businessPage() {
-		
-		mv = buServ.businessPage();
-		
-		return mv;
+	public String businessPage() {
+
+		return "businessPage";
 	}
-	@GetMapping("businessUpdateFrm")
-	public String businessUpdateFrm() {
-		String view = "businessUpdateFrm";
-		
-		return view;
-	}
-	////미완
-	@GetMapping("businessUpdateProc")
-	public String businessUpdateProc() {
-		String view = "businessPage";
-		
-		return view;
-	}
-	
+
 	// 사업자 로그아웃
 	@GetMapping("bu_logout")
 	public String bu_logout() {
-		
+
 		String view = buServ.bu_logout();
-		
+
 		return view;
 	}
-	
-	// test영화 등록
-	@PostMapping("insertMovie")
-	public String insertMovie(MultipartHttpServletRequest multi, RedirectAttributes rttr) {
-		
-		String view = buServ.insertMovie(multi, rttr);
-		
+
+	@GetMapping("businessUpdateFrm")
+	public String businessUpdateFrm() {
+		String view = "businessUpdateFrm";
+
 		return view;
 	}
-	
+
+	//영화관 등록 페이지
+	@GetMapping("theaterAdd")
+	public String thaddFrm() {
+
+		return "th/theaterAdd";
+	}
+
+	//영화관 등록
+	@PostMapping("theaterInsert")
+	public String theaterInsert(MultipartHttpServletRequest multi, RedirectAttributes rttr) {
+
+		String view = buServ.theaterInsert(multi, rttr);
+
+		return view;
+	}
+
+	//영화관 정보 페이지
+	@GetMapping("theater")
+	public ModelAndView theater() {
+
+		mv = buServ.getTheaterList();
+
+		return mv;
+	}	
+
+	//상영 시간표 목록 페이지
+	@GetMapping("schedule")
+	public String schedule() {
+
+		return "sche/schedule";
+	}
+
+	//상영 시간표 등록 페이지
+	@GetMapping("scheduleAdd")
+	public ModelAndView scheduleAdd() {
+
+		mv = buServ.getInfoList();
+
+		return mv;
+	}
+
+	//상영시간표 등록
+	@PostMapping("scheduleInsert")
+	public String scheduleInsert(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date roomStartTime, 
+			@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date roomEndTime, 
+			Integer thcode, String mvcode[], Integer room, String mvdate, String wait) {
+
+		String view = buServ.testInsert(roomStartTime, roomEndTime, thcode, mvcode, room, mvdate, wait);
+
+		return view;
+	}
+
 	//상영관 목록 이동
 	@GetMapping("roomlist")
 	public ModelAndView roomList() {
@@ -127,5 +168,5 @@ public class BusinessController {
 
 		return view;
 	}
-	
+
 } // class end
