@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.service.AdminService;
@@ -117,10 +119,10 @@ public class AdminController {
 	}
 	
 
-	@GetMapping("movieDetail")
+	@GetMapping("admin_movie_read")
 	public ModelAndView movieDetail(int mv_seq) {
 		
-		mv = aServ.movieDetail(mv_seq);
+		mv = aServ.admin_movie_read(mv_seq);
 		
 		return mv;
 
@@ -179,6 +181,14 @@ public class AdminController {
 		mv = aServ.adminMovieList(pageNum);
 		
 		return mv;
+	}
+	
+	@PostMapping("movieOfficialInsert")
+	public String movieOfficialInsert(MultipartHttpServletRequest multi,RedirectAttributes rttr) {
+		
+		String view = aServ.movieOfficialInsert(multi,rttr);
+		
+		return view;
 	}
 	
 	//관리자 페이지로 이동

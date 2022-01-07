@@ -13,11 +13,11 @@ public class MovieDto {
 	private String movie_nm;
 	private int show_tm;
 	private Timestamp open_dt;
-	private int genre_nm;
+	private String genre_nm;
 	private String directors;
 	private String actors;
-	private int show_types;
-	private int watch_grade_nm;
+	private String show_types;
+	private String watch_grade_nm;
 
 	private int state;
 }
