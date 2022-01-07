@@ -52,7 +52,11 @@ box-shadow: none;
 
 #status li {border: none;}
 
-
+#seat {
+ overflow: auto;
+ height: auto; 
+ max-height: 405px;  
+}
 #seat .btn {
 	width: 45px;
 	height: 40px;	
@@ -94,6 +98,8 @@ pointer-events: none;
 background-color: rgb(51, 51, 51); 
 }
 #selectSeat .btn{pointer-events: none;}
+
+
 
 </style>
 <script type="text/javascript">
@@ -228,17 +234,17 @@ $(doucment).ready(function(){
 						<div class="col-md-4" id="selectSeat">
 							<p class="pb-1 mb-1">선택한 좌석</p>
 							<div class="btn-group mr-2" role="group" >					 	
-							   <button class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo">-</button>
-							   <button class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo">-</button>
-							   <button class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo">-</button>
-							   <button class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo">-</button>							 			 
+							   <input type="button" class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo" value="-" />
+							   <input type="button" class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo" value="-" />
+							   <input type="button" class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo" value="-" />
+							   <input type="button" class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo" value="-" />
 							 </div>						 
 							 <p class="mt-2 mb-1 ml-1"></p>
 							 <div class="btn-group mr-2" role="group" >					 	
-							   <button class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo">-</button>
-							   <button class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo">-</button>
-							   <button class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo">-</button>
-							   <button class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo">-</button>				
+							   <input type="button" class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo" value="-" />
+							   <input type="button" class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo" value="-" />
+							   <input type="button" class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo" value="-" />
+							   <input type="button" class="btn btn-outline-secondary btn-lg mr-1"  name="seatNo" value="-" />
 							 </div>				
 						</div>
 						<div class="col-md-3">

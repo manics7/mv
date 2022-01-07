@@ -227,7 +227,7 @@
 				,url : "/getSeat"
 				,data : {"schCode" : fnObj.selectData.schCode, "schDetailSeq" : fnObj.selectData.schDetailSeq}	       		
 				,success : function(res) {
-					console.log(res);
+					//console.log(res);
 					var row = res.room.roomRow;
 					var col = res.room.roomCol;
 					var rsrvSeatNoList =res.rsrvSeatNoList;
@@ -252,7 +252,7 @@
                    		});
                    		
 					}
-					console.log(matrix);					
+					//console.log(matrix);					
 					for(var i=0; i<matrix.length; i++){
 						html += "<div class='row'>";
 						html += "<div class='col-sm-12 text-center'><span class='mr-2'><b>"+String.fromCharCode(65 + i) +"</b></span>";
@@ -440,11 +440,13 @@
 	$(document).on("click", "#confirm" , function(){
 	});	
 	
+	//뒤로가기
 	$(document).on("click", "#back" , function(){
 		fnObj.defaultData.history = 'history';
 		$('#rsrvModal .modal-content').load("rsrv",fnObj.init());		
 	});
-	//$("#youth button")
+	
+	//인원수 체크 및 금액계산
 	$(document).on("click", "#youthCnt, #adultCnt" , function(e){
 	
 		var youthCnt = $('#youthCnt input:radio:checked').val();
@@ -472,6 +474,36 @@
 	
 		$("#price").html(Number(youthPrice+adultPrice).toLocaleString('ko-KR'));
 				
+	});
 	
+	$(document).on("click", "#seat a" , function(e){
+	
+		var youthCnt = $('#youthCnt input:radio:checked').val();
+		var adultCnt = $('#adultCnt input:radio:checked').val();
+		var sumCnt = Number(youthCnt)+Number(adultCnt); 
+		var seatList =  $("#seat .active"); 
+		var selectSeat = $("input[name='seatNo']");
+		
+		
+		//for(var i=0; i<selectSeat; i++){
+			
+		//}
+		//console.log(seatList.length + "/" + sumCnt);
+		if(seatList.length > sumCnt){
+			$(this).removeClass("active");
+			return;
+		}
+		
+		for(var i=0; i<selectSeat.length; i++){
+			console.log($(selectSeat[i]).val());
+			for(var j=0; j<seatList.length; j++){
+				console.log($(selectSeat[i]).val()  +" / " +  $(seatList[i]).attr("seatNo"));
+		
+				$(selectSeat[i]).val($(seatList[i]).attr("seatNo"));
+			}
+		}
+		
+		
+		//$("#seat a").hasClass("active")
 	});
 	
