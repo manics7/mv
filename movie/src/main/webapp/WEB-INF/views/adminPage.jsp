@@ -28,25 +28,7 @@
 	 
 	<nav>
 	<jsp:include page="admin_header.jsp"></jsp:include>
-	<!--  
-	
-	<div class="admmin_nav_wrap">
-			<ul class="admin_nav"> 
-			<li class="admin_nav_item cont1"> <a href="./mmanage?pageNum=1">회원관리</a> </li>
-			<li class="admin_nav_item cont2"> <a href="./watcheMovieFrm"></a> 영화관리</li>
-			<li class="admin_nav_item cont3"> <a href="./quesboard?pageNum=1">문의관리</a> </li>
-			<li class="admin_nav_item cont4"> <a href="pmvReviewFrm">영화관관리</a>  </li>
-			<li class="admin_nav_item cont5"> <a href="questionFrm">신고관리</a> </li>  
-			
-			</ul>
-			</div>
-	
-	-->
-			
-		</nav>
-	
-	
-		
+</nav>
 		<div class="main_wrap">
 			<div class="cont_wrap">
 				<div class="cont_sidebar">
