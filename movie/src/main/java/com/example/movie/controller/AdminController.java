@@ -116,6 +116,17 @@ public class AdminController {
 		}
 		System.out.println("readqlist = "+readqlist);
 		return mv;
+
+	}
+	
+
+	@GetMapping("admin_movie_read")
+	public ModelAndView movieDetail(int mv_seq) {
+		
+		mv = aServ.admin_movie_read(mv_seq);
+		
+		return mv;
+
 	}
 	
 

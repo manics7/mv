@@ -175,6 +175,4 @@
 		#{stillcut4,jdbcType=VARCHAR}, #{stillcut5,jdbcType=VARCHAR})
 	</insert>
 	
-	
-	
 </mapper>
