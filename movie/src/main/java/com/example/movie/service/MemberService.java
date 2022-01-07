@@ -6,8 +6,8 @@ import java.util.Map;
 import com.example.movie.dto.quesboardDto;
 
 import com.example.movie.mapper.AdminMapper;
+import com.example.movie.mapper.BusinessMapper;
 
-	
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -757,6 +757,27 @@ public class MemberService {
 		mv.setViewName("movieDetail");
 		
 		return mv;
+	}
+
+	// 이용자 관람평 작성 및 목록 출력
+	@Transactional
+	public Map<String, List<ReviewMovieDto>> insertReviewMovie(ReviewMovieDto reviewMovieDto) {
+		Map<String, List<ReviewMovieDto>> reviewListMap = null;
+		
+		try {
+			// 이용자 관람평 작성
+			mMapper.insertReviewMovie(reviewMovieDto);
+			
+			// 이용자 관람평 목록 다시 검색
+			List<ReviewMovieDto> reviewMovieList = mMapper.selectReviewMovieList(reviewMovieDto.getMv_review_moviecd()); 
+			
+			reviewListMap = new HashMap<String, List<ReviewMovieDto>>();
+			reviewListMap.put("reviewMovieList", reviewMovieList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			reviewListMap = null;
+		}
+		return reviewListMap;
 	}
 	
 }

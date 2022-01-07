@@ -47,18 +47,17 @@
 					
 				</div>
 				<div id="review">
-					<!-- 영화 관람평 작성 -->
-					<form action="">
-						<input type="text" placeholder="관람평을 작성해 주세요">
-						<input type="button" onclick="reviewMovie(${userInfo.m_name})" value="작성">
-					</form>
+					
 					<!-- 영화 관람평 목록 -->
+					
 					<table>
 						<tr>
 							<td>작성자</td>
 							<td>후기</td>
 							<td>작성일</td>						
 						</tr>
+					</table>
+					<table id="reviewList">
 						<c:forEach var="reviewMovie" items="${reviewMovie}">
 							<tr>
 								<td>${reviewMovie.mv_review_id }</td>
@@ -69,6 +68,11 @@
 							</tr>	
 						</c:forEach>
 					</table>
+					<!-- 영화 관람평 작성 -->
+					<form id="reviewMovie">
+						<input type="text" placeholder="관람평을 작성해 주세요" id="reviewComment" name="mv_review_comment" onkeypress="if(event.keyCode==13){return false;}">
+						<input type="button" onclick="reviewMovie(${mvOfficial.movie_cd})" value="작성">
+					</form>
 				</div>
 			</div>
 		</div>
@@ -76,10 +80,47 @@
 	
 		<jsp:include page="footer.jsp"></jsp:include>
 </body>
-	
 	<script src="resource/js/jquery-3.6.0.min.js"></script>
+	<script src="resource/js/jquery.serializeObject.js"></script>
 	<script type="text/javascript">
 		
+		// 관람평 ajax로 처리
+		function reviewMovie(movie_cd) {
+			console.log("movie_cd" + movie_cd);
+			
+			var reviewMovieList = $("#reviewMovie").serializeObject();
+			reviewMovieList.mv_review_moviecd = movie_cd;
+			reviewMovieList.mv_review_id = "${userInfo.m_id}"
+			console.log(reviewMovieList);
+			
+			// controller에 ajax로 전송
+			$.ajax({
+				url: "insertReviewMovie",
+				type: "post",
+				data: reviewMovieList,
+				dataType: "json",
+				success: function(result){
+					var reviewList = "";
+					var reviewMv = result.reviewMovieList;
+					console.log(reviewMv);
+					
+					for(var i = 0; i < reviewMv.length; i++) {
+						reviewList += "<tr>"
+								   +	"<td>" + reviewMv[i].mv_review_id + "</td>"
+								   +	"<td>" + reviewMv[i].mv_review_comment + "</td>"
+								   +	"<td>" + reviewMv[i].mv_review_date + "</td>"
+								   +  "</tr>";
+					} // for end
+					$("#reviewList").html(reviewList);
+					$("#reviewComment").val("");
+				}, // success end
+				error: function(error) {
+					console.log(error);
+					alert("댓글 입력 실패");
+				} // error end
+			}) // ajax end
+		} // function end	
+	
 	</script>
 	
 </html>

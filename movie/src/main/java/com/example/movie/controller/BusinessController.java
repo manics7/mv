@@ -1,7 +1,5 @@
 package com.example.movie.controller;
 
-import java.io.Console;
-import java.text.ParseException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;

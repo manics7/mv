@@ -1,6 +1,7 @@
 package com.example.movie.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.service.MemberService;
 
 import lombok.extern.java.Log;
@@ -166,9 +168,10 @@ public class MemberController {
 		mv.setViewName("mmanage");
 
 		return mv;
-
 	}
+
 	//회원정보로 1대1문의 글 가져오기 (m_id로 검색)
+
 	@GetMapping("/mboardSelect")
 	public ModelAndView mboardSelect(String m_id) {
 
@@ -216,7 +219,16 @@ public class MemberController {
 		String view = mServ.logout();
 
 		return view;
-
+	}
+	
+	// 이용자 관람평 작성
+	@PostMapping(value = "insertReviewMovie", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, List<ReviewMovieDto>> insertReviewMovie(ReviewMovieDto reviewMovieDto) {
+		
+		Map<String, List<ReviewMovieDto>> insertReviewMap = mServ.insertReviewMovie(reviewMovieDto);
+		
+		return insertReviewMap;
 	}
 
 }
