@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -13,6 +12,40 @@
 			AND RONUM <= #{num} * #{lcnt}
 		]]>
 	</select>
+	
+	<select id="selectReportMvReviewSort" parameterType="HashMap"
+		resultType="com.example.movie.dto.reportMvReviewDto">
+		select * from
+	(
+    select rownum as ronum, a.*
+    from (
+    select * from rmvrlist
+    order by state
+    ) a
+	)
+	<![CDATA[
+	WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	<select id="selectReportMvReviewSortDesc" parameterType="HashMap"
+		resultType="com.example.movie.dto.reportMvReviewDto">
+		select * from
+	(
+    select rownum as ronum, a.*
+    from (
+    select * from rmvrlist
+    order by state desc
+    ) a
+	)
+	<![CDATA[
+	WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	
 	
 	<select id="selectReportMvReviewCnt" resultType="Integer">
 		SELECT COUNT(*) FROM report_mv_review
@@ -32,29 +65,43 @@
 		UPDATE member SET m_warning = m_warning+1 WHERE m_id=#{id}
 	</update>
 	
-	<update id="updateRpMvReviewState" parameterType="String">
+	<update id="updateRpMvReviewState" parameterType="Integer">
 		UPDATE report_mv_review SET rp_state =1 WHERE movie_review=#{mvrNum}
 	</update>
+	
 	<delete id="delMvReview" parameterType="Integer">
 		DELETE FROM review_movie WHERE mv_review=#{mvrNum}
 	</delete>
 	
+	<delete id="delMvReviewReport" parameterType="Integer">
+		DELETE FROM report_mv_review WHERE movie_review=#{mvrNum}
+	</delete>
+	
+	
+
+	<select id="getQuesList" parameterType="HashMap"
+		resultType="com.example.movie.dto.quesboardDto">
+	<![CDATA[
+		SELECT * FROM question
+		WHERE ROWNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND ROWNUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+
+	<select id="getBoardCnt" resultType="integer">
+		SELECT COUNT(*) FROM
+		QUESTION
+	</select>
+
+	<select id="getboardSelect"
+		resultType="com.example.movie.dto.quesboardDto">
+		SELECT * FROM QUESTION where m_id = #{m_id}
+	</select>
+
+	<select id="getboardRead" parameterType="Integer"
+		resultType="com.example.movie.dto.quesboardDto">
+		SELECT * FROM QUESTION where ques_no = #{ques_no}
+	</select>
 	
 </mapper>
 
-
-
-
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.example.movie.mapper.AdminMapper">
-	
-</mapper>
-
-
-
-
->>>>>>> branch 'master' of https://github.com/manics7/mv.git

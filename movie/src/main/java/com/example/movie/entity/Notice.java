@@ -1,7 +1,7 @@
 package com.example.movie.entity;
 
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,11 +31,9 @@ public class Notice {
 	@Column(name="NOTICE_NO", columnDefinition="글번호")
 	private Integer noticeNo;
 	
-	@NonNull
 	@Column(name="NOTICE_TITLE", columnDefinition="제목")
 	private String noticeTitle;
-	
-	@NonNull
+
 	@Column(name="NOTICE_CONTENT", columnDefinition="공지내용")
 	private String noticeContent;
 	
@@ -51,17 +49,16 @@ public class Notice {
 	//날짜타입(java.util.Date, java.util.Calendar)을 매핑할때 사용.
 	//자바8에서 지원하는 LocalDate, LocalDateTime을 사용할때는 생략 가능(하이버네이트 지원)
 	//@Temporal(TemporalType.DATE) 
-	private LocalDate regDate;
+	private Date regDate;
 	
 	@Column(name="VIEW_CNT", columnDefinition="조회수")
 	private Integer viewCnt;	
 	
-	@NonNull
 	@Column(name="NOTICE_CLASS", columnDefinition="구분")
 	private Integer noticeClass;
 
 	@Builder
-    public Notice(Integer noticeNo, String noticeTitle, String noticeContent, LocalDate regDate
+    public Notice(Integer noticeNo, String noticeTitle, String noticeContent, Date regDate
     					,Integer viewCnt, Integer noticeClass, String noticeClassName) {
         this.noticeNo = noticeNo;
         this.noticeTitle = noticeTitle;
@@ -73,7 +70,7 @@ public class Notice {
 	@PrePersist
 	public void regDate() {
 		if(this.regDate == null) {
-			this.regDate = LocalDate.now();
+			this.regDate = new Date();
 		}		
 	}
 	

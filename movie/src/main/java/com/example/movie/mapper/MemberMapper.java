@@ -2,17 +2,10 @@ package com.example.movie.mapper;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.servlet.ModelAndView;
-
-import com.example.movie.config.MybatisMapper;
-import com.example.movie.dto.MemberDto;
-
-
-import java.util.List;
-
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.QuestionDto;
+import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.mvReviewDto;
 import com.example.movie.dto.paymentDto;
 import com.example.movie.dto.reservationDto;
@@ -50,8 +43,6 @@ public interface MemberMapper  extends MybatisMapper {
 	//영화리뷰 삭제
 	public boolean delMvReview(int mvrnum);
 	
-
-
 	//회원정보 목록 가져오기
 	List<MemberDto> getList(Map<String, Integer> mmap);
 	//전체 글 개수 구하기
@@ -61,7 +52,7 @@ public interface MemberMapper  extends MybatisMapper {
 	//회원 검색 쿼리
 	List<MemberDto> selectMember(String m_id);
 	
-	void getmboardSelect(String m_id);
+	//void getmboardSelect(String m_id);
 	int getsearchBoardCnt(String m_id);
 	
 	// 이용자 회원가입 아이디 중복체크
@@ -75,4 +66,11 @@ public interface MemberMapper  extends MybatisMapper {
 	
 	// 이용자 검색(세션 저장용?)
 	public MemberDto getMember(String m_id);
+
+	// 이용자 관람평 작성
+	public void insertReviewMovie(ReviewMovieDto reviewMovieDto);
+
+	// 이용자 관람평 목록 다시 검색
+	public List<ReviewMovieDto> selectReviewMovieList(String mv_review_moviecd);
+	
 }
