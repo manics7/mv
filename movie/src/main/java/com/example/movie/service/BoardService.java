@@ -188,8 +188,12 @@ public class BoardService {
 		BoardDto bDto = bMapper.getRvContent(rnum);
 		//파일 목록 가져오기
 		//댓글 목록 가져오기
+		List<ReplyDto> reList = bMapper.getReList(rnum);
+		
+		System.out.println("reList= " + reList);
 		
 		mv.addObject("bDto", bDto);
+		mv.addObject("reList", reList);
 		
 		mv.setViewName("reviewContent");
 		
@@ -282,7 +286,6 @@ public class BoardService {
 		
 		return remap;
 	}
-	
 	
 	
 	

@@ -55,12 +55,12 @@ $(function(){
                         <c:forEach var="room" items="${roomList}">
                             <tr class="data_row">
                                 <td class="t_no p-10">${room.thname}</td>
-                                <td class="t_theater p-10">${room.roomno}관[${room.roname}]</td>
-                                <td class="t_title p-10">총 ${room.seatcnt}석</td>
-                                <td class="t_date p-10">${room.roclass}</td>
+                                <td class="t_theater p-10">${room.room_no}관[${room.room_name}]</td>
+                                <td class="t_title p-10">총 ${room.seat_cnt}석</td>
+                                <td class="t_date p-10">${room.room_class}</td>
                                 <td class="t_id p-10">
                                     <button class="btn-del"
-                                    onclick="delCheck(${room.roomseq})">삭제</button>
+                                    onclick="delCheck(${room.room_seq})">삭제</button>
                                 </td>
                             </tr>
                         </c:forEach>

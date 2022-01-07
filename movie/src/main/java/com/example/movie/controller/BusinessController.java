@@ -169,6 +169,4 @@ public class BusinessController {
 		return view;
 	}
 
-
-
 } // class end
