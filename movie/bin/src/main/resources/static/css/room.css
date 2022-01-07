@@ -1,0 +1,286 @@
+@charset "UTF-8";
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+/*  */
+section {
+	width: 100%;
+}
+
+div.inner {
+	width: 1024px;
+	margin: 0 auto;
+	position: relative;
+	box-sizing: border-box;
+	background-color: #fff;
+	padding: 40px 0 80px;
+}
+
+div#page_wrap {
+	padding-top: 40px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+/* 사업자 페이지 메뉴 크기 */
+div#side {
+	width: 184px;
+	height: 450px;
+}
+
+/* business page */
+#side>h2 {
+	padding: 58px 0 16px 24px;
+	height: 42px;
+	font-size: 18px;
+	color: #fff;
+	background: url(https://www.indieartcinema.com/static/media/img-mypage.d9557dd7.svg) no-repeat 0 0;
+	font-weight: 700;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+#side>h2>a {
+	color: #fff;
+}
+
+/* 메뉴 리스트 */
+ul#bupage_list {
+	border: 1px solid #e1e1e1;
+	padding-top: 22px;
+	margin-top: 0px;
+	padding-left: 0px;
+}
+
+ul#bupage_list>li {
+	height: 67px;
+	font-size: 15px;
+	color: #333;
+	padding-left: 30px;
+}
+
+ul>li>a#bupage_menu {
+	padding: 12px 24px 14px;
+	display: block;
+}
+
+ul>li>a#bupage_menu:hover {
+	color: #f77500;
+	font-weight: 700;
+}
+
+/* 메뉴에 마우스 올렸을때 밑줄이 나타나는 부분 */
+ul>li>a#bupage_menu {
+  text-decoration: none;
+  display: inline-block;
+  padding: 15px 0;
+  position: relative;
+}
+ul>li>a#bupage_menu:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #f77500;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+
+ul>li>a#bupage_menu:hover:after { 
+  width: 100%; 
+  left: 0; 
+}
+
+
+/* 상영관 목록 */
+.room_div {
+    /* border: 1px solid #e1e1e1; */
+    width: 800px;
+    height: 470px;
+    /* padding-left: 10px;
+    padding-right: 10px; */
+}
+#room_title {
+    margin: 130px auto 20px;
+    text-align: center;
+}
+#room_empty {
+    text-align: center;
+    margin-top: 150px;
+}
+.btn-room {
+    background-color: orange;
+    border: none;
+    border-radius: 10%;
+    color: white;
+    width: 70px;
+    height: 30px;
+    margin-left: 370px;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+
+/* 후기게시판 section */
+.rv_table {
+	width: 700px;
+	border-top: 2px solid;
+	border-collapse: collapse;
+    margin: 0px auto;
+}
+.title-row > th {
+	font-size: 15px;
+	height: 35px;
+	border-bottom: 1px solid rgb(180, 179, 179);
+}
+.data_row > td {
+	height: 60px;
+	border-bottom: 1px solid rgb(180, 179, 179);
+	text-align: center;
+}
+.p-10 {
+    width: 10%;
+}
+.p-30 {
+    width: 30%;
+}
+.btn-del {
+    background-color: orange;
+    border: none;
+    border-radius: 10%;
+    color: white;
+    width: 70px;
+    height: 30px;
+    font-size: 15px;
+}
+
+
+/* 상영관 등록 페이지 */
+/* hr {
+    margin-top: 30px;
+    border: 0.5px solid #e1e1e1;
+} */
+.seat {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    margin-left: 5px;
+    text-align: center;
+}
+.clicked {
+    background-color: orange;
+    color: white;
+}
+.room_div input[type=number] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+#seat_row, #seat_col, #total {
+    text-align: center;
+}
+.room_div input, select {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    outline: none;
+}
+#room_title2 {
+    text-align: center;
+}
+#seat_row, #seat_col {
+    width: 40px;
+}
+#room_no {
+    width: 120px;
+}
+#room_name {
+    width: 120px;
+}
+.screen_div {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    margin: 30px auto 5px;
+    height: 35px;
+    line-height: 35px;
+}
+.seat-wrapper {
+    text-align: center;
+}
+#total {
+    border: none;
+    border-bottom: 1px solid;
+}
+.seat_total {
+    margin-top: 30px;
+    text-align: center;
+}
+.num_box {
+    background-color: black;
+    width: 30px;
+    height: 30px;
+    color: white;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 30px;
+    display: inline-block;
+}
+.title_set1 {
+    width: 360px;
+    height: 150px;
+    border: 1px solid #e1e1e1;
+    display: inline-block;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+.title_set2 {
+    width: 360px;
+    height: 150px;
+    border: 1px solid #e1e1e1;
+    display: inline-block;
+    float: left;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+.title_set1 > a, .title_set2 > a, #seatset {
+    margin-left: 75px;
+}
+#theater_name, #room_no, #room_name {
+    width: 100px;
+}
+#seatset, #seatreset {
+    border: none;
+    width: 94px;
+    height: 30px;
+    background-color: black;
+    color: white;
+    border-radius: 3px;
+}
+#seatsel {
+    width: auto;
+    border: 1px solid #e1e1e1;
+}
+.seat_sub {
+    width: auto;
+    float: right;
+}
+#seatsub {
+    border: none;
+    width: 94px;
+    height: 30px;
+    background-color: black;
+    color: white;
+    border-radius: 3px;
+}

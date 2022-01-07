@@ -10,9 +10,13 @@ import javax.servlet.http.HttpSession;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.movie.common.AwsS3;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
@@ -41,6 +45,14 @@ public class AdminService {
 	private HttpSession session;
 
 	private ModelAndView mv;
+	@Autowired
+	private AwsS3 AwsS3;
+	
+	@Value("${aws.s3.bucket}")
+	private String bucket;
+
+	@Value("${aws.s3.bucketURL}")
+	private String bucketURL;
 
 	private String getPaging(int num, int listCnt,String view,int maxNum) {
 		String pageHtml = null;
@@ -243,11 +255,11 @@ public class AdminService {
 
 			return qrDto;
 		}
-		//관리자 영화등록
+		//관리자 영화등록 페이지 리스트
 		public ModelAndView adminMovieList(Integer pageNum) {
 
 			int num = (pageNum == null)? 1 : pageNum;
-			int listCnt = 6;
+			int listCnt = 4;
 			int maxNum;
 
 			mv = new ModelAndView();
@@ -382,6 +394,98 @@ public class AdminService {
 			pageHtml = paging.makePaging();
 
 			return pageHtml;
+		}
+
+		public ModelAndView admin_movie_read(int mv_seq) {
+			
+			mv = new ModelAndView();
+			
+			MovieDto mvDto = aMapper.selectMovieBySeq(mv_seq);
+			
+			mv.addObject("movie", mvDto);
+			
+			mv.setViewName("admin_movie_read");
+			
+			return mv;
+		}
+		
+		//영화 등록
+		@Transactional
+		public String movieOfficialInsert(MultipartHttpServletRequest multi,RedirectAttributes rttr) {
+			
+			String view = null;
+			String msg = "?";
+			
+			MovieOfficialDto mvofficialDto = new MovieOfficialDto();
+			
+			
+			String movie_content = multi.getParameter("movie_content");
+			String check = multi.getParameter("fileCheck");
+			movie_content = movie_content.trim();
+			
+			String seq = multi.getParameter("movie_seq");
+			
+			int mv_seq = Integer.parseInt(seq);
+			
+			MovieDto mvDto = aMapper.selectMovieBySeq(mv_seq);
+		
+			mvofficialDto.setMovie_cd(mvDto.getMovie_cd());
+			mvofficialDto.setMovie_nm(mvDto.getMovie_nm());
+			mvofficialDto.setMovie_content(movie_content);
+			mvofficialDto.setShow_tm(mvDto.getShow_tm());
+			mvofficialDto.setOpen_dt(mvDto.getOpen_dt());
+			mvofficialDto.setGenre_nm(mvDto.getGenre_nm());
+			mvofficialDto.setDirectors(mvDto.getDirectors());
+			mvofficialDto.setActors(mvDto.getActors());
+			mvofficialDto.setShow_types(mvDto.getShow_types());
+			mvofficialDto.setWatch_grade_nm(mvDto.getWatch_grade_nm());
+		
+				
+			if(check.equals("1")){
+				//로고 파일의 이름 가져오기
+				List<MultipartFile> imgFiles = multi.getFiles("logoFiles");	
+				List<String> imgName = AwsS3.uploadFile(imgFiles);
+				
+				//로고 사진 파일이 있으면 파일 이름을 dto에 담기
+				for(int i = 0; i < imgName.size(); i++) {
+					
+					String LfileName = AwsS3.getFileURL(bucket, bucketURL+imgName.get(i));
+					if(i==0) {
+						mvofficialDto.setPoster(LfileName);
+					}
+					if(i==1) {
+						mvofficialDto.setStillcut1(LfileName);
+					}
+					if(i==2) {
+						mvofficialDto.setStillcut2(LfileName);
+					}
+					if(i==3) {
+						mvofficialDto.setStillcut3(LfileName);
+					}
+					if(i==4) {
+						mvofficialDto.setStillcut4(LfileName);
+					}
+					if(i==5) {
+						mvofficialDto.setStillcut5(LfileName);
+					}
+					else {
+						msg = "파일은 6개까지만 등록 가능합니다.";
+						break;
+					}
+				}
+				
+			}
+				aMapper.adminMovieInsert(mvofficialDto);
+				msg = "등록 성공";
+			
+				
+			
+			
+			
+			view = "redirect:adminMovieList";
+			rttr.addFlashAttribute("msg", msg);
+			
+			return view;
 		}
 
 //		public ModelAndView quesboard_reply_insert(quesReplyDto qrdto) {

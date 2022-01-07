@@ -11,11 +11,11 @@
 
 	<div id="side">
 		<h2 style="height: 104px">
-			<a href="adminPage">Admin Page</a>
+			<a href="mypage">Admin Page</a>
 		</h2>
 		<ul id="bupage_list">
 			<li><a id="bupage_menu" href="./mmanage?pageNum=1">회원관리</a></li>
-			<li><a id="bupage_menu" href="adminMovieList">영화관리</a></li>
+			<li><a id="bupage_menu" href="watcheMovieFrm">영화관리</a></li>
 			<li><a id="bupage_menu" href="pmvReviewFrm">영화관관리</a></li>
 			<li><a id="bupage_menu" href="./quesboard?pageNum=1">문의관리</a></li>
 			<li><a id="bupage_menu" href="questionFrm">신고관리</a></li>

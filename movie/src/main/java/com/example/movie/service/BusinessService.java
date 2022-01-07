@@ -187,6 +187,7 @@ public class BusinessService {
 		theater.setTh_areacode(regeion);//지역 코드
 		
 		try {
+			
 			//업로드 파일이 있을 경우
 			//check는 로고 이미지, check2는 영화관 사진
 		
@@ -217,12 +218,13 @@ public class BusinessService {
 					//dto에 담은 내용을 mapper로 넘기기  
 					buMapper.theaterAdd(theater); 
 				}
+
 			}
 			//영화관 정보 페이지로 이동
 			view = "redirect:theater";
 			msg = "등록 성공";
 			
-		} catch (Exception e) {
+			} catch (Exception e) {
 			e.printStackTrace();
 			//다시 등록 페이지
 			view = "redirect:theaterAdd";
