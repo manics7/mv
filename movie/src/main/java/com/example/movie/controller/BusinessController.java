@@ -169,6 +169,19 @@ public class BusinessController {
 		return view;
 	}
 
+	// 사업자 영화등록 페이지 이동
+	@GetMapping("movieInsert")
+	public String movieInsert() {
+		
+		return "movieInsert";
+	}
 
-
+	// 사업자 api에서 상영목록 임시저장
+	@GetMapping("insertApiMovie")
+	public void insertApiMovie(String date) throws Exception {
+		
+		buServ.insertApiMovie(date);
+	}
+	
+	
 } // class end
