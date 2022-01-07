@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.mvReviewDto;
@@ -201,7 +202,7 @@ public class AdminService {
 	public String getpaging(int num) {
 		String pageHtml = null;
 
-		int maxNum = aMapper.getBoardCnt();
+		int maxNum = aMapper.getquesBoardCnt();
 
 		int pageCnt = 10;
 
@@ -218,7 +219,7 @@ public class AdminService {
 
 	public List<quesboardDto> getboardRead(int ques_no) {
 
-		List<quesboardDto> readqlist = aMapper.getboardRead(ques_no);
+		List<quesboardDto> readqlist = aMapper.getquesboardRead(ques_no);
 
 		return readqlist;
 	}
@@ -351,4 +352,39 @@ public class AdminService {
 
 
 		}
+
+		public List<BusinessDto> getbulist(Integer pageNum) {
+			HashMap<String, Integer> busmap = new HashMap<String, Integer>();
+			busmap.put("pageNum", pageNum);
+			busmap.put("lcnt", listCnt);
+
+			List<BusinessDto> buslist = aMapper.getbuslist(busmap);
+
+
+
+
+			return buslist;
+		}
+
+		public String busgetpaging(Integer pageNum) {
+			String pageHtml = null;
+
+			int maxNum = aMapper.getBusCnt();
+
+			int pageCnt = 10;
+
+			String listName = "mmanageBu";
+
+			PagingUtil paging = new PagingUtil(maxNum, pageNum, listCnt, 
+					pageCnt, listName);
+			//PagingUtil paging = new PagingUtil(maxNum, pageCnt, maxNum, pageCnt, listName);
+
+			pageHtml = paging.makePaging();
+
+			return pageHtml;
+		}
+
+//		public ModelAndView quesboard_reply_insert(quesReplyDto qrdto) {
+//			return null;
+//		}
 	}

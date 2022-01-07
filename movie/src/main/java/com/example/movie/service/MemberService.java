@@ -6,8 +6,8 @@ import java.util.Map;
 import com.example.movie.dto.quesboardDto;
 
 import com.example.movie.mapper.AdminMapper;
+import com.example.movie.mapper.BusinessMapper;
 
-	
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -519,32 +519,23 @@ public class MemberService {
 
 	private int listCnt = 4;//페이지 당 게시글 개수
 
-//	public ModelAndView getMemberList(Integer pageNum) {
 	public List<MemberDto> getMemberList(Integer pageNum) {
-		// TODO Auto-generated method stub
-//		mv = new ModelAndView();
-//		pageNum = null;
-		//null 또는 페이지 번호가 pageNum으로 넘어옴.
-//		int num = (pageNum == null) ? 1 : pageNum;
-		//버튼을 눌러 이동한 직 후 null이 넘어옴.
-System.out.println("pageNum"+pageNum);		
-		//회원 목록 가져오기
-		Map<String, Integer> mmap = 
-				new HashMap<String, Integer>();
-//		mmap.put("num", num);
-		mmap.put("num", pageNum);
-		mmap.put("lcnt", listCnt);
-		//차후 view(jsp)에서 페이지 당 글 개수를 입력받아서
-	    //설정하는 부분을 처리하여 10 대신 사용.
-		//페이지 당 게시글 개수와 페이지넘버 넣는것.
-		System.out.println("listCnt = "+listCnt);			
-		List<MemberDto> mList = mMapper.getList(mmap);
-System.out.println("mList.size = "+mList.size());		
-System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가져오는 mapper
-//페이징 처리
-//String pageHtml = getPaging(pageNum);
 
-		return mList;
+			pageNum = (pageNum == null) ? 1 : pageNum;
+	System.out.println("pageNum"+pageNum);		
+			Map<String, Integer> mmap = 
+					new HashMap<String, Integer>();
+			mmap.put("num", pageNum);
+			mmap.put("lcnt", listCnt);
+
+			System.out.println("listCnt = "+listCnt);			
+			List<MemberDto> mList = mMapper.getList(mmap);
+	System.out.println("mList.size = "+mList.size());		
+	System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가져오는 mapper
+	//페이징 처리
+	//String pageHtml = getPaging(pageNum);
+
+			return mList;
 		
 	/*
 		//페이징 처리.
@@ -559,9 +550,7 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 		return mv;
 */
 	}
-	
-	//paging
-//	private String getPaging(int num) {
+	//회원정보 목록 페이징 처리.
 	public String getPaging(int num) {
 		String pageHtml = null;
 
@@ -624,19 +613,17 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 	mv.addObject("mList", mselectList);
 		return mv;
 	}
-
+	//회원 작성 1대1문의글 출력.(m_id로 검색)
 	public ModelAndView mboardSelect(String m_id) {
 		//mMap.getmboardSelect(m_id);
 		ModelAndView mv = new ModelAndView();
-		
-		
-		List<quesboardDto> mbList = aMapper.getboardSelect(m_id);
+		List<quesboardDto> mbList = aMapper.getquesboardSelect(m_id);
 		mv.addObject("mbLIst", mbList);
 		
 		System.out.println("mbList = "+mbList);
 		return mv;
 	}
-
+	//검색한 회원 1대1 작성 글 목록 페이징 처리
 	public String getsearchPaging(String m_id) {
 		String pageHtml = null;
 		int num = 1;
@@ -769,6 +756,27 @@ System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가
 		mv.setViewName("movieDetail");
 		
 		return mv;
+	}
+
+	// 이용자 관람평 작성 및 목록 출력
+	@Transactional
+	public Map<String, List<ReviewMovieDto>> insertReviewMovie(ReviewMovieDto reviewMovieDto) {
+		Map<String, List<ReviewMovieDto>> reviewListMap = null;
+		
+		try {
+			// 이용자 관람평 작성
+			mMapper.insertReviewMovie(reviewMovieDto);
+			
+			// 이용자 관람평 목록 다시 검색
+			List<ReviewMovieDto> reviewMovieList = mMapper.selectReviewMovieList(reviewMovieDto.getMv_review_moviecd()); 
+			
+			reviewListMap = new HashMap<String, List<ReviewMovieDto>>();
+			reviewListMap.put("reviewMovieList", reviewMovieList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			reviewListMap = null;
+		}
+		return reviewListMap;
 	}
 	
 }
