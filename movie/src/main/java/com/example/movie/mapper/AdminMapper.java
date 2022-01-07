@@ -72,10 +72,13 @@ public interface AdminMapper extends MybatisMapper {
 	public List<BusinessDto> getbuslist(HashMap<String, Integer> busmap);
 	//사업자 회원 목록 페이징시 필요한 목록 수
 	public int getBusCnt();
-	//관리자 입장에서 등록된 영화 상세보기 
+	//영화시퀀스번호로 사업자 영화가져옴
 	public MovieDto selectMovieBySeq(int mv_seq);
 
+	public void adminMovieInsert(MovieOfficialDto mvofficialDto);
+
 	public ModelAndView quesboard_replywrite(quesReplyDto qrdto);
+
 
 
 }

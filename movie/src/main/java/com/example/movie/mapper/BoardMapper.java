@@ -33,4 +33,6 @@ public interface BoardMapper extends MybatisMapper {
 	public void replyInsert(ReplyDto reDto);
 	//댓글 목록 출력
 	public List<ReplyDto> getReList(Integer rnum);
+	//신고 처리하기
+	public void reportRvInsert();
 }

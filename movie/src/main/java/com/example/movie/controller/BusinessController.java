@@ -1,6 +1,8 @@
+
 package com.example.movie.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.entity.TempMovie;
+import com.example.movie.repository.TempMovieRepository;
 import com.example.movie.service.BusinessService;
 
 import lombok.extern.java.Log;
@@ -27,6 +31,9 @@ public class BusinessController {
 	@Autowired
 	private BusinessService buServ;
 
+	@Autowired
+	private TempMovieRepository tempMovieRepository;
+	
 	private ModelAndView mv;
 
 	// 사업자 회원가입
@@ -168,11 +175,30 @@ public class BusinessController {
 
 		return view;
 	}
-//	@GetMapping()
-//	public ModelAndView theater_detail_insert() {
-//		
-//	}
 
+	// 사업자 영화등록 페이지 이동
+	@GetMapping("movieInsert")
+	public String movieInsert() {
+		
+		return "movieInsert";
+	}
 
-
+	// 사업자 api에서 상영목록 임시저장
+	@GetMapping("insertApiMovie")
+	@ResponseBody
+	public List<TempMovie> insertApiMovie(String date) throws Exception {
+		
+		List<TempMovie> tempMovie = buServ.insertApiMovie(date);
+		
+		return tempMovie;
+	}
+	
+	// 사업자 임시 목록 출력
+	@GetMapping("tempApiList")
+	public List<TempMovie> tempApiList(String date) {
+		
+		List<TempMovie> tempMovie =  tempMovieRepository.findByOpenDtLessThanEqual(date.replaceAll("-", ""));
+		
+		return tempMovie;
+	}
 } // class end

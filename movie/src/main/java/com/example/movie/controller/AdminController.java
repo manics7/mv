@@ -6,17 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-
-import com.example.movie.service.AdminService;
-
-import java.util.List;
-
 import com.example.movie.dto.BusinessDto;
-
+import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.service.AdminService;
@@ -123,6 +118,8 @@ public class AdminController {
 		return mv;
 	}
 	
+
+
 	//문의글 작성 폼으로 넘어가면서 문의번호 넘기기 
 	@GetMapping("quesboard_rewrite")
 	public ModelAndView quesboard_rewrite(Integer ques_no) {
@@ -176,6 +173,14 @@ public class AdminController {
 		mv = aServ.adminMovieList(pageNum);
 		
 		return mv;
+	}
+	
+	@PostMapping("movieOfficialInsert")
+	public String movieOfficialInsert(MultipartHttpServletRequest multi,RedirectAttributes rttr) {
+		
+		String view = aServ.movieOfficialInsert(multi,rttr);
+		
+		return view;
 	}
 	
 	//관리자 페이지로 이동

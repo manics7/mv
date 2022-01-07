@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1문의</title>
+<title>관리자 영화 등록</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="resource/css/queboard/queboard.css">
 
@@ -18,6 +18,14 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	//메시지 출력 부분
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	});
+</script>
 </head>
 <body>
     <div class="wrap">
@@ -57,7 +65,7 @@
                                     <tr>
                                         <th class="text-center">영화코드</th>
                                         <th class="text-center">영화이름</th>
-                                        <th class="text-center">제장년도</th>
+                                        <th class="text-center">제작년도</th>
                                         <th class="text-center">상태</th>
                                         
                                         <!--
@@ -79,6 +87,8 @@
 									<td class="text-center d-none d-md-table-cell"><a
 									href='/admin_movie_read?mv_seq=${mvitem.mv_seq}'>${mvitem.movie_nm}</a></td>
 									<td class="text-center d-none d-md-table-cell">일반</td>
+									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${mvitem.open_dt}"
+										pattern="yyyy-MM-dd"/></td>
 							
 									<td class="text-center d-none d-md-table-cell">
 									<c:choose>

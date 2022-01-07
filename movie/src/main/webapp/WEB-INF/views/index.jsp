@@ -19,8 +19,10 @@
 				<div id="box_office">
 					<div id="box-office-title">박스오피스</div>
 					<div id="more-movie">
-						<a href="#"> 더많은 영화보기 <img alt=""
-							src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-more-cross-gray.png">
+
+						<a href="./currentMovieList">
+							더많은 영화보기 
+							<img alt="" src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-more-cross-gray.png">
 						</a>
 					</div>
 					<div id="box-office-list">
@@ -69,7 +71,10 @@
 							<a href="#"> 상영시간표 </a>
 						</div>
 						<div class="search-cell">
-							<a href="#"> 박스오피스 </a>
+
+							<a href="./currentMovieList">
+								박스오피스
+							</a>
 						</div>
 						<div class="search-cell">
 							<a href="#"> 빠른예매 </a>
