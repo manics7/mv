@@ -65,7 +65,7 @@ $(function(){
                                     <tr>
                                         <th class="text-center">영화코드</th>
                                         <th class="text-center">영화이름</th>
-                                        <th class="text-center">개봉일</th>
+                                        <th class="text-center">제작년도</th>
                                         <th class="text-center">상태</th>
                                         
                                         <!--
@@ -86,6 +86,7 @@ $(function(){
 									<td class="text-center d-none d-md-table-cell">${mvitem.movie_cd}</td>
 									<td class="text-center d-none d-md-table-cell"><a
 									href='/admin_movie_read?mv_seq=${mvitem.mv_seq}'>${mvitem.movie_nm}</a></td>
+									<td class="text-center d-none d-md-table-cell">일반</td>
 									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${mvitem.open_dt}"
 										pattern="yyyy-MM-dd"/></td>
 							

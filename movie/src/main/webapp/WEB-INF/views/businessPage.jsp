@@ -24,7 +24,11 @@
 </head>
 
 <body>
+	<nav>
+	<jsp:include page="business_header.jsp"></jsp:include>
+	</nav>
 	<div class="wrap">
+
 		<div class="main_wrap_wrap">
 			<div class="main_wrap">
 			<div class="sidebar">
@@ -69,5 +73,12 @@
 
 				</div>
 			</div>
+				<div class="footer_wrap">
+		<footer>
+			<!-- 이부분에 푸터부분 들어감 -->
+		</footer>
+
+	</div>
 </body>
+
 </html>
