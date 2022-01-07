@@ -120,5 +120,12 @@
 		resultType="com.example.movie.dto.ReplyDto">
 		SELECT * FROM RELIST WHERE RNUM=#{rnum}
 	</select>
+	
+	<!-- 신고 처리하기 
+	<insert id="reportRvInsert" parameterType="com.example.movie.dto.ReportReviewDto">
+		INSERT INTO REPORT_REVIEW
+		VALUES (REPORT_REVIEW_SEQ.NEXTVAL,#{rnum},#{mid},#{mid},#{})
+	</insert>
+	-->
 							
 </mapper>

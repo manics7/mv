@@ -300,13 +300,13 @@ public class BusinessService {
 		String view = null;
 		String msg = null;
 		
-		int roomno = Integer.parseInt(request.getParameter("roomno"));
-		int thcode = Integer.parseInt(request.getParameter("thcode"));
-		String roclass = request.getParameter("roclass");
-		String roname = request.getParameter("roname");
-		int roomrow = Integer.parseInt(request.getParameter("roomrow"));
-		int roomcol = Integer.parseInt(request.getParameter("roomcol"));
-		int seatcnt = Integer.parseInt(request.getParameter("seatcnt"));
+		int roomno = Integer.parseInt(request.getParameter("room_no"));
+		int thcode = Integer.parseInt(request.getParameter("th_code"));
+		String roclass = request.getParameter("room_class");
+		String roname = request.getParameter("room_name");
+		int roomrow = Integer.parseInt(request.getParameter("room_row"));
+		int roomcol = Integer.parseInt(request.getParameter("room_col"));
+		int seatcnt = Integer.parseInt(request.getParameter("seat_cnt"));
 		String[] seatNoArray = request.getParameterValues("seatno");
 		String[] seatNotArray = request.getParameterValues("seatNot");
 		int col = 1;
@@ -332,33 +332,33 @@ public class BusinessService {
 
 			for(int i = 0; i <= (roomrow*roomcol)-1; i++) {
 				SeatDto seDto = new SeatDto();
-				seDto.setThcode(thcode);
-				seDto.setRoomno(roomno);
+				seDto.setTh_code(thcode);
+				seDto.setRoom_no(roomno);
 
 				String seatNo = seatNoArray[i];
-				seDto.setSeatno(seatNo);
+				seDto.setSeat_no(seatNo);
 
 				if(col <= roomcol) {
-					seDto.setSeatcol(col);
+					seDto.setSeat_col(col);
 					col++;
 				}
 				else {
 					col=1;
-					seDto.setSeatcol(col);
+					seDto.setSeat_col(col);
 					col++;
 					row++;
 				}
 				if(row <= roomrow) {
-					seDto.setSeatrow(row);
+					seDto.setSeat_row(row);
 				}
 
 				for(int j = 0; j <= seatNotArray.length-1; j++) {
 					String seatNot = seatNotArray[j];
 					if(seatNo.equals(seatNot)) {
-						seDto.setSeatstat(0);
+						seDto.setSeat_status(0);
 						break;
 					} else {
-						seDto.setSeatstat(1);
+						seDto.setSeat_status(1);
 					}
 				}
 
