@@ -18,7 +18,7 @@ import lombok.extern.java.Log;
 
 @Controller
 @Log
-public class BusinessContorller {
+public class BusinessController {
 	
 	@Autowired
 	private BusinessService buServ;
