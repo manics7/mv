@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1문의</title>
+<title>관리자 영화 등록</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="resource/css/queboard/queboard.css">
 
@@ -19,7 +19,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	$(function(){
+$(function(){
 	//메시지 출력 부분
 	var msg = "${msg}";
 	if(msg != ""){
@@ -65,7 +65,7 @@
                                     <tr>
                                         <th class="text-center">영화코드</th>
                                         <th class="text-center">영화이름</th>
-                                        <th class="text-center">개봉년도</th>
+                                        <th class="text-center">개봉일</th>
                                         <th class="text-center">상태</th>
                                         
                                         <!--

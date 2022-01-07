@@ -478,7 +478,7 @@ public class AdminService {
 				aMapper.adminMovieInsert(mvofficialDto);
 				msg = "등록 성공";
 			
-				msg = "등록 실패";
+				
 			
 			
 			

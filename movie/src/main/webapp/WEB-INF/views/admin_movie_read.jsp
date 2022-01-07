@@ -69,7 +69,7 @@ $(function(){
 									value="${movie.mv_seq}"  />
 							
 							<div class="form-group">
-								<label for="board_writer_name">개봉연도</label> <input type="text"
+								<label for="board_writer_name">개봉일</label> <input type="text"
 									id="board_writer_name" name="open_dt"
 									class="form-control" value="${movie.open_dt}" disabled="disabled" />
 							</div>
