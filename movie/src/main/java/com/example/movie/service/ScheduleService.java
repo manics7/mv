@@ -117,13 +117,6 @@ public class ScheduleService {
 		map.put("theaterList", theaterList);		
 		map.put("dateList", dateList);
 		
-		//String url = awsS3.getFileURL(awsS3.bucket, awsS3.bucketURL+"mm.thumb.jpg");
-		//String url2 = awsS3.getFileURL(awsS3.bucket, awsS3.bucketURL+"82479_320.jpg");	
-		//String url3 = awsS3.getFileURL(awsS3.bucket, awsS3.bucketURL+"84949_320.jpg");	
-		//System.out.println(url1 + "//////////////////////////////////////////////////");
-		//System.out.println(url2 + "//////////////////////////////////////////////////");
-		//System.out.println(url3 + "//////////////////////////////////////////////////");
-		
 		return map;
 	}
 	
@@ -150,6 +143,7 @@ public class ScheduleService {
 	
 	public List<Schedule> getTimeList(String movieCd, Integer thCode, String date) {
 		
+		//영화,극장,일자 조건에 해당하는 상영정보를 가져온다. 
 		List<Schedule> scheduleList = scheduleRepositoryCustom.getScheule(movieCd, thCode, date);		
 		Predicate<Schedule> schCode = s-> s.getSchCode() == s.getSchCode();		
 		scheduleList = scheduleList.stream()
@@ -157,10 +151,12 @@ public class ScheduleService {
 				.distinct()
 				.collect(Collectors.toList());
 		
+		
 		for (int i = 0; i < scheduleList.size(); i++) {
 			
 			Room room = roomRepository.findByThCodeAndRoomNo(scheduleList.get(i).getThCode(), scheduleList.get(i).getRoomNo());
 			
+			//시간정보 시작시간 10분뒤까지만 보여줌
 			List<ScheduleDetail>schDetailList = scheduleRepositoryCustom.getschDetail(
 					scheduleList.get(i).getSchCode()
 					, scheduleList.get(i).getMovieCd()
@@ -172,12 +168,14 @@ public class ScheduleService {
 			
 			for (int j = 0; j <  scheduleList.get(i).getScheduleDetail().size(); j++) {
 				
+				//예약좌석수
 				Integer rsrvSeatCnt = reservationRepositoryCustom.getRsrvSeatCnt(
 						scheduleList.get(i).getScheduleDetail().get(j).getSchCode()
 						, scheduleList.get(i).getScheduleDetail().get(j).getSchDetailSeq());
 				
 				scheduleList.get(i).getScheduleDetail().get(j).setRsrvSeatCnt(rsrvSeatCnt);
 				
+				//예매종료 표시를 위한 시간계산(10분동안) 
 				LocalDateTime now =LocalDateTime.now();			
 				Date	schDateTime = scheduleList.get(i).getScheduleDetail().get(j).getSchDetailStart();
 				LocalDateTime StartTime = schDateTime.toInstant() // Date -> Instant

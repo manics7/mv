@@ -8,21 +8,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="resource/css/rsrv.css">
 <link rel="stylesheet" type="text/css" href="resource/css/bootstrap.css">
+<script src="resource/js/bootstrap.bundle.js"></script>
 <script type="text/javascript">
 
 	       
 $(document).ready(function() {
-
-		fnObj.init();
 	
 });
+
+
 
 
 </script>
 </head>
 <!-- histoty Modal-->
 <div class="modal-content">
-	<div class="modal-header text-white">
+	<div class="modal-header text-white modal-header-bg">
 		<h5 class="modal-title ml-auto" ><strong>빠른예매</strong></h5>
 		<div class="ml-auto">
 			<button type="button" class="btn btn-outline-light bg-dark text-white" id="reset">예매 다시하기</button>
@@ -31,7 +32,7 @@ $(document).ready(function() {
 		</div>
 	</div>
 		
-	<div class="modal-body">
+	<div class="modal-body pb-2">
 			 <div class="conainner">
 			 	<div class="row">
 			 		<div class="col-md-4 px-0 border-right">
@@ -48,9 +49,9 @@ $(document).ready(function() {
 							  <li class="nav-item">
 							    <a class="nav-link active" href="#">가나다순</a>
 							  </li>
-							  <li class="nav-item active">
+							  <!-- <li class="nav-item active">
 							    <a class="nav-link">예매율순</a>							   
-							  </li>						
+							  </li> -->						
 							  <li class="nav-item">
 							    <a class="nav-link" ></a>
 							  </li>
@@ -117,7 +118,7 @@ $(document).ready(function() {
 			 					<div class="col-md-12 pl-0 pr-0" id="timeList">	
 				 					<ul class="list-group list-group-flush"></ul>
 						         </div>	
-						         <div class="card mt-2 pl-0 pr-0" id="movieInfo">
+						         <div class="card mt-2 pl-0 pr-0 mb-1" id="movieInfo">
 								  <div class="row no-gutters">
 								    <div class="col-md-5 pl-3" id="thumnail"></div>
 								    <div class="col-md-7">
@@ -131,9 +132,8 @@ $(document).ready(function() {
 								    </div>
 								  </div>
 								</div>
-						         <div class="col-md-12 mt-2">						    
+						         <div class="col-md-12">						    
 						     	   <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>		
-						     	   <img alt="" style="width:100px;height:100px;" src="https://mv-project.s3.ap-northeast-2.amazonaws.com/images/3113f099-c5bd-48f2-a129-bb78c2c6f436_a3%20%281%29.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220107T081519Z&X-Amz-SignedHeaders=host&X-Amz-Expires=899&X-Amz-Credential=AKIAUTXDTKPOJ6KF6QFA%2F20220107%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Signature=84262cea51cf5c15c5c18217bce536b73f0726777f28e337c2fe2559f7a9c7ff">				     	   
 						         </div> 
 						         
 			 				</div>
@@ -145,12 +145,12 @@ $(document).ready(function() {
     </div>
 </div>
     
-<div class="modal fade" id="confirm" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="confirmModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">알림</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" aria-label="Close" onclick="javascript:modalClose('confirmModal');">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -158,8 +158,30 @@ $(document).ready(function() {
         선택하신 영화관에 원하시는 상영스케쥴이 없습니다. 계속하시겠습니까?(선택한 날짜 및 시간이 해제됩니다.)
       </div>
       <div class="modal-footer">        
-        <button type="button" class="btn btn-primary" id="confirm">확인</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+      	<div class="mr-auto ml-auto">
+      	   <button type="button" class="btn btn-primary" id="confirm">확인</button>
+     	   <button type="button" class="btn btn-secondary" onclick="javascript:modalClose('confirmModal');"> 취소</button>
+      	</div>       
+      </div>
+    </div>
+  </div>
+</div>	
+
+
+<div class="modal fade" id="alertModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">알림</h5>
+        <button type="button" class="close" aria-label="Close" onclick="javascript:modalClose('alertModal');">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        영화관, 영화, 날짜, 상영시간을 선택해주세요.
+      </div>
+      <div class="modal-footer">        
+        <button type="button" class="btn btn-secondary mr-auto ml-auto" onclick="javascript:modalClose('alertModal');">확인</button>
       </div>
     </div>
   </div>
