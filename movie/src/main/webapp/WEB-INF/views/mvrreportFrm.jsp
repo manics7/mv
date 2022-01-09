@@ -89,15 +89,15 @@ $(function(){
 						<c:when test="${not empty rpList}">
 							<c:forEach var="rpitem" items="${rpList}">
 								<tr>
-									<td class="text-center d-none d-md-table-cell">${rpitem.rpid}</td>
-									<td class="text-center d-none d-md-table-cell">${rpitem.rpwhy}</td>
-									<td class="text-center d-none d-md-table-cell">${rpitem.contents}</td>
-									<td class="text-center d-none d-md-table-cell">${rpitem.rptid}</td>
+									<td class="text-center d-none d-md-table-cell">${rpitem.rp_m_id}</td>
+									<td class="text-center d-none d-md-table-cell">${rpitem.rp_why}</td>
+									<td class="text-center d-none d-md-table-cell">${rpitem.rp_contents}</td>
+									<td class="text-center d-none d-md-table-cell">${rpitem.rpt_m_id}</td>
 									<td class="text-center d-none d-md-table-cell"><fmt:formatDate
-											value="${rpitem.rpdate}" pattern="yyyy-MM-dd" /></td>
+											value="${rpitem.rp_date}" pattern="yyyy-MM-dd" /></td>
 									<td class="text-center d-none d-md-table-cell">
 								<c:choose> 
-									<c:when test="${rpitem.state == '0'}">
+									<c:when test="${rpitem.rp_state == '0'}">
 										미처리
 									</c:when> 
 									<c:otherwise>
@@ -108,8 +108,8 @@ $(function(){
 									</td>
 									<td class="text-center d-none d-md-table-cell">
 									<c:choose> 
-									<c:when test="${rpitem.state == '0'}">
-										<button id="btn1" onclick="delCheck(${rpitem.mvrnum})">경고 및 삭제</button>
+									<c:when test="${rpitem.rp_state == '0'}">
+										<button id="btn1" onclick="delCheck(${rpitem.movie_review})">경고 및 삭제</button>
 									</c:when> 
 									<c:otherwise>
 										처리완료
@@ -173,11 +173,11 @@ $(function(){
 	</div>
 </body>
 <script type="text/javascript">
-function delCheck(mv_review){
+function delCheck(movie_review){
 	var conf = confirm("삭제하시겠습니까?");
 	
 	if(conf == true){
-		location.href='./delAdminMvReview?mv_review=' + mv_review;
+		location.href='./delAdminMvReview?movie_review=' + movie_review;
 	}
 }
 </script>

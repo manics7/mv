@@ -18,7 +18,7 @@
 			<li><a id="bupage_menu" href="adminMovieList">영화관리</a></li>
 			<li><a id="bupage_menu" href="pmvReviewFrm">영화관관리</a></li>
 			<li><a id="bupage_menu" href="./quesboard?pageNum=1">문의관리</a></li>
-			<li><a id="bupage_menu" href="questionFrm">신고관리</a></li>
+			<li><a id="bupage_menu" href="mvrreportFrm">신고관리</a></li>
 		</ul>
 	</div>
 

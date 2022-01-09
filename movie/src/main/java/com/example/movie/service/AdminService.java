@@ -152,22 +152,6 @@ public class AdminService {
 		pmap.put("lcnt", listCnt);
 
 		List<reportMvReviewDto> rpList = aMapper.selectReportMvReview(pmap);
-		/* 글내용 가져옴
-		List<reportMvReviewDto> arpList = new ArrayList<reportMvReviewDto>();
-
-
-		  for(int i = 0; i <= rpList.size()-1; i++) {
-
-			reportMvReviewDto rpDto = rpList.get(i);
-
-			int mvrNum = rpDto.getMvrnum();
-
-			String contents = aMapper.selectMvReviewByReviewNum(mvrNum);
-
-			rpDto.setContents(contents);
-
-			arpList.add(rpDto);
-		}*/
 
 		//화면에 전송.
 		mv.addObject("rpList", rpList);
@@ -186,7 +170,7 @@ public class AdminService {
 
 		return mv;
 	}
-
+	//영화리뷰 삭제(신고페이지)
 	@Transactional
 	public String delAdminMvReview(int mvrNum,RedirectAttributes rttr) {
 

@@ -25,25 +25,26 @@ public class AdminController {
 	
 	private ModelAndView mv;
 
-	@GetMapping("reportFrm")
-	public ModelAndView reportFrm(Integer pageNum) {
+	//신고페이지(영화리뷰)
+	@GetMapping("mvrreportFrm")
+	public ModelAndView mvrreportFrm(Integer pageNum) {
 		
-		mv = aServ.reportedReview(pageNum);
+		mv = aServ.reportedmvReview(pageNum);
 		
 		return mv;
 	}
-	
+	//영화리뷰 삭제처리 (신고)
 	@GetMapping("delAdminMvReview")
-	public String delAdminMvReview(int mvrnum,RedirectAttributes rttr) {
+	public String delAdminMvReview(int movie_review,RedirectAttributes rttr) {
 		
 		/*int mvrnum = Integer.parseInt(mv_review);*/
 		
-		
-		String view = aServ.delAdminMvReview(mvrnum,rttr);
+		String view = aServ.delAdminMvReview(movie_review,rttr);
 		
 		return view;
 	}
 	
+	//신고정렬
 	@GetMapping("sortByState")
 	public ModelAndView sortByState(Integer pageNum) {
 		
@@ -58,6 +59,7 @@ public class AdminController {
 		
 		return mv;
 	}
+	
 	//문의사항 목록 출력 
 	@GetMapping("/quesboard")
 	public ModelAndView quesboard(Integer pageNum) {
@@ -174,7 +176,7 @@ public class AdminController {
 		
 		return mv;
 	}
-	
+	//영화등록 페이지
 	@GetMapping("adminMovieList")
 	public ModelAndView adminMovieList(Integer pageNum) {
 		
@@ -182,7 +184,7 @@ public class AdminController {
 		
 		return mv;
 	}
-	
+	//영화등록 등록처리
 	@PostMapping("movieOfficialInsert")
 	public String movieOfficialInsert(MultipartHttpServletRequest multi,RedirectAttributes rttr) {
 		
