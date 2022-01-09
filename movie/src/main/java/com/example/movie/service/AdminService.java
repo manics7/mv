@@ -393,12 +393,12 @@ public class AdminService {
 
 			return pageHtml;
 		}
-
-	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
-		mv = new ModelAndView();
-		mv = aMapper.quesboard_replywrite(qrdto);
-		return mv;
-	}
+//1대1문의 답변(사용안함)
+//	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
+//		mv = new ModelAndView();
+//		mv = aMapper.quesboard_replywrite(qrdto);
+//		return mv;
+//	}
 
 		public ModelAndView admin_movie_read(int mv_seq) {
 			
@@ -492,7 +492,7 @@ public class AdminService {
 			return view;
 		}
 
-		//1대1 문의 답변 삽입
+		//1대1 문의 답변(사용함)(하는중)
 	public String quesboard_reply_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
 		String view = null;	
 		String msg = null;

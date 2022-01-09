@@ -119,6 +119,20 @@
 </body>
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+	$(document).ready(function(){
+		
+		$('.search_rayer').hide();
+		$('.menuitem_4_search_theater').mouseover(function(){
+			console.log("내려간다.");
+			$('.search_rayer').slideDown();
+		});
+		
+	
+		$('.search_close').mouseup(function(){
+			$('.search_rayer').hide();
+		})
+		
+	})
 		//메시지 출력 부분
 		var msg = "${msg}";
 		var info = "${userInfo.m_name}"
@@ -126,5 +140,7 @@
 		if(msg != ""){
 			alert(msg);
 		}
+		
+		
 	</script>
 </html>

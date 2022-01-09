@@ -208,13 +208,13 @@ public class AdminController {
 		return mv;
 
 	}
-	//관리자 입장에서 1대1 문의사항 답변하기 .
-	@GetMapping("quesboard_reply_insert")
-	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
-		mv = aServ.quesboard_replywrite(qrdto);
-		return mv;
-	}
-	
+	//관리자 입장에서 1대1 문의사항 답변하기(사용안함)
+//	@GetMapping("quesboard_reply_insert")
+//	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
+//		mv = aServ.quesboard_replywrite(qrdto);
+//		return mv;
+//	}
+//	
 	
 }
 

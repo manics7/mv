@@ -91,7 +91,7 @@
 														<td class="text-center d-none d-md-table-cell"><a
 															type="button" href="./mboardSelect?m_id=${mitem.m_id}">확인</a></td>
 														<td class="text-center d-none d-md-table-cell"><a
-															href="./deleteMember">삭제</a></td>
+															href="./admindelMember">삭제</a></td>
 													</tr>
 
 												</c:forEach>
