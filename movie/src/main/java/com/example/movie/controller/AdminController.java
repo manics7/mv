@@ -118,18 +118,6 @@ public class AdminController {
 		return mv;
 
 	}
-	
-
-	@GetMapping("admin_movie_read")
-	public ModelAndView movieDetail(int mv_seq) {
-		
-		mv = aServ.admin_movie_read(mv_seq);
-		
-		return mv;
-
-	}
-	
-
 
 	//문의글 작성 폼으로 넘어가면서 문의번호 넘기기 
 	@GetMapping("quesboard_rewrite")
@@ -141,7 +129,7 @@ public class AdminController {
 		mv.setViewName("quesboard_rewrite"); 		
 		return mv;
 	}
-	
+
 	//문의사항 답변 달기 ( 하는중 ) 
 	@PostMapping("/quesboard_reply_insert")
 	public ModelAndView quesboard_reqly_insert(quesReplyDto qrdto) {
@@ -215,7 +203,6 @@ public class AdminController {
 		mv = aServ.quesboard_replywrite(qrdto);
 		return mv;
 	}
-	
 	
 }
 

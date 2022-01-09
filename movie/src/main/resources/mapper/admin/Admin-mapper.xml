@@ -161,12 +161,6 @@
 	INSERT INTO question_reply VALUES(#{ques_reply_no},#{ques_no},#{ques_reply_cont},sysdate,#{ques_reply_state});
 	</insert>
 	
-	
-	<select id="selectMovieBySeq" parameterType="Integer"
-		resultType="com.example.movie.dto.MovieDto">
-		SELECT * FROM movie where mv_seq =#{mv_seq}
-	</select>
-	
 	<insert id="adminMovieInsert" parameterType="com.example.movie.dto.MovieOfficialDto">
 		insert into movie_official values (#{movie_cd}, #{movie_nm}, #{movie_content},
 		#{show_tm}, #{open_dt}, #{genre_nm}, #{directors}, #{actors}, #{show_types},

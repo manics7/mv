@@ -11,7 +11,7 @@ import com.example.movie.entity.TempMovie;
 @Repository
 public interface TempMovieRepository extends JpaRepository<TempMovie, String> {
 
+	// 영화 목록 출력(입력 일자보다 느린)
 	List<TempMovie> findByOpenDtLessThanEqual(String date);
-	
-	
+
 }

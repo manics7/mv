@@ -3,6 +3,7 @@ package com.example.movie.service;
 
 import java.io.BufferedInputStream;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.common.AwsS3;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.RoomDto;
 import com.example.movie.dto.SeatDto;
@@ -198,7 +200,7 @@ public class BusinessService {
 		theater.setTh_areacode(regeion);//지역 코드
 
 		try {
-			
+
 			//업로드 파일이 있을 경우
 			//check는 로고 이미지, check2는 영화관 사진
 
@@ -236,7 +238,7 @@ public class BusinessService {
 			msg = "등록 성공";
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 			//다시 등록 페이지
 			view = "redirect:theaterAdd";
@@ -313,7 +315,7 @@ public class BusinessService {
 			RedirectAttributes rttr) {
 		String view = null;
 		String msg = null;
-		
+
 		int roomno = Integer.parseInt(request.getParameter("room_no"));
 		int thcode = Integer.parseInt(request.getParameter("th_code"));
 		String roclass = request.getParameter("room_class");
@@ -321,7 +323,7 @@ public class BusinessService {
 		int roomrow = Integer.parseInt(request.getParameter("room_row"));
 		int roomcol = Integer.parseInt(request.getParameter("room_col"));
 		int seatcnt = Integer.parseInt(request.getParameter("seat_cnt"));
-    
+
 		String[] seatNoArray = request.getParameterValues("seatno");
 		String[] seatNotArray = request.getParameterValues("seatNot");
 		int col = 1;
@@ -543,7 +545,7 @@ public class BusinessService {
 		return view;
 
 	}
-	
+
 	// 사업자 영화목록 임시 저장
 	@Transactional
 	public List<TempMovie> insertApiMovie(String date) throws Exception{
@@ -560,26 +562,33 @@ public class BusinessService {
 			String repGenreNm = (String) entity.get("repGenreNm");
 			String openDt = (String) entity.get("openDt");
 			String genreAlt = (String) entity.get("genreAlt");
-//			System.out.print(movieCd + " / ");
-//			System.out.print(movieNm + ", ");
-//			System.out.print(repGenreNm + ", ");
-//			System.out.println(openDt);
 
-			TempMovie tempMovie = new TempMovie();
+			if(!repGenreNm.equals("성인물(에로)") && !repGenreNm.equals("멜로/로맨스") && !repGenreNm.equals("드라마")) {
 
-			tempMovie.setMovieCd(movieCd);
-			tempMovie.setMovieNm(movieNm);
-			tempMovie.setRepGenreNm(repGenreNm);
-			tempMovie.setOpenDt(openDt);
-			tempMovie.setGenreAlt(genreAlt);
+				System.out.print(movieCd + " / ");
+				System.out.print(movieNm + ", ");
+				System.out.print(repGenreNm + ", ");
+				System.out.println(openDt);
 
-			tempMovieRepository.save(tempMovie);
+				TempMovie tempMovie = new TempMovie();
+
+
+				tempMovie.setMovieCd(movieCd);
+				tempMovie.setMovieNm(movieNm);
+				tempMovie.setRepGenreNm(repGenreNm);
+				tempMovie.setOpenDt(openDt);
+				tempMovie.setGenreAlt(genreAlt);
+
+				tempMovieRepository.save(tempMovie);
+
+			}
+
 		}
 
-		List<TempMovie> tempMovie =  tempMovieRepository.findByOpenDtLessThanEqual(date.replaceAll("-", ""));
-		
+		List<TempMovie> tempMovie = tempMovieRepository.findByOpenDtLessThanEqual(date.replaceAll("-", ""));
+
 		return tempMovie;
-		
+
 	}
 
 	// 사업자 영화목록 임시 저장'' 
@@ -612,4 +621,84 @@ public class BusinessService {
 				reader.close();
 		}
 	}
+
+	// 사업자 영화 등록
+	@Transactional
+	public String movieInsertProc(MultipartHttpServletRequest multi, RedirectAttributes rttr) {
+
+		String view = null;
+		String msg = null;
+
+		String bar = "/";
+
+		String movie_cd = multi.getParameter("movie_cd");
+		String movie_nm = multi.getParameter("movie_nm");
+		String openDt = multi.getParameter("open_dt");
+
+		String open_dt = openDt.substring(0, 4) + bar
+				+ openDt.substring(5, 6) + bar
+				+ openDt.substring(7)
+//				+ " 00:00:00"
+				;
+//		System.out.println(open_Dt);
+
+//		Timestamp open_dt = Timestamp.valueOf(open_Dt);
+		System.out.println(open_dt);
+
+		String genre_nm = multi.getParameter("genre_nm");
+
+		String show_Tm = multi.getParameter("show_tm");
+		int show_tm = Integer.parseInt(show_Tm);
+
+		String directors = multi.getParameter("directors");
+		String actors = multi.getParameter("actors");
+		String show_types = multi.getParameter("show_types");
+		String watch_grade_nm = multi.getParameter("watch_grade_nm");
+		String check = multi.getParameter("fileUp");
+
+		MovieDto movieDto = new MovieDto();
+
+		movieDto.setMovie_cd(movie_cd);
+		movieDto.setMovie_nm(movie_nm);
+		movieDto.setOpen_dt(open_dt);
+		movieDto.setGenre_nm(genre_nm);
+		movieDto.setShow_tm(show_tm);
+		movieDto.setDirectors(directors);
+		movieDto.setActors(actors);
+		movieDto.setShow_types(show_types);
+		movieDto.setWatch_grade_nm(watch_grade_nm);
+
+		try {
+
+			if(check.equals("1")) {
+
+				//로고 파일의 이름 가져오기
+				List<MultipartFile> posterFile = multi.getFiles("moviePoster");	
+				List<String> posterName = awsS3.uploadFile(posterFile);
+
+				//로고 사진 파일이 있으면 파일 이름을 dto에 담기
+				for(int i = 0; i < posterName.size(); i ++) {
+					String poster = awsS3.getFileURL(bucket, bucketURL + posterName.get(i));
+
+					//dto에 넣기
+					movieDto.setPoster(poster);
+				}
+			}
+			
+			buMapper.movieInsertProc(movieDto);
+			
+			view = "redirect:businessPage";
+			msg = "영화 등록 성공";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			view = "redirect:movieInsert";
+			msg = "영화 등록 실패";
+		}
+		
+		rttr.addFlashAttribute("msg", msg);
+
+		return view;
+	}
+
 } // class end

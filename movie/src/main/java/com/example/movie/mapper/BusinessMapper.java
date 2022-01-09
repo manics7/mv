@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.RoomDto;
@@ -47,8 +48,8 @@ public interface BusinessMapper  extends MybatisMapper {
 	public void roomInsert(RoomDto roDto);
 	//좌석정보 등록하기
 	public void seatInsert(SeatDto seDto);
-	
-	// 임시 영화 저장
-//	public void tempInsert()
 
+	// 사업자 영화 등록
+	public void movieInsertProc(MovieDto movieDto);
+	
 }

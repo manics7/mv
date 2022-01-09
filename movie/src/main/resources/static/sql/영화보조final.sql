@@ -75,7 +75,8 @@ CREATE TABLE movie (
 	directors	nvarchar2(50)		NULL,
 	actors	nvarchar2(50)		NULL,
 	show_types	nvarchar2(50)		NULL,
-	watch_grade_nm	number		NULL
+	watch_grade_nm	number		NULL,
+	poster	nvarchar2(500)	null
 );
 
 COMMENT ON COLUMN movie.th_code IS '¿Ü·¡Å°';
