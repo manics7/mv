@@ -636,8 +636,8 @@ public class BusinessService {
 		String openDt = multi.getParameter("open_dt");
 
 		String open_dt = openDt.substring(0, 4) + bar
-				+ openDt.substring(5, 6) + bar
-				+ openDt.substring(7)
+				+ openDt.substring(4, 6) + bar
+				+ openDt.substring(6)
 //				+ " 00:00:00"
 				;
 //		System.out.println(open_Dt);

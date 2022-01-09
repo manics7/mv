@@ -170,6 +170,7 @@
 			// 파일 선택 시
 			else {
 				$("#fileCheck").val(1);
+				$("#upload-name").val(fileName);
 			}
 		});
 		
