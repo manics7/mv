@@ -120,15 +120,15 @@ public class AdminController {
 	}
 	
 
-	@GetMapping("admin_movie_read")
-	public ModelAndView movieDetail(int mv_seq) {
-		
-		mv = aServ.admin_movie_read(mv_seq);
-		
-		return mv;
-
-	}
-	
+	//@GetMapping("admin_movie_read")
+//	public ModelAndView movieDetail(int mv_seq) {
+//		
+//		mv = aServ.admin_movie_read(mv_seq);
+//		
+//		return mv;
+//
+//	}
+//	
 
 
 	//문의글 작성 폼으로 넘어가면서 문의번호 넘기기 
@@ -138,16 +138,15 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		int q = ques_no;
 		mv.addObject("ques_no", q);
-		mv.setViewName("quesboard_rewrite"); 		
+		mv.setViewName("quesboard_replywrite"); 		
 		return mv;
 	}
 	
 	//문의사항 답변 달기 ( 하는중 ) 
 	@PostMapping("/quesboard_reply_insert")
-	public ModelAndView quesboard_reqly_insert(quesReplyDto qrdto) {
-		ModelAndView mv = new ModelAndView();
-		//mv = aServ.quesboard_reply_insert(qrdto);
-		return mv;
+	public String quesboard_reqly_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
+		String view = aServ.quesboard_reply_insert(qrdto, rttr);
+		return view;
 	}
 	
 	//사업자회원 정보 출력
@@ -209,7 +208,7 @@ public class AdminController {
 		return mv;
 
 	}
-	
+	//관리자 입장에서 1대1 문의사항 답변하기 .
 	@GetMapping("quesboard_reply_insert")
 	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
 		mv = aServ.quesboard_replywrite(qrdto);

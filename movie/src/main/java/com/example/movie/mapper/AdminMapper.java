@@ -79,6 +79,9 @@ public interface AdminMapper extends MybatisMapper {
 
 	public ModelAndView quesboard_replywrite(quesReplyDto qrdto);
 
+	//1대1 문의사항의 답변 처리.(관리자 입장)
+	public quesReplyDto insertReplyWrite(quesReplyDto qrdto);
+
 
 
 }

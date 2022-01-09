@@ -139,7 +139,7 @@
 	</select>
 	
 	<select id="selectmovieschedule" resultType="com.example.movie.dto.Theater_detailDto">
-	select * from thdetail 
+	
 	</select>
 
 </mapper>

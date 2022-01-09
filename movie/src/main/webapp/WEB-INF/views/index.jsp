@@ -13,7 +13,9 @@
 		<header>
 			<jsp:include page="header.jsp"></jsp:include>
 		</header>
-
+		<div class="search_theater">
+		<jsp:include page="main_search_theater.jsp"></jsp:include>
+		</div>	
 		<div id="section_wrap">
 			<div id="main_wrap">
 				<div id="box_office">
