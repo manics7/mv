@@ -186,9 +186,6 @@ public class AdminService {
 
 			aMapper.updateWarning(rptId);
 
-			//aMapper.delMvReviewReport(mvrNum);
-
-
 			rttr.addFlashAttribute("msg","삭제성공");
 
 		} catch(Exception e) {
