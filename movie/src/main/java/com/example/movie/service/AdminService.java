@@ -68,8 +68,74 @@ public class AdminService {
 
 		return pageHtml;
 	}
+	
+	//신고 영화관후기게시글
+	public ModelAndView reportedReview(Integer pageNum) {
+		
+		mv = new ModelAndView();
+		int num = (pageNum == null)? 1 : pageNum;
+		int listCnt = 6;
+		
+	//	int maxNum = aMapper.selectReportReviewCnt(pmap);
+		String view = "replyreportFrm";
+		
+		Map<String, Integer> pmap = 
+				new HashMap<String, Integer>();
+		pmap.put("num", num);
+		pmap.put("lcnt", listCnt);
 
-	public ModelAndView reportedReview (Integer pageNum) {
+		//List<reportMvReviewDto> rpList = aMapper.selectReportMvReview(pmap);
+		
+		//mv.addObject("rpList", rpList);
+
+		//String pageHtml = getPaging(num,listCnt,view,maxNum);
+//		mv.addObject("paging", pageHtml);
+
+		//세션에 페이지번호 저장
+		//글작성 화면, 글내용 상세보기 화면 등에서 다시 목록으로
+		//돌아갈때 보고 있던 페이지가 나오도록 하기 위해.
+		session.setAttribute("pageNum", num);
+
+		//jsp 파일 이름 지정
+		mv.setViewName(view);
+		
+		return mv;
+	}
+	
+	//신고 댓글
+	public ModelAndView reportedReply(Integer pageNum) {
+		mv = new ModelAndView();
+		int num = (pageNum == null)? 1 : pageNum;
+		int listCnt = 6;
+		
+	//	int maxNum = aMapper.selectReportReplyCnt(pmap);
+		String view = "reviewreportFrm";
+		
+		Map<String, Integer> pmap = 
+				new HashMap<String, Integer>();
+		pmap.put("num", num);
+		pmap.put("lcnt", listCnt);
+
+		//List<reportMvReviewDto> rpList = aMapper.selectReportMvReview(pmap);
+		
+	//	mv.addObject("rpList", rpList);
+
+		//	String pageHtml = getPaging(num,listCnt,view,maxNum);
+	//	mv.addObject("paging", pageHtml);
+
+		//세션에 페이지번호 저장
+		//글작성 화면, 글내용 상세보기 화면 등에서 다시 목록으로
+		//돌아갈때 보고 있던 페이지가 나오도록 하기 위해.
+		session.setAttribute("pageNum", num);
+
+		//jsp 파일 이름 지정
+		mv.setViewName(view);
+		
+		return mv;
+	}
+	
+	//신고 영화리뷰
+	public ModelAndView reportedmvReview (Integer pageNum) {
 		mv = new ModelAndView();
 
 		int num = (pageNum == null)? 1 : pageNum;
@@ -77,7 +143,7 @@ public class AdminService {
 
 		int maxNum = aMapper.selectReportMvReviewCnt();
 
-		String view = "reportFrm";
+		String view = "mvrreportFrm";
 
 		//게시글 목록 가져오기
 		Map<String, Integer> pmap = 
