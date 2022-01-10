@@ -511,7 +511,7 @@ public class AdminService {
 		//없어도 걍 담아
 		for(int i = 0; i < imgName.size(); i++) {
 
-			String LfileName = AwsS3.getFileURL(bucket, bucketURL+imgName.get(i));
+			String LfileName = AwsS3.getFileURL(bucket,imgName.get(i));
 			if(i==0) {
 				mvofficialDto.setStillcut1(LfileName);
 			}
