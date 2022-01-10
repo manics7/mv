@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-@charset "UTF-8";
-
 body {
     margin: 0;
     padding: 0;
@@ -14,7 +12,9 @@ body {
 /* 후기게시판 header */
 #rv_title {
 	text-align: center;
-	margin-top: 100px;
+	margin-top: 150px;
+}
+.rv_title {
 	color: orange;
 }
 .rv_header {
@@ -28,7 +28,9 @@ body {
 	color: gray;
 	font-size: 14px;
 }
-
+#rv_info {
+	color: black;
+}
 
 /* 검색창 */
 .rv_search {
@@ -77,6 +79,11 @@ body {
     width: 1024px;
     margin: 0 auto;
 }
+.rv_section2 {
+	width: 1024px;
+    margin: 0 auto;
+	height: 1500px;
+}
 .rv_table {
 	width: 1024px;
 	border-top: 2px solid;
@@ -101,7 +108,9 @@ td.t_no, td.t_view, td.t_like {
 .p-30 {
     width: 30%;
 }
-
+#t_title {
+	color: black;
+}
 
 /* 페이징 버튼 */
 .btn-area2 .paging {
@@ -160,7 +169,7 @@ td.t_no, td.t_view, td.t_like {
 	width: 1024px;
 	height: 800px;
 	margin: 0 auto;
-	margin-top: 40px;
+	margin-top: 150px;
 	padding: 15px;
 	/* border: 1px solid #e1e1e1; */
 }
@@ -228,6 +237,10 @@ td.t_no, td.t_view, td.t_like {
 }
 
 /* 글본문 헤더 부분 */
+#rv_thname {
+	font-size: 17px;
+	color: red;
+}
 #rvtitle {
 	font-size: 25px;
 }
@@ -276,8 +289,8 @@ td.t_no, td.t_view, td.t_like {
     top : 0px;
     position: absolute;
     background: gray;
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     display: none; 
 	text-align: center;
 }

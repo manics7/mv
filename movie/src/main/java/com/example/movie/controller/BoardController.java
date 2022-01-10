@@ -4,6 +4,8 @@ package com.example.movie.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -107,8 +109,14 @@ public class BoardController {
 		return remap;
 	}
 	
-	
-	
+	//영화관 후기 게시글 신고처리
+	@PostMapping("rpWhyInsert")
+	public String rpWhyInsert(HttpServletRequest hs,
+			RedirectAttributes rttr) {
+		String view = bServ.reportRvInsert(hs, rttr);
+		
+		return view;
+	}
 	
 	
 	
