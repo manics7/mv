@@ -18,6 +18,7 @@ public class MovieDto {
 	private String actors;
 	private String show_types;
 	private String watch_grade_nm;
+	private String poster;
 
 	private int state;
 }
