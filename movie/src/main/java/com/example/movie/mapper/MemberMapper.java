@@ -75,7 +75,7 @@ public interface MemberMapper  extends MybatisMapper {
 	// 이용자 관람평 목록 다시 검색
 	public List<ReviewMovieDto> selectReviewMovieList(String mv_review_moviecd);
 	//영화관 상세정보 출력
-	public TheaterDto inserttheaterinfo(Integer th_code);
+	public List<TheaterDto> inserttheaterinfo(Integer th_code);
 	//영화관 상세정보에 들어갈 영화 스캐줄
 	public List<Theater_detailDto> selectmovieschedule();
 

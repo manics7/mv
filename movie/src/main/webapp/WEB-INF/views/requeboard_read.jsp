@@ -111,7 +111,8 @@
 							<div class="text-right">
 								<a href="./quesboard?pageNum=1" class="btn btn-primary">목록보기</a> 
 								<c:forEach var="qrlist" items="${qrlist}">
-								<a href="./quesboard_replywrite?ques_no=${qrlist.ques_no}" class="btn btn-info">답변하기</a>
+								<!-- ques_no로 select 하여 해당 게시글에 답변을 하게 하려고 이렇게함. -->
+								<a href="./quesboard_rewrite?ques_no=${qrlist.ques_no}" class="btn btn-info">답변하기</a>
 								</c:forEach>
 								<a href="#" class="btn btn-danger">삭제하기</a>
 							</div>

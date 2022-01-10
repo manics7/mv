@@ -311,11 +311,11 @@ public class AdminService {
 	//관리자 영화등록 페이지 리스트
 	public ModelAndView adminMovieList(Integer pageNum) {
 
-		int num = (pageNum == null)? 1 : pageNum;
-		int listCnt = 4;
-		int maxNum;
-
-		mv = new ModelAndView();
+      int num = (pageNum == null)? 1 : pageNum;
+			int listCnt = 4;
+			int maxNum;
+			
+			mv = new ModelAndView();
 
 		List<MovieDto> movieList = aMapper.selectMovieRequest();
 		List<MovieDto> movieList1 = new ArrayList<MovieDto>();
@@ -424,9 +424,6 @@ public class AdminService {
 
 		List<BusinessDto> buslist = aMapper.getbuslist(busmap);
 
-
-
-
 		return buslist;
 	}
 
@@ -444,6 +441,7 @@ public class AdminService {
 		//PagingUtil paging = new PagingUtil(maxNum, pageCnt, maxNum, pageCnt, listName);
 
 		pageHtml = paging.makePaging();
+
 
 		return pageHtml;
 	}
@@ -545,9 +543,30 @@ public class AdminService {
 		}
 
 		return view;
+    
+		//1대1 문의 답변(사용함)(하는중)
+	public String quesboard_reply_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
+		String view = null;	
+		String msg = null;
+		try {
+			qrdto = aMapper.insertReplyWrite(qrdto);
+			msg = "성공";
+		} catch (Exception e) {
+			view = "redirect:quesboard";
+			msg = "실패";
+		}
+		//qrdto = aMapper.insertReplyWrite(qrdto);
+		view = "redirect:quesboard";
+		rttr.addFlashAttribute("msg",msg);
+		return view;
+		}
+r
 	}
 
-	//		public ModelAndView quesboard_reply_insert(quesReplyDto qrdto) {
+	//		public ModelAndView 
+  
+  
+  (quesReplyDto qrdto) {
 	//			return null;
 	//		}
 }

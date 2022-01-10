@@ -122,7 +122,26 @@ public class AdminController {
 
 	}
 
+
+
+	//문의글 작성 폼으로 넘어가면서 문의번호 넘기기 
+	@GetMapping("quesboard_rewrite")
+	public ModelAndView quesboard_rewrite(Integer ques_no) {
+		System.out.println("ques_no = "+ques_no);
+		ModelAndView mv = new ModelAndView();
+		int q = ques_no;
+		mv.addObject("ques_no", q);
+		mv.setViewName("quesboard_replywrite"); 		
+		return mv;
+	}
 	
+	//문의사항 답변 달기 ( 하는중 ) 
+	@PostMapping("/quesboard_reply_insert")
+	public String quesboard_reqly_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
+		String view = aServ.quesboard_reply_insert(qrdto, rttr);
+		return view;
+	}
+		
 	//관리자 입장에서 등록 된 영화 상세보기
 	@GetMapping("admin_movie_read")
 	public ModelAndView movieDetail(int mv_seq) {
@@ -132,28 +151,8 @@ public class AdminController {
 		return mv;
 
 	}
-	
-	//문의글 작성 폼으로 넘어가면서 문의번호 넘기기 
-	@GetMapping("quesboard_rewrite")
-	public ModelAndView quesboard_rewrite(Integer ques_no) {
-		System.out.println("ques_no = "+ques_no);
-		ModelAndView mv = new ModelAndView();
-		int q = ques_no;
-		mv.addObject("ques_no", q);
-		mv.setViewName("quesboard_rewrite"); 		
-		return mv;
-	}
-	
-	//문의사항 답변 달기 ( 하는중 ) 
-	@PostMapping("/quesboard_reply_insert")
-	public ModelAndView quesboard_reqly_insert(quesReplyDto qrdto) {
-		ModelAndView mv = new ModelAndView();
-		//mv = aServ.quesboard_reply_insert(qrdto);
-		return mv;
-	}
-	
-	//사업자회원 정보 출력
-	
+		
+	//사업자회원 정보 출력	
 	@GetMapping("getBulist")
 	public ModelAndView getbulist(Integer pageNum) {
 		System.out.println("Business pageNum = "+pageNum);
@@ -197,19 +196,12 @@ public class AdminController {
 	}
 	
 	//관리자 페이지로 이동
-	@GetMapping("adminPage")
+	@GetMapping("
+              ")
 	public String mogeAdminPage() {
 		
 		return "adminPage";
 	}
-
-	
-	@GetMapping("quesboard_reply_insert")
-	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
-		mv = aServ.quesboard_replywrite(qrdto);
-		return mv;
-	}
-	
 	
 }
 

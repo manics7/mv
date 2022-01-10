@@ -447,7 +447,7 @@ public class MemberService {
 //	private ModelAndView mv;
 
 	private int listCnt = 4;//페이지 당 게시글 개수
-
+	//회원 정보 출력을 위한 인출
 	public List<MemberDto> getMemberList(Integer pageNum) {
 
 			pageNum = (pageNum == null) ? 1 : pageNum;
@@ -461,23 +461,9 @@ public class MemberService {
 			List<MemberDto> mList = mMapper.getList(mmap);
 	System.out.println("mList.size = "+mList.size());		
 	System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가져오는 mapper
-	//페이징 처리
-	//String pageHtml = getPaging(pageNum);
+
 
 			return mList;
-		
-	/*
-		//페이징 처리.
-		String pageHtml = getPaging(num);
-		mv.addObject("paging", pageHtml);
-		
-		//세션에 페이지번호 저장 할 필요는 여기서 없을거같음.
-		
-		//jsp 파일 이름 지정
-		mv.setViewName("mmanage");
-		
-		return mv;
-*/
 	}
 	//회원정보 목록 페이징 처리.
 	public String getPaging(int num) {
@@ -711,11 +697,15 @@ public class MemberService {
 		}
 		return reviewListMap;
 	}
-
+//영화관 상세정보 출력 
 	public ModelAndView inserttheaterinfo(Integer th_code) {
 		mv = new ModelAndView();
-		TheaterDto thdtail = mMapper.inserttheaterinfo(th_code);
+		List<TheaterDto> thdtail = mMapper.inserttheaterinfo(th_code);
 	List<Theater_detailDto> thdschedule = mMapper.selectmovieschedule();
+	Map<String, Object> theaterlist = new HashMap<String, Object>();
+	theaterlist.put("thdtail", thdtail);
+	theaterlist.put("thdschedule", thdschedule);
+	
 		mv.addObject("thdetail", thdtail);
 		mv.addObject("thddto", thdschedule);
 		mv.setViewName("theater_detail");

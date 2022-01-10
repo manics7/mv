@@ -89,6 +89,9 @@ public interface AdminMapper extends MybatisMapper {
 	//신고 댓글 리스트
 	public List<ReportReplyDto> selectReportReply(Map<String, Integer> pmap);
 
+	//1대1 문의사항의 답변 처리.(관리자 입장)
+	public quesReplyDto insertReplyWrite(quesReplyDto qrdto);
+
 
 
 }

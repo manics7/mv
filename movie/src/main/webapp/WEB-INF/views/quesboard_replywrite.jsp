@@ -49,6 +49,7 @@
 					<form action="./quesboard_reply_insert" method="post">
 					<div class="form-group">
 						<label for="board_subject">문의글 번호</label>
+						<!-- quesboard_rewrite를 통해 넘어온 ques_no를 출력 시킴. -->
 						<input type="text" id="board_subject" name="ques_no" class="form-control" value="${ques_no}"/>
 					</div>
 					<div class="form-group">

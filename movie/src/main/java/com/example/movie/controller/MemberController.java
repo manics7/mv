@@ -22,6 +22,7 @@ import lombok.extern.java.Log;
 @Controller
 @Log
 public class MemberController {
+	
 
 	@Autowired
 	private MemberService mServ;
