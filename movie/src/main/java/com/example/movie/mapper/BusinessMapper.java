@@ -47,5 +47,8 @@ public interface BusinessMapper  extends MybatisMapper {
 	public void roomInsert(RoomDto roDto);
 	//좌석정보 등록하기
 	public void seatInsert(SeatDto seDto);
+	
+	// 임시 영화 저장
+//	public void tempInsert()
 
 }

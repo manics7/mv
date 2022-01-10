@@ -29,8 +29,8 @@
 				<li><a href="./currentMovieList">영화</a></li>
 				<li><a href="#">영화관</a></li>
 				<li><a href="#">영화관후기</a></li>
+				<li><a href="#">영화관찾기</a></li>
 				<li><a href="#">이벤트</a></li>
-				<li><a href="#">허전해~</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#rsrvModal" data-movie="127"  data-thcode="1"  data-id="100" id="modal">빠른예매</a></li>
 			</ol>
 		</div>
@@ -82,9 +82,10 @@
 	</div> 
 	
 
-
 <script src="resource/js/jquery-3.6.0.min.js"></script>
+<script src="resource/js/bootstrap.bundle.js"></script>
 <script type="text/javascript"  src="resource/js/rsrv.js"></script>
+<script src="resource/js/bootstrap.bundle.js"></script>
 <script type="text/javascript">
 //로그인 클릭시 모달 창 띄움
 $("#login_btn").click(function() {

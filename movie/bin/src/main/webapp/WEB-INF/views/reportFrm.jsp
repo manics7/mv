@@ -74,10 +74,12 @@ $(function(){
 						<thead>
 							<tr>
 							<!-- 	<th class="text-center d-none d-md-table-cell">번호</th> -->
-								<th class="text-center d-none d-md-table-cell">영화명</th>
-								<th class="text-center d-none d-md-table-cell">내용</th>
-								<th class="text-center d-none d-md-table-cell">등록일</th>
-								<th class="text-center d-none d-md-table-cell">평점</th>
+								<th class="text-center d-none d-md-table-cell">신고자ID</th>
+								<th class="text-center d-none d-md-table-cell">신고 사유</th>
+								<th class="text-center d-none d-md-table-cell">리뷰 내용</th>
+								<th class="text-center d-none d-md-table-cell">작성자ID</th>
+								<th class="text-center d-none d-md-table-cell">신고일</th>
+								<th class="text-center d-none d-md-table-cell">처리상태</th>
 								<th class="text-center d-none d-md-table-cell">관리</th>
 							</tr>
 						</thead>

@@ -25,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.ReviewMovieDto;
+import com.example.movie.dto.TheaterDto;
+import com.example.movie.dto.Theater_detailDto;
 import com.example.movie.mapper.AdminMapper;
 import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.mvReviewDto;
@@ -556,6 +558,7 @@ public class MemberService {
 
 		//전체 글 개수 구하기(DAO) -> MAPPER 거쳐서 102라는 숫자가 나옴.
 		int maxNum = mMapper.getBoardCnt();
+		
 		//한 페이지에 보여질 페이지 번호 개수 (하단에 조그맣게)
 		int pageCnt = 10;
 		String listName = "mmanage";
@@ -564,7 +567,9 @@ public class MemberService {
 				pageCnt, listName);
 
 		pageHtml = paging.makePaging();
-
+		System.out.println("listCnt = "+listCnt);
+		System.out.println("num = "+num);
+		System.out.println("회원전체:"+maxNum);
 		System.out.println("pageCnt(하단에 보여질 페이지넘버) = "+pageCnt);
 		System.out.println("pageHTML = "+pageHtml);
 		
@@ -625,6 +630,7 @@ public class MemberService {
 	}
 	//검색한 회원 1대1 작성 글 목록 페이징 처리
 	public String getsearchPaging(String m_id) {
+		System.out.println();
 		String pageHtml = null;
 		int num = 1;
 		//전체 글 개수 구하기(DAO) -> MAPPER 거쳐서 102라는 숫자가 나옴.
@@ -777,6 +783,16 @@ public class MemberService {
 			reviewListMap = null;
 		}
 		return reviewListMap;
+	}
+
+	public ModelAndView inserttheaterinfo(Integer th_code) {
+		mv = new ModelAndView();
+		TheaterDto thdtail = mMapper.inserttheaterinfo(th_code);
+	List<Theater_detailDto> thdschedule = mMapper.selectmovieschedule();
+		mv.addObject("thdetail", thdtail);
+		mv.addObject("thddto", thdschedule);
+		mv.setViewName("theater_detail");
+		return mv;
 	}
 	
 }

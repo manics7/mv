@@ -132,7 +132,8 @@ $(document).ready(function() {
 								  </div>
 								</div>
 						         <div class="col-md-12 mt-2">						    
-						     	   <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>
+						     	   <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>		
+						     	   <img alt="" style="width:100px;height:100px;" src="https://mv-project.s3.ap-northeast-2.amazonaws.com/images/3113f099-c5bd-48f2-a129-bb78c2c6f436_a3%20%281%29.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220107T081519Z&X-Amz-SignedHeaders=host&X-Amz-Expires=899&X-Amz-Credential=AKIAUTXDTKPOJ6KF6QFA%2F20220107%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Signature=84262cea51cf5c15c5c18217bce536b73f0726777f28e337c2fe2559f7a9c7ff">				     	   
 						         </div> 
 						         
 			 				</div>

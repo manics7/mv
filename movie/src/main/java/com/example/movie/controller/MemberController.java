@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.ReviewMovieDto;
+import com.example.movie.dto.TheaterDto;
 import com.example.movie.service.MemberService;
 
 import lombok.extern.java.Log;
@@ -140,6 +141,8 @@ public class MemberController {
 	//회원 정보 출력
 	@GetMapping("/mmanage")
 	public ModelAndView mmanageFrm(String pageNum) throws Exception {
+//		int num = (pageNum == null)? 1 : pageNum;
+		System.out.println("page_num = "+pageNum);
 		LOG.info("info Log = " + pageNum);
 
 		ModelAndView mv = new ModelAndView();
@@ -228,6 +231,19 @@ public class MemberController {
 		Map<String, List<ReviewMovieDto>> insertReviewMap = mServ.insertReviewMovie(reviewMovieDto);
 		
 		return insertReviewMap;
+	}
+	
+	
+	// 영화관 상세 페이지 극장 정보 출력
+	@GetMapping("theaterinsert")
+	public ModelAndView theater_detail(Integer th_code) {
+		mv = mServ.inserttheaterinfo(th_code);
+		return mv;
+	}
+	// 영화관 검색
+	@GetMapping("searchtheater")
+	public String searchtheater() {
+		return "main_search_theater";
 	}
 
 }

@@ -81,6 +81,7 @@ public class AdminController {
 		System.out.println("qlist = "+qList);
 		return mv;
 	}
+
 	//문의사항 상세보기 
 	@GetMapping("/requeboard_read")
 	public ModelAndView requeboardRead(int ques_no,Integer view) {
@@ -118,9 +119,11 @@ public class AdminController {
 		}
 		System.out.println("readqlist = "+readqlist);
 		return mv;
-	}
-	
 
+	}
+
+	
+	//관리자 입장에서 등록 된 영화 상세보기
 	@GetMapping("admin_movie_read")
 	public ModelAndView movieDetail(int mv_seq) {
 		
@@ -199,6 +202,14 @@ public class AdminController {
 		
 		return "adminPage";
 	}
+
+	
+	@GetMapping("quesboard_reply_insert")
+	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
+		mv = aServ.quesboard_replywrite(qrdto);
+		return mv;
+	}
+	
 	
 }
 

@@ -155,7 +155,7 @@ function delCheck(mv_review){
 	var conf = confirm("삭제하시겠습니까?");
 	
 	if(conf == true){
-		location.href='./delAdminMvReview?mv_review=' + mv_review;
+		location.href='./delMvReview?mv_review=' + mv_review;
 	}
 }
 </script>
