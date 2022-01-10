@@ -246,4 +246,11 @@ public class MemberController {
 		return "main_search_theater";
 	}
 
+	// 영화관 상세 페이지 - 우창 테스트
+	@GetMapping("theater_detail")
+	public String theater_detail() {
+		
+		return "theater_detail";
+	}
+	
 }

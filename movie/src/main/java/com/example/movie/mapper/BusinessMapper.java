@@ -51,5 +51,8 @@ public interface BusinessMapper  extends MybatisMapper {
 
 	// 사업자 영화 등록
 	public void movieInsertProc(MovieDto movieDto);
+
+	// 사업자 영화등록에 필요한 th_code를 session에서 b_id로 찾아오기
+	public int getThcode(String bId);
 	
 }

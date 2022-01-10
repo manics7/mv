@@ -1,16 +1,16 @@
-
 package com.example.movie.service;
 
 import java.io.BufferedInputStream;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -81,7 +81,8 @@ public class BusinessService {
 		String res = null;
 
 		int cnt = buMapper.buIdCheck(bid);
-		if(cnt == 0) {
+		if(cnt == 0) 
+		{
 			res = "ok";
 		}
 		else {
@@ -212,7 +213,7 @@ public class BusinessService {
 
 				//로고 사진 파일이 있으면 파일 이름을 dto에 담기
 				for(int i = 0; i < logoName.size(); i++) {
-					String LfileName = awsS3.getFileURL(bucket, bucketURL+logoName.get(i));
+					String LfileName = awsS3.getFileURL(bucket, logoName.get(i));
 
 					//dto에 넣기
 					theater.setTh_logo(LfileName);
@@ -224,7 +225,7 @@ public class BusinessService {
 
 				//영화관 사진 파일이 있으면 파일 이름을 dto에 담기
 				for(int i = 0; i < theaterName.size(); i++) {
-					String TfileName = awsS3.getFileURL(bucket, bucketURL+theaterName.get(i));
+					String TfileName = awsS3.getFileURL(bucket, theaterName.get(i));
 
 					theater.setTh_image(TfileName);
 
@@ -565,10 +566,10 @@ public class BusinessService {
 
 			if(!repGenreNm.equals("성인물(에로)") && !repGenreNm.equals("멜로/로맨스") && !repGenreNm.equals("드라마")) {
 
-				System.out.print(movieCd + " / ");
-				System.out.print(movieNm + ", ");
-				System.out.print(repGenreNm + ", ");
-				System.out.println(openDt);
+//				System.out.print(movieCd + " / ");
+//				System.out.print(movieNm + ", ");
+//				System.out.print(repGenreNm + ", ");
+//				System.out.println(openDt);
 
 				TempMovie tempMovie = new TempMovie();
 
@@ -585,8 +586,11 @@ public class BusinessService {
 
 		}
 
+		//List<TempMovie> tempMovie = tempMovieRepository.findByOpenDtLessThanEqualOrderByOpenDtDesc(date.replaceAll("-", ""));
 		List<TempMovie> tempMovie = tempMovieRepository.findByOpenDtLessThanEqual(date.replaceAll("-", ""));
-
+		tempMovie = tempMovie.stream()
+				.sorted(Comparator.comparing(TempMovie::getOpenDt)
+				.reversed()).collect(Collectors.toList());
 		return tempMovie;
 
 	}
@@ -624,7 +628,7 @@ public class BusinessService {
 
 	// 사업자 영화 등록
 	@Transactional
-	public String movieInsertProc(MultipartHttpServletRequest multi, RedirectAttributes rttr) {
+	public String movieInsertProc(MultipartHttpServletRequest multi, RedirectAttributes rttr) throws ParseException {
 
 		String view = null;
 		String msg = null;
@@ -633,17 +637,13 @@ public class BusinessService {
 
 		String movie_cd = multi.getParameter("movie_cd");
 		String movie_nm = multi.getParameter("movie_nm");
+
 		String openDt = multi.getParameter("open_dt");
-
-		String open_dt = openDt.substring(0, 4) + bar
+		String open_Dt = openDt.substring(0, 4) + bar
 				+ openDt.substring(4, 6) + bar
-				+ openDt.substring(6)
-//				+ " 00:00:00"
-				;
-//		System.out.println(open_Dt);
-
-//		Timestamp open_dt = Timestamp.valueOf(open_Dt);
-		System.out.println(open_dt);
+				+ openDt.substring(6);
+		SimpleDateFormat dateT = new SimpleDateFormat("yyyy/MM/dd");
+		Date open_dt = dateT.parse(open_Dt);
 
 		String genre_nm = multi.getParameter("genre_nm");
 
@@ -667,7 +667,7 @@ public class BusinessService {
 		movieDto.setActors(actors);
 		movieDto.setShow_types(show_types);
 		movieDto.setWatch_grade_nm(watch_grade_nm);
-
+		
 		try {
 
 			if(check.equals("1")) {
@@ -678,17 +678,34 @@ public class BusinessService {
 
 				//로고 사진 파일이 있으면 파일 이름을 dto에 담기
 				for(int i = 0; i < posterName.size(); i ++) {
-					String poster = awsS3.getFileURL(bucket, bucketURL + posterName.get(i));
+					String poster = awsS3.getFileURL(bucket, posterName.get(i));
 
 					//dto에 넣기
 					movieDto.setPoster(poster);
 				}
 			}
 			
-			buMapper.movieInsertProc(movieDto);
+			// 사업자 영화등록에 필요한 th_code를 session에서 b_id로 찾아오기
+			BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
 			
-			view = "redirect:businessPage";
-			msg = "영화 등록 성공";
+			String bId = bDto.getB_id();
+			
+			int th_code =0;
+			try {
+				th_code = buMapper.getThcode(bId);
+			} catch (Exception e) {
+				th_code=0;
+			}
+			if(th_code != 0) {
+				buMapper.movieInsertProc(movieDto);
+				
+				view = "redirect:businessPage";
+				msg = "영화 등록 성공";
+			}
+			else {
+				view = "redirect:movieInsert"; 
+				msg = "영화관을 먼저 등록해주세요!";
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

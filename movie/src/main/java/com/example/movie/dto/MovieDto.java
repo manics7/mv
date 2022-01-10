@@ -1,6 +1,13 @@
 package com.example.movie.dto;
 
-import java.sql.Timestamp;
+import java.util.Date;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -12,7 +19,10 @@ public class MovieDto {
 	private String movie_cd;
 	private String movie_nm;
 	private int show_tm;
-	private String open_dt; // String or Timestamp 확인좀~ 까먹지 말고~ 제발
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd", timezone = "Asia/Seoul")
+	@DateTimeFormat(pattern="yyyy/MM/dd")
+	@Temporal(TemporalType.DATE)
+	private Date open_dt; // String or Timestamp 확인좀~ 까먹지 말고~ 제발
 	private String genre_nm;
 	private String directors;
 	private String actors;

@@ -1,6 +1,7 @@
 
 package com.example.movie.controller;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -204,7 +205,7 @@ public class BusinessController {
 	
 	// 사업자 영화 등록
 	@PostMapping("movieInsertProc")
-	public String movieInsertProc(MultipartHttpServletRequest multi, RedirectAttributes rttr) {
+	public String movieInsertProc(MultipartHttpServletRequest multi, RedirectAttributes rttr) throws ParseException {
 		
 		String view = buServ.movieInsertProc(multi, rttr);
 		
