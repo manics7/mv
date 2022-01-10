@@ -105,10 +105,10 @@ a {
 				<div class="t-title p-30">${qitem.rsrv_no}
 				</div>
 				<div class="t-date p-30">
-					<fmt:formatDate value="${qitem.approved_at}"
+					<fmt:formatDate value="${qitem.rsrv_date}"
 						pattern="yyyy-MM-dd" />
 				</div>
-				<div class="t-view p-15">${qitem.amount}</div>
+				<div class="t-view p-15">${qitem.price}</div>
 			</div>
 		</c:forEach>
 		

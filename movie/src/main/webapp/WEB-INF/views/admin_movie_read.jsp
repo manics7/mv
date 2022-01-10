@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>영화상세</title>
+
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -18,6 +19,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 	//state == 1 ? state.innerHtml("답변완료") : state.innerHtml("미완료");
 $(function(){
@@ -167,4 +169,35 @@ $(function(){
 
 
 </body>
+<script type="text/javascript">
+//업로드할 파일을 선택하면 'upload-name' 요소에
+//파일 이름을 출력하고, 'fileCheck' 요소의 value를
+//1로 변경
+$("#file").on("change", function(){
+	//파일 입력창에서 선택한 파일 목록 가져오기
+	var files = $("#file")[0].files;
+	console.log(files);
+	
+	var fileName = "";
+	
+	if(files.length > 1){//하나 이상의 파일 선택 시
+		fileName = files[0].name + " 외 " 
+			+ (files.length - 1) + "개";
+	}
+	else if(files.length == 1){
+		fileName = files[0].name; 
+	}
+	
+	$(".upload-name").val(fileName);
+	
+	//fileCheck 부분 변경
+	if(fileName == ""){//파일 취소 시.
+		$("#filecheck").val(0);
+		$(".upload-name").val("파일선택");
+	}
+	else {//파일 선택 시.
+		$("#filecheck").val(1);
+	}
+});
+</script>
 </html>

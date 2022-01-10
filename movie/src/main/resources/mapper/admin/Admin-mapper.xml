@@ -141,7 +141,7 @@
 		SELECT * FROM movie_official
 	</select>
 
-		<select id="getquesboardRead" parameterType="Integer"
+	<select id="getquesboardRead" parameterType="Integer"
 		resultType="com.example.movie.dto.quesboardDto">
 		SELECT * FROM v_question where ques_no = #{ques_no}
 	</select>
@@ -154,7 +154,7 @@
 		resultType="com.example.movie.dto.MovieDto">
 		SELECT * FROM movie where mv_seq =#{mv_seq}
 	</select>
-	
+	<!-- 관리자 영화등록 -->
 	<insert id="adminMovieInsert" parameterType="com.example.movie.dto.MovieOfficialDto">
 		insert into movie_official values (#{movie_cd}, #{movie_nm}, #{movie_content},
 		#{show_tm}, #{open_dt}, #{genre_nm}, #{directors}, #{actors}, #{show_types},
@@ -163,4 +163,32 @@
 		#{stillcut4,jdbcType=VARCHAR}, #{stillcut5,jdbcType=VARCHAR})
 	</insert>
 	
+	<!-- 신고 영화관리뷰 갯수 -->
+	<select id="selectReportReviewCnt" resultType="Integer">
+		SELECT COUNT(*) FROM report_review
+	</select>
+	
+	<!-- 신고 댓글 갯수 -->
+	<select id="selectReportReplyCnt" resultType="Integer">
+		SELECT COUNT(*) FROM report_reply
+	</select>
+	
+	
+	<select id="selectReportReview" parameterType="HashMap"
+		resultType="com.example.movie.dto.ReportReviewDto">
+		<![CDATA[
+		SELECT * FROM REPORTREVIEWLIST_1
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	<select id="selectReportReply" parameterType="HashMap"
+		resultType="com.example.movie.dto.ReportReplyDto">
+		<![CDATA[
+		SELECT * FROM REPORTREPLYLIST_1
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
 </mapper>

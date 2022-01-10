@@ -79,12 +79,6 @@
 							</ol>
 						</div>
 					</div>
-					<div class="booking_history">
-						<h3 style="font-size : 14px; color:#222; font-weight:700; margin-bottom : 24px;" class="booking_title">예매내역</h3>
-						<div class="historylist">
-							<p class="no_data">예매내역이 없습니다.</p>
-						</div>
-					</div>
 					<div class="tbl_list">
 						<h3>내 문의내역</h3>
 						<div class="question_table">
@@ -120,7 +114,7 @@
 											</c:forEach>
 										</c:when>
 										<c:otherwise>
-											<td class="text-center d-none d-md-table-cell">신고 정보가
+											<td class="text-center d-none d-md-table-cell">문의 내역이
 												없습니다.</td>
 										</c:otherwise>
 
