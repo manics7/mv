@@ -152,15 +152,9 @@
 		SELECT * FROM v_question where ques_no = #{ques_no}
 	</select>
 	
-	<select id="selectMovieBySeq" parameterType="Integer"
-		resultType="com.example.movie.dto.MovieDto">
-		SELECT * FROM movie where mv_seq =#{mv_seq}
-	</select>
-	
 	<insert id="quesboard_replywrite" parameterType="com.example.movie.dto.quesReplyDto">
 	INSERT INTO question_reply VALUES(#{ques_reply_no},#{ques_no},#{ques_reply_cont},sysdate,#{ques_reply_state});
 	</insert>
-	
 	
 	<select id="selectMovieBySeq" parameterType="Integer"
 		resultType="com.example.movie.dto.MovieDto">
