@@ -83,12 +83,14 @@
 									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${qitem.ques_date}"
 										pattern="yyyy-MM-dd"/></td>
 									<td class="text-center d-none d-md-table-cell">
-									<c:if test="${qitem.ques_state == '0'}">
-									미답변
-									</c:if>
-									<c:if test="${qitem.ques_state == '1'} ">
-									답변완료
-									</c:if>
+									<c:choose>
+										<c:when test="${qitem.ques_state == '0'}">
+											미답변
+										</c:when>
+										<c:when test="${qitem.ques_state == '1'}">
+											답변완료
+										</c:when>
+									</c:choose>
 									</td>
 								</tr>
 							</c:forEach>

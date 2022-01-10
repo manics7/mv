@@ -102,7 +102,7 @@ a {
 			<li class="admin_nav_item cont1"><a class="yellow underline"
 				href="./mmanage?pageNum=1">회원관리</a></li>
 			<li class="admin_nav_item cont2"><a class="yellow underline"
-				href="./watcheMovieFrm">영화관리</a></li>
+				href="./adminMovieList">영화관리</a></li>
 			<li class="admin_nav_item cont3"><a class="yellow underline"
 				href="./quesboard?pageNum=1">문의관리</a></li>
 			<li class="admin_nav_item cont4"><a class="yellow underline"

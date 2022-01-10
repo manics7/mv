@@ -128,7 +128,7 @@ ul>li>a#bupage_menu:hover:after {
 			<a href="businessPage">Business Page</a>
 		</h2>
 		<ul id="bupage_list">
-					<li><a id="bupage_menu" href="#">영화관 관리</a></li>
+					<li><a id="bupage_menu" href="theater">영화관 관리</a></li>
 					<li><a id="bupage_menu" href="#">영화 관리</a></li>
 					<li><a id="bupage_menu" href="#">상영관 관리</a></li>
 					<li><a id="bupage_menu" href="#">상영 일정 관리</a></li>

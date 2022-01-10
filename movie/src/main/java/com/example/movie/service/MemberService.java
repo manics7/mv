@@ -1,17 +1,10 @@
 package com.example.movie.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.example.movie.dto.quesboardDto;
-
-import com.example.movie.mapper.AdminMapper;
-import com.example.movie.mapper.BusinessMapper;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -24,15 +17,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.MovieOfficialDto;
+import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.dto.Theater_detailDto;
-import com.example.movie.mapper.AdminMapper;
-import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.mvReviewDto;
-import com.example.movie.dto.mypagePaymentDto;
-import com.example.movie.dto.paymentDto;
+import com.example.movie.dto.quesboardDto;
 import com.example.movie.dto.reservationDto;
+import com.example.movie.mapper.AdminMapper;
 import com.example.movie.mapper.MemberMapper;
 import com.example.movie.utill.PagingUtil;
 
@@ -50,7 +42,6 @@ public class MemberService {
 	
 	private ModelAndView mv;
 
-	
 	public ModelAndView memberUpdateFrm() {
 		mv = new ModelAndView();
 		
@@ -325,7 +316,7 @@ public class MemberService {
 
 
 	//마이페이지 예매/결제 내역 출력.
-/*	public ModelAndView selectPurchase (Integer pageNum, int listCnt, String View) {
+	public ModelAndView selectPurchase (Integer pageNum, int listCnt, String View) {
 
 		int num = (pageNum == null)? 1 : pageNum;
 
@@ -335,132 +326,68 @@ public class MemberService {
 		MemberDto member = (MemberDto)session.getAttribute("userInfo");
 		String id = member.getM_id();
 
-
 		//마이페이지에 출력할 것이므로 ...가져온 id에맞는 예매한 예매리스트
-		List<reservationDto> rsrvList = mDao.selectRsrvByid(id);
-		List<Integer> rsrvnoList = new ArrayList<Integer>();
-		
-		//예매리스트에서 예매번호만 따로 리스트로 만듦
+		List<reservationDto> rsrvList = mMapper.selectRsrvByid(id);
+	
+		if(View.equals("purchaseFrm")) {//결제내역 페이지 에서 호출했을경우
+	
+          //id에맞는취소된 예매내역은 리스트에서 삭제후 저장
 		for(int i = 0; i <= rsrvList.size()-1; i++) {
 
 			reservationDto rsrvDto = rsrvList.get(i);
-			int rsrvno = rsrvDto.getRsrv_no();
-
-			rsrvnoList.add(rsrvno);
-		}
-		//결제내역 리스트
-		List<paymentDto> apList = new ArrayList<paymentDto>();
-
-	//결제내역 테이블에 mid가 없어서.. id로 가져온 예매번호들로 결제내역들가져옴
-		for(int i = 0; i <= rsrvnoList.size()-1; i++) {
-
-			int rsrvno = rsrvnoList.get(i);
-
-			paymentDto pDto = mDao.selectPaymentByRsrvno(rsrvno);
-
-			apList.add(pDto);
-
-		}
-		
-		//결제 취소 tid내역 리스트
-		List<String> acpList = new ArrayList<String>();
-
-		for(int i = 0; i <= apList.size()-1; i++) {
-
-			paymentDto pDto = apList.get(i);
-
-			String tid = pDto.getTid();
-
-			String ctid = mDao.selectPaymentCancel(tid);
-
-			if(ctid != null) {
-				acpList.add(ctid);
+			
+			int state = rsrvDto.getRsrv_status();
+			//결제취소 == state 1, 1일경우 출력할 리스트에서 제거
+			if(state == 1) {
+				rsrvList.remove(i);
+				i--;
+				}
 			}
 		}
+		else {//결제취소페이지 호출
+			for(int i = 0; i <= rsrvList.size()-1; i++) {
 
-	
-	if(View.equals("purchaseFrm")) {//결제내역 페이지 에서 호출했을경우
-	
-//id에맞는 예매번호, 그 예매번호에 맞는 결제리스트에서 취소된 결제내역은 리스트에서 삭제후 저장
-		for(int i = 0; i <= apList.size()-1; i++) {
-
-			paymentDto pDto = apList.get(i);
-			
-			String tid = pDto.getTid();
-
-			for(int j = 0; j <= acpList.size()-1; j++) {
-
-				String ctid = acpList.get(j);
-
-				if(tid.equals(ctid)) {
-					apList.remove(i);
+				reservationDto rsrvDto = rsrvList.get(i);
+				
+				int state = rsrvDto.getRsrv_status();
+				//결제취소 == state 1, 0일경우 출력할 리스트에서 제거
+				if(state == 0) {
+					rsrvList.remove(i);
 					i--;
+					}
 				}
-			}
 		}
-	}
-	else {//결제 취소페이지에서 호출했을 경우
-		
-		//가져온 결제내역 apList 복사
-		List<paymentDto>ap1List = apList;
-		
-		//apList 초기화
-		apList = new ArrayList<paymentDto>();
-		
-//결제내역 tid 가 취소내역tid에 있을경우(일치할경우) apList에 추가 후 저장
-		for(int i = 0; i <= ap1List.size()-1; i++) {
-
-			paymentDto pDto = ap1List.get(i);
-			
-			String tid = pDto.getTid();
-
-			for(int j = 0; j <= acpList.size()-1; j++) {
-
-				String ctid = acpList.get(j);
-
-				if(tid.equals(ctid)) {
-					apList.add(pDto);
-				}
-			}
-		}
-	}
-
-		List<mypagePaymentDto> mpList = new ArrayList<mypagePaymentDto>();
-
+		if(!rsrvList.isEmpty()) {
 		//극장이름,영화등을 함께 묶어서 출력하기위한 for문
-		for(int i = 0; i <= apList.size()-1; i++) {
+		for(int i = 0; i <= rsrvList.size()-1; i++) {
 
-			paymentDto pDto = apList.get(i);
-
-			mypagePaymentDto mpDto = new mypagePaymentDto();
-
-			//예매번호
-			String prsno = pDto.getRsrv_no();
+			reservationDto rsrvDto = rsrvList.get(i);
+			
 			//예매번호로 에매테이블에서 스케줄번호찾기
-			int schno = mDao.selectSchno(prsno);
+			int schno = rsrvDto.getSch_code();
 			//스케줄번호로 스케줄테이블에서 극장코드 찾기
-			int thcode = mDao.selectThcode(schno);
+			int thcode = mMapper.selectThcode(schno);
 			//극장코드로 극장테이블에서 출력할 극장이름 찾기
-			String thname = mDao.selectThname(thcode);
+			String thname = mMapper.selectThname(thcode);
 			//스케줄번호로 스케줄테이블에서 무비코드 찾기
-			String mvcd = mDao.selectMoviecode(schno);
+			String mvcd = mMapper.selectMoviecode(schno);
 			//무비코드로 출력할 영화이름찾기 
-			String mvname = mDao.selectMovieName(mvcd);
+			String mvname = mMapper.selectMovieName(mvcd);
 
-			mpDto.setMvname(mvname);
-			mpDto.setThname(thname);
-			mpDto.setAmount(pDto.getAmount());
-			mpDto.setApproved_at(pDto.getApproved_at());
-			mpDto.setRsrv_no(prsno);
-
-			mpList.add(mpDto);
+			rsrvDto.setMvname(mvname);
+			rsrvDto.setThname(thname);
+			
+			rsrvList.remove(i);
+			rsrvList.add(i,rsrvDto);
+			
+		}
 		}
 		//전체 글 갯수
-		int maxNum = mpList.size();
+		int maxNum = rsrvList.size();
 		//옮길 리스트
-		List<mypagePaymentDto> nmpList = new ArrayList<mypagePaymentDto>();
+		List<reservationDto> rsrvPList = new ArrayList<reservationDto>();
 		//가져온 리스트가 있을때만 페이징처리
-		if(!mpList.isEmpty()) {
+		if(!rsrvList.isEmpty()) {
 			
 			//삭제해야할 리스트 갯수.. (현재 페이지말고 앞의 페이지 갯수 * 페이지별 게시글 수)
 			int page = (num -1) * listCnt;
@@ -479,27 +406,27 @@ public class MemberService {
 
 				int j=0;
 				//0번째 값 삭제로 고정
-				mpList.remove(j);
+				rsrvList.remove(j);
 			}
 
 
 			for(int i = 0; i <= list; i++) {
 				//nmpList로 옮기고 저장
-				if(mpList.size() <= list) {
+				if(rsrvList.size() <= list) {
 
-					list = mpList.size()-1;
+					list = rsrvList.size()-1;
 			//size가 출력해야할list보다 작으면 그만큼만 출력하도록 함 안할시 오류뜸  
 				}
-				mypagePaymentDto mpd = mpList.get(i);
+				reservationDto rsrvDto = rsrvList.get(i);
 
-				nmpList.add(mpd);
+				rsrvPList.add(rsrvDto);
 			}
 		}
 
-		mv.addObject("qList",nmpList);
+		mv.addObject("qList",rsrvPList);
 
 		//페이징 처리.
-		String pageHtml = getPaging(num,listCnt,View,maxNum);
+		String pageHtml = getPaging1(num,listCnt,View,maxNum);
 		mv.addObject("paging", pageHtml);
 
 		//세션에 페이지번호 저장
@@ -513,14 +440,14 @@ public class MemberService {
 
 
 		return mv;
-	}*/
+	}
 
 
 
 //	private ModelAndView mv;
 
 	private int listCnt = 4;//페이지 당 게시글 개수
-
+	//회원 정보 출력을 위한 인출
 	public List<MemberDto> getMemberList(Integer pageNum) {
 
 			pageNum = (pageNum == null) ? 1 : pageNum;
@@ -534,23 +461,9 @@ public class MemberService {
 			List<MemberDto> mList = mMapper.getList(mmap);
 	System.out.println("mList.size = "+mList.size());		
 	System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가져오는 mapper
-	//페이징 처리
-	//String pageHtml = getPaging(pageNum);
+
 
 			return mList;
-		
-	/*
-		//페이징 처리.
-		String pageHtml = getPaging(num);
-		mv.addObject("paging", pageHtml);
-		
-		//세션에 페이지번호 저장 할 필요는 여기서 없을거같음.
-		
-		//jsp 파일 이름 지정
-		mv.setViewName("mmanage");
-		
-		return mv;
-*/
 	}
 	//회원정보 목록 페이징 처리.
 	public String getPaging(int num) {
@@ -784,11 +697,15 @@ public class MemberService {
 		}
 		return reviewListMap;
 	}
-
+//영화관 상세정보 출력 
 	public ModelAndView inserttheaterinfo(Integer th_code) {
 		mv = new ModelAndView();
-		TheaterDto thdtail = mMapper.inserttheaterinfo(th_code);
+		List<TheaterDto> thdtail = mMapper.inserttheaterinfo(th_code);
 	List<Theater_detailDto> thdschedule = mMapper.selectmovieschedule();
+	Map<String, Object> theaterlist = new HashMap<String, Object>();
+	theaterlist.put("thdtail", thdtail);
+	theaterlist.put("thdschedule", thdschedule);
+	
 		mv.addObject("thdetail", thdtail);
 		mv.addObject("thddto", thdschedule);
 		mv.setViewName("theater_detail");

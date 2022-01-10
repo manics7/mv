@@ -79,12 +79,6 @@
 							</ol>
 						</div>
 					</div>
-					<div class="booking_history">
-						<h3 style="font-size : 14px; color:#222; font-weight:700; margin-bottom : 24px;" class="booking_title">예매내역</h3>
-						<div class="historylist">
-							<p class="no_data">예매내역이 없습니다.</p>
-						</div>
-					</div>
 					<div class="tbl_list">
 						<h3>내 문의내역</h3>
 						<div class="question_table">
@@ -106,21 +100,25 @@
 											<c:forEach var="qitem" items="${qList}">
 												<tr>
 													<td class="text-center d-none d-md-table-cell">${qitem.ques_no}</td>
-													<td class="text-center d-none d-md-table-cell">${qitem.ques_title}</td>
+													<td class="text-center d-none d-md-table-cell"><a
+                                                    href='/questionContents?ques_no=${qitem.ques_no}'>${qitem.ques_title}</a></td></td>
 													<td class="text-center d-none d-md-table-cell">일반</td>
 													<td class="text-center d-none d-md-table-cell"><fmt:formatDate
 															value="${qitem.ques_date}" pattern="yyyy-MM-dd" /></td>
-													<td class="text-center d-none d-md-table-cell"><c:if
-															test="${qitem.ques_state == '0'}">
-									미답변
-									</c:if> <c:if test="${qitem.ques_state == '1'} ">
-									답변완료
-									</c:if></td>
+													<td class="text-center d-none d-md-table-cell">
+													<c:choose>
+										<c:when test="${qitem.ques_state == '0'}">
+											미답변
+										</c:when>
+										<c:when test="${qitem.ques_state == '1'}">
+											답변완료
+										</c:when>
+									</c:choose></td>
 												</tr>
 											</c:forEach>
 										</c:when>
 										<c:otherwise>
-											<td class="text-center d-none d-md-table-cell">신고 정보가
+											<td class="text-center d-none d-md-table-cell">문의 내역이
 												없습니다.</td>
 										</c:otherwise>
 
