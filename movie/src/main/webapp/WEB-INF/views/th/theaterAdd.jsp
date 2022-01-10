@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>영화관 등록</title>
 <link rel="stylesheet" href="resource/css/theaterList.css">
-<link rel="stylesheet" href="resource/css/theaterAdd.css">
+<link rel="stylesheet" href="resource/css/theater.css">
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script src="resource/js/jquery.serializeObject.js"></script>
 <script type="text/javascript">

@@ -6,24 +6,24 @@
 <head>
 <meta charset="UTF-8">
 <title>사업자 영화관 관리</title>
-<link rel="stylesheet" href="resource/css/theaterList.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="resource/css/theater.css">
+<script type="text/javascript">
+$(function(){
+	//메시지 출력 부분
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	}
+});
+</script>
 </head>
 <body>
 <section>
 <div class="detail">
 	<div class="inner">
 		<div id="page_wrap">
-			<div id="side">
-				<h2><a href="./businessPage">Business Page</a></h2>
-				<ul id="bupage_list">
-					<li><a id="bupage_menu" href="./theater">영화관 관리</a></li>
-					<li><a id="bupage_menu" href="#">영화 관리</a></li>
-					<li><a id="bupage_menu" href="#">상영관 관리</a></li>
-					<li><a id="bupage_menu" href="./schedule">상영 일정 관리</a></li>
-					<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
-				</ul>
-			</div>
+			<jsp:include page="business_sidebar.jsp"></jsp:include>
 			<div id="th_content">
 				<c:choose>
 					<c:when test="${empty theaterList}">
@@ -60,6 +60,7 @@
 							</div>
 						</div>
 						<button id="th-btn" onclick="location.href='./thUpdate'">수정</button>
+						<button id="th-btn" onclick="delCheck(${theaterList.th_code})">삭제</button>
 						</c:forEach>
 					</c:when>
 				</c:choose>
@@ -69,4 +70,13 @@
 </div>
 </section>
 </body>
+<script type="text/javascript">
+function delCheck(th_code){
+	var conf = confirm("삭제하시겠습니까?");
+	
+	if(conf == true){
+		location.href='./theaterDelete?th_code=' + th_code;
+	}
+}
+</script>
 </html>

@@ -1,5 +1,6 @@
 package com.example.movie.controller;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,7 +82,7 @@ public class BusinessController {
 		return view;
 	}
 
-	//영화관 등록 페이지
+	//영화관 등록 페이지 이동
 	@GetMapping("theaterAdd")
 	public String thaddFrm() {
 
@@ -96,8 +97,16 @@ public class BusinessController {
 
 		return view;
 	}
+	
+	//영화관 삭제
+	@GetMapping("theaterDelete")
+	public String theaterDelete(int th_code, RedirectAttributes rttr) {
+		String view = buServ.theaterDelete(th_code, rttr);
+		
+		return view;
+	}
 
-	//영화관 정보 페이지
+	//영화관 정보 페이지 이동
 	@GetMapping("theater")
 	public ModelAndView theater() {
 
@@ -105,15 +114,17 @@ public class BusinessController {
 
 		return mv;
 	}	
-
-	//상영 시간표 목록 페이지
+	
+	//상영 시간표 목록 페이지 이동
 	@GetMapping("schedule")
-	public String schedule() {
+	public ModelAndView schedule() throws ParseException {
+		
+		mv = buServ.getScheduleList();
 
-		return "sche/schedule";
+		return mv;
 	}
-
-	//상영 시간표 등록 페이지
+	
+	//상영 시간표 등록 페이지 이동
 	@GetMapping("scheduleAdd")
 	public ModelAndView scheduleAdd() {
 
@@ -132,9 +143,10 @@ public class BusinessController {
 
 		return view;
 	}
+	
 
 	//상영관 목록 이동
-	@GetMapping("roomlist")
+	@GetMapping("roomList")
 	public ModelAndView roomList() {
 		mv = buServ.getRoomList();
 

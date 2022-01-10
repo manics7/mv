@@ -47,40 +47,40 @@
 						<select name="mvcode" class="mv_select">
 							<option value="-10">영화 선택</option>
 							<c:forEach var="movieList" items="${movieList}">
-								<option value="${movieList.movie_Cd}">
-									${movieList.movie_Nm}
+								<option value="${movieList.movie_cd}">
+									${movieList.movie_nm}
 								</option>
 							</c:forEach>
 						</select>
 						<select name="mvcode" class="mv_select">
 							<option value="-10">영화 선택</option>
 							<c:forEach var="movieList" items="${movieList}">
-								<option value="${movieList.movie_Cd}">
-									${movieList.movie_Nm}
+								<option value="${movieList.movie_cd}">
+									${movieList.movie_nm}
 								</option>
 							</c:forEach>
 						</select>
 						<select name="mvcode" class="mv_select">
 							<option value="-10">영화 선택</option>
 							<c:forEach var="movieList" items="${movieList}">
-								<option value="${movieList.movie_Cd}">
-									${movieList.movie_Nm}
+								<option value="${movieList.movie_cd}">
+									${movieList.movie_nm}
 								</option>
 							</c:forEach>
 						</select>
 						<select name="mvcode" class="mv_select">
 							<option value="-10">영화 선택</option>
 							<c:forEach var="movieList" items="${movieList}">
-								<option value="${movieList.movie_Cd}">
-									${movieList.movie_Nm}
+								<option value="${movieList.movie_cd}">
+									${movieList.movie_nm}
 								</option>
 							</c:forEach>
 						</select>
 						<select name="mvcode" class="mv_select">
 							<option value="-10">영화 선택</option>
 							<c:forEach var="movieList" items="${movieList}">
-								<option value="${movieList.movie_Cd}">
-									${movieList.movie_Nm}
+								<option value="${movieList.movie_cd}">
+									${movieList.movie_nm}
 								</option>
 							</c:forEach>
 						</select>

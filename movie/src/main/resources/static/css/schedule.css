@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+/* 상영 일정이 등록 됐을 때 상영 일정 목록*/
+
+.sch_table {
+	width: 800px;
+	border-top: 2px solid;
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+
+.title-row>th {
+	font-size: 15px;
+	height: 35px;
+	border-bottom: 1px solid rgb(180, 179, 179);
+}
+
+.data-row>td {
+	height: 60px;
+	border-bottom: 1px solid rgb(180, 179, 179);
+	text-align: center;
+}
+
+.p-10 {
+	width: 10%;
+}
+
+.p-20 {
+	width: 20%;
+}
+
+.btn-del {
+	background: #f77500;
+	border: 1px solid #f77500;
+	border-radius: 3px;
+	color: white;
+	height: 30px;
+	width: 50px;
+	font-size: 15px;	
+}
+
+
+
+
+
+
+
+
+

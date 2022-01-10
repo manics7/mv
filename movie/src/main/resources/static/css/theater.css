@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* 영화관 상세 정보 페이지(등록 할 수 있는 페이지)*/
+/* 영화관 상세 정보 페이지*/
 div#th_content {
     width: 800px;
     margin-top: 70px;
@@ -36,4 +36,126 @@ div#th_title {
     height: 35px;
     font-size: 15px;
     color: white;
+}
+
+/* 등록 페이지 */
+div#thadd_content {
+    width: 800px;
+}
+
+div#thadd_title {
+    text-align: center;
+    color: rgb(67, 24, 124);
+}
+
+#thadd_logo, #thadd_num, #thadd_info_title, #thadd_image, #detailinfo_num, #detailinfo_title{
+    display: inline-block;
+}
+
+#thadd_logo, #thadd_image {
+    width: 385px;
+    margin-top: 20px;
+}
+
+#thadd_num {
+    background: rgb(67, 24, 124);
+    color: white;
+    border-radius: 3px;
+    height: 23px;
+    width: 21px;
+    text-align: center;
+    border: 1px solid rgb(67, 24, 124);
+    margin-left: 6px;
+}
+
+#thadd_info_title {
+    color: rgb(67, 24, 124);
+    font-weight: bold;
+    margin-left: 7px;
+    font-size: 18px;
+}
+
+#thadd_detailinfo {
+    margin-top: 40px;
+}
+
+/* 파일 업로드 */
+#logo_wrap label, #image_wrap label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    vertical-align: middle;
+    background-color: rgb(67, 24, 124);
+    cursor: pointer;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 5px;
+    width: 13%;
+    margin-left: 29px;
+    margin-top: 15px;
+}
+
+#logoFile, #theaterFile {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.logo-name, .theater-name {
+    display: inline-block;
+    width: 47%;
+    height: 35px;
+    font-size: 16px;
+    padding: 0 10px;
+    vertical-align: middle;
+    background-color: white;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 5px;
+    color: rgb(67, 24, 124);
+    font-weight: 600;
+    margin-top: 14px;
+}
+
+/* */
+#logo_wrap, #image_wrap {
+    border: 1.5px solid rgb(67, 24, 124);
+    margin-top: 12px;
+    height: 117px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+#thfileadd_title {
+    width: 385px;
+    height: 21px;
+}
+
+#thfileadd_title p {
+    font-size: 15px;
+    margin-left: 18px;
+}
+
+/* 상세 정보 */
+#detailinfo_wrap {
+    border: 1.5px solid rgb(67, 24, 124);
+    margin-top: 12px;
+    height: 450px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+#detailinfo_num {
+    background: white;
+    color: rgb(67, 24, 124);
+    border-radius: 22px;
+    height: 20px;
+    width: 19px;
+    text-align: center;
+    border: 2px solid rgb(67, 24, 124);
+    margin-left: 16px;
+    margin-top: 10px;
+    align-content: center;
+    font-weight: bold;
 }

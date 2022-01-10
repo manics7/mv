@@ -29,7 +29,7 @@
 			<div class="main_wrap">
 			<div class="sidebar">
 				<jsp:include page="business_sidebar.jsp"></jsp:include>
-				</div>
+			</div>
 				<div class="page_cont_wrap">
 					<div class="user_info">
 						<div class="profile_box">

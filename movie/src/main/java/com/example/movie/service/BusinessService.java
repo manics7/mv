@@ -11,8 +11,10 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,8 @@ import com.example.movie.common.AwsS3;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.RoomDto;
+import com.example.movie.dto.ScheduleDetailDto;
+import com.example.movie.dto.ScheduleDto;
 import com.example.movie.dto.SeatDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.entity.MovieOfficial;
@@ -217,7 +221,12 @@ public class BusinessService {
 					//dto에 담은 내용을 mapper로 넘기기  
 					buMapper.theaterAdd(theater); 
 				}
+			} else {
+				theater.setTh_logo("");
+				theater.setTh_image("");
+				buMapper.theaterAdd(theater);
 			}
+			
 			//영화관 정보 페이지로 이동
 			view = "redirect:theater";
 			msg = "등록 성공";
@@ -231,6 +240,24 @@ public class BusinessService {
 		
 		rttr.addFlashAttribute("msg", msg);
 		
+		return view;
+	}
+	
+	//영화관 삭제하기
+	@Transactional
+	public String theaterDelete(int th_code, RedirectAttributes rttr) {
+		String view = null;
+		
+		try {
+			buMapper.theaterDelete(th_code);
+			
+			view = "redirect:theater";
+			rttr.addFlashAttribute("msg", "삭제 성공");
+		} catch (Exception e) {
+			// TODO: handle exception
+			view = "redirect:theater";
+			rttr.addFlashAttribute("msg", "삭제 실패");
+		}
 		return view;
 	}
 
@@ -398,7 +425,7 @@ public class BusinessService {
 		return mv;
 	}
 	
-	//영화 검색 
+	//영화관, 영화, 상영관 검색(상영시간표를 등록하기 위해서) 
 	public ModelAndView getInfoList() {
 		mv = new ModelAndView();
 		
@@ -416,7 +443,7 @@ public class BusinessService {
 		
 		//상영관
 		List<RoomDto> roomList = new ArrayList<RoomDto>();
-		roomList = buMapper.getRoomList();
+		roomList = buMapper.getRoomInfoList();
 		
 		mv.addObject("movieList", movieList);
 		mv.addObject("roomList", roomList);
@@ -426,7 +453,8 @@ public class BusinessService {
 		
 		return mv;
 	}
-
+	
+	//상영시간표 등록
 	public String testInsert(Date roomStartTime, Date roomEndTime, Integer thcode, 
 			String[] mvcode, Integer room, String mvdate, String wait) {
 		
@@ -437,21 +465,14 @@ public class BusinessService {
 		//상영관 종료 시간을 date에서 calendar로 변환
 		Calendar endCalendar = Calendar.getInstance();
 		endCalendar.setTime(roomEndTime);
-		
-		//localDateTime localDateTime = LocalDateTime.now();
-		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		//상영관 시작 시간
-		//LocalDateTime roomStartTime = LocalDateTime.parse(starttime, formatter);
-		//상영관 종료 시간
-		//LocalDateTime roomEndTime = LocalDateTime.parse(endtime, formatter);
-		
+				
 		for(int i = 0; i < mvcode.length; i++) {
 			//영화코드(숫자)를 받은 변수 mvcd
 			String mvcd = mvcode[i];
 			
 			//받아온 영화코드로 관리자가 등록한 영화 테이블 내용 검색
 			Optional<MovieOfficial> mv = movieOfficialRepository.findById(mvcd);
-			if(mv.isPresent()) {//내용이 있으면?
+			if(mv.isPresent()) {//내용이 있으면
 				
 				//받아 온 상영날짜를 date 형태로 변환
 				SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
@@ -478,29 +499,20 @@ public class BusinessService {
 					int realTime = runningTime + waittingTime;	
 					
 					//영화 끝난 시간 = 상영관 시작시간 + 영화 러닝타임
-					Calendar movieEndCalendar = startCalendar;
-					movieEndCalendar.add(Calendar.MINUTE, runningTime);
-					//LocalDateTime movieEndTime = roomStartTime.plusMinutes(runningTime);
+					Calendar movieEndCalendar = Calendar.getInstance();		
+					movieEndCalendar.setTime(roomStartTime);
+					movieEndCalendar.add(Calendar.MINUTE, realTime);
 					
 					//영화 종료 시간이 상영관 종료 시간을 넘을 경우 값을 넣지 않는다
 					if(movieEndCalendar.before(endCalendar)) {
 					
 						//상영시간표를 db에 넣기
 						scheduleRepository.save(schedule);
-					
-						//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-					
-						//영화 종료 시간을 calendar에서 date로 변환(db에 넣기 위함)
-						Date movieEndTime = new Date(movieEndCalendar.getTimeInMillis());
 						
-						//String mvStartTime = roomStartTime.toString();
-						//Date movieStartTime = format.parse(mvStartTime);
-					
-						//영화 시작 시간을 calendar에서 date로 변환(db에 넣기 위함)
+						//영화 종료 시간을 calendar에서 date로
+						Date movieEndTime = new Date(movieEndCalendar.getTimeInMillis());
+						//영화 시작 시간을 calendar에서 date로
 						Date movieStartTime = new Date(startCalendar.getTimeInMillis());
-					
-						//String mvEndTime = movieEndTime.toString();
-						//Date dmovieEndTime = format.parse(mvEndTime);
 					
 						//상영시간표 상세
 						ScheduleDetail scheduleDetail = new ScheduleDetail();
@@ -523,9 +535,104 @@ public class BusinessService {
 			}
 		}
 		
+		//상영시간표 목록 페이지로 이동
 		String view = "redirect:schedule";
 		
 		return view;
-	
 	}
+	
+	//상영시간표 목록을 출력
+	public ModelAndView getScheduleList() {
+		mv = new ModelAndView();
+		
+		//세션에 저장되어 있는 사업자 아이디
+		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
+		String bId = bDto.getB_id();
+		
+		//로그인한 사업자와 일치하는 영화관의 코드
+		int theaterCode = buMapper.getTheaterCode(bId);
+		
+		//상영관 번호, 상영관명, 상영관 종류
+		List<RoomDto> scheduleRoomList = new ArrayList<RoomDto>();
+		scheduleRoomList = buMapper.getScheduleRoomList(theaterCode);
+		
+		mv.addObject("scheduleRoomList", scheduleRoomList);
+		
+		//상영시간표 
+		List<ScheduleDto> scheduleCode = new ArrayList<ScheduleDto>();
+		scheduleCode = buMapper.getScheduleCode(theaterCode);
+		
+		List<ScheduleDto> movieCodeList = new ArrayList<ScheduleDto>();
+		List<MovieOfficialDto> movieNameList = new ArrayList<MovieOfficialDto>();
+		
+		for(int a = 0; a < scheduleCode.size(); a++) {
+			ScheduleDto codeDto = scheduleCode.get(a);
+			int schCode = codeDto.getSch_code();
+			
+			//영화 코드
+			
+			movieCodeList = buMapper.getMovieCode(schCode);
+			
+			//영화명
+			ScheduleDto movieCodeDto = movieCodeList.get(a);
+			String movieCode = movieCodeDto.getMovie_cd();
+			
+			
+			movieNameList = buMapper.getMovieNameList(movieCode);
+			
+			mv.addObject("movieCodeList", movieCodeList);
+			mv.addObject("movieNameList", movieNameList);
+		}
+
+		//상영날짜
+		List<ScheduleDto> scheduleDateList = new ArrayList<ScheduleDto>();
+		scheduleDateList = buMapper.getScheduleDateList(scheduleCode);
+		
+		for(int i = 0; i < scheduleDateList.size(); i++) {
+			ScheduleDto scheduleDto = scheduleDateList.get(i);
+			Date scheduleDate = scheduleDto.getSch_date();
+			String dateList = DateFormatUtils.format(scheduleDate, "yyyy-MM-dd");
+			
+			List<String> screeningDate = new ArrayList<String>();
+			screeningDate.add(dateList);
+			
+			mv.addObject("screeningDate", screeningDate);
+		}
+		
+		//상영시작시간
+		List<ScheduleDetailDto> startTimeList = new ArrayList<ScheduleDetailDto>();
+		startTimeList = buMapper.getScheduleStartTime(scheduleCode);
+		
+		//상영종료시간
+		List<ScheduleDetailDto> endTimeList = new ArrayList<ScheduleDetailDto>();
+		endTimeList = buMapper.getScheduleEndTime(scheduleCode);
+		
+		for(int j = 0; j < startTimeList.size(); j++) {
+			//시작시간
+			ScheduleDetailDto startDto = startTimeList.get(j);
+			Date startTime = startDto.getSch_detail_start();
+			String startList = DateFormatUtils.format(startTime, "HH:mm");
+			
+			List<String> movieStart = new ArrayList<String>();
+			movieStart.add(startList);
+			
+			mv.addObject("movieStart", movieStart);
+			
+			//종료시간
+			ScheduleDetailDto endDto = endTimeList.get(j);
+			Date endTime = endDto.getSch_detail_end();
+			String endList = DateFormatUtils.format(endTime, "HH:mm");
+			
+			List<String> movieEnd = new ArrayList<String>();
+			movieEnd.add(endList);
+			
+			mv.addObject("movieEnd", movieEnd);
+		}
+		
+		mv.setViewName("sche/schedule");
+		
+		return mv;
+	}
+	
+	
 }
