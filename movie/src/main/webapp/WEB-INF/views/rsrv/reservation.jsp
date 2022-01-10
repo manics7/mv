@@ -17,8 +17,6 @@ $(document).ready(function() {
 });
 
 
-
-
 </script>
 </head>
 <!-- histoty Modal-->
@@ -134,6 +132,7 @@ $(document).ready(function() {
 								</div>
 						         <div class="col-md-12">						    
 						     	   <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>		
+						     	   <a   class="btn btn-lg btn-block btn-warning" id="kakao" href="javascript:kako();">카카오</a>		
 						         </div> 
 						         
 			 				</div>
@@ -186,6 +185,27 @@ $(document).ready(function() {
     </div>
   </div>
 </div>	
+
+
+<div class="modal fade" id="kakaoPayModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">알림</h5>
+        <button type="button" class="close" aria-label="Close" onclick="javascript:modalClose('kakaoPayModal');">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       	
+      </div>
+      <div class="modal-footer">        
+        <button type="button" class="btn btn-secondary mr-auto ml-auto" onclick="javascript:modalClose('kakaoPayModal');">확인</button>
+      </div>
+    </div>
+  </div>
+</div>	
+
 
 </html>
 

@@ -33,8 +33,8 @@ import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ReservationRepository;
 import com.example.movie.repository.ReservationRepositoryCustom;
 import com.example.movie.repository.RoomRepository;
-import com.example.movie.repository.ScheduleDetailRepositoy;
-import com.example.movie.repository.ScheduleRepositoy;
+import com.example.movie.repository.ScheduleDetailRepository;
+import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.repository.SeatRepository;
 import com.example.movie.utill.DateUtil;
 
@@ -51,10 +51,10 @@ public class ReservationService {
 	ReservationRepositoryCustom reservationRepositoryCustom;
 
 	@Autowired
-	ScheduleRepositoy scheduleRepositoy;
+	ScheduleRepository scheduleRepository;
 	
 	@Autowired
-	ScheduleDetailRepositoy scheduleDetailRepositoy;
+	ScheduleDetailRepository scheduleDetailRepository;
 	
 	@Autowired
 	RoomRepository roomRepository;
@@ -73,8 +73,8 @@ public class ReservationService {
 
 	
 	public Map<String, Object> getSeat(Integer schCode, Integer schDetailSeq) throws Exception{
-		Optional<Schedule> scheduleOpt = scheduleRepositoy.findById(schCode);		
-		Optional<ScheduleDetail> schDetailOpt = scheduleDetailRepositoy.findById(schDetailSeq); 
+		Optional<Schedule> scheduleOpt = scheduleRepository.findById(schCode);		
+		Optional<ScheduleDetail> schDetailOpt = scheduleDetailRepository.findById(schDetailSeq); 
 		
 		Schedule schedule = scheduleOpt.orElse(null);
 		Room room = roomRepository.findByThCodeAndRoomNo(schedule.getThCode(), schedule.getRoomNo());
@@ -211,8 +211,8 @@ public class ReservationService {
 		Reservation reservation = reservationOpt.get();
 		
 		//최종 결제정보에 보여줄 선택값들 
-		Optional<Schedule> scheduleOpt = scheduleRepositoy.findById(reservation.getSchCode());		
-		Optional<ScheduleDetail> schDetailOpt = scheduleDetailRepositoy.findById(reservation.getSchDetailSeq()); 
+		Optional<Schedule> scheduleOpt = scheduleRepository.findById(reservation.getSchCode());		
+		Optional<ScheduleDetail> schDetailOpt = scheduleDetailRepository.findById(reservation.getSchDetailSeq()); 
 		
 		Schedule schedule = scheduleOpt.orElse(null);
 		ScheduleDetail ScheduleDetail = schDetailOpt.orElse(null);

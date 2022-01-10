@@ -667,4 +667,24 @@
 		$("#"+id).modal('show')
 	}
 	
+	$(document).on("click", "#kakao" , function(){
+		
+		$.ajax({						
+		type : "GET"
+		,url : "/kakaoPay"
+		,dataType : "json"
+		,success : function(res) {	
+		//	$('#kakaoPayModal .modal-content').load(res.next_redirect_pc_ur);
+			//console.log(res.next_redirect_pc_url);
+			
+			$('#kakaoPayModal .modal-body').load(res.next_redirect_pc_ur,function(){
+		        $('#kakaoPayModal').modal({show:true});
+		    });
+    		//$("#kakaoPayModal .modal-body").html('<iframe width="100%" height="100%" frameborder="0" scrolling="yes" allowtransparency="true" src="'+res.next_redirect_pc_url+'"></iframe>');
+		}
+	});	
+	
+	});
+	
+	
 	

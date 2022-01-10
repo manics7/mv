@@ -115,7 +115,21 @@
 </style>
 
 <script type="text/javascript">
-
+$(document).ready(function(){
+	//POST /v1/payment/ready HTTP/1.1
+	//Host: kapi.kakao.com
+	//Authorization: KakaoAK {APP_ADMIN_KEY}
+	//Content-type: application/x-www-form-urlencoded;charset=utf-8
+	$("#option3").click(function(){
+		
+	
+		
+	});
+	
+	
+	
+	
+})
 </script>
 
 </head>
@@ -173,7 +187,7 @@
 											<input type="radio" name="options" id="option2"> 카드(간편결제)
 										</label>
 										<label class="btn btn-outline-secondary">
-											<input type="radio" name="options" id="option3" onclick=""> 카카오페이
+											<input type="radio" name="options" id="option3" > 카카오페이
 										</label>
 										<label class="btn btn-outline-secondary">
 											<input type="radio" name="options" id="option4"> 페이코

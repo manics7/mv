@@ -27,15 +27,15 @@ import com.example.movie.entity.Theater;
 import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ReservationRepositoryCustom;
 import com.example.movie.repository.RoomRepository;
+import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.repository.ScheduleRepositoryCustom;
-import com.example.movie.repository.ScheduleRepositoy;
 import com.example.movie.repository.TheaterRepository;
 
 @Service
 public class ScheduleService {
 
 	@Autowired
-	ScheduleRepositoy scheduleRepositoy;
+	ScheduleRepository scheduleRepository;
 	
 	@Autowired
 	MovieOfficialRepository movieOfficialRepository;
@@ -98,7 +98,7 @@ public class ScheduleService {
 		Date startDate = java.sql.Date.valueOf(dateTime.toLocalDate());
 		Date endDate = java.sql.Date.valueOf(lastDate);
 		
-		List<Schedule> scheduleList = scheduleRepositoy.findBySchDateBetween(startDate, endDate);
+		List<Schedule> scheduleList = scheduleRepository.findBySchDateBetween(startDate, endDate);
 
 		//스케쥴에서 영화,극장코드 중복제거해서 가져오기
 		List<String> movieCdList = scheduleList.stream().map(Schedule::getMovieCd).distinct().collect(Collectors.toList());
@@ -135,7 +135,7 @@ public class ScheduleService {
 	}
 	
 	//영화,극장,일자 선택했을때
-	public List<Schedule>  selectSchList(String movieCd ,Integer thCode, String schDate) {
+	public List<Schedule> selectSchList(String movieCd ,Integer thCode, String schDate) {
 		
 		List<Schedule> schList = scheduleRepositoryCustom.selectSchList(movieCd, thCode, schDate);			
 		return schList;
