@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BusinessDto;
-import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.service.AdminService;
@@ -120,14 +119,14 @@ public class AdminController {
 	}
 	
 
-	@GetMapping("admin_movie_read")
-	public ModelAndView movieDetail(int mv_seq) {
-		
-		mv = aServ.admin_movie_read(mv_seq);
-		
-		return mv;
-
-	}
+//	@GetMapping("admin_movie_read")
+//	public ModelAndView movieDetail(int mv_seq) {
+//		
+//		mv = aServ.admin_movie_read(mv_seq);
+//		
+//		return mv;
+//
+//	}
 	
 
 
