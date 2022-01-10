@@ -38,7 +38,7 @@
 		resultType="com.example.movie.dto.quesboardDto">
 		SELECT * FROM v_question where m_id = #{m_id}
 	</select>
-	
+	 
 	
 	<select id="selectReportMvReviewSortDesc" parameterType="HashMap"
 		resultType="com.example.movie.dto.reportMvReviewDto">
@@ -55,6 +55,9 @@
 			AND RONUM <= #{num} * #{lcnt}
 		]]>
 	</select>
+	
+	
+	
 	
 	
 	
@@ -108,8 +111,8 @@
 		resultType="com.example.movie.dto.BusinessDto">
 		<![CDATA[
 		SELECT * FROM BUSINESS
-		WHERE ROWNUM >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
-			AND ROWNUM <= #{pageNum} * #{lcnt}
+		WHERE b_num >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
+			AND b_num <= #{pageNum} * #{lcnt}
 		]]>
 	</select>
 	<!-- 사업자 목록 수  -->
@@ -156,16 +159,16 @@
 		resultType="com.example.movie.dto.MovieDto">
 		SELECT * FROM movie where mv_seq =#{mv_seq}
 	</select>
+	<!-- 
 	
 	<insert id="quesboard_replywrite" parameterType="com.example.movie.dto.quesReplyDto">
 	INSERT INTO question_reply VALUES(#{ques_reply_no},#{ques_no},#{ques_reply_cont},sysdate,#{ques_reply_state});
 	</insert>
 	
 	
-	<select id="selectMovieBySeq" parameterType="Integer"
-		resultType="com.example.movie.dto.MovieDto">
-		SELECT * FROM movie where mv_seq =#{mv_seq}
-	</select>
+	 -->
+	
+	
 	
 	<insert id="adminMovieInsert" parameterType="com.example.movie.dto.MovieOfficialDto">
 		insert into movie_official values (#{movie_cd}, #{movie_nm}, #{movie_content},
@@ -173,6 +176,10 @@
 		#{watch_grade_nm}, #{poster,jdbcType=VARCHAR}, #{stillcut1,jdbcType=VARCHAR}, 
 		#{stillcut2,jdbcType=VARCHAR}, #{stillcut3,jdbcType=VARCHAR}, 
 		#{stillcut4,jdbcType=VARCHAR}, #{stillcut5,jdbcType=VARCHAR})
+	</insert>
+	<!-- 1대1문의사항 답변 삽입  -->
+	<insert id="insertReplyWrite" parameterType="com.example.movie.dto.quesReplyDto">
+	INSERT INTO question_reply VALUES (QUESREPLY_SEQ.nextval,#{ques_no},#{ques_reply_cont},sysdate,1);
 	</insert>
 	
 </mapper>

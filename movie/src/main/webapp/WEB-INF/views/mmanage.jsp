@@ -39,12 +39,10 @@
 								<a class="btn_nomal" style="background: #f16a1a; color: white;"
 									href="./mmanage?pageNum=1">일반회원</a> 
 									<a href="#" class="btn_nomal">불량회원</a> 
-									<button class="busbtn" onclick="movebulist(${pageNum=1})">사업자</button>
+									<a class="busbtn" href="./getBulist?pageNum=1">사업자</a>
 							</div>
 
-<!-- 
-"./getBulist?pageNum=1"
- -->
+
 
 						</div>
 						<form id="nomalmemberform" name="searchFrm" action="./memberSelect?pageNum=1"
@@ -93,7 +91,7 @@
 														<td class="text-center d-none d-md-table-cell"><a
 															type="button" href="./mboardSelect?m_id=${mitem.m_id}">확인</a></td>
 														<td class="text-center d-none d-md-table-cell"><a
-															href="./deleteMember">삭제</a></td>
+															href="./admindelMember">삭제</a></td>
 													</tr>
 
 												</c:forEach>

@@ -260,7 +260,7 @@ public class AdminService {
 			int num = (pageNum == null)? 1 : pageNum;
 			int listCnt = 4;
 			int maxNum;
-
+			
 			mv = new ModelAndView();
 
 			List<MovieDto> movieList = aMapper.selectMovieRequest();
@@ -393,12 +393,12 @@ public class AdminService {
 
 			return pageHtml;
 		}
-
-	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
-		mv = new ModelAndView();
-		mv = aMapper.quesboard_replywrite(qrdto);
-		return mv;
-	}
+//1대1문의 답변(사용안함)
+//	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
+//		mv = new ModelAndView();
+//		mv = aMapper.quesboard_replywrite(qrdto);
+//		return mv;
+//	}
 
 		public ModelAndView admin_movie_read(int mv_seq) {
 			
@@ -485,14 +485,27 @@ public class AdminService {
 				
 			
 			
-			
+	
 			view = "redirect:adminMovieList";
 			rttr.addFlashAttribute("msg", msg);
 			
 			return view;
 		}
 
-//		public ModelAndView quesboard_reply_insert(quesReplyDto qrdto) {
-//			return null;
-//		}
+		//1대1 문의 답변(사용함)(하는중)
+	public String quesboard_reply_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
+		String view = null;	
+		String msg = null;
+		try {
+			qrdto = aMapper.insertReplyWrite(qrdto);
+			msg = "성공";
+		} catch (Exception e) {
+			view = "redirect:quesboard";
+			msg = "실패";
+		}
+		//qrdto = aMapper.insertReplyWrite(qrdto);
+		view = "redirect:quesboard";
+		rttr.addFlashAttribute("msg",msg);
+		return view;
+		}
 	}
