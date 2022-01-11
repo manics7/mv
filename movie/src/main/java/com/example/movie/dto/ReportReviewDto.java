@@ -13,4 +13,5 @@ public class ReportReviewDto {
 	private String rp_why; //신고 사유
 	private Timestamp rp_date; //신고 날짜
 	private int rp_state; //처리 상태
+	private String rp_contents;
 }

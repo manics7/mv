@@ -5,7 +5,9 @@ import java.util.Map;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BoardDto;
+import com.example.movie.dto.BoardFileDto;
 import com.example.movie.dto.ReplyDto;
+import com.example.movie.dto.ReportReviewDto;
 import com.example.movie.dto.TheaterDto;
 
 public interface BoardMapper extends MybatisMapper {
@@ -21,8 +23,12 @@ public interface BoardMapper extends MybatisMapper {
 	public List<TheaterDto> getTHList();
 	//게시글 작성하기
 	public void rvBoardInsert(BoardDto bDto);
+	//파일 정보 저장하기
+	public void rvFileInsert(BoardFileDto bfDto);
 	//게시글 본문 가져오기
 	public BoardDto getRvContent(Integer rnum);
+	//파일 정보 가져오기
+	public List<BoardFileDto> getBfList(Integer rnum);
 	//조회수 업데이트
 	public void viewUpdate(Integer rnum);
 	//게시글 수정하기
@@ -34,5 +40,5 @@ public interface BoardMapper extends MybatisMapper {
 	//댓글 목록 출력
 	public List<ReplyDto> getReList(Integer rnum);
 	//신고 처리하기
-	public void reportRvInsert();
+	public void reportRvInsert(ReportReviewDto RpRbDto);
 }

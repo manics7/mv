@@ -6,6 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.TheaterDto;
@@ -36,8 +37,6 @@ public interface MemberMapper  extends MybatisMapper {
 	//취소한 결제내역 검색
 	public String selectPaymentCancel(String tid);
 	
-	//예매번호로 스케줄번호 검색
-	public int selectSchno (String rsno);
 	//스케줄번호로 극장코드검색
 	public int selectThcode (int schno);
 	//극장코드로 극장이름검색
@@ -77,8 +76,11 @@ public interface MemberMapper  extends MybatisMapper {
 	// 이용자 관람평 목록 다시 검색
 	public List<ReviewMovieDto> selectReviewMovieList(String mv_review_moviecd);
 	//영화관 상세정보 출력
-	public TheaterDto inserttheaterinfo(Integer th_code);
+	public List<TheaterDto> inserttheaterinfo(Integer th_code);
 	//영화관 상세정보에 들어갈 영화 스캐줄
 	public List<Theater_detailDto> selectmovieschedule();
+
+	// 현재상영작 불러오기
+	public List<MovieOfficialDto> getMovieList();
 	
 }

@@ -96,7 +96,7 @@
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
-						<td class="text-center d-none d-md-table-cell">신고 정보가 없습니다.</td>
+						<td class="text-center d-none d-md-table-cell">문의 내역이 없습니다.</td>
 						</c:otherwise>
 						
 						</c:choose>

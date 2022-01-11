@@ -16,30 +16,25 @@ $(function(){
 	if(msg != ""){
 		alert(msg);
 	}
-	
-	//로그인한 회원 정보 및 로그아웃 출력
-	var lname = "${mb.m_name}";
-	$("#mname").html(lname + "님");
-	$(".suc").css("display", "block");
-	$(".bef").css("display", "none");
 });
 </script>
 </head>
 <body>
+<header>
+	<jsp:include page="header.jsp"></jsp:include>
+</header>
 	<section>
-        <h2 id="rv_title">REVIEW</h2>
 	<div class="rv_content">
 		<form action="./reviewWrite" class="write-form" method="post" enctype="multipart/form-data">
 			<!-- 로그인 유저, 제목, 내용, 파일 처리 -->
 			<!-- name의 value는 DTO의 변수명과 일치하게 -->
-			<input type="hidden" name="mid" value="viu97">
-			
+			<input type="hidden" name="mid" value="${userInfo.m_id}">
             <input type="text" class="write-input" name="rtitle" autofocus placeholder="제목을 입력하세요." required>
 
-			<select name="thcode" class="th_select">
+			<select name="th_code" class="th_select">
 				<option value="-10">영화관 선택</option>
 				<c:forEach var="thitem" items="${thList}">
-					<option value="${thitem.thcode}">${thitem.thname}</option>
+					<option value="${thitem.th_code}">${thitem.th_name}</option>
 				</c:forEach>
 			</select>
 		
@@ -59,5 +54,39 @@ $(function(){
 		</form>
 	</div>
 	</section>
+<footer>
+	<jsp:include page="footer.jsp"></jsp:include>
+</footer>
 </body>
+<script type="text/javascript">
+//업로드할 파일을 선택하면 'upload-name' 요소에
+//파일 이름을 출력하고, 'fileCheck' 요소의 value를
+//1로 변경
+$("#file").on("change", function(){
+	//파일 입력창에서 선택한 파일 목록 가져오기
+	var files = $("#file")[0].files;
+	console.log(files);
+	
+	var fileName = "";
+	
+	if(files.length > 1){//하나 이상의 파일 선택 시
+		fileName = files[0].name + " 외 " 
+			+ (files.length - 1) + "개";
+	}
+	else if(files.length == 1){
+		fileName = files[0].name; 
+	}
+	
+	$(".upload-name").val(fileName);
+	
+	//fileCheck 부분 변경
+	if(fileName == ""){//파일 취소 시.
+		$("#filecheck").val(0);
+		$(".upload-name").val("파일선택");
+	}
+	else {//파일 선택 시.
+		$("#filecheck").val(1);
+	}
+});
+</script>
 </html>

@@ -27,15 +27,23 @@
 	<div class="wrap">
 		<div class="main_wrap_wrap">
 			<div class="main_wrap">
-				<div id="side">
-				<h2><a href="mypage">My Page</a></h2>
-				<ul id="bupage_list">
-					<li><a id="bupage_menu" href="purchaseFrm">예매/구매내역</a></li>
-					<li><a id="bupage_menu" href="watcheMovieFrm">내가 본 영화</a></li>
-					<li><a id="bupage_menu" href="pmvReviewFrm">내가 쓴 감상평</a></li>
-					<li><a id="bupage_menu" href="questionFrm">1:1문의</a></li>
-				</ul>
-			</div>
+			<div class="sidebar">
+				<jsp:include page="mypage_sidebar.jsp"></jsp:include>
+				</div>
+			<!-- 
+			
+			<div id="side">
+					<h2><a href="mypage">My Page</a></h2>
+					<ul id="bupage_list">
+						<li><a id="bupage_menu" href="purchaseFrm">예매/구매내역</a></li>
+						<li><a id="bupage_menu" href="watcheMovieFrm">내가 본 영화</a></li>
+						<li><a id="bupage_menu" href="pmvReviewFrm">내가 쓴 감상평</a></li>
+						<li><a id="bupage_menu" href="questionFrm">1:1문의</a></li>
+					</ul>
+				</div>
+				
+			
+			 -->
 					
 				<div class="page_cont_wrap">
 					<div class="user_info">
@@ -72,7 +80,7 @@
 						</div>
 					</div>
 					<div class="booking_history">
-						<h3>예매내역</h3>
+						<h3 style="font-size : 14px; color:#222; font-weight:700; margin-bottom : 24px;" class="booking_title">예매내역</h3>
 						<div class="historylist">
 							<p class="no_data">예매내역이 없습니다.</p>
 						</div>

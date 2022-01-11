@@ -4,11 +4,7 @@
 
 <mapper namespace="com.example.movie.mapper.AdminMapper">
 	
-	<!-- 현재상영작 가져오기 -->
-	<select id="getMovieList" parameterType="String" resultType="com.example.movie.dto.MovieOfficialDto">
-		select * from movie_official
-	</select>
-	
+	<!-- 영화리뷰신고목록 -->
 	<select id="selectReportMvReview" parameterType="HashMap"
 		resultType="com.example.movie.dto.reportMvReviewDto">
 		<![CDATA[
@@ -18,6 +14,12 @@
 		]]>
 	</select>
 	
+	<!-- 영화리뷰신고목록 총 갯수 -->
+	<select id="selectReportMvReviewCnt" resultType="Integer">
+		SELECT COUNT(*) FROM report_mv_review
+	</select>
+	
+	<!-- 신고목록정렬 -->
 	<select id="selectReportMvReviewSort" parameterType="HashMap"
 		resultType="com.example.movie.dto.reportMvReviewDto">
 		select * from
@@ -34,12 +36,12 @@
 		]]>
 	</select>
 	
+
 	<select id="getquesboardSelect"
 		resultType="com.example.movie.dto.quesboardDto">
 		SELECT * FROM v_question where m_id = #{m_id}
 	</select>
-	
-	
+
 	<select id="selectReportMvReviewSortDesc" parameterType="HashMap"
 		resultType="com.example.movie.dto.reportMvReviewDto">
 		select * from
@@ -56,38 +58,32 @@
 		]]>
 	</select>
 	
-	
-	
-	<select id="selectReportMvReviewCnt" resultType="Integer">
-		SELECT COUNT(*) FROM report_mv_review
-	</select>
-	
+	<!-- 영화리뷰번호로 영화리뷰 찾기 -->
 	<select id="selectMvReviewByReviewNum" parameterType="Integer"
 		resultType="String">
 		SELECT mv_review_comment FROM review_movie WHERE mv_review=#{mvrNum}
 	</select>
 	
+	<!-- 영화리뷰에서 id가져옴 -->
 	<select id="selectIdFromMvReview" parameterType="Integer"
 		resultType="String">
 		SELECT mv_review_id FROM review_movie WHERE mv_review=#{mvrNum}
 	</select>
 	
+	<!-- 경고증가 -->
 	<update id="updateWarning" parameterType="String">
 		UPDATE member SET m_warning = m_warning+1 WHERE m_id=#{id}
 	</update>
 	
+	<!-- 영화리뷰신고 상태값 변경 -->
 	<update id="updateRpMvReviewState" parameterType="Integer">
 		UPDATE report_mv_review SET rp_state =1 WHERE movie_review=#{mvrNum}
 	</update>
 	
+	<!-- 영화리뷰삭제 -->
 	<delete id="delMvReview" parameterType="Integer">
 		DELETE FROM review_movie WHERE mv_review=#{mvrNum}
 	</delete>
-	
-	<delete id="delMvReviewReport" parameterType="Integer">
-		DELETE FROM report_mv_review WHERE movie_review=#{mvrNum}
-	</delete>
-	
 	
 <!-- 문의글 목록 출력 -->
 	<select id="getQuesList" parameterType="HashMap"
@@ -98,25 +94,29 @@
 			AND RONUM <= #{num} * #{lcnt}
 		]]>
 	</select>
+	
 	<!--  문의글 목록 수 -->
 	<select id="getquesBoardCnt" resultType="integer">
 		SELECT COUNT(*) FROM
 		v_question
 	</select>
+	
 	<!-- 사업자 회원 목록 출력 -->
 		<select id="getbuslist" parameterType="HashMap"
 		resultType="com.example.movie.dto.BusinessDto">
 		<![CDATA[
 		SELECT * FROM BUSINESS
-		WHERE ROWNUM >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
-			AND ROWNUM <= #{pageNum} * #{lcnt}
+		WHERE b_num >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
+			AND b_num <= #{pageNum} * #{lcnt}
 		]]>
 	</select>
+	
 	<!-- 사업자 목록 수  -->
 		<select id="getBusCnt" resultType="integer">
 		SELECT COUNT(*) FROM
 		BUSINESS
 	</select>
+	
 	<!-- 영화 상세 페이지 이동 -->
 	<select id="movieDetail" parameterType="String" resultType="com.example.movie.dto.MovieOfficialDto">
 		select * from movie_official where movie_cd=#{movie_cd}
@@ -147,20 +147,21 @@
 		SELECT * FROM movie_official
 	</select>
 
-		<select id="getquesboardRead" parameterType="Integer"
+	<select id="getquesboardRead" parameterType="Integer"
 		resultType="com.example.movie.dto.quesboardDto">
 		SELECT * FROM v_question where ques_no = #{ques_no}
 	</select>
+
+	<insert id="quesboard_replywrite" parameterType="com.example.movie.dto.quesReplyDto">
+	INSERT INTO question_reply VALUES(#{ques_reply_no},#{ques_no},#{ques_reply_cont},sysdate,#{ques_reply_state});
+	</insert>
 	
 	<select id="selectMovieBySeq" parameterType="Integer"
 		resultType="com.example.movie.dto.MovieDto">
 		SELECT * FROM movie where mv_seq =#{mv_seq}
 	</select>
-	
-	<insert id="quesboard_replywrite" parameterType="com.example.movie.dto.quesReplyDto">
-	INSERT INTO question_reply VALUES(#{ques_reply_no},#{ques_no},#{ques_reply_cont},sysdate,#{ques_reply_state});
-	</insert>
-	
+
+	<!-- 관리자 영화등록 -->
 	<insert id="adminMovieInsert" parameterType="com.example.movie.dto.MovieOfficialDto">
 		insert into movie_official values (#{movie_cd}, #{movie_nm}, #{movie_content},
 		#{show_tm}, #{open_dt}, #{genre_nm}, #{directors}, #{actors}, #{show_types},
@@ -168,5 +169,38 @@
 		#{stillcut2,jdbcType=VARCHAR}, #{stillcut3,jdbcType=VARCHAR}, 
 		#{stillcut4,jdbcType=VARCHAR}, #{stillcut5,jdbcType=VARCHAR})
 	</insert>
+	
+	<!-- 1대1문의사항 답변 삽입  -->
+	<insert id="insertReplyWrite" parameterType="com.example.movie.dto.quesReplyDto">
+	INSERT INTO question_reply VALUES (QUESREPLY_SEQ.nextval,#{ques_no},#{ques_reply_cont},sysdate,1);
+	</insert>
+	
+	<!-- 신고 영화관리뷰 갯수 -->
+	<select id="selectReportReviewCnt" resultType="Integer">
+		SELECT COUNT(*) FROM report_review
+	</select>
+	
+	<!-- 신고 댓글 갯수 -->
+	<select id="selectReportReplyCnt" resultType="Integer">
+		SELECT COUNT(*) FROM report_reply
+	</select>
+	
+	<select id="selectReportReview" parameterType="HashMap"
+		resultType="com.example.movie.dto.ReportReviewDto">
+		<![CDATA[
+		SELECT * FROM REPORTREVIEWLIST_1
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	<select id="selectReportReply" parameterType="HashMap"
+		resultType="com.example.movie.dto.ReportReplyDto">
+		<![CDATA[
+		SELECT * FROM REPORTREPLYLIST_1
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
 	
 </mapper>

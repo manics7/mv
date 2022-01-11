@@ -9,14 +9,16 @@
     border-color: initial;
     box-shadow: none;
 }
-.modal-header {background-color: #1d1d1d;}
+.modal-header-bg  {background-color: #1d1d1d;}
+.modal-content {max-height: 725px;}
+.modal-body {max-height: 650px;}
 
 .list-group-item-warning {background-color: #f16a19;}
 .btn-warning {background-color: #f16a19; color: white; border: none;}
 .btn-warning:hover {background-color: #f16a19; color: white; cursor: pointer; border: none;}
 .btn-warning:not(:hover) {background-color: #f16a19; color: white; border: none;}
 
-.disabled{
+.disable{
     pointer-events:auto;
     opacity:0.3;
      background-color: #DDD;
@@ -67,14 +69,14 @@ color:#495057;
 #dateList {
  overflow: auto;
  height: auto; 
- max-height: 600px;  
+ max-height: 620px;  
 }
 
 #timeList {
  overflow: auto;
  height: auto; 
- min-height: 350px;  
- max-height: 350px;  
+ min-height: 370px;  
+ max-height: 370px;  
 }
 
 #movieInfo {height: 165px;}
