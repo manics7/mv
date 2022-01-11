@@ -145,6 +145,8 @@ public class AdminController {
 	//문의사항 답변 달기 ( 하는중 ) 
 	@PostMapping("/quesboard_reply_insert")
 	public String quesboard_reqly_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
+		System.out.println("qrdto"+qrdto);
+		
 		String view = aServ.quesboard_reply_insert(qrdto, rttr);
 		return view;
 	}

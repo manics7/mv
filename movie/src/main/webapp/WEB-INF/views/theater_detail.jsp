@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,14 +49,15 @@
 		</nav>
 
 	</div>
+	
 
 	<!-- Header - set the background image for the header in the line below-->
 	<header class="py-5 bg-image-full main_header main_header">
 		<div class="text-center my-5">
 			<h1 class="text-white fs-3 fw-bolder main_header_title"
-				style="font-size: 20px;">${thdetail.th_name}</h1>
+				style="font-size: 20px;">${theatedetail[0].theater.thName}</h1>
 			<img class="img-fluid rounded-circle mb-4 main_header_logo"
-				src="${thdetail.th_logo}" alt="..." />
+				src="${theatedetail[0].theater.thLogo}" alt="..." />
 			<!--
                 <p class="text-white-50 mb-0">Landing Page Template</p>
             -->
@@ -104,6 +108,7 @@
 				<a href="#" style="color: black;">현재상영중</a> <a href="#"
 					style="color: gray;">상영예정작</a>
 			</div>
+			<div class="main_movielist_cont_wrap">
 			<div class="main_movielist_cont">
 				<div class="movie_list_item item1">
 					<a href="#" class="thum">
@@ -118,22 +123,24 @@
 							</div>
 						</div>
 					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-
 				</div>
+				<c:forEach var ="thdtail" items= "${theatedetail}" varStatus="status">
 				<div class="movie_list_item item2">
 					<a href="#" class="thum">
 						<div class="img">
-							<img src="imges/movie_list_img2.jpg" alt="">
+							<img src="${theatedetail[status.index].movieOfficial.poster}" alt="">
 						</div>
 						<div class="info">
-							<div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
+							<div class="subj" title="드라이브 마이 카">${theatedetail[status.index].movieOfficial.movieNm}</div>
 							<div class="grade">
-								<span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
+								<span><i class="fas fa-star"></i></span> <span>${status.index}</span> <strong>5.0</strong>
 								<span class="talker">평론가</span> <strong>4.3</strong>
 							</div>
 						</div>
 					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
 				</div>
+				</c:forEach>
+				<!--  
 				<div class="movie_list_item item3">
 					<a href="#" class="thum">
 						<div class="img">
@@ -148,35 +155,10 @@
 						</div>
 					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
 				</div>
-				<div class="movie_list_item item4">
-					<a href="#" class="thum">
-						<div class="img">
-							<img src="imges/movie_list_img4.jpg" alt="">
-						</div>
-						<div class="info">
-							<div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-							<div class="grade">
-								<span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-								<span class="talker">평론가</span> <strong>4.3</strong>
-							</div>
-						</div>
-					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-				</div>
-				<div class="movie_list_item item5">
-					<a href="#" class="thum">
-						<div class="img">
-							<img src="imges/movie_list_img5.jpg" alt="">
-						</div>
-						<div class="info">
-							<div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-							<div class="grade">
-								<span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-								<span class="talker">평론가</span> <strong>4.3</strong>
-							</div>
-						</div>
-					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-				</div>
+				-->
 			</div>
+			</div>
+			
 
 		</section>
 	</div>
@@ -191,13 +173,15 @@
 
 			<div class="day_paging">
 				<ul class="pagination pagination-lg">
-					<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a>
+				<!--
+				
+				<li class="page-item" name="datebtn"><a class="page-link" href="#">&laquo;</a>
 					</li>
-					<li class="page-item activec"><a class="page-link" href="#">22(수)</a>
+					<li class="page-item" name="datebtn"><a class="page-link" href="#">22(수)</a>
 					</li>
-					<li class="page-item"><a class="page-link" href="#">23(수)</a>
+					<li class="page-item" name="datebtn"><a class="page-link" href="#">23(수)</a>
 					</li>
-					<li class="page-item"><a class="page-link" href="#">24(목)</a>
+					<li class="page-item" name="datebtn"><a class="page-link" href="#">24(목)</a>
 					</li>
 					<li class="page-item"><a class="page-link" href="#">25(금)</a>
 					</li>
@@ -211,12 +195,28 @@
 					</li>
 					<li class="page-item"><a class="page-link" href="#">&raquo;</a>
 					</li>
+					<li>${theatedetail[0].schedule.scheduleDetail}</li>
+				
+				
+				   -->
+					
 				</ul>
 			</div>
 
-			<div class="movie_schedule_list">
+
+
+<div class="movie_schedule_list">
 				<ul>
-					<li>
+
+
+
+
+			
+					
+					<!-- 
+
+
+<li>
 						<div>
 							<p class="stime">10:00</p>
 							<p class="etime">11:33</p>
@@ -282,17 +282,9 @@
 						<p class="mv_info">1관 - 2D</p>
 						<p class="mv_title">너에게 가는 길</p>
 					</li>
-					<li>
-						<div>
-							<p class="stime">10:00</p>
-							<p class="etime">11:33</p>
-							<p class="seat">
-								<b>48</b> / 51 석
-							</p>
-						</div>
-						<p class="mv_info">1관 - 2D</p>
-						<p class="mv_title">너에게 가는 길</p>
-					</li>
+
+-->
+					
 				</ul>
 			</div>
 		</section>
@@ -372,6 +364,88 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="js/scripts.js"></script>
+	<script src="resource/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		getDate();
+		
+		
+		function getDate(){
+			$.ajax({
+				type : "GET"
+				,url : "/getDate"      		
+				,success : function(data) {
+				var	html ="";
+							data.forEach(function(item, index){
+								
+								var date = item.date
+								var dayOfWeek =item.dayOfWeek;						
+								color = (dayOfWeek == '일' ?  "text-danger" : dayOfWeek == "토" ? "text-primary"  : "");
+								
+								day  = date.substr(8,2);		
+										
+																	
+								html+=  "<li class='list-group-item my-0 py-2 dateBtn " +color+" font-weight-bold'  date=" +date +" style ='cursor : pointer;'    >"+ day+" ("+dayOfWeek +")</li>";							
+							});
+						
+							$(".day_paging ul").html(html);
+							
+							
+				},error : function(err) {
+					//console.log("err:", err)
+				}
+			});
+			
+		}
+		
+		$(document).on('click',".dateBtn" ,function(){
+			var date = $(this).attr("date");
+			$.ajax({
+				type : "GET"
+				,url : "getSchedulelist?schDate=" + date+"&thCode=" +${th_code}    		
+				,success : function(data) {
+				var	html ="";
+				
+				for(i=0; i < data.length; i++){
+					for(j=0; j < data[i].schedule.scheduleDetail.length; j++){
+						html += "<li><div>" 
+						html += "<p class='stime'>"+data[i].schedule.scheduleDetail[j].schDetailStart+"</p>"
+						html += "<p class='etime'>"+data[i].schedule.scheduleDetail[j].schDetailEnd+"</p>"
+						html += "<p class='seat'><b>"+data[i].schedule.scheduleDetail[j].rsrvSeatCnt
+						+ "</b>/ "+data[i].room.seatCnt+" 석</p>"
+						html +"</div></li>"
+					}
+				}
+					
+					//var date = item.date
+					//var dayOfWeek =item.dayOfWeek;	
+					
+					//color = (dayOfWeek == '일' ?  "text-danger" : dayOfWeek == "토" ? "text-primary"  : "");
+					
+					//day  = date.substr(8,2);		
+							
+														
+					//html+=  "<li class='list-group-item my-0 py-2 dateBtn " +color+" font-weight-bold'  date=" +date +" style ='cursor : pointer;'    >"+ day+" ("+dayOfWeek +")</li>";							
+				
+				$(".movie_schedule_list ul").html(html);
+				
+				
+				
+			
+						
+							
+							
+				},error : function(err) {
+					//console.log("err:", err)
+				}
+			});
+		})
+		
+	})
+	
+	
+	</script>
 </body>
 
 </html>
