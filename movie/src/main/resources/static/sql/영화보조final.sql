@@ -334,7 +334,7 @@ create table temp (
     genreAlt    nvarchar2(50) -- 장르 전체
 );
 
-ALTER TABLE reservation ADD CONSTRAINT pk_movieCd PRIMARY KEY (
+ALTER TABLE temp ADD CONSTRAINT pk_movieCd PRIMARY KEY (
 	movieCd
 );
     

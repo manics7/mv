@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,26 +30,40 @@
 									<div class="poster_box">
 										<img src="${movieList.poster }" alt="${movieList.movie_nm }" class="poster" onerror="noImg(this, 'main');">
 									</div>
-									<div>
+									<div class="movieSummary">
 										<!-- 마우스 올리면 상세 내용 보여짐 -->
-										<!-- 클릭시 영화 상세페이지 이동
-										 -->
+										<!-- 클릭시 영화 상세페이지 이동 -->
 										<a href="./movieDetail?movie_cd=${movieList.movie_cd }">
-											<div>
-												${movieList.movie_content }
+											<div class="movieContent">
+												<span>${movieList.movie_content }</span> 
 											</div>
-											<div>
-												평점!
+											<div class="movieRate">
+												<span>평점!</span>
 											</div>
 										</a>
 									</div>
 								</div>
-								<div 제목>
-									<p>${movieList.watch_grade_nm }</p>
-									<p>${movieList.movie_nm }</p>
+								<div class="movieTitle">
+<!-- 									 -->
+									<c:choose>
+										<c:when test="${movieList.watch_grade_nm eq '12세' }">
+											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png)">
+										</c:when>
+										<c:when test="${movieList.watch_grade_nm eq '15세' }">
+											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png)">
+										</c:when>
+										<c:when test="${movieList.watch_grade_nm eq '18세' }">
+											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-18.png)">
+										</c:when>
+										<c:otherwise>
+											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png)">
+										</c:otherwise>
+									</c:choose>
+									<p class="movieNm">${movieList.movie_nm }</p>
 								</div>
-								<div 개봉일>
-									${movieList.open_dt }
+								<div class="movieOpenDt">
+									개봉일  
+									<fmt:formatDate value="${movieList.open_dt }" pattern="yyyy.MM.dd"/> 
 								</div>
 								<div class="btn_box">
 									<button>
@@ -65,4 +81,16 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 
 </body>
+
+	<script src="resource/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript">
+	
+		$(".poster_box").hover(function() {
+			$(this).next().css("display", "inline-block");
+		}, function() {
+			$(this).next().css("display", "none");
+		})
+		
+	</script>
+
 </html>
