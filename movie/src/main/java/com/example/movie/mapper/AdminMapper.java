@@ -10,15 +10,14 @@ import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
+import com.example.movie.dto.ReportReplyDto;
+import com.example.movie.dto.ReportReviewDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.dto.reportMvReviewDto;
 
 public interface AdminMapper extends MybatisMapper {
-
-	// 현재상영작 불러오기
-	public List<MovieOfficialDto> getMovieList();
 
 	// 영화 상세 페이지 이동
 	public MovieOfficialDto movieDetail(String movie_cd);
@@ -74,10 +73,18 @@ public interface AdminMapper extends MybatisMapper {
 	public int getBusCnt();
 	//영화시퀀스번호로 사업자 영화가져옴
 	public MovieDto selectMovieBySeq(int mv_seq);
-
+	//관리자 영화등록
 	public void adminMovieInsert(MovieOfficialDto mvofficialDto);
 
 	public ModelAndView quesboard_replywrite(quesReplyDto qrdto);
+	//신고된 영화관리뷰 게시글 갯수
+	public int selectReportReviewCnt();
+	//신고된 댓글 갯수
+	public int selectReportReplyCnt();
+	//신고 영화관리뷰 리스트
+	public List<ReportReviewDto> selectReportReview(Map<String, Integer> pmap);
+	//신고 댓글 리스트
+	public List<ReportReplyDto> selectReportReply(Map<String, Integer> pmap);
 
 	//1대1 문의사항의 답변 처리.(관리자 입장)
 	public quesReplyDto insertReplyWrite(quesReplyDto qrdto);

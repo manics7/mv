@@ -4,6 +4,11 @@
 
 <mapper namespace="com.example.movie.mapper.AdminMapper">
 	
+	<!-- 현재상영작 가져오기 -->
+	<select id="getMovieList" parameterType="String" resultType="com.example.movie.dto.MovieOfficialDto">
+		select * from movie_official
+	</select>
+	
 	<select id="selectReportMvReview" parameterType="HashMap"
 		resultType="com.example.movie.dto.reportMvReviewDto">
 		<![CDATA[
@@ -28,6 +33,12 @@
 			AND RONUM <= #{num} * #{lcnt}
 		]]>
 	</select>
+	
+	<select id="getquesboardSelect"
+		resultType="com.example.movie.dto.quesboardDto">
+		SELECT * FROM v_question where m_id = #{m_id}
+	</select>
+	
 	
 	<select id="selectReportMvReviewSortDesc" parameterType="HashMap"
 		resultType="com.example.movie.dto.reportMvReviewDto">
@@ -78,24 +89,42 @@
 	</delete>
 	
 	
-
+<!-- 문의글 목록 출력 -->
 	<select id="getQuesList" parameterType="HashMap"
 		resultType="com.example.movie.dto.quesboardDto">
 	<![CDATA[
-		SELECT * FROM question
-		WHERE ROWNUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
-			AND ROWNUM <= #{num} * #{lcnt}
+		SELECT * FROM v_question
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{num} * #{lcnt}
 		]]>
 	</select>
-
-	<select id="getBoardCnt" resultType="integer">
+	<!--  문의글 목록 수 -->
+	<select id="getquesBoardCnt" resultType="integer">
 		SELECT COUNT(*) FROM
-		QUESTION
+		v_question
 	</select>
-
-	<select id="getboardSelect"
-		resultType="com.example.movie.dto.quesboardDto">
-		SELECT * FROM QUESTION where m_id = #{m_id}
+	<!-- 사업자 회원 목록 출력 -->
+		<select id="getbuslist" parameterType="HashMap"
+		resultType="com.example.movie.dto.BusinessDto">
+		<![CDATA[
+		SELECT * FROM BUSINESS
+		WHERE ROWNUM >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
+			AND ROWNUM <= #{pageNum} * #{lcnt}
+		]]>
+	</select>
+	<!-- 사업자 목록 수  -->
+		<select id="getBusCnt" resultType="integer">
+		SELECT COUNT(*) FROM
+		BUSINESS
+	</select>
+	<!-- 영화 상세 페이지 이동 -->
+	<select id="movieDetail" parameterType="String" resultType="com.example.movie.dto.MovieOfficialDto">
+		select * from movie_official where movie_cd=#{movie_cd}
+	</select>
+	
+	<!-- 관람평 목록 가져오기 -->
+	<select id="reviewMovie" parameterType="String" resultType="com.example.movie.dto.ReviewMovieDto">
+		select * from review_movie where mv_review_moviecd=#{movie_cd} 
 	</select>
 
 	<select id="getboardRead" parameterType="Integer"
@@ -103,5 +132,47 @@
 		SELECT * FROM QUESTION where ques_no = #{ques_no}
 	</select>
 	
-</mapper>
+	<select id="selectQuesReply" parameterType="Integer"
+		resultType="com.example.movie.dto.quesReplyDto">
+		SELECT * FROM question_reply where ques_no = #{ques_no}
+	</select>
+	
+	<select id="selectMovieRequest"
+		resultType="com.example.movie.dto.MovieDto">
+		SELECT * FROM movie
+	</select>
+	
+	<select id="selectMvOfficial" parameterType="String"
+		resultType="com.example.movie.dto.MovieOfficialDto">
+		SELECT * FROM movie_official
+	</select>
 
+		<select id="getquesboardRead" parameterType="Integer"
+		resultType="com.example.movie.dto.quesboardDto">
+		SELECT * FROM v_question where ques_no = #{ques_no}
+	</select>
+	
+	<select id="selectMovieBySeq" parameterType="Integer"
+		resultType="com.example.movie.dto.MovieDto">
+		SELECT * FROM movie where mv_seq =#{mv_seq}
+	</select>
+	
+	<insert id="quesboard_replywrite" parameterType="com.example.movie.dto.quesReplyDto">
+	INSERT INTO question_reply VALUES(#{ques_reply_no},#{ques_no},#{ques_reply_cont},sysdate,#{ques_reply_state});
+	</insert>
+	
+	
+	<select id="selectMovieBySeq" parameterType="Integer"
+		resultType="com.example.movie.dto.MovieDto">
+		SELECT * FROM movie where mv_seq =#{mv_seq}
+	</select>
+	
+	<insert id="adminMovieInsert" parameterType="com.example.movie.dto.MovieOfficialDto">
+		insert into movie_official values (#{movie_cd}, #{movie_nm}, #{movie_content},
+		#{show_tm}, #{open_dt}, #{genre_nm}, #{directors}, #{actors}, #{show_types},
+		#{watch_grade_nm}, #{poster,jdbcType=VARCHAR}, #{stillcut1,jdbcType=VARCHAR}, 
+		#{stillcut2,jdbcType=VARCHAR}, #{stillcut3,jdbcType=VARCHAR}, 
+		#{stillcut4,jdbcType=VARCHAR}, #{stillcut5,jdbcType=VARCHAR})
+	</insert>
+	
+</mapper>

@@ -42,7 +42,7 @@ $(function(){
                             영화관 및 상영관 이름을 지정하세요.
                         </legend>
                         <!-- theaterList로 값 받아오기 나중에 -->
-                    <a>영화관 이름</a> <input type="text" id="theater_name" name="th_code" value="1" readonly><br>
+                    <a>영화관 이름</a> <input type="text" id="theater_name" name="th_code" value="${businessInfo.}" readonly><br>
                     <a>상영관 번호</a> <input type="number" id="room_no" name="room_no" required><br>
                     <a>상영관 이름</a> <input type="text" id="room_name" name="room_name" required>
                     </fieldset>

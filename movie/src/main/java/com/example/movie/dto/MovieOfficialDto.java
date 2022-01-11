@@ -19,8 +19,8 @@ public class MovieOfficialDto {
 	private String movie_nm;
 	private String movie_content;
 	private Integer show_tm;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd", timezone = "Asia/Seoul")
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 	@Temporal(TemporalType.DATE)
 	private Date open_dt;
 	private String genre_nm;
@@ -34,5 +34,5 @@ public class MovieOfficialDto {
 	private String stillcut3;
 	private String stillcut4;
 	private String stillcut5;
-	
+
 }

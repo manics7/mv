@@ -44,11 +44,6 @@
 		SELECT tid FROM payment_cancel WHERE tid =#{tid}
 	</select>
 
-	<select id="selectSchno" parameterType="String"
-		resultType="Integer">
-		SELECT sch_no FROM reservation WHERE rsrv_no =#{rsno}
-	</select>
-
 	<select id="selectThcode" parameterType="Integer"
 		resultType="Integer">
 		SELECT th_code FROM schedule WHERE sch_code =#{schno}
@@ -140,6 +135,11 @@
 	
 	<select id="selectmovieschedule" resultType="com.example.movie.dto.Theater_detailDto">
 	select * from v_ssdschedule
+	</select>
+	
+	<!-- 현재상영작 가져오기 -->
+	<select id="getMovieList" parameterType="String" resultType="com.example.movie.dto.MovieOfficialDto">
+		select * from movie_official
 	</select>
 
 </mapper>

@@ -1,3 +1,4 @@
+
 package com.example.movie.controller;
 
 import java.util.List;
@@ -11,11 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.BusinessDto;
-import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.service.AdminService;
-
 
 @Controller
 public class AdminController {
@@ -24,26 +23,34 @@ public class AdminController {
 	private AdminService aServ;
 	
 	private ModelAndView mv;
-
-	@GetMapping("reportFrm")
-	public ModelAndView reportFrm(Integer pageNum) {
+	
+	//관리자 페이지로 이동
+	@GetMapping("adminPage")
+	public String mogeAdminPage() {
 		
-		mv = aServ.reportedReview(pageNum);
+		return "adminPage";
+	}
+
+	//신고페이지(영화리뷰)
+	@GetMapping("mvrreportFrm")
+	public ModelAndView mvrreportFrm(Integer pageNum) {
+		
+		mv = aServ.reportedmvReview(pageNum);
 		
 		return mv;
 	}
-	
+	//영화리뷰 삭제처리 (신고)
 	@GetMapping("delAdminMvReview")
-	public String delAdminMvReview(int mvrnum,RedirectAttributes rttr) {
+	public String delAdminMvReview(int movie_review,RedirectAttributes rttr) {
 		
 		/*int mvrnum = Integer.parseInt(mv_review);*/
 		
-		
-		String view = aServ.delAdminMvReview(mvrnum,rttr);
+		String view = aServ.delAdminMvReview(movie_review,rttr);
 		
 		return view;
 	}
 	
+	//신고정렬
 	@GetMapping("sortByState")
 	public ModelAndView sortByState(Integer pageNum) {
 		
@@ -58,6 +65,7 @@ public class AdminController {
 		
 		return mv;
 	}
+	
 	//문의사항 목록 출력 
 	@GetMapping("/quesboard")
 	public ModelAndView quesboard(Integer pageNum) {
@@ -79,6 +87,7 @@ public class AdminController {
 		System.out.println("qlist = "+qList);
 		return mv;
 	}
+
 	//문의사항 상세보기 
 	@GetMapping("/requeboard_read")
 	public ModelAndView requeboardRead(int ques_no,Integer view) {
@@ -118,17 +127,7 @@ public class AdminController {
 		return mv;
 
 	}
-	
 
-	//@GetMapping("admin_movie_read")
-//	public ModelAndView movieDetail(int mv_seq) {
-//		
-//		mv = aServ.admin_movie_read(mv_seq);
-//		
-//		return mv;
-//
-//	}
-//	
 
 
 	//문의글 작성 폼으로 넘어가면서 문의번호 넘기기 
@@ -150,9 +149,18 @@ public class AdminController {
 		String view = aServ.quesboard_reply_insert(qrdto, rttr);
 		return view;
 	}
-	
-	//사업자회원 정보 출력
-	
+		
+	//관리자 입장에서 등록 된 영화 상세보기
+	@GetMapping("admin_movie_read")
+	public ModelAndView movieDetail(int mv_seq) {
+		
+		mv = aServ.admin_movie_read(mv_seq);
+		
+		return mv;
+
+	}
+		
+	//사업자회원 정보 출력	
 	@GetMapping("getBulist")
 	public ModelAndView getbulist(Integer pageNum) {
 		System.out.println("Business pageNum = "+pageNum);
@@ -170,15 +178,8 @@ public class AdminController {
 
 		return mv;
 	}
-	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
-	@GetMapping("currentMovieList")
-	public ModelAndView currentMovieList() {
 
-		mv = aServ.getMovieList();
-		
-		return mv;
-	}
-	
+	//영화등록 페이지
 	@GetMapping("adminMovieList")
 	public ModelAndView adminMovieList(Integer pageNum) {
 		
@@ -186,7 +187,7 @@ public class AdminController {
 		
 		return mv;
 	}
-	
+	//영화등록 등록처리
 	@PostMapping("movieOfficialInsert")
 	public String movieOfficialInsert(MultipartHttpServletRequest multi,RedirectAttributes rttr) {
 		
@@ -195,28 +196,4 @@ public class AdminController {
 		return view;
 	}
 	
-	//관리자 페이지로 이동
-	@GetMapping("adminPage")
-	public String mogeAdminPage() {
-		
-		return "adminPage";
-	}
-	//관리자 입장에서 등록 된 영화 상세보기
-	@GetMapping("admin_movie_read")
-	public ModelAndView movieDetail(int mv_seq) {
-		
-		mv = aServ.admin_movie_read(mv_seq);
-		
-		return mv;
-
-	}
-	//관리자 입장에서 1대1 문의사항 답변하기(사용안함)
-//	@GetMapping("quesboard_reply_insert")
-//	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
-//		mv = aServ.quesboard_replywrite(qrdto);
-//		return mv;
-//	}
-//	
-	
 }
-

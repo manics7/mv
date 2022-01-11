@@ -38,18 +38,22 @@
 							<div class="member_top_btn">
 								<a class="btn_nomal" style="background: #f16a1a; color: white;"
 									href="./mmanage?pageNum=1">일반회원</a> 
-								<a>불량회원</a> 
-								<a href="./getBulist?pageNum=1">사업자</a>
+									<a href="#" class="btn_nomal">불량회원</a> 
+									<button class="busbtn" onclick="movebulist(${pageNum=1})">사업자</button>
 							</div>
 
+<!-- 
+"./getBulist?pageNum=1"
+ -->
+
 						</div>
-						<form name="searchFrm" action="./memberSelect?pageNum=1"
+						<form id="nomalmemberform" name="searchFrm" action="./memberSelect?pageNum=1"
 							method="post">
 							<div class="card-body">
 
 
 								<div class="member_top">
-									<h4 class="card-title">회원관리</h4>
+									<h4 class="card-title yellow underline">회원관리</h4>
 									<div class="input_box">
 										<input type="text" placeholder="ID 입력" name="m_id"> <input
 											type="submit" value="검색">
@@ -116,25 +120,14 @@
                                                 href="./deleteMember">삭제</a></td>
                                         </tr>
                                     </c:forEach>
-
-
 -->
 
-
-										<!--  -->
 									</tbody>
 								</table>
 
 								<div class="d-none d-md-block">
 									<ul class="pagination justify-content-center">
 										<li class="page-item">${paging}</li>
-									</ul>
-								</div>
-
-								<div class="d-block d-md-none">
-									<ul class="pagination justify-content-center">
-										<li class="page-item"><a href="#" class="page-link">이전</a></li>
-										<li class="page-item"><a href="#" class="page-link">다음</a></li>
 									</ul>
 								</div>
 							</div>
@@ -153,7 +146,6 @@
 
 
 	<!-- 게시글 리스트 -->
-	</div>
 
 
 
@@ -164,5 +156,40 @@
 
 	</div>
 </body>
+<script src="resources/js/jquery.serializeObject.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	getbulist();
+	
+	function getbulist(){
+		$.ajax({
+			type : "POST",
+			url : 
+		})
+	}
+})
+/*
+function movebulist(pageNum){
+	console.log(pageNum);
+	
+	var movebulist = $("#nomalmemberform").serializeObject();
+	
+	$.ajax({
+		url:"/getBulist",
+		type :"post",
+		data:movebulist,
+		dataType: "json",
+		success: function(data){ //data에 사업자폼 적제
+			var dlist = "";
+			var getbulist = data.getbulist; //받아온 데이터를 data에 적제 
+			dlist = "<form>" 
+			$("#nomalmemberform").html()
+		}
 
+	})
+}
+
+*
+*/
+</script>
 </html>

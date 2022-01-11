@@ -91,6 +91,7 @@ public class RootConfiguration   {
 		properties.setProperty("hibernate.show_sql", "true");
 		properties.setProperty("hibernate.format_sql", "true");
 		properties.setProperty("hibernate.use_sql_comments", "true");
+		properties.setProperty("hibernate.id.new_generator_mappings", "true");
 		return properties; 
 	}
 

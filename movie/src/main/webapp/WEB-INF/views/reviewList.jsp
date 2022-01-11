@@ -22,17 +22,20 @@ $(function(){
 </script>
 </head>
 <body>
-	<h2 id="rv_title"><a href="./rlist">REVIEW</a></h2>
+<header>
+	<jsp:include page="header.jsp"></jsp:include>
+</header>
+	<h2 id="rv_title"></h2>
 	<div class="rv_header">
 		<div class="rv_info">
-			<a>총 ${maxNum}개의 게시물이 있습니다.</a>
+			<a id="rv_info">총 ${maxNum}개의 게시물이 있습니다.</a>
 		</div>
         <div class="rv_search">
         	<form name="search_form" action="./slist" method="get">
             	<select name="type" class="rv_category">
                 	<option selected value="rtitle" name="rtitle">제목</option>
                 	<option value="mid" name="mid">작성자</option>
-                	<option value="thname" name="thname">영화관</option>
+                	<option value="th_name" name="th_name">영화관</option>
             	</select>
             	<input type="text" id="search_text" name="keyword" placeholder="검색어를 입력하세요.">
             	<i class="fa fa-search" aria-hidden="true">
@@ -59,9 +62,9 @@ $(function(){
 			<c:forEach var="bitem" items="${bList}">
 				<tr class="data_row">
 					<td class="t_no p-10">${bitem.ronum}</td>
-					<td class="t_theater p-10">${bitem.thname}</td>
+					<td class="t_theater p-10">${bitem.th_name}</td>
 					<td class="t_title p-30">
-						<a href="./content?rnum=${bitem.rnum}">
+						<a id="t_title" href="./content?rnum=${bitem.rnum}">
 							${bitem.rtitle}
 						</a>
 					</td>
@@ -82,5 +85,8 @@ $(function(){
 	<div class="btn-area2">
 		<div class="paging">${paging}</div>
 	</div>
+<footer>
+	<jsp:include page="footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

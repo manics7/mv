@@ -123,7 +123,6 @@ public class MemberController {
 
 		return mv;
 	}
-	/* 보류한다함
 	@GetMapping("purchaseFrm")
 	public ModelAndView purchaseFrm (Integer pageNum) {
 		int listCnt = 10;
@@ -143,7 +142,7 @@ public class MemberController {
 		mv = mServ.selectPurchase(pageNum,listCnt,View);
 
 		return mv;
-	}*/
+	}
 
 	//회원 정보 출력
 	@GetMapping("/mmanage")
@@ -277,4 +276,20 @@ public class MemberController {
 		return map;
 	}
 
+	// 영화관 상세 페이지 - 우창 테스트
+	@GetMapping("theater_detail")
+	public String theater_detail() {
+		
+		return "theater_detail";
+	}
+	
+	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
+	@GetMapping("currentMovieList")
+	public ModelAndView currentMovieList() {
+
+		mv = mServ.getMovieList();
+		
+		return mv;
+	}
+	
 }
