@@ -1,6 +1,7 @@
 package com.example.movie.entity;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,15 +15,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.domain.Persistable;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.example.movie.service.ReservationService;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
@@ -37,14 +45,16 @@ import lombok.ToString;
 @Entity
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //  @OneToMany 같은 관계 설정으로 무한로딩될때 해결법 
 @SequenceGenerator (	name = "RSRV_NO_SEQ_GENERATOR"
-	,  sequenceName = "RSRV_NO_SEQ",  initialValue = 1, allocationSize = 1)	//매핑할 데이터 베이스 스퀀스 이름)
-public class Reservation {
+,  sequenceName = "RSRV_NO_SEQ",  initialValue = 1, allocationSize = 1)	//매핑할 데이터 베이스 스퀀스 이름)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //  @OneToMany 같은 관계 설정으로 무한로딩될때 해결법
+public class Reservation  implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RSRV_NO_SEQ_GENERATOR")
 	@Column(name="RSRV_NO", columnDefinition="예매번호")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RSRV_NO_SEQ_GENERATOR")
 	private Integer rsrvNo;
 
 	@Column(name="SCH_CODE", columnDefinition="상영일정 키 ")
@@ -78,9 +88,15 @@ public class Reservation {
 	@JoinColumn(name = "RSRV_NO")
 	private List<ReservationSeat> reservationSeat;
 	
-	//@NotFound(action=NotFoundAction.IGNORE) // 조인 관계에서 엔티티가 매핑이 안되거나 찾지 못할때 NotFoundAction 에러 무시하는 어노테이션 
-	@OneToOne(fetch = FetchType.LAZY) 
-	@JoinColumn(name="M_ID", referencedColumnName="M_ID", insertable=false, updatable=false)  // insertable , updatable Reservation 저장시 멤버는 인서트,업데이트 제외
-	private Member member;
 	
+	//@Transient
+	//@NotFound(action=NotFoundAction.IGNORE) // 조인 관계에서 엔티티가 매핑이 안되거나 찾지 못할때 NotFoundAction 에러 무시하는 어노테이션 
+	//@OneToOne(fetch = FetchType.LAZY) 
+	//@JoinColumn(name="M_ID", referencedColumnName="M_ID", insertable=false, updatable=false)  // insertable , updatable Reservation 저장시 멤버는 인서트,업데이트 제외
+	//private Member member;
+	@PrePersist
+	public void prePersist() {
+		//ApplicationContext context = new AnnotationConfigApplicationContext(); 
+		//this.rsrvNo =context.getBean(ReservationService.class).nextRsrvNo();
+	}
 }

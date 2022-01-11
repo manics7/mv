@@ -1,15 +1,5 @@
 package com.example.movie.controller;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +28,9 @@ public class ReservationController {
 	
 	@Autowired
 	ReservationService reservationService;
+	
+	//@Autowired
+	//KakaoPay kakaoPay;
 	
 	ModelAndView modelAndView;
 
@@ -81,7 +74,8 @@ public class ReservationController {
 		
 	//결제화면에서 뒤로가기 했을때 예약자료+예약좌석 전부삭제
 	@RequestMapping(value = "/deleteRsrv", method = RequestMethod.DELETE) 
-	public void deleteRsrv(Integer rsrvNo) throws Exception {
+	@ResponseBody
+	public void deleteRsrv(Integer rsrvNo) {
 		reservationService.deleteReservation(rsrvNo);
 	}
 	
@@ -97,50 +91,5 @@ public class ReservationController {
 		Map<String, Object>  map = reservationService.getPaymentInfo(rsrvNo);
 		return map;
 	}
-	
-	@GetMapping("/kakaoPay")
-	@ResponseBody
-	public String kakaoPay() throws IOException {
-		
-		URL url = new URL("https://kapi.kakao.com/v1/payment/ready");
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setRequestMethod("POST");
-		connection.setRequestProperty("Authorization", "KakaoAK fa40fe44b0a731a95f5562eded86e507");
-		connection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-		connection.setDoOutput(true);
-		
-		String params = "cid=TC0ONETIME"
-				+ "&partner_order_id=partner_order_id"
-				+ "&partner_user_id=partner_user_id"
-				+ "&item_name=1984 최동원"
-				+ "&quantity=1"
-				+ "&total_amount=2200"
-				+ "&tax_free_amount=0"
-				+ "&approval_url=https://localhost/success"
-				+ "&fail_url=https://localhost/fail"
-				+ "&cancel_url=https://localhost/cancel";
-				
-		
-		OutputStream outputStream = connection.getOutputStream();
-		DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-		dataOutputStream.writeBytes(params);
-		dataOutputStream.close();
-		
-		int result = connection.getResponseCode();
-		InputStream inputStream;
-		
-		if(result == 200) {
-			inputStream = connection.getInputStream();
-		}else {
-			inputStream = connection.getErrorStream();
-		}
-		
-		InputStreamReader inputStreamReader =  new InputStreamReader(inputStream);
-		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-		
-		return bufferedReader.readLine();
-	}
-
-	
 	
 }

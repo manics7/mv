@@ -243,7 +243,7 @@
 			$.ajax({
 				type : "POST"
 				,url : "/getSeat"
-				,data : {"schCode" : fnObj.selectData.schCode, "schDetailSeq" : fnObj.selectData.schDetailSeq}	       		
+				,data : {"schCode" : fnObj.selectData.schCode, "schDetailSeq" : fnObj.selectData.schDetailSeq} 
 				,success : function(res) {
 					//console.log(res);
 					var row = res.room.roomRow;
@@ -332,7 +332,7 @@
 				,success : function(res) {
 					
 					fnObj.defaultData.rsrvNo = res.rsrvNo;					
-					$('#rsrvModal .modal-content').load("rsrvPayment",fnObj.getPaymentInfo);					
+					$('#rsrvModal .modal-content').load("rsrvPayment",fnObj.getPaymentInfo);
 				}
 				,error: function (error) {
 				console.log(error.responseJSON.message);
@@ -353,13 +353,13 @@
 				,url : "/deleteRsrv"
 				,data : {"rsrvNo" : fnObj.defaultData.rsrvNo}
 				,success : function(res) {		
-					fnObj.defaultData.rsrvNo = '';
-					$('#rsrvModal .modal-content').load("rsrvSeat", fnObj.getSeat);
 				}
 				,error: function (error) {
 				console.log(error);
-		       }
-			});	
+		       }		
+			});
+			
+			 fnObj.defaultData.rsrvNo = '';	
 					
 		}
 		, getPaymentInfo : function(){		
@@ -367,15 +367,22 @@
 				type : "POST"
 				,url : "/getPaymentInfo"
 				,data : {"rsrvNo" : fnObj.defaultData.rsrvNo}
+				,dataType : "json"
 				,success : function(res) {		
 					var movie = res.schedule.movieOfficial;
 					var theater = res.schedule.theater;
-					var date = res.reservation.rsrvDate.replaceAll("-",".") + " (" +res.dayOfWeek+")";
+					var date = res.reservation.rsrvDate.replaceAll("-","") + " (" +res.dayOfWeek+")";
 					var adultCnt = res.reservation.adultCnt;
 					var youthCnt = res.reservation.youthCnt;
 					var adultName = adultCnt > 0 ? "일반("+ adultCnt +") " : ""
 					var youthName = youthCnt > 0 ? "청소년("+youthCnt+") " : ""
 					var seatNo = []
+					
+					$("#orderId").val(res.reservation.rsrvDate.replaceAll("-","")+"-"+res.reservation.rsrvNo+"-" +movie.movieCd);
+					$("#movieNm").val(movie.movieNm);
+					$("#seatCnt").val(res.reservation.reservationSeat.length);
+					$("#amount").val(res.reservation.price);
+					$("#rsrvNo").val(res.reservation.rsrvNo);
 					
 					for(var i=0; i<res.reservation.reservationSeat.length; i++){
 						seatNo.push(res.reservation.reservationSeat[i].seatNo)
@@ -390,7 +397,7 @@
 						$("#price").text(res.reservation.price.toLocaleString('ko-KR') +" 원");
 				}
 				,error: function (error) {
-				console.log(error);
+				console.log(error.responseText);
 		       }
 			});	
 		}
@@ -399,17 +406,20 @@
 	
 	//모달창열기
 	$(document).on('click',"#modal",function(event) {
-		$('#rsrvModal .modal-content').load("rsrv",fnObj.init);		
+		$('#rsrvModal .modal-content').load("rsrv");
+		fnObj.init();		
 	});
+	
 	//좌석선택 페이지 로드
-	$(document).on('click',"#rsrvSeat",function() {
+	$(document).on('click',"#rsrvSeat",function(e) {
 		
 		if($("li.selected").length < 5){
 			modalShow('alertModal');
 			return;
 		}
 		
-		$('#rsrvModal .modal-content').load("rsrvSeat", fnObj.getSeat);
+		$('#rsrvModal .modal-content').load("rsrvSeat",fnObj.getSeat);
+		e.preventdefault
 	});	
 	
 	//결제선택 페이지 로드
@@ -428,9 +438,13 @@
 	});	
 	
 	//결제화면에서 뒤로가기
-	$(document).on('click',"#backSeat",function() {
-		fnObj.deleteRsrv();
-		$('#rsrvModal .modal-content').load("rsrvSeat", fnObj.getSeat);		
+	$(document).on('click',"#backSeat",function() {		
+		$('#rsrvModal .modal-content').load("rsrvSeat");
+		
+		if(fnObj.defaultData.rsrvNo > 0){
+			fnObj.deleteRsrv();	
+		};		
+			fnObj.getSeat();
 	});				
 
 	//리셋
@@ -501,8 +515,9 @@
 			});
 	});
 	//일정에 없는 영화 선택시 모달창열기
-	$(document).on('click', "li.disable", function(){
-		modalShow("confirmModal");	
+	$(document).on('click', "li.disable", function(e){		
+		modalShow("confirmModal");
+		e.preventdefault();	
 	});
 	//일정에 없는 영화 선택시 모달창에서 확인 누르면 초기화
 	$(document).on('click', "#confirm", function(){
@@ -577,15 +592,12 @@
 			}       
 	    })	   
 	});
-
-
-	$(document).on("click", "#confirm" , function(){
-	});	
 	
 	//뒤로가기
 	$(document).on("click", "#back" , function(){
 		fnObj.defaultData.isBack = 'back';
-		$('#rsrvModal .modal-content').load("rsrv",fnObj.init());		
+		$('#rsrvModal .modal-content').load("rsrv");
+		fnObj.init();		
 	});
 
 	//인원수 체크
@@ -660,31 +672,72 @@
 		//$(this).next().css("background-color","");
 	});
 	
+	//모달닫기
 	function modalClose(id){
 	$("#"+id).modal('hide')
 	}
+	//모달열기
 	function modalShow(id){
 		$("#"+id).modal('show')
 	}
 	
-	$(document).on("click", "#kakao" , function(){
+	// 카카오페이 결제창
+	$(document).on("click", "#kakaoPay" , function(){
+
+		var form = $('form')[0];
+		var formData = new FormData(form);
 		
+		
+		var orderId =	$("#orderId").val();
+		var movieNm = $("#movieNm").val();
+		var seatCnt =	$("#seatCnt").val();
+		var amount = $("#amount").val();
+	
+		//formData.append("orderId", orderId);
+		//formData.append("movieNm", movieNm);
+		//formData.append("seatCnt", seatCnt);
+		//formData.append("amount", amount);
+	
 		$.ajax({						
-		type : "GET"
+		type : "POST"
 		,url : "/kakaoPay"
 		,dataType : "json"
+		,data : {"orderId" : orderId
+			,"movieNm" : movieNm
+			,"seatCnt" : seatCnt
+			,"amount" : amount
+		}	
+	//	,data : formData	
 		,success : function(res) {	
-		//	$('#kakaoPayModal .modal-content').load(res.next_redirect_pc_ur);
-			//console.log(res.next_redirect_pc_url);
+			console.log(res);
+			var url = res.next_redirect_pc_url+"?tid="+res.tid;
+			var _width = '650';
+		   	var _height = '580';		 
+		    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+		    var _left = Math.ceil(( window.screen.width - _width )/2);
+		    var _top = Math.ceil(( window.screen.height - _height )/2); 
+		    
+		   // $("#kakaoPayModal .modal-body").load($(this).data("remote"));
+					    
+		   window.open(url, 'popup-test', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top, 'status=no', 'location=no', 'toolbar=no','menubar=no');
+			}
 			
-			$('#kakaoPayModal .modal-body').load(res.next_redirect_pc_ur,function(){
-		        $('#kakaoPayModal').modal({show:true});
-		    });
-    		//$("#kakaoPayModal .modal-body").html('<iframe width="100%" height="100%" frameborder="0" scrolling="yes" allowtransparency="true" src="'+res.next_redirect_pc_url+'"></iframe>');
-		}
-	});	
+		});	
 	
 	});
 	
+	$(document).on("click","#kakaoPay2",function(){
+	//var url = res.next_redirect_pc_url;
+	var _width = '650';
+		var _height = '580';		 
+	// 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+	var _left = Math.ceil(( window.screen.width - _width )/2);
+	var _top = Math.ceil(( window.screen.height - _height )/2); 
+
+	// $("#kakaoPayModal .modal-body").load($(this).data("remote"));
+			    
+	window.open("", 'popup_window', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top, 'status=no', 'location=no', 'toolbar=no','menubar=no');
 	
+})
+
 	

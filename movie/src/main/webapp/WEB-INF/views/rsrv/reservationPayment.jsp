@@ -116,16 +116,9 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	//POST /v1/payment/ready HTTP/1.1
-	//Host: kapi.kakao.com
-	//Authorization: KakaoAK {APP_ADMIN_KEY}
-	//Content-type: application/x-www-form-urlencoded;charset=utf-8
-	$("#option3").click(function(){
-		
 	
-		
-	});
 	
+
 	
 	
 	
@@ -147,7 +140,14 @@ $(document).ready(function(){
 				data-dismiss="modal">X</button>
 		</div>
 	</div>
+	<form method="post" action="kakaoPay" target="popup_window" id="frm">
 
+	<input type="hidden" name="rsrvNo"  id ="rsrvNo" value="">
+	<input type="hidden" name="orderId" id ="orderId" value="">
+	<input type="hidden" name="movieNm" id="movieNm" value="">
+	<input type="hidden" name="seatCnt" id ="seatCnt" value="">
+	<input type="hidden" name="amount"  id ="amount" value="">
+	</form>
 	<div class="modal-body pb-2">
 		<div class="conainner">
 			<div class="row">
@@ -186,8 +186,11 @@ $(document).ready(function(){
 										<label class="btn btn-outline-secondary">
 											<input type="radio" name="options" id="option2"> 카드(간편결제)
 										</label>
-										<label class="btn btn-outline-secondary">
-											<input type="radio" name="options" id="option3" > 카카오페이
+										<label class="btn btn-outline-secondary" id="kakaoPay">
+											<input type="radio" name="options" id="option3" > 카카오페이1
+										</label>
+												<label class="btn btn-outline-secondary" id="kakaoPay2">
+											<input type="radio" name="options" id="option3" > 카카오페이2
 										</label>
 										<label class="btn btn-outline-secondary">
 											<input type="radio" name="options" id="option4"> 페이코
@@ -269,7 +272,7 @@ $(document).ready(function(){
 					<!-- 	<div class="col-8"><p>남은 결제금액</p></div>
 						<div class="col-4"><p>7000 원</p></div> -->
 						<div class="col-8"><h5 class="font-weight-bold">총 결제금액</h5></div>
-						<div class="col-4"><h5 class="font-weight-bold" style="color: #f16a1a;" id="price">7000 원</h5></div>	
+						<div class="col-4"><h5 class="font-weight-bold" style="color: #f16a1a;" id="price"> 원</h5></div>	
 						<div class="col-md-12 text-center">						
 							<button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvPayment">결제수단 ></button>
 						</div>						
@@ -277,10 +280,11 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-
-
 	</div>
 </div>
 
+<script type="text/javascript">
 
+
+</script>
 
