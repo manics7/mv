@@ -712,4 +712,15 @@ public class MemberService {
 		return mv;
 	}
 	
+	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
+		public ModelAndView getMovieList() {
+			mv = new ModelAndView();
+			List<MovieOfficialDto> movieList = mMapper.getMovieList();
+
+			mv.addObject("movieList", movieList);
+			mv.setViewName("currentMovieList");
+
+			return mv;
+		}
+	
 }

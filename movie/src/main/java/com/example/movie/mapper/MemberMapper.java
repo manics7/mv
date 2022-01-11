@@ -6,6 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.TheaterDto;
@@ -79,5 +80,7 @@ public interface MemberMapper  extends MybatisMapper {
 	//영화관 상세정보에 들어갈 영화 스캐줄
 	public List<Theater_detailDto> selectmovieschedule();
 
+	// 현재상영작 불러오기
+	public List<MovieOfficialDto> getMovieList();
 	
 }

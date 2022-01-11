@@ -289,18 +289,6 @@ public class AdminService {
 		return readqlist;
 	}
 
-
-	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
-	public ModelAndView getMovieList() {
-		mv = new ModelAndView();
-		List<MovieOfficialDto> movieList = aMapper.getMovieList();
-
-		mv.addObject("movieList", movieList);
-		mv.setViewName("currentMovieList");
-
-		return mv;
-	}
-
 	//문의답변 전송
 	public quesReplyDto selectQuesReply(int ques_no) {
 
@@ -533,7 +521,6 @@ public class AdminService {
 			}
 		}
 
-		//	}
 		if(filenum == 0) {
 			aMapper.adminMovieInsert(mvofficialDto);
 			//msg = "등록 성공";
@@ -543,7 +530,7 @@ public class AdminService {
 		}
 
 		return view;
-    
+	}
 		//1대1 문의 답변(사용함)(하는중)
 	public String quesboard_reply_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
 		String view = null;	
@@ -560,13 +547,4 @@ public class AdminService {
 		rttr.addFlashAttribute("msg",msg);
 		return view;
 		}
-r
-	}
-
-	//		public ModelAndView 
-  
-  
-  (quesReplyDto qrdto) {
-	//			return null;
-	//		}
 }

@@ -19,9 +19,6 @@ import com.example.movie.dto.reportMvReviewDto;
 
 public interface AdminMapper extends MybatisMapper {
 
-	// 현재상영작 불러오기
-	public List<MovieOfficialDto> getMovieList();
-
 	// 영화 상세 페이지 이동
 	public MovieOfficialDto movieDetail(String movie_cd);
 

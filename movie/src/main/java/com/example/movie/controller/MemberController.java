@@ -246,4 +246,20 @@ public class MemberController {
 		return "main_search_theater";
 	}
 
+	// 영화관 상세 페이지 - 우창 테스트
+	@GetMapping("theater_detail")
+	public String theater_detail() {
+		
+		return "theater_detail";
+	}
+	
+	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
+	@GetMapping("currentMovieList")
+	public ModelAndView currentMovieList() {
+
+		mv = mServ.getMovieList();
+		
+		return mv;
+	}
+	
 }

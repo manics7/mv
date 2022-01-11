@@ -9,4 +9,5 @@ import com.example.movie.entity.MovieOfficial;
 public interface MovieOfficialRepository extends JpaRepository<MovieOfficial, String> {
 
 	
+	
 }

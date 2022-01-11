@@ -169,14 +169,7 @@ public class AdminController {
 
 		return mv;
 	}
-	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
-	@GetMapping("currentMovieList")
-	public ModelAndView currentMovieList() {
 
-		mv = aServ.getMovieList();
-		
-		return mv;
-	}
 	//영화등록 페이지
 	@GetMapping("adminMovieList")
 	public ModelAndView adminMovieList(Integer pageNum) {
@@ -194,13 +187,4 @@ public class AdminController {
 		return view;
 	}
 	
-	//관리자 페이지로 이동
-	@GetMapping("
-              ")
-	public String mogeAdminPage() {
-		
-		return "adminPage";
-	}
-	
 }
-

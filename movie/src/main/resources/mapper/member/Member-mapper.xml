@@ -136,5 +136,10 @@
 	<select id="selectmovieschedule" resultType="com.example.movie.dto.Theater_detailDto">
 	
 	</select>
+	
+	<!-- 현재상영작 가져오기 -->
+	<select id="getMovieList" parameterType="String" resultType="com.example.movie.dto.MovieOfficialDto">
+		select * from movie_official
+	</select>
 
 </mapper>
