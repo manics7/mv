@@ -538,12 +538,13 @@ public class AdminService {
 		try {
 			qrdto = aMapper.insertReplyWrite(qrdto);
 			msg = "성공";
-		} catch (Exception e) {
 			view = "redirect:quesboard";
+		} catch (Exception e) {
+			view = "redirect:quesboard_replywrite?ques_no=5";
 			msg = "실패";
 		}
 		//qrdto = aMapper.insertReplyWrite(qrdto);
-		view = "redirect:quesboard";
+		
 		rttr.addFlashAttribute("msg",msg);
 		return view;
 		}

@@ -23,6 +23,13 @@ public class AdminController {
 	private AdminService aServ;
 	
 	private ModelAndView mv;
+	
+	//관리자 페이지로 이동
+	@GetMapping("adminPage")
+	public String mogeAdminPage() {
+		
+		return "adminPage";
+	}
 
 	//신고페이지(영화리뷰)
 	@GetMapping("mvrreportFrm")
@@ -137,6 +144,8 @@ public class AdminController {
 	//문의사항 답변 달기 ( 하는중 ) 
 	@PostMapping("/quesboard_reply_insert")
 	public String quesboard_reqly_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
+		System.out.println("qrdto"+qrdto);
+		
 		String view = aServ.quesboard_reply_insert(qrdto, rttr);
 		return view;
 	}

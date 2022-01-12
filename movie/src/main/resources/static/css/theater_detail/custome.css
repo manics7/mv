@@ -97,7 +97,14 @@ height: 276px;
     font-weight: bolder;
     text-decoration: none;
 }
-
+.main_movielist_cont_wrap{
+	margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    z-index: 1;
+}
 .main_movielist_cont{
 margin-top: 33px;
 display: flex;
@@ -195,9 +202,14 @@ text-align: center;
     padding: 0 44px;
 }
 .movie_schedule_list>ul{
+    
+ 
+    /*
+       margin: 0 auto;
     width: 936px;
-    margin: 0 auto;
     height: 224.33px;
+    */
+    width : 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -205,11 +217,19 @@ text-align: center;
 .movie_schedule_list>ul>li{
     list-style: none;
     width: 120px;
-    height: 184.33px;
+    margin: 0 16px 40px 0;
 }
+
 .movie_schedule_list>ul>li>div{
-    border: 1px solid #e1e1e1;
+	    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 8px 0 11px;
+	
 }
+
+
 .stime {
     text-align: center;
     font-weight: 700;
