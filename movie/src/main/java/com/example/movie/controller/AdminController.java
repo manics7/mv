@@ -39,6 +39,22 @@ public class AdminController {
 		
 		return mv;
 	}
+	//신고페이지(영화관리뷰)
+		@GetMapping("boardreportFrm")
+		public ModelAndView boardreportFrm(Integer pageNum) {
+			
+			mv = aServ.reportedReview(pageNum);
+			
+			return mv;
+		}//신고페이지(댓글)
+		@GetMapping("replyreportFrm")
+		public ModelAndView replyreportFrm(Integer pageNum) {
+			
+			mv = aServ.reportedReply(pageNum);
+			
+			return mv;
+		}
+	
 	//영화리뷰 삭제처리 (신고)
 	@GetMapping("delAdminMvReview")
 	public String delAdminMvReview(int movie_review,RedirectAttributes rttr) {
@@ -48,22 +64,6 @@ public class AdminController {
 		String view = aServ.delAdminMvReview(movie_review,rttr);
 		
 		return view;
-	}
-	
-	//신고정렬
-	@GetMapping("sortByState")
-	public ModelAndView sortByState(Integer pageNum) {
-		
-		mv = aServ.reportedReviewSort(pageNum);
-		
-		return mv;
-	}
-	@GetMapping("sortByStateDesc")
-	public ModelAndView sortByStateDesc(Integer pageNum) {
-		
-		mv = aServ.reportedReviewSort(pageNum);
-		
-		return mv;
 	}
 	
 	//문의사항 목록 출력 
