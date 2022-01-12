@@ -4,86 +4,75 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
-<title>신고관리</title>
+<title>영화리뷰 신고목록</title>
 <!-- Bootstrap CDN -->
-<link rel="stylesheet" href="resource/css/queboard/queboard.css">
-
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="resource/css/mmanagestyle/mmanage.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	//메시지 출력 부분
-	var msg = "${msg}";
-	if(msg != ""){
-		alert(msg);
-	});
-</script>
 </head>
+
 <body>
-    <div class="wrap">
-        <nav>
-        <jsp:include page="admin_header.jsp"></jsp:include>
-        </nav>
 
 
-        <div class="main_wrap">
-            <!-- 상단 메뉴 부분 -->
-            <div class="cont_wrap">
-                <!-- 게시글 리스트 -->
-                <div class="cont_sidebar">
-                <jsp:include page="adminpage_sidebar.jsp"/>
-                </div>
-                <div class="container queboard">
-                    <div class="card shadow">
-                        <!--
-    
-    <div>
-        <h4>회원정보로 검색한 작성 글</h4>
-        ${mbLIst}
-    </div>
-    -->
-                        <div class="card-body qqueboard_con">
-                            <h4 class="card-title">관리자 신고관리</h4>
-                            <table class="table table-hover" id='board_list'>
-                                <thead>
-                                    <!-- <tr>
-                                        <th class="text-center d-none d-md-table-cell">글번호</th>
-                                        <th class="text-center d-none d-md-table-cell">제목</th>
-                                        <th class="text-center d-none d-md-table-cell">작성날짜</th>
-                                        <th class="text-center d-none d-md-table-cell">진행사항</th>
-                                        <th class="text-center d-none d-md-table-cell">작성자</th>
-                                        <th class="text-center d-none d-md-table-cell">답변하기</th>
-                                    </tr> -->
-                                    <tr>
-                                        <th class="text-center">신고자ID</th>
-                                        <th class="text-center">신고 사유</th>
-                                        <th class="text-center">내용</th>
-                                        <th class="text-center">작성자ID</th>
-                                        <th class="text-center">신고일</th>
-                                        <th class="text-center">처리상태</th>
-                                        
-                                        <!--
-                                        
-                                        <th class="text-center">답변하기</th>
-                                        
-                                          -->
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- 이부분은 검색 결과 출력되는 부분 -->
-                                   
-<c:choose>
-						<c:when test="${not empty rpList}">
+	<div class="wrap">
+		<nav>
+			<jsp:include page="admin_header.jsp"></jsp:include>
+		</nav>
+		<div class="main_wrap">
+			<div class="cont_wrap">
+				<div class="cont_sidebar">
+					<jsp:include page="adminpage_sidebar.jsp" />
+				</div>
+				<div class="container queboard">
+					<div class="card shadow">
+						<div class="member_top_btn_wrap">
+							<div class="member_top_btn">
+								<a class="btn_nomal" style="background: #f16a1a; color: white;"
+									href="./mvrreportFrm">영화리뷰신고</a> 
+									<a href="boardreportFrm" class="btn_nomal">게시글신고</a> 
+									<a class="busbtn" href="replyreportFrm">댓글신고</a>
+							</div>
+
+
+
+						</div>
+							<div class="card-body">
+
+
+								<div class="member_top">
+									<h4 class="card-title yellow underline">관리자 신고관리</h4>
+									<div class="input_box">
+										
+									</div>
+
+								</div>
+
+								<table class="table table-hover" id='board_list'>
+									<thead>
+										<tr>
+											<th class="text-center d-none d-md-table-cell">신고자ID</th>
+											<th class="text-center d-none d-md-table-cell">신고 사유</th>
+											<th class="text-center d-none d-md-table-cell">내용</th>
+
+											<th class="text-center d-none d-md-table-cell">작성자ID</th>
+											<th class="text-center d-none d-md-table-cell">신고일</th>	
+											<th class="text-center d-none d-md-table-cell">처리상태</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- 검색 처리 -->
+										<c:choose>
+
+											<c:when test="${not empty rpList}">
 							<c:forEach var="rpitem" items="${rpList}">
 							<tr>
 								<td class="text-center d-none d-md-table-cell">${rpitem.rp_m_id}</td>
@@ -112,42 +101,54 @@ $(function(){
 						</c:otherwise>
 						
 						</c:choose>
-                                </tbody>
-                            </table>
 
-                            <div class="d-none d-md-block">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item">${paging}</li>
-                                </ul>
-                            </div>
-<!--  
-  <div class="d-block d-md-none">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item"><a href="#" class="page-link">이전</a></li>
-                                    <li class="page-item"><a href="#" class="page-link">다음</a></li>
-                                </ul>
-                            </div>
+										<!--  
 
+                               <c:forEach var="mitem" items="${mseList}">
+                                        <tr>
+                                            <td><c:if test="${mseList == 'null'}">존재 하지 않는 회원 입니다.</c:if></td>
+                                            <td class="text-center d-none d-md-table-cell">${mitem.m_id}</td>
+                                            <td><a href='board_read.html'>${mitem.m_name}</a></td>
+                                            <td class="text-center d-none d-md-table-cell">${mitem.m_phone}</td>
+                                            <td class="text-center d-none d-md-table-cell">${mitem.m_addr}</td>
+                                            <td class="text-center d-none d-md-table-cell">${mitem.m_birth}</td>
+                                            <td class="text-center d-none d-md-table-cell"><a type="button" href="./mboardSelect?m_id=${mitem.m_id}">확인</a></td>
+                                            <td class="text-center d-none d-md-table-cell"><a
+                                                href="./deleteMember">삭제</a></td>
+                                        </tr>
+                                    </c:forEach>
 -->
-                          
-                            <!-- href="resource/css/home.css" -->
-                        </div>
-                    </div>
-                </div>
 
-            </div>
-        </div>
+									</tbody>
+								</table>
 
-    </div>
-    <div class="footer_wrap">
-        <footer></footer>
+								<div class="d-none d-md-block">
+									<ul class="pagination justify-content-center">
+										<li class="page-item">${paging}</li>
+									</ul>
+								</div>
+							</div>
 
-    </div>
+					</div>
 
-
-
-
+				</div>
+			</div>
+		</div>
 
 
+	</div>
+	<!-- 상단 메뉴 부분 -->
+
+
+	<!-- 게시글 리스트 -->
+
+
+
+	<div class="footer_wrap">
+		<footer>
+			<!-- 이부분에 푸터부분 들어감 -->
+		</footer>
+
+	</div>
 </body>
 </html>
