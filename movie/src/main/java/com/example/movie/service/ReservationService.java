@@ -71,6 +71,18 @@ public class ReservationService {
 	@Autowired
 	EntityManagerFactory emf;
 
+
+	public Integer nextRsrvNo(){
+
+		Integer rsrvNo = reservationRepository.lastRsrvNo();
+
+		if(rsrvNo == null){
+			rsrvNo = 1;
+		}else{
+			rsrvNo++;
+		}
+		return rsrvNo;
+	}
 	
 	public Map<String, Object> getSeat(Integer schCode, Integer schDetailSeq) throws Exception{
 		Optional<Schedule> scheduleOpt = scheduleRepository.findById(schCode);		
@@ -154,7 +166,7 @@ public class ReservationService {
 			tx.begin();
 						
 			MemberDto member = (MemberDto)httpSession.getAttribute("userInfo");
-			Optional<String> id = Optional.ofNullable(null);
+			Optional<String> id = Optional.ofNullable(member.getM_id());
 			
 			Reservation reservation = new Reservation();
 			List<ReservationSeat>	 seatList = new ArrayList<ReservationSeat>();	

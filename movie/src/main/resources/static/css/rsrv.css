@@ -14,7 +14,7 @@
 .modal-body {max-height: 650px;}
 
 .list-group-item-warning {background-color: #f16a19;}
-.btn-warning {background-color: #f16a19; color: white; border: none;}
+//.btn-warning {background-color: #f16a19; color: white; border: none;}
 .btn-warning:hover {background-color: #f16a19; color: white; cursor: pointer; border: none;}
 .btn-warning:not(:hover) {background-color: #f16a19; color: white; border: none;}
 

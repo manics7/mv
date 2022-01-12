@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resource/css/bootstrap.css">
+<script type="text/javascript"  src="resource/js/rsrv.js"></script>
 <style type="text/css">
 
 .btn-warning {background-color: #f16a19; color: white; border: none;}
