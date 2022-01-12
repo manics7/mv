@@ -277,7 +277,7 @@
 					
 							for(var j=0; j<matrix[i].length; j++){	
 								
-								status = matrix[i][j].seatStatus == 1 ? 'terrain'  : 'possible';								
+								status = matrix[i][j].seatStatus == 0 ? 'terrain'  : 'possible';								
 								seatNo = status == 'terrain' ? ' ' : matrix[i][j].seatNo; 
 								
 								for(var k=0; k<rsrvSeatNoList.length; k++){
@@ -710,7 +710,7 @@
 	//	,data : formData	
 		,success : function(res) {	
 			console.log(res);
-			var url = res.next_redirect_pc_url+"?tid="+res.tid;
+			var url = res.next_redirect_pc_url;
 			var _width = '650';
 		   	var _height = '580';		 
 		    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
@@ -719,7 +719,7 @@
 		    
 		   // $("#kakaoPayModal .modal-body").load($(this).data("remote"));
 					    
-		   window.open(url, 'popup-test', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top, 'status=no', 'location=no', 'toolbar=no','menubar=no');
+		   window.open(url, 'popup_window', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top, 'status=no', 'location=no', 'toolbar=no','menubar=no');
 			}
 			
 		});	

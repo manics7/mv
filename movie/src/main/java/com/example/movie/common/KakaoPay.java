@@ -7,6 +7,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,8 +20,8 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.movie.dto.MemberDto;
-import com.example.movie.entity.KakaoPayDto;
-import com.example.movie.entity.Payment;
+import com.example.movie.vo.KakaoPayApprovalVO;
+import com.example.movie.vo.KakaoPayReadyVO;
 
 
 @Component
@@ -34,8 +37,9 @@ public class KakaoPay {
 	
 	private Map<String, String> param;
 	
-	private KakaoPayDto kakaoPayDto;
+	private KakaoPayReadyVO kakaoPayDto;
 
+	private String tid = "";
 	
 	//카카오 결제준비
 	public String kakaoPayReady(Map<String, String> map) throws IOException {
@@ -52,7 +56,7 @@ public class KakaoPay {
 		// 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "fa40fe44b0a731a95f5562eded86e507");
-        //headers.add("Content-type", "application/x-www-form-urlencoded;charset=UTF-8"); // restTemplate 알아서해준다고함
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=UTF-8"); // restTemplate 알아서해준다고함
         
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
@@ -68,12 +72,20 @@ public class KakaoPay {
 
         //헤더와 바디 연결
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-        
+       
   		try {		
-			
-  			//KakaoPayDto kakaoPayDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayDto.class);
+  			
+  			//kakaoPayDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayDto.class);
   			//return kakaoPayDto.getNext_redirect_pc_url();
   			String result = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, String.class);
+
+  			JSONParser p = new JSONParser();
+  			JSONObject obj = (JSONObject)p.parse(result);
+  			tid = (String) obj.get("tid");
+  			
+
+
+
 			return result;
   			
 			
@@ -83,7 +95,10 @@ public class KakaoPay {
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 		
 				
 			
 		
@@ -91,7 +106,7 @@ public class KakaoPay {
 
 	}
 	
-	public Payment kakaoPayInfo(String pg_token, String tid) throws IOException {
+	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) throws IOException {
 		 RestTemplate restTemplate = new RestTemplate();
 		 
 	        // 서버로 요청할 Header
@@ -119,7 +134,7 @@ public class KakaoPay {
 	        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 	        
 	        try {
-	        	Payment payment = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, Payment.class);
+	        	KakaoPayApprovalVO payment = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
 	           // log.info("" + kakaoPayApprovalVO);
 	          
 	          //  return kakaoPayApprovalVO;

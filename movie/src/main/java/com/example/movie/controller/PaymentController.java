@@ -43,11 +43,11 @@ public class PaymentController {
 	}
 	
 	@GetMapping("/kakaoPaySuccess")
-	public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, @RequestParam("tid") String tid,  Model model) throws IOException {
+	public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) throws IOException {
 
-		kakaoPay.kakaoPayInfo(pg_token,tid);
+		kakaoPay.kakaoPayInfo(pg_token);
 		
-		return "/";
+		return "rsrv/success";
 	}
 	
 	@GetMapping("/kakaoPayCancel")
@@ -58,5 +58,10 @@ public class PaymentController {
 	@GetMapping("/kakaoPayFail")
 	public String kakaoPayFail() {
 		return "/";
+	}
+	
+	@GetMapping("/success")
+	public String success2() {
+		return "rsrv/reservationPayment_success";
 	}
 }

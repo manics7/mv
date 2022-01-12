@@ -142,7 +142,7 @@ public class BusinessController {
 	}
 
 	//상영관 목록 이동
-	@GetMapping("roomlist")
+	@GetMapping("roomList")
 	public ModelAndView roomList() {
 		mv = buServ.getRoomList();
 

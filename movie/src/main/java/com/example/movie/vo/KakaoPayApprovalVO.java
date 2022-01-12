@@ -1,4 +1,4 @@
-package com.example.movie.entity;
+package com.example.movie.vo;
 
 
 import java.util.Date;
@@ -16,7 +16,7 @@ import lombok.ToString;
 //@Entity
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
-public class Payment {
+public class KakaoPayApprovalVO {
 	//response 
 	private String aid; //요청고유번호 주문번호
 	private String tid; // 결제고유번호
@@ -25,11 +25,13 @@ public class Payment {
 	private String partner_user_id; // 주문자
 	private String payment_method_type;  // 결제방법
 	private String item_name; //상품이름, 
-	//private String item_code; // 상품코드
-	private Integer amount; // 상품금액
-	private Integer quantity; // 수량
+	private String item_code; // 상품코드
 	private Date created_at; // 결제요청시간
 	private Date approved_at; // 결제승인시간
+	
+	private AmountVO amountVO;
+	private CardVO cardVO;
+	
 	
 
 }

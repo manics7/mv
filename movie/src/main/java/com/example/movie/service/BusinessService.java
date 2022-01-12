@@ -290,11 +290,11 @@ public class BusinessService {
 
 		try {
 			buMapper.RoomDelete(roomseq);
-
-			view = "redirect:roomlist";
+			
+			view = "redirect:roomList";
 			rttr.addFlashAttribute("msg", "삭제 성공");
 		} catch (Exception e) {
-			view = "redirect:roomlist";
+			view = "redirect:roomList";
 			rttr.addFlashAttribute("msg", "삭제 실패");
 		}
 
@@ -384,7 +384,7 @@ public class BusinessService {
 			}
 
 			//buMapper.seatUpdate(seDto);
-			view = "redirect:roomlist";
+			view = "redirect:roomList";
 			msg = "상영관 등록 완료";
 		} catch (Exception e) {
 			view = "redirect:roomInsertFrm";
