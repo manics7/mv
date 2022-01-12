@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix ="c"%>
+	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,6 +74,9 @@ $(document).ready(function() {
 </head>
 <body>
 <section>
+<nav>
+<jsp:include page="business_header.jsp"></jsp:include>
+</nav>
 <div class="detail">
 	<div class="inner">
 		<div id="page_wrap">

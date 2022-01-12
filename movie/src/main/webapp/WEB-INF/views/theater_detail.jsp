@@ -16,11 +16,14 @@
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <link rel="stylesheet" href="resource/css/theater_detail/custome.css">
 <link rel="stylesheet" href="resource/css/theater_detail/styles.css">
+<link rel="stylesheet" href="/node_modules/bxslider/dist/jquery.bxslider.css">
 <!-- FontAwesome CDN-->
 <link rel="stylesheet"
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -364,14 +367,15 @@
 		</div>
 	</footer>
 	<!-- Bootstrap core JS-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	
 	<!-- Core theme JS-->
 
->>>>>>> refs/remotes/origin/master
 </body>
 
 	<script src="js/scripts.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/node_modules/bxslider/dist/jquery.bxslider.min.js"></script>
 	<script src="resource/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
@@ -416,16 +420,26 @@
 				var	html ="";
 				
 				for(i=0; i < data.length; i++){
+					
 					for(j=0; j < data[i].schedule.scheduleDetail.length; j++){
 						html += "<li><div>" 
+						
 						html += "<p class='stime'>"+data[i].schedule.scheduleDetail[j].schDetailStart+"</p>"
 						html += "<p class='etime'>"+data[i].schedule.scheduleDetail[j].schDetailEnd+"</p>"
 						html += "<p class='seat'><b>"+data[i].schedule.scheduleDetail[j].rsrvSeatCnt
 						+ "</b>/ "+data[i].room.seatCnt+" 석</p>"
 						html +"</div></li>"
+						html += "<p class = mv_info>" + data[i].room.roomName +"-"+data[i].room.roomClass + "</p>"
+						html += "<p class = mv_title>" + data[i].movieOfficial.movieNm  + "</p>"
+						
 					}
-				}
-					
+						
+					}
+// 				}
+				// c c c 
+				//		<p class="mv_info">1관 - 2D</p>
+						//<p class="mv_title">너에게 가는 길</p>
+				
 					//var date = item.date
 					//var dayOfWeek =item.dayOfWeek;	
 					
@@ -449,6 +463,9 @@
 				}
 			});
 		})
+		
+		
+		
 		
 	})
 	

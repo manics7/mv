@@ -815,6 +815,9 @@ public class MemberService {
 			Integer roomNo = schduleList.get(i).getRoomNo();
 			Integer schCode = schduleList.get(i).getSchCode();
 			
+			Optional<Theater> theaterOpt = theaterRepository.findById(thCode);
+			Theater theater = theaterOpt.orElse(null);
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			Optional<MovieOfficial> movieOfficialOpt = movieOfficialRepository.findById(movieCd);
 
@@ -834,6 +837,7 @@ public class MemberService {
 			map.put("schedule", schduleList.get(i));
 			map.put("room", room);
 			map.put("movieOfficial", movieOfficial);
+			map.put("theater", theater);
 			list.add(map);
 		}
 		return list;
