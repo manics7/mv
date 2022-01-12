@@ -107,6 +107,12 @@ justify-content: space-between;
     height: 68px;
     margin-bottom: 30px;
 }
+.booking_title{
+	font-size: 14px;
+	color: #222;
+	font-weight: 700;
+	margin-bottom: 24px;
+}
 
 .historylist{
     margin-bottom: 24px;

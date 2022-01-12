@@ -1,3 +1,4 @@
+
 package com.example.movie.controller;
 
 import java.util.List;
@@ -6,21 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-
-import com.example.movie.service.AdminService;
-
-import java.util.List;
-
 import com.example.movie.dto.BusinessDto;
-
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.service.AdminService;
-
 
 @Controller
 public class AdminController {
@@ -30,25 +24,26 @@ public class AdminController {
 	
 	private ModelAndView mv;
 
-	@GetMapping("reportFrm")
-	public ModelAndView reportFrm(Integer pageNum) {
+	//신고페이지(영화리뷰)
+	@GetMapping("mvrreportFrm")
+	public ModelAndView mvrreportFrm(Integer pageNum) {
 		
-		mv = aServ.reportedReview(pageNum);
+		mv = aServ.reportedmvReview(pageNum);
 		
 		return mv;
 	}
-	
+	//영화리뷰 삭제처리 (신고)
 	@GetMapping("delAdminMvReview")
-	public String delAdminMvReview(int mvrnum,RedirectAttributes rttr) {
+	public String delAdminMvReview(int movie_review,RedirectAttributes rttr) {
 		
 		/*int mvrnum = Integer.parseInt(mv_review);*/
 		
-		
-		String view = aServ.delAdminMvReview(mvrnum,rttr);
+		String view = aServ.delAdminMvReview(movie_review,rttr);
 		
 		return view;
 	}
 	
+	//신고정렬
 	@GetMapping("sortByState")
 	public ModelAndView sortByState(Integer pageNum) {
 		
@@ -63,6 +58,7 @@ public class AdminController {
 		
 		return mv;
 	}
+	
 	//문의사항 목록 출력 
 	@GetMapping("/quesboard")
 	public ModelAndView quesboard(Integer pageNum) {
@@ -84,6 +80,7 @@ public class AdminController {
 		System.out.println("qlist = "+qList);
 		return mv;
 	}
+
 	//문의사항 상세보기 
 	@GetMapping("/requeboard_read")
 	public ModelAndView requeboardRead(int ques_no,Integer view) {
@@ -121,8 +118,11 @@ public class AdminController {
 		}
 		System.out.println("readqlist = "+readqlist);
 		return mv;
+
 	}
-	
+
+
+
 	//문의글 작성 폼으로 넘어가면서 문의번호 넘기기 
 	@GetMapping("quesboard_rewrite")
 	public ModelAndView quesboard_rewrite(Integer ques_no) {
@@ -130,20 +130,28 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		int q = ques_no;
 		mv.addObject("ques_no", q);
-		mv.setViewName("quesboard_rewrite"); 		
+		mv.setViewName("quesboard_replywrite"); 		
 		return mv;
 	}
 	
 	//문의사항 답변 달기 ( 하는중 ) 
 	@PostMapping("/quesboard_reply_insert")
-	public ModelAndView quesboard_reqly_insert(quesReplyDto qrdto) {
-		ModelAndView mv = new ModelAndView();
-		//mv = aServ.quesboard_reply_insert(qrdto);
-		return mv;
+	public String quesboard_reqly_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
+		String view = aServ.quesboard_reply_insert(qrdto, rttr);
+		return view;
 	}
-	
-	//사업자회원 정보 출력
-	
+		
+	//관리자 입장에서 등록 된 영화 상세보기
+	@GetMapping("admin_movie_read")
+	public ModelAndView movieDetail(int mv_seq) {
+		
+		mv = aServ.admin_movie_read(mv_seq);
+		
+		return mv;
+
+	}
+		
+	//사업자회원 정보 출력	
 	@GetMapping("getBulist")
 	public ModelAndView getbulist(Integer pageNum) {
 		System.out.println("Business pageNum = "+pageNum);
@@ -169,13 +177,21 @@ public class AdminController {
 		
 		return mv;
 	}
-	
+	//영화등록 페이지
 	@GetMapping("adminMovieList")
 	public ModelAndView adminMovieList(Integer pageNum) {
 		
 		mv = aServ.adminMovieList(pageNum);
 		
 		return mv;
+	}
+	//영화등록 등록처리
+	@PostMapping("movieOfficialInsert")
+	public String movieOfficialInsert(MultipartHttpServletRequest multi,RedirectAttributes rttr) {
+		
+		String view = aServ.movieOfficialInsert(multi,rttr);
+		
+		return view;
 	}
 	
 	//관리자 페이지로 이동

@@ -16,19 +16,14 @@ $(function(){
 	if(msg != ""){
 		alert(msg);
 	}
-	
-	//로그인한 회원 정보 및 로그아웃 출력
-	var lname = "${mb.m_name}";
-	$("#mname").html(lname + "님");
-	$(".suc").css("display", "block");
-	$(".bef").css("display", "none");
 });
 </script>
 </head>
 <body>
-
+<header>
+	<jsp:include page="header.jsp"></jsp:include>
+</header>
 <section>
-	<h2 id="rv_title">REVIEW</h2>
 	<div class="rv_content">
 		<form action="./boardRvUpdate" class="write-form"
 			method="post" enctype="multipart/form-data">
@@ -37,17 +32,17 @@ $(function(){
 			name="rtitle" autofocus placeholder="제목"
 			value="${bDto.rtitle}" required>
 
-			<select name="thcode" class="th_select">
+			<select name="th_code" class="th_select">
 				<c:forEach var="thitem" items="${thList}">
-					<c:if test="${thitem.thname eq bDto.thname}">
-						<option value="${thitem.thcode}" selected>${thitem.thname}</option>
+					<c:if test="${thitem.th_name eq bDto.th_name}">
+						<option value="${thitem.th_code}" selected>${thitem.th_name}</option>
 					</c:if>
-					<c:if test="${thitem.thname ne bDto.thname}">
-						<option value="${thitem.thcode}">${thitem.thname}</option>
+					<c:if test="${thitem.th_name ne bDto.th_name}">
+						<option value="${thitem.th_code}">${thitem.th_name}</option>
 					</c:if>
 				</c:forEach>
 			</select>
-			<input type="hidden" name="mid" value="viu97">
+			<input type="hidden" name="mid" value="${userInfo.m_id}">
 			<input type="hidden" name="rnum" value="${bDto.rnum}">
 			
 			<textarea rows="15" name="rcontent"
@@ -82,6 +77,8 @@ $(function(){
 		</form>
 	</div>
 	</section>
-
+<footer>
+	<jsp:include page="footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

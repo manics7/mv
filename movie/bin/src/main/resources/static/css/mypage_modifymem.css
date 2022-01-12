@@ -1,0 +1,267 @@
+body{
+    background-color: white;
+}
+button, caption,fieldset,hr,img,table,tbody,td,tfoot,th,thead,tr{
+    border: 0 none;
+}
+.wrap{
+width: 100%;
+background-color: white;
+}
+nav{
+    width: 100%;
+    height: 100px;
+    background-color: #1d1d1d;
+    top: 0;
+    left: 0;
+    
+}
+
+
+.main_wrap{
+    width: 1024px;
+    
+    margin: 60px auto;
+    background-color: transparent;
+}
+
+.cont_wrap{
+width: 100%;
+display: flex;
+
+}
+.modify_mem_title{
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+}
+
+.imt_box{
+    width: 106px;
+    height: 106px;
+    margin: 16px auto 24px;
+    position: relative;
+}
+
+.profile_title{
+font-weight: 700;
+font-size: 20px;
+margin-top: 24px;
+text-align: center;
+}
+.top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e1e1e1;
+}
+.top>h3{
+    font-size: 14px;
+    font-weight: 700;
+    columns: #222;
+}
+.member_info li{
+    display: flex;
+    min-width: 40px;
+    align-items: flex-start;
+    font-size: 14px;
+    margin-bottom: 16px;
+    padding-left: 8px;
+    margin-top: 40px;
+}
+.member_info>ul>li>div:first-child{
+    width: 130px;
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+}
+.member_info>ul>li>div:last-child{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.member_info>ul>li>div:last-child>div{
+   width: 100%;
+}
+
+.member_info>ul>li>div{
+  min-height: 40px;
+}
+.member_info input{
+    border: 1px solid #e8e8e8;
+    background-color: #fafafa;
+    border-radius: 2px;
+    height: 40px;
+    width: 256px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.form_btn{
+    border: 1px solid #f16a1a;
+    color: #f16a1a;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.required{
+    display: inline-block;
+    position: relative;
+}
+.required::after{
+    display: block;
+    content: "";
+    width: 4px;
+    height: 4px;
+    background-color: #f16a1a;
+    border-radius: 100%;
+    position: absolute;
+    right: -5px;
+    top: 0;
+}
+.member_top{
+    display: flex;
+    justify-content: space-between;
+}
+.member_top_btn_wrap{
+width: 700px;
+margin: 0 auto;
+margin-top: 30px;
+
+}
+.member_top_btn{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    
+}
+button{
+    background-color: transparent;
+    outline: none;
+    padding: 4px;
+    width: 200px;
+    border: 1px solid gray;
+}
+input{
+    background-color: transparent;
+    outline: none;
+    border: 1px solid gray;
+}
+button:hover{
+    background-color: #f16a1a;
+    color: white;
+}
+
+.cont_sidebar{
+
+    width: 184px;
+    height: 450px;
+    background-color: gray;
+}
+
+.modify_mem_wrap{
+    width: 800px;
+    height: 1040px;
+    margin-bottom: 40px;
+}
+.queboard_con{
+    width: 800px;
+}
+tr{
+    display: flex;
+    justify-content: space-around;
+    width: 700px;
+}
+th{
+    width: 17%;
+}
+td{
+    line-height: 60px;
+    width: 25%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+footer{
+    background-color: #323232;
+    width: 100%;
+    height: 150px;
+}
+.tabe_header{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+--주소
+
+.addrdiv_2{
+width: 100%;
+display: flex;
+align-items: center;
+margin-top: 16px;
+position: relative;
+}
+
+--간편로그인 계정연동
+
+.simple_login{
+    margin-top: 56px;
+}
+.simple_login_title{
+    columns: #222;
+    font-weight: 700;
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.simple_login_table{
+    font-size: 14px;
+    border-collapse:collapse ;
+    border-spacing: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+.simple_login th{
+    background-color: #f4f4f4;
+    padding: 8px 0 10px;
+    color: #767676;
+    font-weight: 400;
+}
+
+.simple_login th:first-child{
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.simple_login th:last-child{
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.btn_box{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+.btn_box button{
+    border-radius: 4px;
+    border: 1px solid #e1e1e1;
+    width: 148px;
+    height: 56px;
+    font-size: 14px;
+    margin: 0 8px;
+    color: #333;
+    text-align: center;
+}
+.btn_on{
+    background: #f16a1a;
+    border: 1px solid #f16a1a;
+    color: white;
+    text-align: center;
+}

@@ -174,4 +174,5 @@ $(document).ready(function() {
 </div>
 </section>
 </body>
+>>>>>>> refs/remotes/origin/master
 </html>

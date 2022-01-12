@@ -42,9 +42,9 @@ $(function(){
                             영화관 및 상영관 이름을 지정하세요.
                         </legend>
                         <!-- theaterList로 값 받아오기 나중에 -->
-                    <a>영화관 이름</a> <input type="text" id="theater_name" name="thcode" value="1" readonly><br>
-                    <a>상영관 번호</a> <input type="number" id="room_no" name="roomno" required><br>
-                    <a>상영관 이름</a> <input type="text" id="room_name" name="roname" required>
+                    <a>영화관 이름</a> <input type="text" id="theater_name" name="th_code" value="${businessInfo.}" readonly><br>
+                    <a>상영관 번호</a> <input type="number" id="room_no" name="room_no" required><br>
+                    <a>상영관 이름</a> <input type="text" id="room_name" name="room_name" required>
                     </fieldset>
                     <fieldset class="title_set2">
                         <legend>
@@ -52,7 +52,7 @@ $(function(){
                             상영관 종류와 좌석을 설정하세요.
                         </legend>
                     <a>상영관 종류</a>
-                    <select name="roclass" class="th_select" required>
+                    <select name="room_class" class="th_select" required>
                         <option value="-10" selected>상영관 종류</option>
                         <option value="2D">2D</option>
                         <option value="3D">3D</option>
@@ -60,8 +60,8 @@ $(function(){
                         <option value="IMAX">IMAX</option>
                     </select><br>
                     <a>상영관 좌석</a>
-                    <input type="number" placeholder="행" id="seat_row" name="roomrow" min="1" max="20">
-                    <input type="number" placeholder="열" id="seat_col" name="roomcol" min="1" max="20"><br>
+                    <input type="number" placeholder="행" id="seat_row" name="room_row" min="1" max="20">
+                    <input type="number" placeholder="열" id="seat_col" name="room_col" min="1" max="20"><br>
                     <input type="button" id="seatset" value="설정" onclick="seatCal()">
                     <input type="reset" id="seatreset" value="초기화" onclick="deleteDiv()">
                     </fieldset>
@@ -71,7 +71,7 @@ $(function(){
                                 <div class="num_box"><b>3</b></div>
                                 복도 및 사용불가 좌석을 클릭하여 선택하세요.
                             </legend>
-                            <a>총 좌석 수</a><input type="number" id="total" name="seatcnt" readonly>
+                            <a>총 좌석 수</a><input type="number" id="total" name="seat_cnt" readonly>
                             <div class="seat-wrapper" id="seat-wrapper"></div>
                         </fieldset>
                     </div>

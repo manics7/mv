@@ -30,8 +30,8 @@
 			<when test="type != null and type.equals('mid')">
 			MID LIKE '%${keyword}%'
 			</when>
-			<when test="type != null and type.equals('thname')">
-			THNAME LIKE '%${keyword}%'
+			<when test="type != null and type.equals('th_name')">
+			TH_NAME LIKE '%${keyword}%'
 			</when>
 		</choose>
 	</select>
@@ -52,8 +52,8 @@
 			<when test="type != null and type.equals('mid')">
 			MID LIKE '%${keyword}%'
 			</when>
-			<when test="type != null and type.equals('thname')">
-			THNAME LIKE '%${keyword}%'
+			<when test="type != null and type.equals('th_name')">
+			TH_NAME LIKE '%${keyword}%'
 			</when>
 		</choose>
 			) a
@@ -66,7 +66,7 @@
 	
 	<!-- 영화관 이름 목록 가져오기 -->
 	<select id="getTHList" resultType="com.example.movie.dto.TheaterDto">
-		SELECT TH_CODE AS thcode, TH_NAME AS thname FROM THEATER
+		SELECT th_code, th_name FROM THEATER
 	</select>
 	
 	<!-- 게시글 작성하기 -->
@@ -76,13 +76,25 @@
 		SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO RV VALUES
-		(${rnum}, ${thcode}, #{mid}, #{rtitle}, #{rcontent}, DEFAULT, DEFAULT, DEFAULT)
+		(${rnum}, ${th_code}, #{mid}, #{rtitle}, #{rcontent}, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<!-- 파일 정보 저장하기 -->
+	<insert id="rvFileInsert" parameterType="com.example.movie.dto.BoardFileDto">
+		INSERT INTO RF
+		VALUES (REVIEW_FILE_NUM.NEXTVAL,#{review_num},#{review_file_name})
 	</insert>
 	
 	<!-- 게시글 본문 가져오기 -->
 	<select id="getRvContent" parameterType="Integer"
 		resultType="com.example.movie.dto.BoardDto">
 		SELECT * FROM RLIST WHERE rnum=#{rnum}
+	</select>
+	
+	<!-- 파일 정보 가져오기 -->
+	<select id="getBfList" parameterType="Integer"
+		resultType="com.example.movie.dto.BoardFileDto">
+		SELECT * FROM RF WHERE review_num=#{rnum}
 	</select>
 	
 	<!-- 조회수 업데이트 -->
@@ -99,7 +111,7 @@
 	
 	<!-- 게시글 수정하기 -->
 	<update id="RvUpdate" parameterType="com.example.movie.dto.BoardDto">
-		UPDATE RV SET TH_CODE=${thcode}, REVIEW_TITLE=#{rtitle}, REVIEW_CONTENT=#{rcontent}
+		UPDATE RV SET TH_CODE=${th_code}, REVIEW_TITLE=#{rtitle}, REVIEW_CONTENT=#{rcontent}
 		WHERE REVIEW_NUM=#{rnum}
 	</update>
 	
@@ -120,5 +132,12 @@
 		resultType="com.example.movie.dto.ReplyDto">
 		SELECT * FROM RELIST WHERE RNUM=#{rnum}
 	</select>
+	
+	<!-- 신고 처리하기 -->
+	<insert id="reportRvInsert" parameterType="com.example.movie.dto.ReportReviewDto">
+		INSERT INTO REPORT_REVIEW
+		VALUES (RP_RV_SEQ.NEXTVAL,#{review_num},#{rp_m_id},#{rpt_m_id},#{rp_why},DEFAULT,DEFAULT)
+	</insert>
+	
 							
 </mapper>

@@ -32,9 +32,9 @@ public class ReservationRepositoryCustom {
 				return rsrvSeatCnt.intValue();
 	}
 	
-	public List<Integer> getRsrvSeatNoList(Integer schCode, Integer schDetailSeq) {
+	public List<String> getRsrvSeatNoList(Integer schCode, Integer schDetailSeq) {
 		
-		List<Integer> getRsrvSeatNoList =	jpaQueryFactory
+		List<String> getRsrvSeatNoList =	jpaQueryFactory
 					.select(reservationSeat.seatNo)
 					.from(reservation)
 					.join(reservationSeat)

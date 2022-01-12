@@ -1,10 +1,12 @@
 package com.example.movie.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,13 +16,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.ReviewMovieDto;
+import com.example.movie.dto.TheaterDto;
 import com.example.movie.service.MemberService;
+import com.example.movie.service.ScheduleService;
 
 import lombok.extern.java.Log;
 
 @Controller
 @Log
 public class MemberController {
+	
 
 	@Autowired
 	private MemberService mServ;
@@ -28,6 +33,9 @@ public class MemberController {
 	private AdminController aCon;
 
 	private ModelAndView mv;
+	
+	@Autowired
+	ScheduleService scheduleService;
 
 	private final static Logger LOG = Logger.getGlobal();
 
@@ -140,6 +148,8 @@ public class MemberController {
 	//회원 정보 출력
 	@GetMapping("/mmanage")
 	public ModelAndView mmanageFrm(String pageNum) throws Exception {
+//		int num = (pageNum == null)? 1 : pageNum;
+		System.out.println("page_num = "+pageNum);
 		LOG.info("info Log = " + pageNum);
 
 		ModelAndView mv = new ModelAndView();
@@ -228,6 +238,43 @@ public class MemberController {
 		Map<String, List<ReviewMovieDto>> insertReviewMap = mServ.insertReviewMovie(reviewMovieDto);
 		
 		return insertReviewMap;
+	}
+	@GetMapping("theaterinsert1")
+	public ModelAndView theater_detail1(Integer th_code) {
+		List<Map<String, Object>> list = mServ.getSch(th_code);
+		mv = new ModelAndView();
+		mv.addObject("theatedetail", list);
+		mv.addObject("th_code",th_code);
+		mv.setViewName("theater_detail");
+		return mv;
+	}
+	
+	// 영화관 상세 페이지 극장 정보 출력
+	@GetMapping("theaterinsert")
+	public ModelAndView theater_detail(Integer th_code) {
+		mv = mServ.inserttheaterinfo(th_code);
+		mv.addObject("th_code",th_code);
+		return mv;
+	}
+	// 영화관 검색
+	@GetMapping("searchtheater")
+	public String searchtheater() {
+		return "main_search_theater";
+	}
+	
+	@GetMapping("getDate")
+	@ResponseBody
+	public List<Map<String, String>> getDate(){
+		List<Map<String, String>> map = scheduleService.getDatesDaysWeek(2);
+		
+		return map;
+	}
+	@GetMapping("getSchedulelist")
+	@ResponseBody
+	public List<Map<String, Object>> getSchedule(@DateTimeFormat(pattern = "yyyy-MM-dd") Date schDate,Integer thCode){
+		List<Map<String, Object>> map = mServ.getSchedule(schDate,thCode);
+		
+		return map;
 	}
 
 }

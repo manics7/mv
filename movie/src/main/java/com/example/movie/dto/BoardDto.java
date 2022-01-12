@@ -8,7 +8,7 @@ import lombok.Data;
 public class BoardDto {
 	private int ronum;
 	private int rnum;
-	private int thcode;
+	private int th_code;
 	private String mid;
 	private String rtitle;
 	private String rcontent;
@@ -16,7 +16,7 @@ public class BoardDto {
 	private int rlike;
 	private Timestamp rdate;
 	
-	private String thname;
+	private String th_name;
 	
 	//검색 필터
 	private String type; //검색 타입

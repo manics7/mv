@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-@charset "UTF-8";
-
 body {
     margin: 0;
     padding: 0;
@@ -14,7 +12,9 @@ body {
 /* 후기게시판 header */
 #rv_title {
 	text-align: center;
-	margin-top: 100px;
+	margin-top: 150px;
+}
+.rv_title {
 	color: orange;
 }
 .rv_header {
@@ -28,7 +28,9 @@ body {
 	color: gray;
 	font-size: 14px;
 }
-
+#rv_info {
+	color: black;
+}
 
 /* 검색창 */
 .rv_search {
@@ -77,6 +79,11 @@ body {
     width: 1024px;
     margin: 0 auto;
 }
+.rv_section2 {
+	width: 1024px;
+    margin: 0 auto;
+	height: 1500px;
+}
 .rv_table {
 	width: 1024px;
 	border-top: 2px solid;
@@ -101,7 +108,9 @@ td.t_no, td.t_view, td.t_like {
 .p-30 {
     width: 30%;
 }
-
+#t_title {
+	color: black;
+}
 
 /* 페이징 버튼 */
 .btn-area2 .paging {
@@ -155,24 +164,14 @@ td.t_no, td.t_view, td.t_like {
 
 /******************************글작성*******************************/
 
-/* 신고하기 버튼 */
-#report_btn {
-	float: right;
-	border: none;
-	background-color: white;
-}
-#report_btn:hover {
-	border-bottom: 1px solid;
-}
-
 /* 글작성 전체폼 */
 .rv_content {
 	width: 1024px;
-	/* border-top: 2px solid black;
-	border-bottom: 2px solid black; */
+	height: 800px;
 	margin: 0 auto;
-	margin-top: 40px;
+	margin-top: 150px;
 	padding: 15px;
+	/* border: 1px solid #e1e1e1; */
 }
 
 /* 제목 input */
@@ -193,7 +192,7 @@ td.t_no, td.t_view, td.t_like {
 /* 본문 */
 .write-textarea {
 	width: 1000px;
-	height: 600px;
+	height: 500px;
 	resize: none;
 	font-size: 13px;
 }
@@ -204,13 +203,145 @@ td.t_no, td.t_view, td.t_like {
 /* 버튼 */
 .btn-area {
 	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 .btn-write {
 	background-color: orange;
 	border: none;
 	padding: 7px;
 	color: white;
+	text-align: center;
 }
 .btn-write:hover {
 	background-color: red;
+}
+#likebtn {
+	display: block;
+	margin: 0px auto 30px;
+	width: 70px;
+	height: 50px;
+}
+
+
+/******************************글본문*******************************/
+
+/* 신고하기 버튼 */
+#report_btn {
+	float: right;
+	border: none;
+	background-color: white;
+}
+#report_btn:hover {
+	border-bottom: 1px solid;
+}
+
+/* 글본문 헤더 부분 */
+#rv_thname {
+	font-size: 17px;
+	color: red;
+}
+#rvtitle {
+	font-size: 25px;
+}
+#rv_writer {
+	color: #adadad;
+}
+#rvcontent {
+	height: 500px;
+}
+.rv_content > hr {
+	border: 1px solid #e1e1e1;
+}
+
+/******************************댓글*******************************/
+
+#reFrm {
+	position: relative;
+	margin-bottom: 30px;
+}
+#comment {
+	width: 100%;
+	height: 100px;
+	resize: none;
+}
+#reply_count {
+	position: absolute;
+	right: 90px;
+	bottom: 10px;
+	color: gray;
+}
+#reply_post_btn {
+	position: absolute;
+	display: inline-block;
+	right: 5px;
+	bottom: 10px;
+}
+#reply_content {
+	width: 100%;
+}
+#reply_co {
+	width: 100%;
+}
+
+/*************************신고 팝업창************************/
+#popupDiv {  /* 팝업창 css */
+    top : 0px;
+    position: absolute;
+    background: gray;
+    width: 400px;
+    height: 400px;
+    display: none; 
+	text-align: center;
+}
+#popup_mask { /* 팝업 배경 css */
+	position: fixed;
+	width: 100%;
+	height: 1000px;
+	top: 0px;
+	left: 0px;
+		display: none; 
+		background-color:#000;
+		opacity: 0.8;
+}
+#popCloseBtn {
+	float: right;
+	border: 1px white;
+	width: 30px;
+	height: 30px;
+	font-size: 20px;
+}
+#popupDiv > h1 {
+	text-align: center;
+}
+#popupDiv > form > input {
+	display: none;
+}
+#checkmark1:checked ~ #check01 {
+    background: orange;
+}
+#checkmark2:checked ~ #check02 {
+    background: orange;
+}
+#checkmark3:checked ~ #check03 {
+    background: orange;
+}
+#checkmark4:checked ~ #check04 {
+    background: orange;
+}
+#checkmark5:checked ~ #check05 {
+    background: orange;
+}
+#checkmark6:checked ~ #check06 {
+    background: orange;
+}
+label {
+	margin: 0 auto;
+	width: 300px;
+	height: 50px;
+	background-color: #e1e1e1;
+	border: 1px solid black;
+	line-height: 50px;
+	display: block;
+	text-align: center;
 }
