@@ -140,8 +140,8 @@ public class ScheduleService {
 		List<Schedule> schList = scheduleRepositoryCustom.selectSchList(movieCd, thCode, schDate);			
 		return schList;
 	}	
-	
 	public List<Schedule> getTimeList(String movieCd, Integer thCode, String date) {
+	
 		
 		//영화,극장,일자 조건에 해당하는 상영정보를 가져온다. 
 		List<Schedule> scheduleList = scheduleRepositoryCustom.getScheule(movieCd, thCode, date);		
@@ -189,5 +189,14 @@ public class ScheduleService {
 		}
 		
 		return scheduleList;
+	}
+
+	public Map<String, Object> selectSchedule(String movieCd, Integer thCode, String schDate) {
+		List<Schedule> schList = scheduleRepositoryCustom.selectSchList(movieCd, thCode, schDate);			
+		for (int i = 0; i < schList.size(); i++) {
+			
+		}
+		
+		return null;
 	}
 }

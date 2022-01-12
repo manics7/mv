@@ -11,6 +11,7 @@
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
 	integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
 	crossorigin="anonymous">
+<script type="text/javascript" src="resources/js/search_theater.js"></script>
 <title>Document</title>
 
 <style>
@@ -22,7 +23,7 @@
 	padding: 24px 0 32px;
 	position: fixed;
 	left: 0;
-	top: 100px;
+	top: 90px;
 	z-index: 20;
 }
 
@@ -67,6 +68,8 @@
 
 .local_result {
 	margin-top: 35px;
+	<!-- -->
+	
 }
 
 .local_list>li {
@@ -155,9 +158,9 @@
 				</ul>
 				<div class="local_result">
 					<ul>
-						<li><a href="./theaterinsert?th_code=3">광주극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">광주독립영화관</a></li>
-						<li><a href="./theaterinsert?th_code=3">더솔아트시네마</a></li>
+						<li><a href="./theaterinsert1?th_code=1">광주극장</a></li>
+						<li><a href="./theaterinsert1?th_code=3">광주독립영화관</a></li>
+						<li><a href="./theaterinsert1?th_code=3">더솔아트시네마</a></li>
 						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
 						<li><a href="./theaterinsert?th_code=3">씨네아트 리홈</a></li>
 						<li><a href="./theaterinsert?th_code=3">아트하우스모모</a></li>
@@ -172,6 +175,154 @@
 						<li><a href="./theaterinsert?th_code=3">필름포럼</a></li>
 					</ul>
 				</div>
+				<!-- 
+				
+				<div class="local_result">
+					<ul>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
+						<li><a href="./theaterinsert?th_code=3">아트하우스모모</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈중앙시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+
+					</ul>
+				</div>
+				<div class="local_result">
+					<ul>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+
+					</ul>
+				</div>
+				<div class="local_result">
+					<ul>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+
+					</ul>
+				</div>
+				<div class="local_result">
+					<ul>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+
+					</ul>
+				</div>
+				<div class="local_result">
+					<ul>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+
+					</ul>
+				</div>
+				<div class="local_result">
+					<ul>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+
+					</ul>
+				</div>
+				<div class="local_result">
+					<ul>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+
+					</ul>
+				</div>
+				<div class="local_result">
+					<ul>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+
+					</ul>
+				</div>
+				<div class="local_result">
+					<ul>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
+						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
+
+					</ul>
+				</div>
+				
+				 -->
+				
+				
 			</div>
 		</div>
 	</div>
@@ -195,17 +346,13 @@
 			}
 		})
 	}
-
-	window
-			.addEventListener(
-					"DOMContentLoaded",
-					function() {
+	window.addEventListener("DOMContentLoaded", function() {
 						const headerElement = document
-								.getElementsByTagName("header")[0];
+								.getElementsByClassName("search_rayer")[0];
 						const items = headerElement
 								.getElementsByClassName("theater_loc");
 						const detailBoxs = document
-								.getElementsByClassName("detail-box");
+								.getElementsByClassName("local_result");
 
 						let lastClickdetailBox = detailBoxs[0];
 

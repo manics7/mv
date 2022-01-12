@@ -130,11 +130,11 @@
 	</select>
 	
 	<select id="inserttheaterinfo" parameterType="Integer" resultType="com.example.movie.dto.TheaterDto">
-	select * from theater where th_code=${th_code}
+	select * from v_mtheater where th_code=${th_code}
 	</select>
 	
 	<select id="selectmovieschedule" resultType="com.example.movie.dto.Theater_detailDto">
-	
+	select * from v_ssdschedule
 	</select>
 	
 	<!-- 현재상영작 가져오기 -->
