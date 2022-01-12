@@ -187,4 +187,11 @@ public class AdminController {
 		return view;
 	}
 	
+	// 관리자 페이지로 이동
+	@GetMapping("adminPage")
+	public String adminPage() {
+		
+		return "adminPage";
+	}
+	
 }

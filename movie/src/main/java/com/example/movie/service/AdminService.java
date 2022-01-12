@@ -458,7 +458,7 @@ public class AdminService {
 	public String movieOfficialInsert(MultipartHttpServletRequest multi,RedirectAttributes rttr) {
 
 		String view = null;
-		//String msg = "?";
+		String msg = null;
 
 		MovieOfficialDto mvofficialDto = new MovieOfficialDto();
 
@@ -521,13 +521,11 @@ public class AdminService {
 			}
 		}
 
-		if(filenum == 0) {
 			aMapper.adminMovieInsert(mvofficialDto);
 			//msg = "등록 성공";
 
 			view = "redirect:adminMovieList";
 			rttr.addFlashAttribute("msg", "등록 성공");
-		}
 
 		return view;
 	}

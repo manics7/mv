@@ -46,13 +46,13 @@
 								<div class="movieTitle">
 <!-- 									 -->
 									<c:choose>
-										<c:when test="${movieList.watch_grade_nm eq '12세' }">
+										<c:when test="${movieList.watch_grade_nm eq '12세 이상' }">
 											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png)">
 										</c:when>
-										<c:when test="${movieList.watch_grade_nm eq '15세' }">
+										<c:when test="${movieList.watch_grade_nm eq '15세 이상' }">
 											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png)">
 										</c:when>
-										<c:when test="${movieList.watch_grade_nm eq '18세' }">
+										<c:when test="${movieList.watch_grade_nm eq '청소년 관람불가' }">
 											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-18.png)">
 										</c:when>
 										<c:otherwise>

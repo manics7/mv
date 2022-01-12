@@ -32,8 +32,8 @@
 		<div class="main_wrap_wrap">
 			<div class="main_wrap">
 			<div class="sidebar">
-				<jsp:include page="business_sidebar.jsp"></jsp:include>
-				</div>
+				<%@ include file="./business_sidebar.jsp"  %>
+			</div>
 				<div class="page_cont_wrap">
 					<div class="user_info">
 						<div class="profile_box">
