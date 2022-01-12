@@ -70,7 +70,7 @@
 							</div>
 						</div>
 						<div class="search-cell">
-							<a href="#"> 상영시간표 </a>
+							<a href="totalMovie"> 상영시간표 </a>
 						</div>
 						<div class="search-cell">
 

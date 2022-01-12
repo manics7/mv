@@ -419,7 +419,7 @@ public class AdminService {
 	public String movieOfficialInsert(MultipartHttpServletRequest multi,RedirectAttributes rttr) {
 
 		String view = null;
-		//String msg = "?";
+		String msg = null;
 
 		MovieOfficialDto mvofficialDto = new MovieOfficialDto();
 
@@ -494,15 +494,11 @@ public class AdminService {
 			aMapper.adminMovieInsert(mvofficialDto);
 			
 			rttr.addFlashAttribute("msg", "등록 성공");
-			}
-			else {
-				aMapper.adminMovieUpdate(mvofficialDto);
-				
-				
-				rttr.addFlashAttribute("msg", "수정 성공");
-			}
+
+			}			
 		}
 		view = "redirect:adminMovieList";
+
 		return view;
 	}
 		//1대1 문의 답변(사용함)(하는중)

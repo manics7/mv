@@ -24,13 +24,6 @@ public class AdminController {
 	
 	private ModelAndView mv;
 	
-	//관리자 페이지로 이동
-	@GetMapping("adminPage")
-	public String mogeAdminPage() {
-		
-		return "adminPage";
-	}
-
 	//신고페이지(영화리뷰)
 	@GetMapping("mvrreportFrm")
 	public ModelAndView mvrreportFrm(Integer pageNum) {
@@ -194,6 +187,13 @@ public class AdminController {
 		String view = aServ.movieOfficialInsert(multi,rttr);
 		
 		return view;
+	}
+	
+	// 관리자 페이지로 이동
+	@GetMapping("adminPage")
+	public String adminPage() {
+		
+		return "adminPage";
 	}
 	
 }

@@ -58,10 +58,84 @@ ol, ul, li {
 .movie-list {
 	width: 220px;
 	height: 420px;
-	margin-left: 30px;
+	margin-left: 40px;
+	margin-bottom: 40px;
+}
+
+.movie-list:nth-child(4n+1) {
+	margin-left: 0;
+}
+
+.poster_box {
+	width: 220px;
+	height: 310px;
 }
 
 .poster_contain img {
 	width: 220px;
 	height: 310px;
+}
+
+.movieSummary {
+	width: 220px;
+	height: 310px;
+	margin-top: -310px;
+	padding: 10px;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.movieContent {
+	display:inline-block;
+	width: 200px;
+	height: 240px;
+	border-bottom: 2px solid #666666;
+}
+
+.movieRate {
+	display:inline-block;
+	width: 200px;
+	height: 50px;
+}
+
+.movieTitle {
+	width: 220px;
+	margin-top: 8px;
+	
+}
+
+.watchGrade {
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	text-indent: -999999px;
+	background-repeat: no-repeat;
+	float: left;
+	margin-right: 10px;
+}
+
+.movieNm {
+	display: inline-block;
+	width: 170px;
+	height: 25px;
+}
+
+.movieOpenDt {
+	margin: 5px 0;
+}
+
+.btn_box {
+	width: 220px;
+	height: 35px;
+	text-align: center;
+}
+
+.btn_box>button {
+	width: 220px;
+	height: 35px;
+	background-color: #f16a1a;
+	border: none;
+	border-radius: 4px;
+	color: white;
+	font-size: 16px;
 }
