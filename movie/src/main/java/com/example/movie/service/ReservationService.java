@@ -165,19 +165,20 @@ public class ReservationService {
 		try {
 			tx.begin();
 						
-			MemberDto member = (MemberDto)httpSession.getAttribute("userInfo");
-			Optional<String> id = Optional.ofNullable(member.getM_id());
+			Optional<MemberDto> member = Optional.ofNullable((MemberDto)httpSession.getAttribute("userInfo"));
+			Optional<String> id = member.map(MemberDto::getM_id);
 			
 			Reservation reservation = new Reservation();
 			List<ReservationSeat>	 seatList = new ArrayList<ReservationSeat>();	
 			
 			reservation.setSchCode(Integer.parseInt(schCode));
 			reservation.setSchDetailSeq(Integer.parseInt(schDetailSeq));
-			reservation.setMId(id.orElse(null));
+			reservation.setMId(id.orElse(""));
 			reservation.setRsrvDate(DateUtil.strToDate(rsrvDate));
 			reservation.setAdultCnt(Integer.parseInt(adultCnt));
 			reservation.setYouthCnt(Integer.parseInt(youthCnt));
 			reservation.setPrice(Integer.parseInt(price));
+			reservation.setRsrvStatus(0);
 			
 			//좌석번호 				
 			for (int i = 0; i < selectSeatNo.size(); i++) {
@@ -215,7 +216,7 @@ public class ReservationService {
          
     }
 
-	public Map<String, Object> getPaymentInfo(Integer rsrvNo) {
+	public Map<String, Object> getReservationInfo(Integer rsrvNo) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		

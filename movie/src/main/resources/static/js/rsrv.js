@@ -24,17 +24,21 @@
 			,schDetailSeq : ''
 			
 		}			
-		,init : function(){			
+		,init : function(e){			
+
+			e.stopImmediatePropagation();
+		
 			fnObj.initData();
 			if(fnObj.defaultData.isBack.length > 0){
 				
-				fnObj.getTimeList();
+				fnObj.getTimeList(e);
 			}
 			$("#areaList > ul li:first").click();			
 			
 		}	
 		
 		,initData : function() {
+		
 			$.ajax({
 				type : "GET"
 				,url : "/getSchedule"      		
@@ -63,9 +67,7 @@
 			});
 		}
 		,resetData : function(){		
-			if(fnObj.defaultData.rsrvNo > 0){
-				fnObj.deleteRsrv();
-			}
+
 			fnObj.ReceivedData.movieCd = "";
 			fnObj.ReceivedData.thCode = "";
 			fnObj.selectData.movieCd = '';			
@@ -75,6 +77,14 @@
 			fnObj.selectData.schDetailSeq = '';
 			fnObj.selectData.timeIdx = '';
 			fnObj.defaultData.isBack = '';
+			
+			//결제완료후 리셋버튼 눌럿을떄는 삭제x
+			if($("#rsrvComplete").val() == 1){
+			return;
+			}	
+			if(fnObj.defaultData.rsrvNo > 0){
+				fnObj.deleteRsrv();
+			}		
 			fnObj.defaultData.rsrvNo = '';
 		}		
 		,backRsrv: function(){
@@ -133,7 +143,7 @@
 		
 			$("#dateList ul").html(html);
 		}
-		,getTimeList : function(){		
+		,getTimeList : function(e){		
 			
 			var params = $.param(fnObj.selectData);
 			if(params == null){
@@ -180,7 +190,9 @@
 				}
 			});
 		}
-		,selectItem : function(){		
+		,selectItem : function(e){		
+	
+			e.stopImmediatePropagation();
 			
 			var params = $.param(fnObj.selectData);
 			if(params == null){
@@ -239,7 +251,10 @@
 		    $('#mask').fadeIn(100);      
 		    $('#mask').fadeTo(100,0.3);    
 		}
-		, getSeat : function(){			
+		, getSeat : function(e){			
+			
+			e.stopImmediatePropagation();
+			
 			$.ajax({
 				type : "POST"
 				,url : "/getSeat"
@@ -254,6 +269,11 @@
 					var matrix = [];
 					var status = '';
 					var seatNo = '';
+					
+					if(res.watchGrade == '청소년 관람불가'|| res.watchGrade == '18'){
+						$("#youthCnt").css("display","none")
+					}
+					
 					//화면에 보여줄 좌석을 한줄씩 만든다.
 					for(var i=0; i<seatList.length; i++){							
 						//로우생성
@@ -295,13 +315,15 @@
 					
 					$(".terrain").addClass("disabled");
 					fnObj.mask();
+						
+					
 				},
 				err : function(err) {
 					console.log("err:", err)
 				}
 			});	
 		}
-		, reservation : function(){
+		, insertReservation : function(e){
 			
 			var adultCnt = $("#adultCnt .active").text(); 
 			var youthCnt = $("#youthCnt .active").text();	
@@ -327,25 +349,31 @@
 			
 			$.ajax({						
 				type : "POST"
-				,url : "/reservation"
+				,url : "/insertReservation"
 				,data : params
 				,success : function(res) {
 					
-					fnObj.defaultData.rsrvNo = res.rsrvNo;					
-					$('#rsrvModal .modal-content').load("rsrvPayment",fnObj.getPaymentInfo);
+					fnObj.defaultData.rsrvNo = res.rsrvNo;	
 				}
 				,error: function (error) {
 				console.log(error.responseJSON.message);
 					if(!error.responseJSON.message){
 						alert(error.responseJSON.message + "\n" + "좌석을 다시 선택해주세요.");
-						fnObj.getSeat();
+						fnObj.getSeat(e);
 						$("#selectSeat input").val("");
 						$("#selectSeat input").css("background-color","");
 						$("#price").text("");
 					} 
-					
 		       }
 			});	
+			
+			setTimeout(function(){
+				$('#rsrvModal .modal-content').load("rsrvPayment",fnObj.getReservationInfo(e));
+			
+			}, 1500); 
+
+			
+		
 		}			
 		, deleteRsrv : function(){
 			$.ajax({						
@@ -362,13 +390,16 @@
 			 fnObj.defaultData.rsrvNo = '';	
 					
 		}
-		, getPaymentInfo : function(){		
+		, getReservationInfo : function(e){	
+			
+			e.stopImmediatePropagation();
+				
 			$.ajax({						
 				type : "POST"
-				,url : "/getPaymentInfo"
+				,url : "/getReservationInfo"
 				,data : {"rsrvNo" : fnObj.defaultData.rsrvNo}
 				,dataType : "json"
-				,success : function(res) {		
+				,success : function(res) {	
 					var movie = res.schedule.movieOfficial;
 					var theater = res.schedule.theater;
 					var date = res.reservation.rsrvDate.replaceAll("-","") + " (" +res.dayOfWeek+")";
@@ -399,31 +430,46 @@
 				,error: function (error) {
 				console.log(error.responseText);
 		       }
-			});	
+			});
+			
 		}
+		, reservationCancel : function(e){	
 		
+			$.ajax({						
+				type : "POST"
+				,url : "/reservationCancel"
+				,data : {"rsrvNo" : fnObj.defaultData.rsrvNo}
+				,dataType : "json"
+				,success : function(res) {	
+					
+				}
+				,error: function (error) {
+				console.log(error.responseText);
+		       }
+			});
+		}
 	}
+	//모달창열기
+	$(document).on('click',"#reservationComplete",function(e) {
+		$('#rsrvModal .modal-content').load("reservationComplete");
+	});
 	
 	//모달창열기
-	$(document).on('click',"#modal",function(event) {
-		$('#rsrvModal .modal-content').load("rsrv");
-		fnObj.init();		
+	$(document).on('click',"#modal",function(e) {
+		$('#rsrvModal .modal-content').load("rsrv", fnObj.init(e));
 	});
 	
 	//좌석선택 페이지 로드
 	$(document).on('click',"#rsrvSeat",function(e) {
-		
-		if($("li.selected").length < 5){
+			if($("li.selected").length < 5){
 			modalShow('alertModal');
 			return;
 		}
-		
-		$('#rsrvModal .modal-content').load("rsrvSeat",fnObj.getSeat);
-		e.preventdefault
+		$('#rsrvModal .modal-content').load("rsrvSeat",fnObj.getSeat(e));
 	});	
 	
 	//결제선택 페이지 로드
-	$(document).on('click',"#rsrvPayment",function() {
+	$(document).on('click',"#rsrvPayment",function(e) {
 	
 		var adultCnt = $("#adultCnt .active").text(); 
 		var youthCnt = $("#youthCnt .active").text();	
@@ -433,26 +479,28 @@
 			modalShow('alertModal');
 			return;
 		}
-		fnObj.reservation();
+		fnObj.insertReservation(e);
 
 	});	
 	
 	//결제화면에서 뒤로가기
-	$(document).on('click',"#backSeat",function() {		
-		$('#rsrvModal .modal-content').load("rsrvSeat");
+	$(document).on('click',"#backSeat",function(e) {		
+		$('#rsrvModal .modal-content').load("rsrvSeat", fnObj.getSeat(e));
 		
+		if($("#rsrvComplete").val() == 1){
+			return;
+		}			
 		if(fnObj.defaultData.rsrvNo > 0){
 			fnObj.deleteRsrv();	
-		};		
-			fnObj.getSeat();
+		};	
+			
 	});				
 
 	//리셋
-	$(document).on('click',"#reset",function() {
+	$(document).on('click',"#reset",function(e) {
 		$('#rsrvModal .modal-content').load("rsrv");
-						
 		fnObj.resetData();
-		fnObj.init();				
+		fnObj.init(e);				
 	});	
 	 //모달 닫힐때;	
 	 $('#rsrvModal').on('hidden.bs.modal', function () {
@@ -460,15 +508,17 @@
 	  });
 	
 	//모달화면 보였을때 
-	$('#rsrvModal').on('shown.bs.modal', function (event) {
-		fnObj.init();
-		var target = $(event.relatedTarget);		
+	$('#rsrvModal').on('shown.bs.modal', function (e) {
+		fnObj.init(e);
+		var target = $(e.relatedTarget);		
 		var movieCd = $(target).data("movie");
 		var thCode = $(target).data("thcode");
 		//fnObj.ReceivedData.movieCd = movieCd;
 		//fnObj.ReceivedData.thCode = thCode;
 		
 	 });
+	 
+			
 	
 	//영화검색
 	$(document).on('keyup',"#searchMovie",function() {
@@ -516,8 +566,8 @@
 	});
 	//일정에 없는 영화 선택시 모달창열기
 	$(document).on('click', "li.disable", function(e){		
+		e.stopImmediatePropagation();
 		modalShow("confirmModal");
-		e.preventdefault();	
 	});
 	//일정에 없는 영화 선택시 모달창에서 확인 누르면 초기화
 	$(document).on('click', "#confirm", function(){
@@ -526,7 +576,7 @@
 	});
 
 	//영화 클릭시 영화코드 저장
-	$(document).on("click", "#movieList li" , function(){
+	$(document).on("click", "#movieList li" , function(e){
 		var movieCd= $(this).attr("movieCd");
 		var src = '';
 		
@@ -542,21 +592,21 @@
 		
 		fnObj.selectData.movieCd = movieCd;
 		
-		fnObj.selectItem();
+		fnObj.selectItem(e);
 	});
 	
 	//극장 클릭시 극장코드 저장
-	$(document).on("click", "#theaterList li" , function(){
+	$(document).on("click", "#theaterList li" , function(e){
 		var thCode= $(this).attr("thCode");
 		$("#theaterNm").text($(this).text());
 		fnObj.selectData.thCode = thCode;
 		
-		fnObj.selectItem();
+		fnObj.selectItem(e);
 		
 	});
 	
 	//날짜 저장
-	$(document).on("click", "#dateList li" , function(){
+	$(document).on("click", "#dateList li" , function(e){
 		var date= $(this).attr("date");
 		var year =  date.substr(0,4);
 		var month = date.substr(5,2)
@@ -565,7 +615,7 @@
 		$("#schDate").text(year+"."+month+"."+day+" (" + dayOfWeek+")");
 		fnObj.selectData.date = date;
 		
-		fnObj.selectItem();
+		fnObj.selectItem(e);
 	});
 	
 	//시간선택 시 선택정보에 값 출력
@@ -594,10 +644,10 @@
 	});
 	
 	//뒤로가기
-	$(document).on("click", "#back" , function(){
+	$(document).on("click", "#back" , function(e){
 		fnObj.defaultData.isBack = 'back';
-		$('#rsrvModal .modal-content').load("rsrv");
-		fnObj.init();		
+		$('#rsrvModal .modal-content').load("rsrv", fnObj.init(e));
+			
 	});
 
 	//인원수 체크
@@ -681,63 +731,95 @@
 		$("#"+id).modal('show')
 	}
 	
-	// 카카오페이 결제창
+	//결제팝업
+	function popup(url){
+	
+		var _width = '650';
+   		var _height = '580';		 
+	    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+	    var _left = Math.ceil(( window.screen.width - _width )/2);
+    	var _top = Math.ceil(( window.screen.height - _height )/2); 
+		var strWindowFeatures = "menubar=no,location=no,resizable=no,scrollbars=no,status=no";  		
+	
+	 	window.open(url, 'popup_window', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top, strWindowFeatures);	 
+	}
+	
+	// 카카오페이 결제정보 url 불러오기
 	$(document).on("click", "#kakaoPay" , function(){
 
-		var form = $('form')[0];
-		var formData = new FormData(form);
-		
-		
+		var url = "";
+		var rsrvNo = $("#rsrvNo").val();
 		var orderId =	$("#orderId").val();
 		var movieNm = $("#movieNm").val();
 		var seatCnt =	$("#seatCnt").val();
 		var amount = $("#amount").val();
-	
-		//formData.append("orderId", orderId);
-		//formData.append("movieNm", movieNm);
-		//formData.append("seatCnt", seatCnt);
-		//formData.append("amount", amount);
+		
+		var params = {"orderId" : orderId
+			,"movieNm" : movieNm
+			,"seatCnt" : seatCnt
+			,"amount" : amount
+			,"rsrvNo" : rsrvNo
+		}	
 	
 		$.ajax({						
 		type : "POST"
 		,url : "/kakaoPay"
+		,async :false
 		,dataType : "json"
 		,data : {"orderId" : orderId
 			,"movieNm" : movieNm
 			,"seatCnt" : seatCnt
 			,"amount" : amount
+			,"rsrvNo" : rsrvNo
 		}	
-	//	,data : formData	
 		,success : function(res) {	
 			console.log(res);
-			var url = res.next_redirect_pc_url;
-			var _width = '650';
-		   	var _height = '580';		 
-		    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-		    var _left = Math.ceil(( window.screen.width - _width )/2);
-		    var _top = Math.ceil(( window.screen.height - _height )/2); 
-		    
-		   // $("#kakaoPayModal .modal-body").load($(this).data("remote"));
-					    
-		   window.open(url, 'popup_window', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top, 'status=no', 'location=no', 'toolbar=no','menubar=no');
-			}
-			
-		});	
-	
+			url = res.next_redirect_pc_url;
+			popup(url);
+					   	
+			}			
+		});
 	});
 	
-	$(document).on("click","#kakaoPay2",function(){
-	//var url = res.next_redirect_pc_url;
-	var _width = '650';
-		var _height = '580';		 
-	// 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-	var _left = Math.ceil(( window.screen.width - _width )/2);
-	var _top = Math.ceil(( window.screen.height - _height )/2); 
-
-	// $("#kakaoPayModal .modal-body").load($(this).data("remote"));
-			    
-	window.open("", 'popup_window', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top, 'status=no', 'location=no', 'toolbar=no','menubar=no');
 	
-})
-
+	//카카오후 성공후 예매완료 페이지 로드
+	function loadRsrvComplete(rsrvNo){
+		$('.modal-content').load("reservationComplete",setRsrvComplete(rsrvNo));
+	}
 	
+	//예매완료페이지  세팅정보
+	function setRsrvComplete(rsrvNo){
+		
+		$.ajax({						
+				type : "POST"
+				,url : "/getPaymentInfo"
+				,data : {"rsrvNo" : rsrvNo}
+				,dataType : "json"
+				,success : function(res) {	
+					var movie = res.schedule.movieOfficial;
+					var theater = res.schedule.theater;
+					var date = res.reservation.rsrvDate.replaceAll("-",".") + " (" +res.dayOfWeek+")";
+					var adultCnt = res.reservation.adultCnt;
+					var youthCnt = res.reservation.youthCnt;
+					var adultName = adultCnt > 0 ? "일반("+ adultCnt +") " : ""
+					var youthName = youthCnt > 0 ? "청소년("+youthCnt+") " : ""
+					var seatNo = []
+					
+					for(var i=0; i<res.reservation.reservationSeat.length; i++){
+						seatNo.push(res.reservation.reservationSeat[i].seatNo)
+					}					
+						$("#orderId").text(res.reservation.rsrvDate.replaceAll("-","")+"-"+res.reservation.rsrvNo+"-" +movie.movieCd);
+						$("#movieNm").text(movie.movieNm)	;
+						$("#theaterNm").text(theater.thName + "  " + res.room.roomName);		
+						$("#rsrvDate").text(date + " " + res.ScheduleDetail.schDetailStart +" ~ "+ res.ScheduleDetail.schDetailEnd);		
+						$("#tikecCnt").text(adultName+ " " + youthName);
+						$("#seatNo").text(seatNo.toString().replaceAll(",",", "));
+						$("#amount").text(res.reservation.price.toLocaleString('ko-KR') +" 원");
+						$("#amount2").text(res.reservation.price.toLocaleString('ko-KR') +" 원");
+				}
+				,error: function (error) {
+				console.log(error.responseText);
+		       }
+			});
+		
+	}

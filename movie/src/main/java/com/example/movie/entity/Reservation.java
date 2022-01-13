@@ -94,6 +94,12 @@ public class Reservation  implements Serializable{
 	//@OneToOne(fetch = FetchType.LAZY) 
 	//@JoinColumn(name="M_ID", referencedColumnName="M_ID", insertable=false, updatable=false)  // insertable , updatable Reservation 저장시 멤버는 인서트,업데이트 제외
 	//private Member member;
+	
+	@Column(name="RSRV_STATUS", columnDefinition="예매상태 0=예매, 1=예매취소" )
+	private Integer rsrvStatus;
+	
+	
+	
 	@PrePersist
 	public void prePersist() {
 		//ApplicationContext context = new AnnotationConfigApplicationContext(); 

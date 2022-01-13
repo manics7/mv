@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="resource/css/rsrv.css">
 <link rel="stylesheet" type="text/css" href="resource/css/bootstrap.css">
-
-
-
 <script type="text/javascript">
 
 </script>
@@ -18,7 +15,7 @@
 		<div class="ml-auto">
 			<button type="button" class="btn btn-outline-light bg-dark text-white" id="reset">예매 다시하기</button>
 			<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-			<button class="btn btn-outline-light bg-dark text-white font-weight-bold" type="button" data-dismiss="modal">X</button>
+			<button class="btn btn-outline-light bg-dark text-white font-weight-bold" type="button" data-dismiss="modal" >X</button>
 		</div>
 	</div>
 		
@@ -124,6 +121,7 @@
 								</div>
 						         <div class="col-md-12">						    
 						     	   <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>		
+						     	   <button type="button" class="btn btn-lg btn-block btn-warning" id="reservationComplete"> 선택 ></button> 		
 						         </div> 
 						         
 			 				</div>
@@ -197,4 +195,6 @@
   </div>
   
 </div>	
+
+<script src="resource/js/bootstrap.bundle.js"></script>
 

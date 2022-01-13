@@ -7,9 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +17,9 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.movie.dto.MemberDto;
+import com.example.movie.entity.Payment;
 import com.example.movie.vo.KakaoPayApprovalVO;
+import com.example.movie.vo.KakaoPayCancelVO;
 import com.example.movie.vo.KakaoPayReadyVO;
 
 
@@ -35,19 +34,16 @@ public class KakaoPay {
 	@Autowired
 	private HttpSession httpSession;
 	
-	private Map<String, String> param;
-	
-	private KakaoPayReadyVO kakaoPayDto;
+	private KakaoPayReadyVO kakaoPayReadyVO;
 
-	private String tid = "";
-	
 	//카카오 결제준비
-	public String kakaoPayReady(Map<String, String> map) throws IOException {
+	public KakaoPayReadyVO kakaoPayReady(Map<String, String> map) throws IOException {
 
-		param = map;
 		RestTemplate restTemplate = new RestTemplate();		
-		MemberDto memberDto = (MemberDto) httpSession.getAttribute("userInfo");
 		
+		MemberDto memberDto = (MemberDto) httpSession.getAttribute("userInfo");
+
+				
 		String id  = "partner_user_id";
 		if(memberDto != null) {
 			 id = memberDto.getM_id();
@@ -74,41 +70,27 @@ public class KakaoPay {
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
        
   		try {		
-  			
-  			//kakaoPayDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayDto.class);
-  			//return kakaoPayDto.getNext_redirect_pc_url();
-  			String result = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, String.class);
-
-  			JSONParser p = new JSONParser();
-  			JSONObject obj = (JSONObject)p.parse(result);
-  			tid = (String) obj.get("tid");
-  			
-
-
-
-			return result;
-  			
-			
+  			kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
+  			kakaoPayReadyVO.setRsrvNo(Integer.parseInt(map.get("rsrvNo").toString()));
+  			kakaoPayReadyVO.setOrderId(map.get("orderId"));
+  			kakaoPayReadyVO.setAmount(Integer.parseInt(map.get("amount").toString()));
+			//return restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, String.class);
+			return kakaoPayReadyVO;
 		} catch (RestClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} 		
-				
-			
 		
-        return restTemplate.getErrorHandler().toString();
+        return kakaoPayReadyVO;
 
 	}
 	
 	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) throws IOException {
-		 RestTemplate restTemplate = new RestTemplate();
-		 
+			
+			RestTemplate restTemplate = new RestTemplate();		 
 	        // 서버로 요청할 Header
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.add("Authorization", "KakaoAK " + "fa40fe44b0a731a95f5562eded86e507");
@@ -119,35 +101,64 @@ public class KakaoPay {
 			if(memberDto != null) {
 				 id = memberDto.getM_id();
 			}
-			
-	        
 	        
 	        // 서버로 요청할 Body
 	        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 	        params.add("cid", "TC0ONETIME");
-	        params.add("tid",  tid);
-	        params.add("partner_order_id", param.get("orderId"));
+	        params.add("tid",  kakaoPayReadyVO.getTid());
+	        params.add("partner_order_id", kakaoPayReadyVO.getOrderId());
 	        params.add("partner_user_id", id);
 	        params.add("pg_token", pg_token);
-	        params.add("total_amount", param.get("amount"));
+	        params.add("total_amount", kakaoPayReadyVO.getAmount().toString());
 	        
 	        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 	        
 	        try {
-	        	KakaoPayApprovalVO payment = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
-	           // log.info("" + kakaoPayApprovalVO);
-	          
-	          //  return kakaoPayApprovalVO;
-	        	return payment;
+	  
+	        	KakaoPayApprovalVO kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
+	        	kakaoPayApprovalVO.setRsrvNo(kakaoPayReadyVO.getRsrvNo());
+	        	return kakaoPayApprovalVO;
+	  
 	        } catch (RestClientException e) {
-	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        } catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	        
 	        return null;
 	}
+	
+	
+	public KakaoPayCancelVO kakaoPayCancel(Map<String, String> map) throws IOException {
+		
+		RestTemplate restTemplate = new RestTemplate();		 
+        // 서버로 요청할 Header
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "KakaoAK " + "fa40fe44b0a731a95f5562eded86e507");
+ 
+        
+        // 서버로 요청할 Body
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("cid", "TC0ONETIME");
+        params.add("tid",  kakaoPayReadyVO.getTid());
+        params.add("cancel_amount", "0");
+        params.add("cancel_tax_free_amount", "0");
+        params.add("cancel_vat_amount	", kakaoPayReadyVO.getAmount().toString());
+        
+        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        
+        try {
+  
+        	KakaoPayCancelVO kakaoPayCancel = restTemplate.postForObject(new URI(HOST + "/v1/payment/cancel"), body, KakaoPayCancelVO.class);
+        	return kakaoPayCancel;
+  
+        } catch (RestClientException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+        
+        return null;
+}
 
 }

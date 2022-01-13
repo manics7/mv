@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resource/css/bootstrap.css">
-
+<script type="text/javascript">
+</script>
 <style type="text/css">
 
 .modal-header-bg {background-color: #1d1d1d;}
@@ -30,25 +31,6 @@
 .text-warning {color: #f16a1a;}
 
 .modal-header {background-color: #1d1d1d;}
-
-.btn-warning {
-	background-color: #f16a19;
-	color: white;
-	border: none;
-}
-
-.btn-warning:hover {
-	background-color: #f16a19;
-	color: white;
-	cursor: pointer;
-	border: none;
-}
-
-.btn-warning:not(:hover) {
-	background-color: #f16a19;
-	color: white;
-	border: none;
-}
 
 .collapsible-link::before {
 	content: '';
@@ -83,25 +65,6 @@
 	transform: rotate(180deg);
 }
 
-.btn-warning {
-	background-color: #f16a19;
-	color: white;
-	border: none;
-}
-
-.btn-warning:hover {
-	background-color: #f16a19;
-	color: white;
-	cursor: pointer;
-	border: none;
-}
-
-.btn-warning:not(:hover) {
-	background-color: #f16a19;
-	color: white;
-	border: none;
-}
-
 #payment-group .btn {
 	height: 40px;
 	width: 150px;
@@ -118,7 +81,6 @@
 $(document).ready(function(){
 	
 	
-
 	
 	
 	
@@ -271,7 +233,7 @@ $(document).ready(function(){
 						<div class="col-8"><h5 class="font-weight-bold">총 결제금액</h5></div>
 						<div class="col-4"><h5 class="font-weight-bold" style="color: #f16a1a;" id="price"> 원</h5></div>	
 						<div class="col-md-12 text-center">						
-							<button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvPayment">결제수단 ></button>
+							<button type="button" class="btn btn-lg btn-block btn-warning">결제수단 ></button>
 						</div>						
 					</div>
 				</div>
@@ -280,8 +242,23 @@ $(document).ready(function(){
 	</div>
 </div>
 
-<script type="text/javascript">
-
-
-</script>
-
+<div class="modal fade" id="kakaoPayModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">알림</h5>
+        <button type="button" class="close" aria-label="Close" onclick="javascript:modalClose('kakaoPayModal');">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       	
+      </div>
+      <div class="modal-footer">        
+        <button type="button" class="btn btn-secondary mr-auto ml-auto" onclick="javascript:modalClose('kakaoPayModal');">확인</button>
+      </div>
+    </div>
+  </div>
+  
+</div>	
+<script src="resource/js/bootstrap.bundle.min.js"></script>

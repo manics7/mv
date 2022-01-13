@@ -15,15 +15,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.common.ErrorResponse;
 import com.example.movie.common.KakaoPay;
+import com.example.movie.entity.Payment;
+import com.example.movie.service.PaymenteService;
+import com.example.movie.service.ReservationService;
+import com.example.movie.vo.KakaoPayApprovalVO;
+import com.example.movie.vo.KakaoPayReadyVO;
 
 @Controller
 public class PaymentController {
 	
 	@Autowired
 	KakaoPay kakaoPay;
+	
+	@Autowired
+	PaymenteService paymenteService;
+	
+	@Autowired
+	ReservationService reservationService;
 
    @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleControllerException(Exception e)
@@ -37,31 +50,52 @@ public class PaymentController {
 	
 	@PostMapping("/kakaoPay")
 	@ResponseBody
-	public String kakaoPayReady(@RequestParam Map<String, String> params) throws IOException {
-		String kakaoPayUrl =  kakaoPay.kakaoPayReady(params);
-		return kakaoPayUrl;		
+	public KakaoPayReadyVO kakaoPayReady(@RequestParam Map<String, String> params) throws IOException {
+		KakaoPayReadyVO kakaoPayReadyVO =  kakaoPay.kakaoPayReady(params);
+		return kakaoPayReadyVO;		
 	}
 	
 	@GetMapping("/kakaoPaySuccess")
-	public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) throws IOException {
+	public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, RedirectAttributes rttr) throws IOException, InterruptedException {
 
-		kakaoPay.kakaoPayInfo(pg_token);
+	//	Thread thread = new Thread();
+	//	thread.wait(3000);
+		KakaoPayApprovalVO kakaoPayApprovalVO = kakaoPay.kakaoPayInfo(pg_token);
 		
-		return "rsrv/success";
+		int rsrvNo = paymenteService.insertPayment(kakaoPayApprovalVO);
+		
+		//ModelAndView modelAndView = new ModelAndView();
+		//modelAndView.addObject("res",reservationService.getPaymentInfo(rsrvNo));
+		//modelAndView.addObject("rsrvNo",rsrvNo);
+		//modelAndView.setViewName("rsrv/reservationComplete");
+		//rttr.addAttribute("res", reservationService.getPaymentInfo(rsrvNo));
+		model.addAttribute("rsrvNo",rsrvNo);		
+		//return "redirect:/reservationComplete";
+		//return  "rsrv/reservationComplete";
+		return "rsrv/reservationComplete";
 	}
 	
+	//결창에서 완료전에 창닫았을때
 	@GetMapping("/kakaoPayCancel")
 	public String kakaoPayCancel() {
-		return "/";
+		return "rsrv/cancle";
 	}
 	
+	//결제 실패
 	@GetMapping("/kakaoPayFail")
 	public String kakaoPayFail() {
 		return "/";
-	}
+	}	
 	
-	@GetMapping("/success")
-	public String success2() {
-		return "rsrv/reservationPayment_success";
-	}
+	//결제완료후 예매완료페이지를 모달창에 로드
+	@GetMapping("/reservationComplete")
+	public String reservationComplete() {
+		return "rsrv/reservationComplete";
+	}	
+	
+	@PostMapping("reservationCancel")
+	public String reservationCancel(@RequestParam Map<String, String> params) throws IOException {
+		kakaoPay.kakaoPayCancel(params);
+		return "rsrv/reservationCancel";
+	}			
 }
