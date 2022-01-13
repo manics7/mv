@@ -19,9 +19,6 @@ import com.example.movie.dto.reportMvReviewDto;
 
 public interface AdminMapper extends MybatisMapper {
 
-	// 현재상영작 불러오기
-	public List<MovieOfficialDto> getMovieList();
-
 	// 영화 상세 페이지 이동
 	public MovieOfficialDto movieDetail(String movie_cd);
 
@@ -69,7 +66,6 @@ public interface AdminMapper extends MybatisMapper {
 	//관리자가 등록한 영화 목록
 	public List<MovieOfficialDto> selectMvOfficial();
 	
-	public List<reportMvReviewDto> selectReportMvReviewSort(Map<String, Integer> pmap);
 	//사업자 회원 목록 출력
 	public List<BusinessDto> getbuslist(HashMap<String, Integer> busmap);
 	//사업자 회원 목록 페이징시 필요한 목록 수
@@ -91,6 +87,10 @@ public interface AdminMapper extends MybatisMapper {
 
 	//1대1 문의사항의 답변 처리.(관리자 입장)
 	public quesReplyDto insertReplyWrite(quesReplyDto qrdto);
+	//무비오피셜에 등록된 영화 있는지 검색(중복확인)
+	public int selectMvOfficialCntByMovieCode(String movieCd);
+	//무비오피셜 수정(관리자 영화등록 수정)
+	public void adminMovieUpdate(MovieOfficialDto mvofficialDto);
 
 
 

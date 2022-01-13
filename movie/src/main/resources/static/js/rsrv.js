@@ -1,28 +1,32 @@
 	
 	var fnObj = {		
-		defaultData : {
+		// 초기화면 세팅 데이터
+		defaultData : { 
 			movieList : {}
 			,theaterList : {}
 			,dateList  : {}
 			,schDateList : {}		
-			,history : ''	
+			,isBack : ''	
+			,rsrvNo : ''
 		},
+		 // 극장이나 영화정보 화면에서 선택시 넘오는 데이터
 		ReceivedData : {
 			movieCd : ''
 			,thCode :''
 		}
-		,selectData : {
+		// 화면에서 선택한 값들
+		,selectData : { 
 			movieCd : ''
 			,thCode :''
 			,date : ''
-			,time : ''
+			,timeIdx : '' //뒤로가기 시간선택 인덱스
 			,schCode : ''
 			,schDetailSeq : ''
 			
 		}			
 		,init : function(){			
 			fnObj.initData();
-			if(fnObj.defaultData.history.length > 0){
+			if(fnObj.defaultData.isBack.length > 0){
 				
 				fnObj.getTimeList();
 			}
@@ -52,13 +56,16 @@
 					}	
 					$("#areaList > ul li:first").addClass("selected");
 					
-					fnObj.history();			
+					fnObj.backRsrv();			
 				},error : function(err) {
 					//console.log("err:", err)
 				}
 			});
 		}
-		,resetData : function(){
+		,resetData : function(){		
+			if(fnObj.defaultData.rsrvNo > 0){
+				fnObj.deleteRsrv();
+			}
 			fnObj.ReceivedData.movieCd = "";
 			fnObj.ReceivedData.thCode = "";
 			fnObj.selectData.movieCd = '';			
@@ -66,10 +73,11 @@
 			fnObj.selectData.date = '';			
 			fnObj.selectData.schCode = '';			
 			fnObj.selectData.schDetailSeq = '';
-			fnObj.selectData.time = '';
-			fnObj.defaultData.history = '';
+			fnObj.selectData.timeIdx = '';
+			fnObj.defaultData.isBack = '';
+			fnObj.defaultData.rsrvNo = '';
 		}		
-		,history: function(){
+		,backRsrv: function(){
 	
 			var movieCd = fnObj.selectData.movieCd;
 			var thCode = fnObj.selectData.thCode;
@@ -163,8 +171,8 @@
 					}
 					$("#timeList ul").html(html);					
 					
-					if(fnObj.defaultData.history.length > 0){
-						$('#timeList li').eq(fnObj.selectData.time).click();
+					if(fnObj.defaultData.isBack.length > 0){
+						$('#timeList li').eq(fnObj.selectData.timeIdx).click();
 					}
 										
 				},error : function(err) {
@@ -184,30 +192,30 @@
 				success : function(res) {
 									
 					if($("#dateList li").hasClass("selected")){				
-						$("#movieList li, #theaterList li").addClass("disabled");	
+						$("#movieList li, #theaterList li").addClass("disable");	
 						res.forEach(function(item){				
-							$("#movieList li[movieCd=" +item.movieCd+ "]").css("cursor","pointer").removeClass("disabled");	
-							$("#theaterList li[thCode=" +item.thCode+ "]").css("cursor","pointer").removeClass("disabled");	
+							$("#movieList li[movieCd=" +item.movieCd+ "]").css("cursor","pointer").removeClass("disable");	
+							$("#theaterList li[thCode=" +item.thCode+ "]").css("cursor","pointer").removeClass("disable");	
 						});
 					}
 					
 					if($("#theaterList li").hasClass("selected")){			
-						$("#movieList li, #dateList li").addClass("disabled");			
+						$("#movieList li, #dateList li").addClass("disable");			
 						res.forEach(function(item){				
-							$("#movieList li[movieCd=" +item.movieCd+ "]").css("cursor","pointer").removeClass("disabled");	
-							$("#dateList li[date=" +item.schDate+ "]").css("cursor","pointer").removeClass("disabled");	
+							$("#movieList li[movieCd=" +item.movieCd+ "]").css("cursor","pointer").removeClass("disable");	
+							$("#dateList li[date=" +item.schDate+ "]").css("cursor","pointer").removeClass("disable");	
 						});
 					}
 					
 					if($("#movieList li").hasClass("selected")){
-						$("#theaterList li, #dateList li").addClass("disabled");		
+						$("#theaterList li, #dateList li").addClass("disable");		
+						//$("#theaterList li, #dateList li").attr("disable",true);		
 						res.forEach(function(item){
-							$("#theaterList li[thCode=" +item.thCode+ "]").css("cursor","pointer").removeClass("disabled");	
-							$("#dateList li[date=" +item.schDate+ "]").css("cursor","pointer").removeClass("disabled");	
+							$("#theaterList li[thCode=" +item.thCode+ "]").css("cursor","pointer").removeClass("disable");	
+							$("#dateList li[date=" +item.schDate+ "]").css("cursor","pointer").removeClass("disable");	
 						});											
 					}	
-					$("li.disabled")
-					
+										
 					var selectCnt = $("#movieList li.selected, #theaterList li.selected, #dateList li.selected").length;
 					if(selectCnt == 3){
 					fnObj.getTimeList();
@@ -219,13 +227,23 @@
 				}
 			});
 		}
-		
-		, getSeat : function(){
+		,mask : function (){
+		  //화면의 높이와 너비를 구한다.
+		    var maskHeight = $(document).height();  
+		    var maskWidth = $(window).width();  
 			
+		    //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+		    $('#mask').css({'width':maskWidth,'height':maskHeight});  
+			
+		    //애니메이션 효과
+		    $('#mask').fadeIn(100);      
+		    $('#mask').fadeTo(100,0.3);    
+		}
+		, getSeat : function(){			
 			$.ajax({
 				type : "POST"
 				,url : "/getSeat"
-				,data : {"schCode" : fnObj.selectData.schCode, "schDetailSeq" : fnObj.selectData.schDetailSeq}	       		
+				,data : {"schCode" : fnObj.selectData.schCode, "schDetailSeq" : fnObj.selectData.schDetailSeq} 
 				,success : function(res) {
 					//console.log(res);
 					var row = res.room.roomRow;
@@ -259,13 +277,13 @@
 					
 							for(var j=0; j<matrix[i].length; j++){	
 								
-								status = matrix[i][j].seatStatus == 1 ? 'terrain'  : 'possible';								
+								status = matrix[i][j].seatStatus == 0 ? 'terrain'  : 'possible';								
 								seatNo = status == 'terrain' ? ' ' : matrix[i][j].seatNo; 
 								
 								for(var k=0; k<rsrvSeatNoList.length; k++){
 									status = ( rsrvSeatNoList[k] == matrix[i][j].seatNo ? 'reservation' : status);
 								}
-								html += "<a class='btn btn-outline-dark mx-1 my-1 px-0 "+ status +" ' href='#'  seatNo="+seatNo+" data-toggle='button'  >"
+								html += "<a class='btn btn-outline-dark mx-1 my-1 px-0 "+ status +" ' href='#'  seatNo="+seatNo+" >"
 								+ seatNo + "</a>";
 							}
 							
@@ -276,34 +294,167 @@
 					$("#seat").html(html);
 					
 					$(".terrain").addClass("disabled");
+					fnObj.mask();
 				},
 				err : function(err) {
 					console.log("err:", err)
 				}
 			});	
-		}		
+		}
+		, reservation : function(){
+			
+			var adultCnt = $("#adultCnt .active").text(); 
+			var youthCnt = $("#youthCnt .active").text();	
+			var selectSeat = $("#seat .active"); 
+			var price = $("#price").text().replace(",","");
+			var seatNo = [];
+			
+			for(var i=0; i<selectSeat.length; i++){
+				var no = $(selectSeat[i]).attr("seatNo");
+				seatNo.push(no);
+			}
+			console.log(seatNo);
+			
+			var params =	{
+						"schCode" : fnObj.selectData.schCode
+						,"schDetailSeq" : fnObj.selectData.schDetailSeq
+						,"date" : fnObj.selectData.date
+						,"adultCnt" : adultCnt
+						,"youthCnt" : youthCnt
+						,"price" : price
+						,"seatNo" : seatNo
+					}
+			
+			$.ajax({						
+				type : "POST"
+				,url : "/reservation"
+				,data : params
+				,success : function(res) {
+					
+					fnObj.defaultData.rsrvNo = res.rsrvNo;					
+					$('#rsrvModal .modal-content').load("rsrvPayment",fnObj.getPaymentInfo);
+				}
+				,error: function (error) {
+				console.log(error.responseJSON.message);
+					if(!error.responseJSON.message){
+						alert(error.responseJSON.message + "\n" + "좌석을 다시 선택해주세요.");
+						fnObj.getSeat();
+						$("#selectSeat input").val("");
+						$("#selectSeat input").css("background-color","");
+						$("#price").text("");
+					} 
+					
+		       }
+			});	
+		}			
+		, deleteRsrv : function(){
+			$.ajax({						
+				type : "DELETE"
+				,url : "/deleteRsrv"
+				,data : {"rsrvNo" : fnObj.defaultData.rsrvNo}
+				,success : function(res) {		
+				}
+				,error: function (error) {
+				console.log(error);
+		       }		
+			});
+			
+			 fnObj.defaultData.rsrvNo = '';	
+					
+		}
+		, getPaymentInfo : function(){		
+			$.ajax({						
+				type : "POST"
+				,url : "/getPaymentInfo"
+				,data : {"rsrvNo" : fnObj.defaultData.rsrvNo}
+				,dataType : "json"
+				,success : function(res) {		
+					var movie = res.schedule.movieOfficial;
+					var theater = res.schedule.theater;
+					var date = res.reservation.rsrvDate.replaceAll("-","") + " (" +res.dayOfWeek+")";
+					var adultCnt = res.reservation.adultCnt;
+					var youthCnt = res.reservation.youthCnt;
+					var adultName = adultCnt > 0 ? "일반("+ adultCnt +") " : ""
+					var youthName = youthCnt > 0 ? "청소년("+youthCnt+") " : ""
+					var seatNo = []
+					
+					$("#orderId").val(res.reservation.rsrvDate.replaceAll("-","")+"-"+res.reservation.rsrvNo+"-" +movie.movieCd);
+					$("#movieNm").val(movie.movieNm);
+					$("#seatCnt").val(res.reservation.reservationSeat.length);
+					$("#amount").val(res.reservation.price);
+					$("#rsrvNo").val(res.reservation.rsrvNo);
+					
+					for(var i=0; i<res.reservation.reservationSeat.length; i++){
+						seatNo.push(res.reservation.reservationSeat[i].seatNo)
+					}					
+						$("#movieNm").text(movie.movieNm)	;
+						$("#theaterNm").text(theater.thName);		
+						$("#roomNm").text(res.room.roomName + " " + res.room.roomClass);		
+						$("#schDate").text(date);		
+						$("#schTime").text(res.ScheduleDetail.schDetailStart +" ~ "+ res.ScheduleDetail.schDetailEnd);		
+						$("#tikecCnt").text(adultName+ " " + youthName);
+						$("#seatNo").text(seatNo.toString().replaceAll(",",", "));
+						$("#price").text(res.reservation.price.toLocaleString('ko-KR') +" 원");
+				}
+				,error: function (error) {
+				console.log(error.responseText);
+		       }
+			});	
+		}
 		
 	}
 	
 	//모달창열기
 	$(document).on('click',"#modal",function(event) {
-		$('#rsrvModal .modal-content').load("rsrv");		
+		$('#rsrvModal .modal-content').load("rsrv");
+		fnObj.init();		
 	});
+	
 	//좌석선택 페이지 로드
-	$(document).on('click',"#rsrvSeat",function() {
+	$(document).on('click',"#rsrvSeat",function(e) {
 		
-		$('#rsrvModal .modal-content').load("rsrvSeat", fnObj.getSeat);
-		//$('#rsrvModal .modal-content').load("rsrvSeat", {"schCode" : fnObj.selectData.schCode, "schDetailSeq" : fnObj.selectData.schDetailSeq});
-		//$('#rsrvModal').modal();	
-	});			
+		if($("li.selected").length < 5){
+			modalShow('alertModal');
+			return;
+		}
+		
+		$('#rsrvModal .modal-content').load("rsrvSeat",fnObj.getSeat);
+		e.preventdefault
+	});	
+	
+	//결제선택 페이지 로드
+	$(document).on('click',"#rsrvPayment",function() {
+	
+		var adultCnt = $("#adultCnt .active").text(); 
+		var youthCnt = $("#youthCnt .active").text();	
+		var sumCnt = Number(youthCnt)+Number(adultCnt);
+		var seatList =  $("#seat .active").length; 
+		if(sumCnt != seatList){
+			modalShow('alertModal');
+			return;
+		}
+		fnObj.reservation();
+
+	});	
+	
+	//결제화면에서 뒤로가기
+	$(document).on('click',"#backSeat",function() {		
+		$('#rsrvModal .modal-content').load("rsrvSeat");
+		
+		if(fnObj.defaultData.rsrvNo > 0){
+			fnObj.deleteRsrv();	
+		};		
+			fnObj.getSeat();
+	});				
 
 	//리셋
 	$(document).on('click',"#reset",function() {
-		$('#rsrvModal .modal-content').load("rsrv");		
+		$('#rsrvModal .modal-content').load("rsrv");
+						
 		fnObj.resetData();
 		fnObj.init();				
 	});	
-	
+	 //모달 닫힐때;	
 	 $('#rsrvModal').on('hidden.bs.modal', function () {
 		fnObj.resetData();
 	  });
@@ -319,15 +470,11 @@
 		
 	 });
 	
+	//영화검색
 	$(document).on('keyup',"#searchMovie",function() {
 		 //var value =$(this).val().toUpperCase();
 		 //console.log($("#movieList ul > li"));
 	});
-	
-	$(document).on('click',"ul.disabled",function(event) {
-		//$('#confirm').modal();
-	});
-		
 
 	//영화, 극장검색
 	function filter(id,target){
@@ -367,7 +514,17 @@
 		   		$(this).css("color","");
 			});
 	});
-	
+	//일정에 없는 영화 선택시 모달창열기
+	$(document).on('click', "li.disable", function(e){		
+		modalShow("confirmModal");
+		e.preventdefault();	
+	});
+	//일정에 없는 영화 선택시 모달창에서 확인 누르면 초기화
+	$(document).on('click', "#confirm", function(){
+		modalClose("confirmModal");	
+		$("#reset").click();		
+	});
+
 	//영화 클릭시 영화코드 저장
 	$(document).on("click", "#movieList li" , function(){
 		var movieCd= $(this).attr("movieCd");
@@ -413,9 +570,9 @@
 	
 	//시간선택 시 선택정보에 값 출력
 	$(document).on("click", "#timeList li" , function(){
-		fnObj.selectData.time = $(this).index("#timeList li"); 
+		fnObj.selectData.timeIdx = $(this).index("#timeList li"); 
 		fnObj.selectData.schCode = $(this).prev().prev().val(); //schCode
-		fnObj.selectData.schDetailSeq = $(this).prev().prev().val(); //schDetailSeq
+		fnObj.selectData.schDetailSeq = $(this).prev().val(); //schDetailSeq
 		
 		$("#roomNm").text($(this).attr("roomnm"));
 		$("#schTime").text($(this).text().substr(0,11));
@@ -435,75 +592,152 @@
 			}       
 	    })	   
 	});
-
-
-	$(document).on("click", "#confirm" , function(){
-	});	
 	
 	//뒤로가기
 	$(document).on("click", "#back" , function(){
-		fnObj.defaultData.history = 'history';
-		$('#rsrvModal .modal-content').load("rsrv",fnObj.init());		
+		fnObj.defaultData.isBack = 'back';
+		$('#rsrvModal .modal-content').load("rsrv");
+		fnObj.init();		
 	});
-	
-	//인원수 체크 및 금액계산
-	$(document).on("click", "#youthCnt, #adultCnt" , function(e){
-	
-		var youthCnt = $('#youthCnt input:radio:checked').val();
-		var adultCnt = $('#adultCnt input:radio:checked').val();
+
+	//인원수 체크
+	$(document).on("click", "#youthCnt a, #adultCnt a" , function(e){
+			
+		$(this).addClass("active");
+		$(this).siblings().removeClass("active"); 
+		
+		var adultCnt = $("#adultCnt .active").text(); 
+		var youthCnt = $("#youthCnt .active").text();	
 		var sumCnt = Number(youthCnt)+Number(adultCnt);
 		
+		if(sumCnt > 0) {
+			$("#mask").hide();
+		}else{
+			fnObj.mask();
+		}
+			
 		var youthPrice = Number(youthCnt*7000);
 		var adultPrice = Number(adultCnt*9000);
 		
 		if(sumCnt > 8 ){
-			if($(this).attr("aria-label") == 'First group'){
-				$("#adultCnt label").removeClass("active");
-				$("#adultCnt label").eq(0).addClass("active");
+			if($(this).parent().attr("id") == 'adultCnt'){
+				$("#adultCnt a").removeClass("active");
+				$("#adultCnt a").eq(0).addClass("active");
 				$("#price").html(youthPrice.toLocaleString('ko-KR'));
-			}else{				
-				$("#youthCnt label").removeClass("active");
-				$("#youthCnt label").eq(0).addClass("active"); 
+			}else{
+				$("#youthCnt a").removeClass("active");
+				$("#youthCnt a").eq(0).addClass("active");
 				$("#price").html(adultPrice.toLocaleString('ko-KR'));
-			}		
-			e.preventDefault();
-			alert("최대 8명");
-			
+			}
+			alert("최대 8인");
 			return;
 		}
-	
 		$("#price").html(Number(youthPrice+adultPrice).toLocaleString('ko-KR'));
-				
+		
 	});
-	
+
+	//좌석선택
 	$(document).on("click", "#seat a" , function(e){
-	
-		var youthCnt = $('#youthCnt input:radio:checked').val();
-		var adultCnt = $('#adultCnt input:radio:checked').val();
-		var sumCnt = Number(youthCnt)+Number(adultCnt); 
+
+		$(this).toggleClass("active");
+			 
+		var selectCnt = Number($("#adultCnt .active").text())+Number($("#youthCnt .active").text());
 		var seatList =  $("#seat .active"); 
 		var selectSeat = $("input[name='seatNo']");
 		
-		
-		//for(var i=0; i<selectSeat; i++){
-			
-		//}
-		//console.log(seatList.length + "/" + sumCnt);
-		if(seatList.length > sumCnt){
+		//console.log(seatList.length + "/" + selectCnt);
+		if(seatList.length > selectCnt){			 
 			$(this).removeClass("active");
 			return;
 		}
 		
 		for(var i=0; i<selectSeat.length; i++){
-			console.log($(selectSeat[i]).val());
-			for(var j=0; j<seatList.length; j++){
-				console.log($(selectSeat[i]).val()  +" / " +  $(seatList[i]).attr("seatNo"));
-		
-				$(selectSeat[i]).val($(seatList[i]).attr("seatNo"));
+			//	console.log($(selectSeat).eq(i).val()  +" /  액티브좌석번호 " +  $(seatList[i]).attr("seatNo"));			
+			$(selectSeat).eq(i).val($(seatList[i]).attr("seatNo"));			
+			if($(selectSeat).eq(i).val() == $(seatList[i]).attr("seatNo")){
+				$(selectSeat).eq(i).css({"background-color":"#f16a19","color":"white"})
+			}else{
+				$(selectSeat).eq(i).css({"background-color":"","color":""})
 			}
 		}
-		
-		
-		//$("#seat a").hasClass("active")
 	});
+	
+	$(document).on("mouseenter", "#seat a" , function(){
+		//$(this).css("background-color","red");
+		//$(this).next().css("background-color","red");
+	});
+	
+	$(document).on("mouseout", "#seat a" , function(){
+		//$(this).css("background-color","");
+		//$(this).next().css("background-color","");
+	});
+	
+	//모달닫기
+	function modalClose(id){
+	$("#"+id).modal('hide')
+	}
+	//모달열기
+	function modalShow(id){
+		$("#"+id).modal('show')
+	}
+	
+	// 카카오페이 결제창
+	$(document).on("click", "#kakaoPay" , function(){
+
+		var form = $('form')[0];
+		var formData = new FormData(form);
+		
+		
+		var orderId =	$("#orderId").val();
+		var movieNm = $("#movieNm").val();
+		var seatCnt =	$("#seatCnt").val();
+		var amount = $("#amount").val();
+	
+		//formData.append("orderId", orderId);
+		//formData.append("movieNm", movieNm);
+		//formData.append("seatCnt", seatCnt);
+		//formData.append("amount", amount);
+	
+		$.ajax({						
+		type : "POST"
+		,url : "/kakaoPay"
+		,dataType : "json"
+		,data : {"orderId" : orderId
+			,"movieNm" : movieNm
+			,"seatCnt" : seatCnt
+			,"amount" : amount
+		}	
+	//	,data : formData	
+		,success : function(res) {	
+			console.log(res);
+			var url = res.next_redirect_pc_url;
+			var _width = '650';
+		   	var _height = '580';		 
+		    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+		    var _left = Math.ceil(( window.screen.width - _width )/2);
+		    var _top = Math.ceil(( window.screen.height - _height )/2); 
+		    
+		   // $("#kakaoPayModal .modal-body").load($(this).data("remote"));
+					    
+		   window.open(url, 'popup_window', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top, 'status=no', 'location=no', 'toolbar=no','menubar=no');
+			}
+			
+		});	
+	
+	});
+	
+	$(document).on("click","#kakaoPay2",function(){
+	//var url = res.next_redirect_pc_url;
+	var _width = '650';
+		var _height = '580';		 
+	// 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+	var _left = Math.ceil(( window.screen.width - _width )/2);
+	var _top = Math.ceil(( window.screen.height - _height )/2); 
+
+	// $("#kakaoPayModal .modal-body").load($(this).data("remote"));
+			    
+	window.open("", 'popup_window', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top, 'status=no', 'location=no', 'toolbar=no','menubar=no');
+	
+})
+
 	

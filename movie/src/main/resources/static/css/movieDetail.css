@@ -4,6 +4,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	background-repeat: no-repeat;
 }
 
 a {
@@ -12,4 +13,89 @@ a {
 
 ul, ol, li {
 	list-style: none;
+}
+
+#wrap {
+	margin-top: 90px;
+	width: 100%;
+	height: 100%;
+}
+
+#background {
+	width: 100%;
+	min-width: 1000px;
+	height: 350px;
+	background-color: black;
+}
+
+#container {
+	width: 1000px;
+	height: 1500px;
+	margin: 0 auto;
+}
+
+#bgPoster {
+	width: 1000px;
+	height: 350px;
+	overflow: hidden;
+	background-size: cover;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9))
+}
+
+#movieInfo {
+	padding: 48px 30px 0 30px;
+	width: 1000px;
+	height: 350px;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 1), 13%, rgba(0, 0, 0, 0.7), 74%, rgba(0, 0, 0, 1));
+	color: white;
+}
+
+#movieInfoWrap {
+	width: 760px;
+	float: left;
+}
+
+#movieDetailTitle {
+	margin-left: 5px;
+	font-size: 42px;
+	margin-bottom: 5px;
+}
+
+.watchGrade {
+	height: 30px;
+}
+
+.detailInfo {
+	height: 23px;
+}
+
+.detailInfo span {
+	font-size: 14px;
+	color: #666666;
+}
+
+#movieInfoWrap button {
+	width: 140px;
+	height: 45px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	font-size: 17px;
+	background-color: #f16a1a;
+}
+
+#posterBtn {
+	float:left;
+	width: 180px;
+}
+
+#detailPoster {
+	margin: 0 auto;
+}
+
+#detailPoster img {
+	width: 180px;
+	height: 270px;
+	margin-top: -8px;
+	border-radius: 5px;
 }

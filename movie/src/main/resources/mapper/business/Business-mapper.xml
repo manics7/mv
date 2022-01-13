@@ -145,6 +145,17 @@
 		INSERT INTO SEAT
 		VALUES (SEAT_SEQ.NEXTVAL,#{th_code},#{room_no},#{seat_col},#{seat_row},#{seat_status},#{seat_no})
 	</insert>
+	
+	<!-- 사업자 영화 등록 // th_code 처리 해야함 확인 해야함 까먹지 말고 제발~ -->
+	<insert id="movieInsertProc" parameterType="com.example.movie.dto.MovieDto">
+		insert into movie values (movie_seq.nextval, #{th_code}, #{movie_cd}, #{movie_nm}, ${show_tm}, #{open_dt}, #{genre_nm}, #{directors}, #{actors}, #{show_types}, #{watch_grade_nm}, #{poster, jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 사업자 영화등록에 필요한 th_code를 session에서 b_id로 찾아오기 -->
+	<select id="getThcode" parameterType="String" resultType="Integer">
+		select th_code from theater where b_id=#{bId}
+	</select>
+	
 </mapper>
 
 

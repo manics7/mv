@@ -58,7 +58,7 @@
 					</div>
 					<div class="form-group">
 						<label for="board_subject">날짜</label>
-						<input type="text" id="board_subject" name="ques_reply_date" class="form-control"/>
+						<input type="date" id="board_subject" name="ques_reply_date" class="form-control"/>
 					</div>
 					<div class="form-group">
 						<label for="board_content">내용</label>

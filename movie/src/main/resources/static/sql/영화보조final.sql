@@ -50,7 +50,7 @@ CREATE TABLE question_reply (
 	ques_no	NUMBER		NULL,
 	ques_reply_cont	NCLOB		NULL,
 	ques_reply_date	DATE		NULL,
-	ques_reply_state	NUMBER		NULL
+	ques_reply_title	nvarchar2(50)		NULL
 );
 
 drop table reply cascade constraints;
@@ -75,7 +75,8 @@ CREATE TABLE movie (
 	directors	nvarchar2(50)		NULL,
 	actors	nvarchar2(50)		NULL,
 	show_types	nvarchar2(50)		NULL,
-	watch_grade_nm	number		NULL
+	watch_grade_nm	nvarchar2(50)		NULL,
+	poster	nvarchar2(500)	null
 );
 
 COMMENT ON COLUMN movie.th_code IS '외래키';
@@ -157,6 +158,7 @@ CREATE TABLE report_review (
 	rpt_m_id	NVARCHAR2(50)		NULL,
 	rp_why	NVARCHAR2(50)		NULL,
 	rp_date	DATE		NULL,
+	rp_contents NVARCHAR2(50) null,
 	rp_state	NUMBER		NULL
 );
 
@@ -168,6 +170,7 @@ CREATE TABLE report_mv_review (
 	rpt_m_id	NVARCHAR2(50)		NULL,
 	rp_why	NVARCHAR2(50)		NULL,
 	rp_date	DATE		NULL,
+	rp_contents NVARCHAR2(50) null,
 	rp_state	NUMBER		NULL
 );
 
@@ -188,6 +191,7 @@ CREATE TABLE report_reply (
 	rpt_m_id	NVARCHAR2(50)		NULL,
 	rp_why	NVARCHAR2(50)		NULL,
 	rp_date	DATE		NULL,
+	rp_contents NVARCHAR2(200) null,
 	rp_state	NUMBER		NULL
 );
 
@@ -330,7 +334,7 @@ create table temp (
     genreAlt    nvarchar2(50) -- 장르 전체
 );
 
-ALTER TABLE reservation ADD CONSTRAINT pk_movieCd PRIMARY KEY (
+ALTER TABLE temp ADD CONSTRAINT pk_movieCd PRIMARY KEY (
 	movieCd
 );
     
@@ -483,3 +487,57 @@ ALTER TABLE review_file ADD CONSTRAINT PK_REVIEW_FILE PRIMARY KEY (
 drop sequence review_file_no_seq;
 CREATE SEQUENCE review_file_no_seq;
 
+------------------------------------------- view  view  view  view  view  view ---------------------------------
+CREATE OR REPLACE VIEW RMVRLIST AS
+SELECT report_mv_review.rp_mv_seq ,    --BNUM:빈 필드명과 컬럼명이 일치하면 편하다. 
+       report_mv_review.movie_review ,
+       report_mv_review.rp_m_id ,
+       report_mv_review.rpt_m_id ,
+       report_mv_review.rp_why ,
+       report_mv_review.rp_date ,
+      report_mv_review.rp_contents ,
+       report_mv_review.rp_state 
+FROM report_mv_review INNER JOIN member
+ON report_mv_review.rp_m_id=member.M_ID
+ORDER BY report_mv_review.rp_date DESC;
+--SELECT * FROM BLIST;
+
+CREATE OR REPLACE VIEW RMVRLIST_1 AS
+SELECT ROWNUM AS RONUM, rp_mv_seq,movie_review,rp_m_id,rpt_m_id,rp_why,rp_date,rp_contents,rp_state
+FROM RMVRLIST;
+
+CREATE OR REPLACE VIEW ReportReviewLIST AS
+SELECT report_review.rp_rv_seq ,    --BNUM:빈 필드명과 컬럼명이 일치하면 편하다. 
+       report_review.review_num ,
+       report_review.rp_m_id ,
+       report_review.rpt_m_id ,
+       report_review.rp_why ,
+       report_review.rp_date ,
+      report_review.rp_contents ,
+       report_review.rp_state 
+FROM report_review INNER JOIN member
+ON report_review.rp_m_id=member.M_ID
+ORDER BY report_review.rp_date DESC;
+--SELECT * FROM BLIST;
+
+CREATE OR REPLACE VIEW ReportReviewLIST_1 AS
+SELECT ROWNUM AS RONUM, rp_rv_seq,review_num,rp_m_id,rpt_m_id,rp_why,rp_date,rp_contents,rp_state
+FROM ReportReviewLIST;
+
+CREATE OR REPLACE VIEW ReportReplyLIST AS
+SELECT report_reply.rp_rp_seq ,    --BNUM:빈 필드명과 컬럼명이 일치하면 편하다. 
+       report_reply.rp_reply_no ,
+       report_reply.rp_m_id ,
+       report_reply.rpt_m_id ,
+       report_reply.rp_why ,
+       report_reply.rp_date ,
+     report_reply.rp_contents ,
+       report_reply.rp_state 
+FROM report_reply INNER JOIN member
+ON report_reply.rp_m_id=member.M_ID
+ORDER BY report_reply.rp_date DESC;
+--SELECT * FROM BLIST;
+
+CREATE OR REPLACE VIEW ReportReplyLIST_1 AS
+SELECT ROWNUM AS RONUM, rp_rp_seq,rp_reply_no,rp_m_id,rpt_m_id,rp_why,rp_date,rp_contents,rp_state
+FROM ReportReplyLIST;

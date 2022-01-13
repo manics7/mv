@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>영화리뷰 신고목록</title>
+<title>게시글 신고목록</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -36,9 +36,9 @@
 					<div class="card shadow">
 						<div class="member_top_btn_wrap">
 							<div class="member_top_btn">
-								<a class="btn_nomal" style="background: #f16a1a; color: white;"
+								<a class="btn_nomal"
 									href="./mvrreportFrm">영화리뷰신고</a> 
-									<a href="boardreportFrm" class="btn_nomal">게시글신고</a> 
+									<a href="boardreportFrm" class="btn_nomal" style="background: #f16a1a; color: white;">게시글신고</a> 
 									<a class="busbtn" href="replyreportFrm">댓글신고</a>
 							</div>
 

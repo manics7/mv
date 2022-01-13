@@ -18,17 +18,48 @@
 	<div id="wrap">
 		<div id="background">
 			<div id="container">
-<%-- 				<img alt="${mvOfficial.movie_nm }" src="${mvOfficial.poster }" title="${mvOfficial.movie_nm }"> --%>
-					<div id="info">
-						<p>${mvOfficial.movie_nm }</p><br>
-						<p>${mvOfficial.watch_grade_nm } | ${mvOfficial.open_dt } | ${mvOfficial.genre_nm } | ${mvOfficial.show_tm }</p>
-					</div>
-					<div id="poster_btn">
-						<div>
-							예매하기
+				<div id="bgPoster" style="background-image: url(${mvOfficial.poster })">
+					<div id="movieInfo">
+						<div id="movieInfoWrap">
+							<p id="movieDetailTitle">${mvOfficial.movie_nm }</p>
+							<p id="movieDetailInfo" class="detailInfo">
+								<c:choose>
+									<c:when test="${mvOfficial.watch_grade_nm eq '12세' }">
+										<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png)">
+									</c:when>
+									<c:when test="${mvOfficial.watch_grade_nm eq '15세' }">
+										<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png)">
+									</c:when>
+									<c:when test="${mvOfficial.watch_grade_nm eq '18세' }">
+										<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-18.png)">
+									</c:when>
+									<c:otherwise>
+										<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png)">
+									</c:otherwise>
+								</c:choose>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 
+								<fmt:formatDate value="${mvOfficial.open_dt }" pattern="yyyy.MM.dd"/>
+								 | ${mvOfficial.genre_nm } | ${mvOfficial.show_tm }분
+							</p><br>
+							<p id="Director" class="detailInfo"><span>감독 </span> ${mvOfficial.directors }</p>
+							<p id="actor" class="detailInfo"><span>배우 </span> ${mvOfficial.actors }</p><br>
+							<button>
+								예매하기
+							</button>
+						</div>
+						<div id="posterBtn">
+							<div id="detailPoster">
+								<img alt="" src="${mvOfficial.poster }"> 
+							</div>
 						</div>
 					</div>
+				</div>
 				
+				<div id="poster_btn">
+					<div>
+						예매하기
+					</div>
+				</div>
 			</div>
 		</div>
 		<div>
