@@ -39,6 +39,7 @@ import com.example.movie.dto.ThmovieDto;
 import com.example.movie.mapper.AdminMapper;
 import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.mvReviewDto;
+import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.dto.reservationDto;
 import com.example.movie.entity.MovieOfficial;
@@ -128,8 +129,6 @@ public class MemberService {
 		List<QuestionDto> aqList = mMapper.selectQuestion(id);
 
 		List<QuestionDto> qList = new ArrayList<QuestionDto>();
-
-
 		//가져온 글리스트가 있을때만 페이징처리
 		if(!aqList.isEmpty()) {
 
@@ -166,8 +165,29 @@ public class MemberService {
 
 				qList.add(que);
 			}
-		} 
+			
+			for(int i = 0; i<= qList.size()-1; i++) {
+				QuestionDto qDto = qList.get(i);
+				int qnum = qDto.getQues_no();
+				int ques_state = qDto.getQues_state();
+				
+				if(ques_state == 1) {
+					quesReplyDto qrDto = aMapper.selectQuesReply(qnum);
+					
+					int quesReplyNum = qrDto.getQues_reply_no();
+					String quesReplyTitle = qrDto.getQues_reply_title();
+					
+					qDto.setQues_reply_no(quesReplyNum);
+					qDto.setQues_reply_title(quesReplyTitle);
+					
+					qList.remove(i);
+					qList.add(i,qDto);
+				}
+				
+			}
 	
+		} 
+		
 
 		mv.addObject("qList",qList);
 		//전체 글 갯수
@@ -746,8 +766,8 @@ public class MemberService {
 	}
 //영화관 상세정보 출력 
 	public ModelAndView inserttheaterinfo(Integer th_code) {
-		mv = new ModelAndView();
-		List<ThmovieDto> thdtail = mMapper.inserttheaterinfo(th_code);
+	mv = new ModelAndView();
+	List<ThmovieDto> thdtail = mMapper.inserttheaterinfo(th_code);
 	List<SsdscheduleDto> thdschedule = mMapper.selectmovieschedule();
 	Map<String, Object> theaterlist = new HashMap<String, Object>();
 	theaterlist.put("thdtail", thdtail);
@@ -853,6 +873,28 @@ public class MemberService {
 			mv.addObject("movieList", movieList);
 			mv.setViewName("currentMovieList");
 
+			return mv;
+		}
+
+		public ModelAndView selectThcode() {
+			List<TheaterDto> thCodeList = mMapper.seletThkey();
+			mv = new ModelAndView();
+			mv.addObject("thCodeList", thCodeList);
+			//mv = mMapper.seletThkey();
+			
+			return mv;
+		}
+
+		public ModelAndView memReadQuesRe(int ques_no, int view) {
+			
+			quesReplyDto qrDto = aMapper.selectQuesReply(ques_no);
+			if(view == 0) {
+				mv.setViewName("memberQuesReplyRead");
+				
+			}else{
+				mv.setViewName("AdminQuesReplyRead");
+			}
+			mv.addObject("readqrDto", qrDto);
 			return mv;
 		}
 	

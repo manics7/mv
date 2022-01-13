@@ -29,7 +29,7 @@ public interface AdminMapper extends MybatisMapper {
 	List<quesboardDto> getquesboardSelect(String m_id);
 
 	//1대1문의게시판 읽기 
-	List<quesboardDto> getquesboardRead(int ques_no);
+	quesboardDto getquesboardRead(int ques_no);
 	
 	//1대1문의사항 게시판 목록 가져오기
 	public List<quesboardDto> getQuesList(Map<String, Integer> qmap);
@@ -87,7 +87,9 @@ public interface AdminMapper extends MybatisMapper {
 	public List<ReportReplyDto> selectReportReply(Map<String, Integer> pmap);
 
 	//1대1 문의사항의 답변 처리.(관리자 입장)
-	public quesReplyDto insertReplyWrite(quesReplyDto qrdto);
+	public void insertReplyWrite(quesReplyDto qrdto);
+
+	public void selectReplyQues();
 
 
 

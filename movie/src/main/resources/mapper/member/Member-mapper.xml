@@ -141,5 +141,9 @@
 	<select id="getMovieList" parameterType="String" resultType="com.example.movie.dto.MovieOfficialDto">
 		select * from movie_official
 	</select>
-
+	
+	<!-- 영화관 코드 가져오기 -->
+	<select id="seletThkey" resultType="com.example.movie.dto.TheaterDto">
+	SELECT * FROM theater
+	</select>
 </mapper>

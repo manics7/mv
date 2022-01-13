@@ -60,7 +60,6 @@
 			<div class="col-sm-6">
 				<div class="card shadow">
 					<div class="card-body">
-						<c:forEach var="qrlist" items="${qrlist}">
 							<div class="form-group">
 								<label for="board_subject">제목</label> <input type="text"
 									id="board_subject" name="board_subject" class="form-control"
@@ -80,8 +79,10 @@
 							<div class="form-group">
 								<label for="board_content">내용</label>
 								<textarea id="board_content" name="board_content"
-									class="form-control" rows="10" style="resize: none"
-									disabled="disabled">${qrlist.ques_cont}</textarea>
+									class="form-control" rows="5" style="resize: none"
+									disabled="disabled">${qrlist.ques_cont} 
+									</textarea>
+									
 							</div>
 
 							<!--
@@ -90,8 +91,6 @@
 									width="100%" />
 							</div>
 							  -->
-
-						</c:forEach>
 						<!-- 
 				<div class="form-group">
 						<label for="board_writer_name">작성자</label>

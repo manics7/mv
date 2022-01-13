@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -16,16 +17,39 @@
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <link rel="stylesheet" href="resource/css/theater_detail/custome.css">
 <link rel="stylesheet" href="resource/css/theater_detail/styles.css">
-<link rel="stylesheet" href="/node_modules/bxslider/dist/jquery.bxslider.css">
 <!-- FontAwesome CDN-->
 <link rel="stylesheet"
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+	getDate();
+	console.log("getDate : "+ getDate());
+	function getDate(){
+		$.ajax({
+			type : "GET"
+			,url : "/getDate" 
+			,success : function(data) {
+			var	html ="";
+						data.forEach(function(item, index){
+							
+							var date = item.date
+							var dayOfWeek =item.dayOfWeek;						
+							color = (dayOfWeek == '일' ?  "text-danger" : dayOfWeek == "토" ? "text-primary"  : "");
+							day  = date.substr(8,2);		
+							html+=  "<li class='list-group-item my-0 py-2 dateBtn " +color+" font-weight-bold'  date=" +date +" style ='cursor : pointer;'    >"+ day+" ("+dayOfWeek +")</li>";							
+						});
+						$(".day_paging ul").html(html);
+			},error : function(err) {
+				//console.log("err:", err)
+			}
+		});
+	}
+	
+	</script>
+	</head>
+	
 <body>
 	<!-- Responsive navbar-->
 	<div class="navbar_wrap">
@@ -113,7 +137,9 @@
 			</div>
 			<div class="main_movielist_cont_wrap">
 			<div class="main_movielist_cont">
-				<div class="movie_list_item item1">
+			<jsp:include page="mainMovieSlide.jsp"></jsp:include>
+			<!--  
+			<div class="movie_list_item item1">
 					<a href="#" class="thum">
 						<div class="img">
 							<img src="imges/movie_list_img1.jpg" alt="">
@@ -127,7 +153,14 @@
 						</div>
 					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
 				</div>
-				<c:forEach var ="thdtail" items= "${theatedetail}" varStatus="status">
+			
+			-->
+				
+				
+				
+				<!-- 
+				
+					<c:forEach var ="thdtail" items= "${theatedetail}" varStatus="status">
 				<div class="movie_list_item item2">
 					<a href="#" class="thum">
 						<div class="img">
@@ -143,6 +176,9 @@
 					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
 				</div>
 				</c:forEach>
+				 -->
+				
+			
 				<!--  
 				<div class="movie_list_item item3">
 					<a href="#" class="thum">
@@ -176,9 +212,7 @@
 
 			<div class="day_paging">
 				<ul class="pagination pagination-lg">
-				<!--
-				
-				<li class="page-item" name="datebtn"><a class="page-link" href="#">&laquo;</a>
+				<!--<li class="page-item" name="datebtn"><a class="page-link" href="#">&laquo;</a>
 					</li>
 					<li class="page-item" name="datebtn"><a class="page-link" href="#">22(수)</a>
 					</li>
@@ -199,10 +233,8 @@
 					<li class="page-item"><a class="page-link" href="#">&raquo;</a>
 					</li>
 					<li>${theatedetail[0].schedule.scheduleDetail}</li>
-				
-				
-				   -->
-					
+				    -->
+				    
 				</ul>
 			</div>
 
@@ -211,11 +243,6 @@
 <div class="movie_schedule_list">
 				<ul>
 
-
-
-
-			
-					
 					<!-- 
 
 
@@ -372,21 +399,15 @@
 
 </body>
 
-	<script src="js/scripts.js"></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="/node_modules/bxslider/dist/jquery.bxslider.min.js"></script>
-	<script src="resource/js/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript">
+<script type="text/javascript">
+	
 	$(document).ready(function(){
-		
 		getDate();
-		
-		
+		console.log("getDate : "+ getDate());
 		function getDate(){
 			$.ajax({
 				type : "GET"
-				,url : "/getDate"      		
+				,url : "/getDate" 
 				,success : function(data) {
 				var	html ="";
 							data.forEach(function(item, index){
@@ -394,23 +415,15 @@
 								var date = item.date
 								var dayOfWeek =item.dayOfWeek;						
 								color = (dayOfWeek == '일' ?  "text-danger" : dayOfWeek == "토" ? "text-primary"  : "");
-								
 								day  = date.substr(8,2);		
-										
-																	
 								html+=  "<li class='list-group-item my-0 py-2 dateBtn " +color+" font-weight-bold'  date=" +date +" style ='cursor : pointer;'    >"+ day+" ("+dayOfWeek +")</li>";							
 							});
-						
 							$(".day_paging ul").html(html);
-							
-							
 				},error : function(err) {
 					//console.log("err:", err)
 				}
 			});
-			
 		}
-		
 		$(document).on('click',".dateBtn" ,function(){
 			var date = $(this).attr("date");
 			$.ajax({
@@ -431,87 +444,22 @@
 						html +"</div></li>"
 						html += "<p class = mv_info>" + data[i].room.roomName +"-"+data[i].room.roomClass + "</p>"
 						html += "<p class = mv_title>" + data[i].movieOfficial.movieNm  + "</p>"
-						
 					}
-						
 					}
-// 				}
-				// c c c 
+				}
+				$(".movie_schedule_list ul").html(html);
+			},error : function(err) {
+				console.log("err:", err)
+			}
+		}); //dateBtn end
 				//		<p class="mv_info">1관 - 2D</p>
 						//<p class="mv_title">너에게 가는 길</p>
-				
 					//var date = item.date
 					//var dayOfWeek =item.dayOfWeek;	
-					
 					//color = (dayOfWeek == '일' ?  "text-danger" : dayOfWeek == "토" ? "text-primary"  : "");
-					
 					//day  = date.substr(8,2);		
-							
-														
 					//html+=  "<li class='list-group-item my-0 py-2 dateBtn " +color+" font-weight-bold'  date=" +date +" style ='cursor : pointer;'    >"+ day+" ("+dayOfWeek +")</li>";							
-				
-				$(".movie_schedule_list ul").html(html);
-				
-				
-				
-			
-						
-							
-							
-				},error : function(err) {
-					//console.log("err:", err)
-				}
-			});
-		})
-		
-		
-		
-		
-	})
-	
-	
-	</script>
-
-
-<!-- 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=599889030d8acd127e1969cf1dfccf0f"></script> -->
-	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=599889030d8acd127e1969cf1dfccf0f&libraries=services"></script>
-	<script type="text/javascript">
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
-
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
-
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch('경상남도 창원시 마산합포구 동서북 14길 24', function(result, status) {
-
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});
+			<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+	});
 	</script>
 </html>

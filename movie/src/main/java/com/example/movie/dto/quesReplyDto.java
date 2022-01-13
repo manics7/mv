@@ -18,4 +18,5 @@ public class quesReplyDto {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date ques_reply_date;
 	private int ques_reply_state;
+	private String ques_reply_title;
 }

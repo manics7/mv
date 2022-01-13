@@ -37,13 +37,12 @@ h3{
 .page_cont_wrap{
     width: 800px;
     /* height: 670px; */
- border: 1px solid lightgray;
+ /*border: 1px solid lightgray;*/
 }
 
 .user_info{
     width: 800px;
     height: 130px;
-    border: 1px solid lightgray;
     display: flex;
     justify-content:space-between;
 

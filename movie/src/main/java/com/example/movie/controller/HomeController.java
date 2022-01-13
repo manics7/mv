@@ -21,12 +21,16 @@ public class HomeController {
 	@Autowired
 	private BusinessService bServ;
 	
+	
 	private ModelAndView mv;
 	
 	@RequestMapping("/")
-	public String index() {
+	public ModelAndView index() {
 		
-		return "index";
+		ModelAndView mv = mServ.selectThcode();
+		mv.setViewName("index");
+		//thCodeList
+		return mv;
 	}
 	
 	// 이용자 회원가입 페이지 이동

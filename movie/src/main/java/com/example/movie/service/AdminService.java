@@ -73,6 +73,7 @@ public class AdminService {
 
 	//신고 영화관후기게시글
 	public ModelAndView reportedReview(Integer pageNum) {
+		
 
 		mv = new ModelAndView();
 		int num = (pageNum == null)? 1 : pageNum;
@@ -282,20 +283,13 @@ public class AdminService {
 		return pageHtml;
 	}
 
-	public List<quesboardDto> getboardRead(int ques_no) {
+	public quesboardDto getboardRead(int ques_no) {
 
-		List<quesboardDto> readqlist = aMapper.getquesboardRead(ques_no);
+		quesboardDto readqlist = aMapper.getquesboardRead(ques_no);
 
 		return readqlist;
 	}
 
-	//문의답변 전송
-	public quesReplyDto selectQuesReply(int ques_no) {
-
-		quesReplyDto qrDto = aMapper.selectQuesReply(ques_no);
-
-		return qrDto;
-	}
 	//관리자 영화등록 페이지 리스트
 	public ModelAndView adminMovieList(Integer pageNum) {
 
@@ -536,14 +530,13 @@ public class AdminService {
 		String view = null;	
 		String msg = null;
 		try {
-			qrdto = aMapper.insertReplyWrite(qrdto);
+			aMapper.insertReplyWrite(qrdto);
 			msg = "성공";
 			view = "redirect:quesboard";
 		} catch (Exception e) {
-			view = "redirect:quesboard_replywrite?ques_no=5";
+			view = "redirect:quesboard";
 			msg = "실패";
 		}
-		//qrdto = aMapper.insertReplyWrite(qrdto);
 		
 		rttr.addFlashAttribute("msg",msg);
 		return view;

@@ -79,9 +79,10 @@ public class MemberController {
 	@GetMapping("questionFrm")
 	public ModelAndView questionFrm(Integer pageNum) {
 
-		int listCnt = 10;
+		int listCnt = 4;
 
 		String View = "questionFrm";
+		
 
 		mv = mServ.selectQuestion(pageNum,listCnt,View);
 
@@ -98,10 +99,12 @@ public class MemberController {
 
 	@GetMapping("questionContents")
 	public ModelAndView questionContents(int ques_no) {
+		
 
 		Integer view = 1;
 
 		mv = aCon.requeboardRead(ques_no,view);
+		
 
 		return mv;
 	}
@@ -264,7 +267,7 @@ public class MemberController {
 	@GetMapping("getDate")
 	@ResponseBody
 	public List<Map<String, String>> getDate(){
-		List<Map<String, String>> map = scheduleService.getDatesDaysWeek(1);
+		List<Map<String, String>> map = scheduleService.getDatesDaysWeek(2);
 		
 		return map;
 	}
@@ -275,13 +278,21 @@ public class MemberController {
 		
 		return map;
 	}
-
-	// 영화관 상세 페이지 - 우창 테스트
-	@GetMapping("theater_detail")
-	public String theater_detail() {
-		
-		return "theater_detail";
+	//회원이 1대1문의사항 답변을 확인 할 떄
+	@GetMapping("memReadQuesRe")
+	public ModelAndView readQuesRe(int ques_no) {
+		mv = new ModelAndView();
+		int view = 0;
+		mv = mServ.memReadQuesRe(ques_no, view);
+		return mv;
 	}
+
+//	// 영화관 상세 페이지 - 우창 테스트
+//	@GetMapping("theater_detail")
+//	public String theater_detail() {
+//		
+//		return "theater_detail";
+//	}
 	
 	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
 	@GetMapping("currentMovieList")
