@@ -554,7 +554,7 @@ public class BusinessService {
 
 		return view;
 	}
-	
+	/*
 	//상영시간표 목록을 출력
 	public ModelAndView getScheduleList() {
 		mv = new ModelAndView();
@@ -647,7 +647,7 @@ public class BusinessService {
 		
 		return mv;
 	}
-	
+	*/
 	
 
 	// 사업자 영화목록 임시 저장

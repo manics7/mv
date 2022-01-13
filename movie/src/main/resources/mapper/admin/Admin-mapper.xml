@@ -62,10 +62,11 @@
 	</select>
 	
 
-	<select id=""
+	<select id="
+              
+              "
 		resultType="com.example.movie.dto.quesboardDto">
 		SELECT * FROM v_question where m_id = #{m_id}
-	</select>
 	
 	<select id="selectReportMvReviewCnt" resultType="Integer">
 		SELECT COUNT(*) FROM report_mv_review
