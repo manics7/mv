@@ -35,10 +35,12 @@
 										<!-- 클릭시 영화 상세페이지 이동 -->
 										<a href="./movieDetail?movie_cd=${movieList.movie_cd }">
 											<div class="movieContent">
-												<span>${movieList.movie_content }</span> 
-											</div>
-											<div class="movieRate">
-												<span>평점!</span>
+												<div class="summary">
+													<span>${movieList.movie_content }</span>
+												</div>
+												<div class="movieRate">
+													<span>평점!</span>
+												</div> 
 											</div>
 										</a>
 									</div>
@@ -86,7 +88,7 @@
 	<script type="text/javascript">
 	
 		$(".poster_box").hover(function() {
-			$(this).next().css("display", "inline-block");
+			$(this).next().css("display", "flex");
 		}, function() {
 			$(this).next().css("display", "none");
 		})

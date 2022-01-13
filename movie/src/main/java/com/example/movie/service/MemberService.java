@@ -15,9 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -29,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.ReviewMovieDto;
@@ -36,17 +35,13 @@ import com.example.movie.dto.SsdscheduleDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.dto.Theater_detailDto;
 import com.example.movie.dto.ThmovieDto;
-import com.example.movie.mapper.AdminMapper;
-import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.mvReviewDto;
-import com.example.movie.dto.quesboardDto;
 import com.example.movie.dto.reservationDto;
 import com.example.movie.entity.MovieOfficial;
 import com.example.movie.entity.Room;
 import com.example.movie.entity.Schedule;
 import com.example.movie.entity.ScheduleDetail;
 import com.example.movie.entity.Theater;
-import com.example.movie.mapper.AdminMapper;
 import com.example.movie.mapper.MemberMapper;
 import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ReservationRepository;
@@ -712,12 +707,14 @@ public class MemberService {
 		mv = new ModelAndView();
 
 		// 영화 상세 정보
-		MovieOfficialDto mvOfficialDto = aMapper.movieDetail(movie_cd);
+		MovieOfficialDto mvOfficialDto = mMapper.movieDetail(movie_cd);
 		// 관람평 목록 가져오기
-		List<ReviewMovieDto> reviewMovie = aMapper.reviewMovie(movie_cd);
-
+		List<ReviewMovieDto> reviewMovie = mMapper.reviewMovie(movie_cd);
+		List<TheaterDto> theaterCode = mMapper.getTheaterCode(movie_cd);
+		
 		mv.addObject("mvOfficial", mvOfficialDto);
 		mv.addObject("reviewMovie", reviewMovie);
+		mv.addObject("theaterName", theaterCode);
 
 		mv.setViewName("movieDetail");
 

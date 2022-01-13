@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.entity.Schedule;
@@ -277,13 +278,6 @@ public class MemberController {
 		return map;
 	}
 
-	// 영화관 상세 페이지 - 우창 테스트
-	@GetMapping("theater_detail")
-	public String theater_detail() {
-		
-		return "theater_detail";
-	}
-	
 	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
 	@GetMapping("currentMovieList")
 	public ModelAndView currentMovieList() {
@@ -322,4 +316,5 @@ public class MemberController {
 		List<Schedule> list = scheduleService.selectSchList(movieCd, thCode, schDate);
 		return list;
 	}
+	
 }

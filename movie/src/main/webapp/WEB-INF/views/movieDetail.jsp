@@ -1,122 +1,170 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8" />
 <title>영화가 좋다</title>
-<link rel="stylesheet" type="text/css" href="resource/css/movieDetail.css">
+<link rel="stylesheet" type="text/css"
+	href="resource/css/movieDetail.css">
 </head>
 
 <body>
 
-		<jsp:include page="header.jsp"></jsp:include>
-	
+	<jsp:include page="header.jsp"></jsp:include>
+
 	<div id="wrap">
 		<div id="background">
 			<div id="container">
-				<div id="bgPoster" style="background-image: url(${mvOfficial.poster })">
+				<div id="bgPoster"
+					style="background-image: url(${mvOfficial.poster })">
 					<div id="movieInfo">
 						<div id="movieInfoWrap">
 							<p id="movieDetailTitle">${mvOfficial.movie_nm }</p>
 							<p id="movieDetailInfo" class="detailInfo">
 								<c:choose>
-									<c:when test="${mvOfficial.watch_grade_nm eq '12세' }">
-										<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png)">
+									<c:when test="${mvOfficial.watch_grade_nm eq '12세 이상' }">
+										<p class="watchGrade"
+											style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png)">
 									</c:when>
-									<c:when test="${mvOfficial.watch_grade_nm eq '15세' }">
-										<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png)">
+									<c:when test="${mvOfficial.watch_grade_nm eq '15세 이상' }">
+										<p class="watchGrade"
+											style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png)">
 									</c:when>
-									<c:when test="${mvOfficial.watch_grade_nm eq '18세' }">
-										<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-18.png)">
+									<c:when test="${mvOfficial.watch_grade_nm eq '청소년 관람불가' }">
+										<p class="watchGrade"
+											style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-18.png)">
 									</c:when>
 									<c:otherwise>
-										<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png)">
+										<p class="watchGrade"
+											style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png)">
 									</c:otherwise>
 								</c:choose>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 
-								<fmt:formatDate value="${mvOfficial.open_dt }" pattern="yyyy.MM.dd"/>
-								 | ${mvOfficial.genre_nm } | ${mvOfficial.show_tm }분
-							</p><br>
-							<p id="Director" class="detailInfo"><span>감독 </span> ${mvOfficial.directors }</p>
-							<p id="actor" class="detailInfo"><span>배우 </span> ${mvOfficial.actors }</p><br>
-							<button>
-								예매하기
-							</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+								<fmt:formatDate value="${mvOfficial.open_dt }"
+									pattern="yyyy.MM.dd" />
+								| ${mvOfficial.genre_nm } | ${mvOfficial.show_tm }분
+							</p>
+							<br>
+							<p id="Director" class="detailInfo">
+								<span>감독 </span> ${mvOfficial.directors }
+							</p>
+							<p id="actor" class="detailInfo">
+								<span>배우 </span> ${mvOfficial.actors }
+							</p>
+							<br>
+							<button>예매하기</button>
 						</div>
 						<div id="posterBtn">
 							<div id="detailPoster">
-								<img alt="" src="${mvOfficial.poster }"> 
+								<img alt="" src="${mvOfficial.poster }">
 							</div>
 						</div>
 					</div>
 				</div>
-				
-				<div id="poster_btn">
-					<div>
-						예매하기
+				<div id="menuWrap">
+					<div id="menu">
+						<ul>
+							<li id="info">기본정보</li>
+							<li id="theaterList">상영 영화관</li>
+							<li id="review">관람평</li>
+							<li id="stillcut">스틸컷</li>
+						</ul>
+					</div>
+					<div class="info">
+						<div>
+							<h4>감독 및 배우</h4>
+							<span>감독</span> ${mvOfficial.directors }
+							<span>배우</span> ${mvOfficial.actors }
+							
+							<h4>줄거리</h4>
+							${mvOfficial.movie_content }
+<!-- 							내용 입력 할건데요~? -->
+						</div>
+					</div>
+					<div class="theaterList">
+						<ul>
+							<c:forEach var="theaterName" items="${theaterName }">
+								<li>
+									<div>
+										<div>
+											<img alt="" src="${theaterName.th_logo }">
+										</div>
+										<div>
+											${theaterName.th_name }
+										</div>
+									</div>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+					<div class="review">
+						<!-- 영화 관람평 목록 -->
+						<form id="reviewMovie">
+							<input type="text" placeholder="관람평을 작성해 주세요" id="reviewComment" name="mv_review_comment" onkeypress="if(event.keyCode==13){return false;}">
+							<input type="button" onclick="reviewMovieF(${mvOfficial.movie_cd})" value="작성">
+						</form>
+						<table>
+							<tr>
+								<td>작성자</td>
+								<td>후기</td>
+								<td>작성일</td>
+							</tr>
+						</table>
+						<table id="reviewList">
+							<c:forEach var="reviewMovie" items="${reviewMovie}">
+								<tr>
+									<td>${reviewMovie.mv_review_id }</td>
+									<td>${reviewMovie.mv_review_comment }</td>
+									<td><fmt:formatDate
+											value="${reviewMovie.mv_review_date }" pattern="MM-dd HH:mm"></fmt:formatDate>
+									</td>
+								</tr>
+							</c:forEach>
+						</table>
+						<!-- 영화 관람평 작성 -->
+						
+					</div>
+					<div class="stillcut">
+						<ul>
+							<li>
+								<img alt="" src="${mvOfficial.poster }">
+							</li>
+							<li>
+								<img alt="" src="${mvOfficial.stillcut1 }">
+							</li>
+							<li>
+								<img alt="" src="${mvOfficial.stillcut2 }">
+							</li>
+							<li>
+								<img alt="" src="${mvOfficial.stillcut3 }">
+							</li>
+							<li>
+								<img alt="" src="${mvOfficial.stillcut4 }">
+							</li>
+							<li>
+								<img alt="" src="${mvOfficial.stillcut5 }">
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div>
-			<div>
-				<div id="menu">
-					<ul>
-						<li>기본정보</li>						
-						<li>상영 영화관</li>
-						<li>관람평</li>
-					</ul>
-				</div>
-				<div id="info">
-					
-				</div>
-				<div id="영화관">
-					
-				</div>
-				<div id="review">
-					
-					<!-- 영화 관람평 목록 -->
-					
-					<table>
-						<tr>
-							<td>작성자</td>
-							<td>후기</td>
-							<td>작성일</td>						
-						</tr>
-					</table>
-					<table id="reviewList">
-						<c:forEach var="reviewMovie" items="${reviewMovie}">
-							<tr>
-								<td>${reviewMovie.mv_review_id }</td>
-								<td>${reviewMovie.mv_review_comment }</td>
-								<td>
-									<fmt:formatDate value="${reviewMovie.mv_review_date }" pattern="MM-dd HH:mm"></fmt:formatDate>
-								</td>
-							</tr>	
-						</c:forEach>
-					</table>
-					<!-- 영화 관람평 작성 -->
-					<form id="reviewMovie">
-						<input type="text" placeholder="관람평을 작성해 주세요" id="reviewComment" name="mv_review_comment" onkeypress="if(event.keyCode==13){return false;}">
-						<input type="button" onclick="reviewMovie(${mvOfficial.movie_cd})" value="작성">
-					</form>
-				</div>
-			</div>
+			<!-- container end -->
 		</div>
 	</div>
-	
-		<jsp:include page="footer.jsp"></jsp:include>
+
+<%-- 			<jsp:include page="footer.jsp"></jsp:include> --%>
+
 </body>
-	<script src="resource/js/jquery-3.6.0.min.js"></script>
-	<script src="resource/js/jquery.serializeObject.js"></script>
-	<script type="text/javascript">
-		
+<script src="resource/js/jquery-3.6.0.min.js"></script>
+<script src="resource/js/jquery.serializeObject.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
 		// 관람평 ajax로 처리
-		function reviewMovie(movie_cd) {
+		function reviewMovieF(movie_cd) {
 			console.log("movie_cd" + movie_cd);
 			
 			var reviewMovieList = $("#reviewMovie").serializeObject();
@@ -151,7 +199,79 @@
 				} // error end
 			}) // ajax end
 		} // function end	
-	
+		
+		
+			$(document).on("click", "#info", function() {
+				$(".info").css("display", "inline-block");
+				$("#info").css("border", "1.5px solid #f16a1a");
+				$("#info").css("border-bottom", "0");
+				$(".theaterList").css("display", "none");
+				$("#theaterList").css("border-style", "solid solid solid solid");
+				$("#theaterList").css("border-width", "0.5px 0 1.5px 0");
+				$("#theaterList").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
+				$(".review").css("display", "none");
+				$("#review").css("border-style", "solid solid solid solid");
+				$("#review").css("border-width", "0.5px 0 1.5px 0");
+				$("#review").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
+				$(".stillcut").css("display", "none");
+				$("#stillcut").css("border-style", "solid solid solid solid");
+				$("#stillcut").css("border-width", "0.5px 0 1.5px 0");
+				$("#stillcut").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
+			});
+			$(document).on("click", "#theaterList", function() {
+				$(".theaterList").css("display", "inline-block");
+				$("#theaterList").css("border", "1.5px solid #f16a1a");
+				$("#theaterList").css("border-bottom", "0");
+				$(".info").css("display", "none");
+				$("#info").css("border-style", "solid solid solid solid");
+				$("#info").css("border-width", "0.5px 0 1.5px 0");
+				$("#info").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
+				$(".review").css("display", "none");
+				$("#review").css("border-style", "solid solid solid solid");
+				$("#review").css("border-width", "0.5px 0 1.5px 0");
+				$("#review").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
+				$(".stillcut").css("display", "none");
+				$("#stillcut").css("border-style", "solid solid solid solid");
+				$("#stillcut").css("border-width", "0.5px 0 1.5px 0");
+				$("#stillcut").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
+			});
+			$(document).on("click", "#review", function() {
+				$(".review").css("display", "inline-block");
+				$("#review").css("border", "1.5px solid #f16a1a");
+				$("#review").css("border-bottom", "0");
+				$(".theaterList").css("display", "none");
+				$("#theaterList").css("border-style", "solid solid solid solid");
+				$("#theaterList").css("border-width", "0.5px 0 1.5px 0");
+				$("#theaterList").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
+				$(".info").css("display", "none");
+				$("#info").css("border-style", "solid solid solid solid");
+				$("#info").css("border-width", "0.5px 0 1.5px 0");
+				$("#info").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
+				$(".stillcut").css("display", "none");
+				$("#stillcut").css("border-style", "solid solid solid solid");
+				$("#stillcut").css("border-width", "0.5px 0 1.5px 0");
+				$("#stillcut").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");				
+			});
+			$(document).on("click", "#stillcut", function() {
+				$(".stillcut").css("display", "inline-block");
+				$("#stillcut").css("border", "1.5px solid #f16a1a");
+				$("#stillcut").css("border-bottom", "0");
+				$(".theaterList").css("display", "none");
+				$("#theaterList").css("border-style", "solid solid solid solid");
+				$("#theaterList").css("border-width", "0.5px 0 1.5px 0");
+				$("#theaterList").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
+				$(".review").css("display", "none");
+				$("#review").css("border-style", "solid solid solid solid");
+				$("#review").css("border-width", "0.5px 0 1.5px 0");
+				$("#review").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
+				$(".info").css("display", "none");
+				$("#info").css("border-style", "solid solid solid solid");
+				$("#info").css("border-width", "0.5px 0 1.5px 0");
+				$("#info").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");			
+			});
+	});	
+		
+		
 	</script>
-	
+
 </html>

@@ -142,4 +142,19 @@
 		select * from movie_official
 	</select>
 
+	<!-- 이용자 상영하는 영화관 목록 -->
+	<select id="getTheaterCode" parameterType="String" resultType="com.example.movie.dto.TheaterDto">
+		select * from v_movieinfo where movie_cd=#{movie_cd}
+	</select>
+
+	<!-- 영화 상세 페이지 이동 -->
+	<select id="movieDetail" parameterType="String" resultType="com.example.movie.dto.MovieOfficialDto">
+		select * from movie_official where movie_cd=#{movie_cd}
+	</select>
+	
+	<!-- 관람평 목록 가져오기 -->
+	<select id="reviewMovie" parameterType="String" resultType="com.example.movie.dto.ReviewMovieDto">
+		select * from review_movie where mv_review_moviecd=#{movie_cd} 
+	</select>
+
 </mapper>

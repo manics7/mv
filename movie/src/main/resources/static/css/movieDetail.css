@@ -16,6 +16,8 @@ ul, ol, li {
 }
 
 #wrap {
+	display: flex;
+	flex-flow: column;
 	margin-top: 90px;
 	width: 100%;
 	height: 100%;
@@ -29,8 +31,9 @@ ul, ol, li {
 }
 
 #container {
+	display: flex;
+	flex-flow: column nowrap;
 	width: 1000px;
-	height: 1500px;
 	margin: 0 auto;
 }
 
@@ -98,4 +101,35 @@ ul, ol, li {
 	height: 270px;
 	margin-top: -8px;
 	border-radius: 5px;
+}
+
+#menuWrap {
+	display: flex;
+	flex-flow: column nowrap;
+	margin-top: 40px; 
+}
+
+#menu {
+	width: 1000px;
+	height: 70px;
+	margin-bottom: 20px;
+}
+
+#menu>ul li {
+	float: left;
+	width: 25%;
+	line-height: 70px;
+	border-top: 0.5px solid #ebebeb;
+	border-bottom: 1.5px solid #f16a1a; 
+	box-sizing: border-box;
+	text-align: center;
+}
+
+#menu>ul li:first-child {
+	border: 1.5px solid #f16a1a;
+	border-bottom: 0;
+}
+
+.theaterList, .review, .stillcut {
+	display: none;
 }
