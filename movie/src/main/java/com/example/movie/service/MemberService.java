@@ -839,12 +839,14 @@ public class MemberService {
 			Integer roomNo = schduleList.get(i).getRoomNo();
 			Integer schCode = schduleList.get(i).getSchCode();
 			
+			//영화 정보
 			Map<String, Object> map = new HashMap<String, Object>();
 			Optional<MovieOfficial> movieOfficialOpt = movieOfficialRepository.findById(movieCd);
 
-			Optional<Theater> theaterOpt = theaterRepository.findById(thCode);
+			Optional<Theater> theaterOpt = theaterRepository.findById(thcode);
 			Theater theater = theaterOpt.orElse(null);
-			Room room = roomRepository.findByThCodeAndRoomNo(thCode, roomNo);			
+			//상영관 정보
+			Room room = roomRepository.findByThCodeAndRoomNo(thcode, roomNo);			
 			MovieOfficial movieOfficial = movieOfficialOpt.orElse(null);
 						
 			List<ScheduleDetail> scheduleDetail = scheduleDetailRepository.findBySchCode(schCode);
@@ -857,7 +859,7 @@ public class MemberService {
 			scheduleDetail.get(j).setRsrvSeatCnt(seatNo.size());
 			
 			}
-			map.put("schedule", schduleList.get(i));
+			map.put("scheduleList", schduleList.get(i));
 			map.put("room", room);
 			map.put("movieOfficial", movieOfficial);
 			map.put("theater", theater);

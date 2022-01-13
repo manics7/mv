@@ -51,31 +51,11 @@
 											<th class="sch_id p-10">삭제 처리</th>
 										</tr>
 										<tr class="data-row">
-											<c:forEach var="scheduleRoomList" items="${scheduleRoomList}">
-											<c:forEach var="scheduleDateList" items="${screeningDate}">
-											<c:forEach var="scheduleStartTime" items="${movieStart}">
-											<c:forEach var="scheduleEndTime" items="${movieEnd}">
-											<c:forEach var="movieNameList" items="${movieNameList}">
-												<td class="room_no p-10">
-													${scheduleRoomList.room_no}
-												</td>
-												<td class="room_name p-20">
-													${scheduleRoomList.room_name}[${scheduleRoomList.room_class}]
-												</td>
-												<td class="mv_name p-10">
-													${movieNameList.movie_nm}
-												</td>
-												<td class="sch_date p-20">
-													${screeningDate}
-												</td>
-												<td class="sch_time p-20">
-													${movieStart} - ${movieEnd}
-												</td>
-											</c:forEach>
-											</c:forEach>
-											</c:forEach>
-											</c:forEach>
-											</c:forEach>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
 											<td class="sch_id p-10">
 												<button class="btn-del">삭제</button>
 											</td>
@@ -90,4 +70,9 @@
 		</div>
 	</section>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="js/scripts.js"></script>
+<script type="text/javascript">
+
+</script>
 </html>

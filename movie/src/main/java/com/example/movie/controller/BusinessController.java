@@ -121,7 +121,7 @@ public class BusinessController {
 
 		return mv;
 	}	
-	
+	/*
 	//상영 시간표 목록 페이지 이동
 	@GetMapping("schedule")
 	public ModelAndView schedule() throws ParseException {
@@ -130,7 +130,7 @@ public class BusinessController {
 
 		return mv;
 	}
-	
+	*/
 	//상영 시간표 등록 페이지 이동
 	@GetMapping("scheduleAdd")
 	public ModelAndView scheduleAdd() {

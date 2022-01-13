@@ -239,6 +239,7 @@ public class MemberController {
 		
 		return insertReviewMap;
 	}
+	
 	@GetMapping("theaterinsert1")
 	public ModelAndView theater_detail1(Integer th_code) {
 		List<Map<String, Object>> list = mServ.getSch(th_code);
@@ -246,6 +247,18 @@ public class MemberController {
 		mv.addObject("theatedetail", list);
 		mv.addObject("th_code",th_code);
 		mv.setViewName("theater_detail");
+		return mv;
+	}
+	
+	@GetMapping("schedule")
+	public ModelAndView schedule(Integer th_code) {
+		List<Map<String, Object>> list = mServ.getSch(th_code);
+		mv = new ModelAndView();
+		mv.addObject("schedule", list);
+		mv.addObject("room", list);
+		mv.addObject("movieOfficial", list);
+		mv.setViewName("sch/schedule");
+		
 		return mv;
 	}
 	
