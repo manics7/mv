@@ -73,7 +73,7 @@ public class AdminController {
 		mv.addObject("qlist", qList);
 
 		//페이징 처리.
-		String pageHtml = aServ.getpaging(pageNum);
+		String pageHtml = aServ.getpagingQuesBoard(pageNum);
 
 		mv.addObject("paging", pageHtml);
 
@@ -146,18 +146,12 @@ public class AdminController {
 	@GetMapping("getBulist")
 	public ModelAndView getbulist(Integer pageNum) {
 		System.out.println("Business pageNum = "+pageNum);
+		
 		ModelAndView mv = new ModelAndView();
 		//사업자 정보 인출
-		List<BusinessDto> busList = aServ.getbulist(pageNum);
+		mv = aServ.getbulist(pageNum);
 
-		//페이징처리
-		String pageHtml = aServ.busgetpaging(pageNum);
-
-		//mv에 데이터 투입
-		mv.addObject("paging", pageHtml);
-		mv.addObject("busList", busList);
-		mv.setViewName("mmanageBu");
-
+	
 		return mv;
 	}
 

@@ -71,9 +71,9 @@
 		<select id="getbuslist" parameterType="HashMap"
 		resultType="com.example.movie.dto.BusinessDto">
 		<![CDATA[
-		SELECT * FROM BUSINESS
-		WHERE b_num >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
-			AND b_num <= #{pageNum} * #{lcnt}
+		SELECT * FROM v_businessmem
+		WHERE RONUM >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{pageNum} * #{lcnt}
 		]]>
 	</select>
 	
@@ -83,16 +83,6 @@
 		BUSINESS
 	</select>
 	
-	<!-- 영화 상세 페이지 이동 -->
-	<select id="movieDetail" parameterType="String" resultType="com.example.movie.dto.MovieOfficialDto">
-		select * from movie_official where movie_cd=#{movie_cd}
-	</select>
-	
-	<!-- 관람평 목록 가져오기 -->
-	<select id="reviewMovie" parameterType="String" resultType="com.example.movie.dto.ReviewMovieDto">
-		select * from review_movie where mv_review_moviecd=#{movie_cd} 
-	</select>
-
 	<select id="getboardRead" parameterType="Integer"
 		resultType="com.example.movie.dto.quesboardDto">
 		SELECT * FROM QUESTION where ques_no = #{ques_no}

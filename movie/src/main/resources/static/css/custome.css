@@ -200,7 +200,7 @@ text-align: center;
     height: 224.33px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start
 }
 .movie_schedule_list>ul>li{
     list-style: none;

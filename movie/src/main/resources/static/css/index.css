@@ -41,7 +41,6 @@ header {
 	min-width: 1000px;
 	height: 950px;
 	margin: 0 auto;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.91), rgba(0, 0, 0, 0.91)), URL(https://img.megabox.co.kr/SharedImg/2021/12/16/pP1d3DrHmo5d4rcb4ZLoBsMScFRHlbKn_380.jpg);
 	background-position: center top;
 	background-size: cover;
 	z-index: -1;
