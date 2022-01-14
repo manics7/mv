@@ -70,6 +70,7 @@ opener.parent.loadRsrvComplete('${rsrvNo}');
 
 </head>
 <input type="hidden" id="rsrvComplete" value="1">
+<input type="hidden" id="rsrvNo" value="">
 <div class="modal-content">
 	<div class="modal-header text-white modal-header-bg">
 		<h5 class="modal-title ml-auto">
@@ -81,7 +82,7 @@ opener.parent.loadRsrvComplete('${rsrvNo}');
 				id="reset">초기화</button>
 			<button
 				class="btn btn-outline-light bg-dark text-white font-weight-bold"
-				onclick="javascript:modalClose('rsrvModal');">X</button>
+				data-dismiss="modal">X</button>
 		</div>
 	</div>
 	<div class="modal-body pb-2">

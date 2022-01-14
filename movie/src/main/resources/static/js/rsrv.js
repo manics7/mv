@@ -104,7 +104,7 @@
 			var html = "";			
 			data.forEach(function(item, index){
 				html += "<li class='list-group-item my-0 py-2'  movieCd=" +item.movieCd +" >"
-				+"<i class='pr-1'><img src='resource/images/icon/grade_"+item.watchGradeNm+".png'></i> "+item.movieNm +"</li>";	
+				+"<i class='pr-1'><img src='resource/images/icon/"+item.watchGradeNm+".png'></i> "+item.movieNm +"</li>";	
 			});
 			$("#movieList ul").html(html);
 		}
@@ -353,7 +353,12 @@
 				,data : params
 				,success : function(res) {
 					
-					fnObj.defaultData.rsrvNo = res.rsrvNo;	
+					fnObj.defaultData.rsrvNo = res.rsrvNo;
+					
+					setTimeout(function(){				
+						$('#rsrvModal .modal-content').load("rsrvPayment",fnObj.getReservationInfo(e,  res.rsrvNo));
+					}, 900); 
+						
 				}
 				,error: function (error) {
 				console.log(error.responseJSON.message);
@@ -367,10 +372,7 @@
 		       }
 			});	
 			
-			setTimeout(function(){
-				$('#rsrvModal .modal-content').load("rsrvPayment",fnObj.getReservationInfo(e));
-			
-			}, 1500); 
+		
 
 			
 		
@@ -390,14 +392,14 @@
 			 fnObj.defaultData.rsrvNo = '';	
 					
 		}
-		, getReservationInfo : function(e){	
+		, getReservationInfo : function(e, rsrvNo){	
 			
 			e.stopImmediatePropagation();
 				
 			$.ajax({						
 				type : "POST"
 				,url : "/getReservationInfo"
-				,data : {"rsrvNo" : fnObj.defaultData.rsrvNo}
+				,data : {"rsrvNo" : rsrvNo}
 				,dataType : "json"
 				,success : function(res) {	
 					var movie = res.schedule.movieOfficial;
@@ -792,10 +794,13 @@
 		
 		$.ajax({						
 				type : "POST"
-				,url : "/getPaymentInfo"
+				,url : "/getReservationInfo"
 				,data : {"rsrvNo" : rsrvNo}
 				,dataType : "json"
 				,success : function(res) {	
+					
+					$("#rsrvNo").val(res.reservation.rsrvNo);
+					
 					var movie = res.schedule.movieOfficial;
 					var theater = res.schedule.theater;
 					var date = res.reservation.rsrvDate.replaceAll("-",".") + " (" +res.dayOfWeek+")";
@@ -823,3 +828,26 @@
 			});
 		
 	}
+	
+	//예매취소
+	$(document).on("click", "#rsrvCancel" , function(){
+		$.ajax({						
+				type : "POST"
+				,url : "/paymentCencel"
+				,data : "rsrvNo="+$("#rsrvNo").val() 
+				//,dataType : "json"
+				,success : function(res) {	
+					
+					$('.modal-content').load("reservationCancel",setRsrvComplete($("#rsrvNo").val()));
+				}
+				,error: function (error) {
+				console.log(error.responseText);
+		       }
+		});
+	});
+		
+	//결제성공후 모달창에 페이지 로드
+	$(document).on('click',"#reservationComplete",function(e) {
+		$('#rsrvModal .modal-content').load("reservationComplete");
+	});
+	

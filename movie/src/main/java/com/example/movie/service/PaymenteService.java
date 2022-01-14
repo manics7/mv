@@ -37,5 +37,11 @@ public class PaymenteService {
 		return payment.getRsrvNo();
 	}
 
+	public Payment getPayment(Integer rsrvNo) {
+
+		Payment payment = paymentRepository.findByRsrvNo(rsrvNo);
+		return payment;
+	}
+
 	
 }

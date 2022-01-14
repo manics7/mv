@@ -207,15 +207,6 @@ public class ReservationService {
 		reservationRepository.deleteById(rsrvNo);
 	}
 
-	public static String getPrintStackTrace(Exception e) {
-        
-        StringWriter errors = new StringWriter();
-        e.printStackTrace(new PrintWriter(errors));
-         
-        return errors.toString();
-         
-    }
-
 	public Map<String, Object> getReservationInfo(Integer rsrvNo) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -242,6 +233,17 @@ public class ReservationService {
 		
 		
 		return map;
+	}
+
+	@Transactional
+	public void reservationCancel(Integer rsrvNo) {
+		Optional<Reservation> reservationOpt = reservationRepository.findById(rsrvNo);
+		Reservation reservation = reservationOpt.orElseThrow();
+		
+		reservation.setRsrvStatus(1);
+		
+		reservationRepository.save(reservation);
+		
 	}
 	
 }

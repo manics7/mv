@@ -7,8 +7,9 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resource/css/bootstrap.css">
 <script type="text/javascript">
+alert("cancel");
 window.opener.open("about:blank", "popup_window").close();
-opener.parent.load();
+opener.parent.loadRsrvCancel('${rsrvNo}');
 </script>	
 <style type="text/css">
 
@@ -61,6 +62,9 @@ opener.parent.load();
 #info .card {min-height:150px}
 #info .card-body {min-height:150px;}
 
+.info_title {width: 70px;}
+
+.list-group li {border: none;}
 #amount {color: #f16a1a;}
 
 </style>
@@ -77,7 +81,7 @@ opener.parent.load();
 				id="reset">초기화</button>
 			<button
 				class="btn btn-outline-light bg-dark text-white font-weight-bold"
-				onclick="javascript:modalClose('rsrvModal');">X</button>
+				data-dismiss="modal">X</button>
 		</div>
 	</div>
 	<input type="hidden" id="rsrvComplete" value="1">

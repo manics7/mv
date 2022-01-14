@@ -24,6 +24,7 @@ import com.example.movie.entity.Payment;
 import com.example.movie.service.PaymenteService;
 import com.example.movie.service.ReservationService;
 import com.example.movie.vo.KakaoPayApprovalVO;
+import com.example.movie.vo.KakaoPayCancelVO;
 import com.example.movie.vo.KakaoPayReadyVO;
 
 @Controller
@@ -37,7 +38,7 @@ public class PaymentController {
 	
 	@Autowired
 	ReservationService reservationService;
-
+	
    @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleControllerException(Exception e)
     {
@@ -92,10 +93,19 @@ public class PaymentController {
 	public String reservationComplete() {
 		return "rsrv/reservationComplete";
 	}	
-	
-	@PostMapping("reservationCancel")
-	public String reservationCancel(@RequestParam Map<String, String> params) throws IOException {
-		kakaoPay.kakaoPayCancel(params);
+	//카카오 결제 취소 -> 예매취소처리
+	@PostMapping("paymentCencel")
+	public String paymentCencel(Integer rsrvNo, Model model) throws IOException {
+		Payment payment =  paymenteService.getPayment(rsrvNo);
+		KakaoPayCancelVO kakaoPayCancelVO = kakaoPay.kakaoPayCancel(payment);
+		reservationService.reservationCancel(rsrvNo);
+		model.addAttribute("rsrvNo",rsrvNo);
 		return "rsrv/reservationCancel";
 	}			
+	
+	//결제완료후 예매취소페이지를 모달창에 로드
+	@GetMapping("/reservationCancel")
+	public String reservationCancel() {
+		return "rsrv/reservationCancel";
+	}	
 }

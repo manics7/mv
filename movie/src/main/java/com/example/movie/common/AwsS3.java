@@ -152,7 +152,7 @@ public class AwsS3 {
         Date expiration = new Date();
         long expTimeMillis = expiration.getTime();
         //                      밀리세컨*초*분*시*일
-        expTimeMillis += 1000 * 60 * 60 * 24 * 30;
+        expTimeMillis += 1000 *  60 * 60 * 24 * 7;
         expiration.setTime(expTimeMillis);
         
         GeneratePresignedUrlRequest generatePresignedUrlRequest =

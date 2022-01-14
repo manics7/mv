@@ -9,4 +9,6 @@ import com.example.movie.entity.Payment;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, String> {
 
+	Payment findByRsrvNo(Integer rsrvNo);
+
 }

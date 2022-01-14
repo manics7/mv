@@ -121,7 +121,7 @@
 								</div>
 						         <div class="col-md-12">						    
 						     	   <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>		
-						     	   <button type="button" class="btn btn-lg btn-block btn-warning" id="reservationComplete"> 선택 ></button> 		
+						     	   <!-- <button type="button" class="btn btn-lg btn-block btn-warning" id="reservationComplete"> 선택 ></button> --> 		
 						         </div> 
 						         
 			 				</div>

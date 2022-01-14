@@ -129,7 +129,7 @@ public class KakaoPay {
 	}
 	
 	
-	public KakaoPayCancelVO kakaoPayCancel(Map<String, String> map) throws IOException {
+	public KakaoPayCancelVO kakaoPayCancel(Payment payment) throws IOException {
 		
 		RestTemplate restTemplate = new RestTemplate();		 
         // 서버로 요청할 Header
@@ -140,10 +140,10 @@ public class KakaoPay {
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("tid",  kakaoPayReadyVO.getTid());
-        params.add("cancel_amount", "0");
-        params.add("cancel_tax_free_amount", "0");
-        params.add("cancel_vat_amount	", kakaoPayReadyVO.getAmount().toString());
+        params.add("tid",  payment.getTid());
+        params.add("cancel_amount", payment.getTotal().toString());
+        params.add("cancel_tax_free_amount", payment.getTax_free().toString() );
+        params.add("cancel_vat_amount	", payment.getVat().toString());
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         
