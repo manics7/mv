@@ -839,9 +839,9 @@ public class MemberService {
 
 
 	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
-	public ModelAndView getMovieList() {
+	public ModelAndView getMovieList(String mainMovieSearch) {
 		mv = new ModelAndView();
-		List<MovieOfficialDto> movieList = mMapper.getMovieList();
+		List<MovieOfficialDto> movieList = mMapper.getMovieList(mainMovieSearch);
 
 		mv.addObject("movieList", movieList);
 		mv.setViewName("currentMovieList");
@@ -871,5 +871,19 @@ public class MemberService {
 		
 		return null;
 	}
+
+	// 메인 페이지 박스오피스 목록
+	public ModelAndView getBoxOfficeList() {
+			mv = new ModelAndView();
+
+			List<MovieOfficialDto> mvOfficialDto = mMapper.getBoxOfficeList();
+
+			mv.addObject("mvOfficial", mvOfficialDto);
+			
+			mv.setViewName("index");
+
+			return mv;
+	}
+
 
 }

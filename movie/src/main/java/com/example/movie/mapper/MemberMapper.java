@@ -86,7 +86,7 @@ public interface MemberMapper  extends MybatisMapper {
 	//public List<Theater_detailDto> selectmovieschedule();
 
 	// 현재상영작 불러오기
-	public List<MovieOfficialDto> getMovieList();
+	public List<MovieOfficialDto> getMovieList(String mainMovieSearch);
 
 	// 이용자 상영하는 영화관 목록
 	public List<TheaterDto> getTheaterCode(String movie_cd);
@@ -96,5 +96,8 @@ public interface MemberMapper  extends MybatisMapper {
 
 	// 관람평 목록 가져오기
 	public List<ReviewMovieDto> reviewMovie(String movie_cd);
+	
+	// 메인 페이지 박스오피스 목록
+	public List<MovieOfficialDto> getBoxOfficeList();
 	
 }

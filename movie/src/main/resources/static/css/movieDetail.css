@@ -133,3 +133,29 @@ ul, ol, li {
 .theaterList, .review, .stillcut {
 	display: none;
 }
+
+#theaterTitle {
+	display: inline-block;
+}
+
+.info h3{
+	margin: 30px 0 20px 0;
+}
+
+#theaterTitle li:nth-of-type(7n) {
+	margin-right: 0;
+}
+
+.theaterTitle {
+	width: 100px;
+	height: 125px;
+	float: left;
+	margin-right: 50px;
+	text-align: center;
+}
+
+.theaterLogo {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #fefefe;
+}

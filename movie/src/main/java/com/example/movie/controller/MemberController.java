@@ -192,8 +192,6 @@ public class MemberController {
 		return mv;
 	}
 
-
-
 	// 이용자 회원가입
 	@PostMapping("memberInsert")
 	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
@@ -280,10 +278,10 @@ public class MemberController {
 
 	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
 	@GetMapping("currentMovieList")
-	public ModelAndView currentMovieList() {
+	public ModelAndView currentMovieList(String mainMovieSearch) {
 
-		mv = mServ.getMovieList();
-		
+		mv = mServ.getMovieList(mainMovieSearch);
+		System.out.println(mainMovieSearch);
 		return mv;
 	}
 	

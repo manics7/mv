@@ -26,15 +26,15 @@
 							<p id="movieDetailTitle">${mvOfficial.movie_nm }</p>
 							<p id="movieDetailInfo" class="detailInfo">
 								<c:choose>
-									<c:when test="${mvOfficial.watch_grade_nm eq '12세 이상' }">
+									<c:when test="${mvOfficial.watch_grade_nm eq '12' }">
 										<p class="watchGrade"
 											style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png)">
 									</c:when>
-									<c:when test="${mvOfficial.watch_grade_nm eq '15세 이상' }">
+									<c:when test="${mvOfficial.watch_grade_nm eq '15' }">
 										<p class="watchGrade"
 											style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png)">
 									</c:when>
-									<c:when test="${mvOfficial.watch_grade_nm eq '청소년 관람불가' }">
+									<c:when test="${mvOfficial.watch_grade_nm eq '18' }">
 										<p class="watchGrade"
 											style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-18.png)">
 									</c:when>
@@ -76,25 +76,26 @@
 					</div>
 					<div class="info">
 						<div>
-							<h4>감독 및 배우</h4>
-							<span>감독</span> ${mvOfficial.directors }
-							<span>배우</span> ${mvOfficial.actors }
+							<h3>감독 및 배우</h3>
+							<span>감독</span> ${mvOfficial.directors }<br>
+							<span>배우</span> ${mvOfficial.actors }<br>
 							
-							<h4>줄거리</h4>
+							
+							<h3>줄거리</h3>
 							${mvOfficial.movie_content }
 <!-- 							내용 입력 할건데요~? -->
 						</div>
 					</div>
 					<div class="theaterList">
-						<ul>
-							<c:forEach var="theaterName" items="${theaterName }">
-								<li>
-									<div>
-										<div>
-											<img alt="" src="${theaterName.th_logo }">
+						<ul  id="theaterTitle">
+							<c:forEach var="theaterNames" items="${theaterName }">
+								<li class="theaterTitle">
+									<div class="titleWrap">
+										<div class="theaterLogo">
+											<img alt="" src="${theaterNames.th_logo }">
 										</div>
-										<div>
-											${theaterName.th_name }
+										<div class="theaterName">
+											${theaterNames.th_name }
 										</div>
 									</div>
 								</li>

@@ -24,9 +24,11 @@ public class HomeController {
 	private ModelAndView mv;
 	
 	@RequestMapping("/")
-	public String index() {
+	public ModelAndView index() {
 		
-		return "index";
+		mv = mServ.getBoxOfficeList();
+		
+		return mv;
 	}
 	
 	// 이용자 회원가입 페이지 이동
