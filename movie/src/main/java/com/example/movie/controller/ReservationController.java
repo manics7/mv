@@ -65,7 +65,7 @@ public class ReservationController {
 	}
 	
 	//좌석선택 후 결제화면 이동시 선택한 좌석킵 처리를 위해서 예약정보 저장, 결제 전에 뒤로가면 다시 삭제처리
-	@PostMapping("/reservation")
+	@PostMapping("/insertReservation")
 	@ResponseBody
 	public Map<String, Integer> reservation(@RequestParam(required = false) Map<String, Object> params, @RequestParam(name = "seatNo[]" ,required = false) List<String> seatNo) throws Exception{
 		Map<String, Integer>  map =reservationService.insertReservation(params, seatNo); 
@@ -85,10 +85,10 @@ public class ReservationController {
 	}
 	
 	//결제화면에 보여줄 정보를 가져온다.
-	@PostMapping("/getPaymentInfo")
+	@PostMapping("/getReservationInfo")
 	@ResponseBody
-	public Map<String, Object> getPaymentInfo(Integer rsrvNo) {
-		Map<String, Object>  map = reservationService.getPaymentInfo(rsrvNo);
+	public Map<String, Object> getReservationInfo(Integer rsrvNo) {
+		Map<String, Object>  map = reservationService.getReservationInfo(rsrvNo);
 		return map;
 	}
 	

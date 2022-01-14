@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,23 +28,18 @@ public class HomeController {
 	private ModelAndView mv;
 	
 	
-	@RequestMapping("/")
-	public String index() {
-		
-		//ModelAndView mv = mServ.selectThcode();
-		
-		//mv.setViewName("index");
-		//thCodeList
-		return "index";
-	}
 	
+	@GetMapping("/")
+	public ModelAndView index() {
+		mv = mServ.boxOffice();
+		return mv;
+	}
+
+	//영화관 찾기 th_name 및 th_code 출력 
 	@ResponseBody
 	@GetMapping("searchTheater")
 	public List<TheaterDto> searchTheater() {
 List<TheaterDto> thCodeList = mServ.selectThcode();
-		
-		
-		
 		return thCodeList;
 	}
 	
@@ -64,13 +58,4 @@ List<TheaterDto> thCodeList = mServ.selectThcode();
 		return "bu_joinFrm";
 	}
 
-	// 영화 상세 페이지 이동
-	@GetMapping("movieDetail")
-	public ModelAndView movieDetail(String movie_cd) {
-		
-		mv = mServ.movieDetail(movie_cd);
-		
-		return mv;
-	}
-	
 }

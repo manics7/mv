@@ -409,7 +409,8 @@
 				</p>
 			</div>
 		</section>
-		<c:out value="${theatedetail[0].theater}"></c:out>
+		<!-- 영화관 상세정보 받아지는 어떤 값으로 받아지는지 테스트 코드. -->
+		<p style="z-index: 10; border: 1px solid lightgray; width: 200px; white-space: nomal; word-break: nomal; padding: 13px; background: gray; color: white;" > <c:out value="값 태스트 : ${theatedetail[0].theater}"></c:out></p> 
 	</div>
 
 	<div class="cinema_pic_wrap">

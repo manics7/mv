@@ -22,12 +22,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 	//state == 1 ? state.innerHtml("답변완료") : state.innerHtml("미완료");
-$(function(){
+//$(function(){
 	//메시지 출력 부분
-	var msg = "${msg}";
-	if(msg != ""){
-		alert(msg);
-	});
+//	var msg = "${msg}";
+	//if(msg != ""){
+//		alert(msg);
+	//});
 </script>
 
 </head>
@@ -73,7 +73,8 @@ $(function(){
 							<div class="form-group">
 								<label for="board_writer_name">개봉일</label> <input type="text"
 									id="board_writer_name" name="open_dt"
-									class="form-control" value="${movie.open_dt}" disabled="disabled" />
+									class="form-control" value="<fmt:formatDate value="${movie.open_dt}"
+										pattern="yyyy-MM-dd"/>" disabled="disabled" />
 							</div>
 							<div class="form-group">
 								<label for="board_date">감독</label> <input type="text"
