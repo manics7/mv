@@ -38,7 +38,7 @@
 										<img src="${boxOfficeList.poster }" title="${boxOfficeList.movie_nm }">
 									</a>
 									<div class='btn_box'>
-										<a href="#"> 예매 </a>
+										<a href="#" data-toggle="modal" data-target="#rsrvModal" data-movieCd="${boxOfficeList.movie_cd }" id="modal"> 예매 </a>
 									</div>
 								</li>
 							</c:forEach>

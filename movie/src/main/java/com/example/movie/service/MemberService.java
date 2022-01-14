@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -46,8 +47,6 @@ import com.example.movie.repository.ScheduleDetailRepository;
 import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.repository.TheaterRepository;
 import com.example.movie.utill.PagingUtil;
-
-
 
 @Service
 public class MemberService {
@@ -863,7 +862,6 @@ public class MemberService {
 		return null;
 	}
 
-
 	public String adminDeleteMember(String m_id, RedirectAttributes rttr) {
 		String msg = null;
 		String view = null;
@@ -881,7 +879,9 @@ public class MemberService {
 	// 박스오피스 목록
 	public ModelAndView boxOffice() {
 		List<MovieOfficialDto> boxOffice = mMapper.getBoxOfficeList();
-
+			
+		mv = new ModelAndView();
+		
 		mv.addObject("mvOfficial", boxOffice);
 		mv.setViewName("index");
 		
