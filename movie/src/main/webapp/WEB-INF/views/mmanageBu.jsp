@@ -54,8 +54,7 @@
                                             <th class="text-center d-none d-md-table-cell">사업자ID</th>
                                             <th class="text-center d-none d-md-table-cell">회사명</th>
                                             <th class="text-center d-none d-md-table-cell">HP</th>
-                                            <th class="text-center d-none d-md-table-cell">주소</th>
-                                            <th class="text-center d-none d-md-table-cell">생년월일</th>
+                                            <th class="text-center d-none d-md-table-cell">이메일</th>
                                             <th class="text-center d-none d-md-table-cell">회원 게시글 확인</th>
                                             <th class="text-center d-none d-md-table-cell">회원 탈퇴처리</th>
                                         </tr>

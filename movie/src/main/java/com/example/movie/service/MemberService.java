@@ -593,7 +593,7 @@ public class MemberService {
 		//mMap.getmboardSelect(m_id);
 		ModelAndView mv = new ModelAndView();
 		List<quesboardDto> mbList = aMapper.getquesboardSelect(m_id);
-		mv.addObject("mbLIst", mbList);
+		mv.addObject("qlist", mbList);
 
 		System.out.println("mbList = "+mbList);
 		return mv;
@@ -919,6 +919,20 @@ public class MemberService {
 	
 		
 		return null;
+	}
+
+	public String adminDeleteMember(String m_id, RedirectAttributes rttr) {
+		String msg = null;
+		String view = null;
+		try {
+			mMapper.deleteMember(m_id);	
+			msg = "회원 삭제 성공";
+		} catch (Exception e) {
+		msg = "삭제 실패";
+		}
+		rttr.addFlashAttribute("msg", msg);
+		view = "redirect:mmanage";
+		return view;
 	}
 
 }
