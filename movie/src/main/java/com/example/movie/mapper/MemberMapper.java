@@ -86,5 +86,7 @@ public interface MemberMapper  extends MybatisMapper {
 
 	// 현재상영작 불러오기
 	public List<MovieOfficialDto> getMovieList();
+	public List<TheaterDto> seletThkey();
+	//public void adminDeleteMember(String m_id);
 	
 }

@@ -70,10 +70,12 @@ public class Schedule {
 	private List<ScheduleDetail> scheduleDetail;
 
 	//@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@org.hibernate.annotations.BatchSize(size = 5)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MOVIE_CD", referencedColumnName = "MOVIE_CD" , insertable = false, updatable = false, nullable = false)
 	private MovieOfficial  movieOfficial;
 
+	@org.hibernate.annotations.BatchSize(size = 5)
 	@OneToOne(fetch = FetchType.LAZY)	  
 	@JoinColumn(name = "TH_CODE", referencedColumnName = "TH_CODE" , insertable =	false, updatable = false, nullable = false) 
 	private Theater theater;

@@ -52,7 +52,6 @@
 			<div class="col-sm-12">
 				<div class="card shadow">
 					<div class="card-body">
-						<c:forEach var="qrlist" items="${qrlist}">
 							<div class="form-group">
 								<label for="board_subject">제목</label> <input type="text"
 									id="board_subject" name="board_subject" class="form-control"
@@ -83,7 +82,6 @@
 							</div>
 							  -->
 
-						</c:forEach>
 						<!-- 
 				<div class="form-group">
 						<label for="board_writer_name">작성자</label>
@@ -109,11 +107,14 @@
 
 						<div class="form-group">
 							<div class="text-right">
+							<a href="adminReadQuesRe?ques_no=${qrlist.ques_no}" class="btn btn-primary">답변확인</a>
 								<a href="./quesboard?pageNum=1" class="btn btn-primary">목록보기</a> 
-								<c:forEach var="qrlist" items="${qrlist}">
 								<!-- ques_no로 select 하여 해당 게시글에 답변을 하게 하려고 이렇게함. -->
+								<c:choose>
+								<c:when test="${qrlist.ques_state == 0}">
 								<a href="./quesboard_rewrite?ques_no=${qrlist.ques_no}" class="btn btn-info">답변하기</a>
-								</c:forEach>
+								</c:when>
+								</c:choose>
 								<a href="#" class="btn btn-danger">삭제하기</a>
 							</div>
 						</div>
