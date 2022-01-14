@@ -28,10 +28,21 @@ public class HomeController {
 	public ModelAndView index() {
 		
 		ModelAndView mv = mServ.selectThcode();
+		
 		mv.setViewName("index");
 		//thCodeList
 		return mv;
 	}
+	
+//	@GetMapping("searchTheater")
+//	public ModelAndView searchTheater() {
+//ModelAndView mv = mServ.selectThcode();
+//		
+//		mv.setViewName("index");
+//		
+//		return mv;
+//	}
+//	
 	
 	// 이용자 회원가입 페이지 이동
 	@GetMapping("joinFrm")
