@@ -70,7 +70,7 @@ public class Schedule {
 	private List<ScheduleDetail> scheduleDetail;
 
 	//@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MOVIE_CD", referencedColumnName = "MOVIE_CD" , insertable = false, updatable = false, nullable = false)
 	private MovieOfficial  movieOfficial;
 

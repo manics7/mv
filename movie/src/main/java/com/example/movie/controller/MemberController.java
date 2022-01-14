@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.TheaterDto;
+import com.example.movie.entity.Schedule;
 import com.example.movie.service.MemberService;
 import com.example.movie.service.ScheduleService;
 
@@ -303,4 +304,33 @@ public class MemberController {
 		return mv;
 	}
 	
+	// 통합 영화 목록 이동
+	@GetMapping("totalMovie")
+	public String totalMovie() {
+		
+		return "main/totalMovie";
+	}
+	
+	// 통합 영화 목록 출력
+	@GetMapping("totalMovieList")
+	@ResponseBody
+	public  Map<String, Object> totalMovieList() {
+		//List<Map<String, String>> map = scheduleService.getDatesDaysWeek(1);
+		//List<Map<String, Object>> totalMovieList = mServ.totalMovieList();
+		 Map<String, Object> map =scheduleService.getSchedule();
+		
+		return map;
+	}
+	
+	
+	@GetMapping("selectSchedule")
+	@ResponseBody
+	public List<Schedule> selectSchedule(String movieCd, Integer thCode, String schDate) {
+		//List<Map<String, String>> map = scheduleService.getDatesDaysWeek(1);
+		//List<Map<String, Object>> totalMovieList = mServ.totalMovieList();
+		// Map<String, Object> map =scheduleService.selectSchedule(movieCd, thCode, schDate);
+	
+		List<Schedule> list = scheduleService.selectSchList(movieCd, thCode, schDate);
+		return list;
+	}
 }

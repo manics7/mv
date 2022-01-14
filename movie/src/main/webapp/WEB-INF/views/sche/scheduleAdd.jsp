@@ -23,14 +23,15 @@
 	<div class="inner">
 		<div id="page_wrap">
 			<div id="side">
-				<h2><a href="#">Business Page</a></h2>
-				<ul id="bupage_list">
-					<li><a id="bupage_menu" href="#">영화관 관리</a></li>
-					<li><a id="bupage_menu" href="#">영화 관리</a></li>
-					<li><a id="bupage_menu" href="#">상영관 관리</a></li>
-					<li><a id="bupage_menu" href="#">상영 일정 관리</a></li>
-					<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
-				</ul>
+			<%@ include file="../business_sidebar.jsp"  %>
+<!-- 				<h2><a href="#">Business Page</a></h2> -->
+<!-- 				<ul id="bupage_list"> -->
+<!-- 					<li><a id="bupage_menu" href="#">영화관 관리</a></li> -->
+<!-- 					<li><a id="bupage_menu" href="#">영화 관리</a></li> -->
+<!-- 					<li><a id="bupage_menu" href="#">상영관 관리</a></li> -->
+<!-- 					<li><a id="bupage_menu" href="#">상영 일정 관리</a></li> -->
+<!-- 					<li><a id="bupage_menu" href="#">이벤트 관리</a></li> -->
+<!-- 				</ul> -->
 			</div>
 			<div id="schadd_content">
 				<div id="schadd_title">

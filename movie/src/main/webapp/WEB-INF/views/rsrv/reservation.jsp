@@ -1,24 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head >
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="resource/css/rsrv.css">
 <link rel="stylesheet" type="text/css" href="resource/css/bootstrap.css">
-<script src="resource/js/bootstrap.bundle.js"></script>
+
+
+
 <script type="text/javascript">
 
-	       
-$(document).ready(function() {
-	
-});
-
-
 </script>
-</head>
 <!-- histoty Modal-->
 <div class="modal-content">
 	<div class="modal-header text-white modal-header-bg">
@@ -132,7 +124,6 @@ $(document).ready(function() {
 								</div>
 						         <div class="col-md-12">						    
 						     	   <button type="button" class="btn btn-lg btn-block btn-warning" id="rsrvSeat">인원/좌석 선택 ></button>		
-						     	   <a   class="btn btn-lg btn-block btn-warning" id="kakao" href="javascript:kako();">카카오</a>		
 						         </div> 
 						         
 			 				</div>
@@ -143,7 +134,7 @@ $(document).ready(function() {
  
     </div>
 </div>
-    
+
 <div class="modal fade" id="confirmModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -204,8 +195,6 @@ $(document).ready(function() {
       </div>
     </div>
   </div>
+  
 </div>	
-
-
-</html>
 

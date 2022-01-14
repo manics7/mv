@@ -24,6 +24,7 @@ li {
 
 #header_wrap {
 	width: 100%;
+	min-width: 1000px;
 	height: 90px;
 	position: absolute;
 	top: 0;
@@ -239,6 +240,7 @@ li {
 #footer_wrap {
 	position: relative;
 	width: 100%;
+	min-width: 1000px;
 	margin-top: 50px;
 	background-color: rgb(200, 200, 200);
 }

@@ -11,8 +11,6 @@ import com.example.movie.entity.ScheduleDetail;
 
 @Repository
 public interface ScheduleDetailRepository extends JpaRepository<ScheduleDetail, Integer>  {
-
 	List<ScheduleDetail> findBySchCode(Integer schCode);
-
 	
 }

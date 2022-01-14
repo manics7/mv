@@ -80,7 +80,7 @@ public class AdminService {
 		int listCnt = 6;
 
 
-		String view = "reviewreportFrm";
+		String view = "boardreportFrm";
 
 		Map<String, Integer> pmap = 
 				new HashMap<String, Integer>();
@@ -114,7 +114,7 @@ public class AdminService {
 		int listCnt = 6;
 
 
-		String view = "reviewreportFrm";
+		String view = "replyreportFrm";
 
 		Map<String, Integer> pmap = 
 				new HashMap<String, Integer>();
@@ -202,45 +202,6 @@ public class AdminService {
 
 		return view;
 	}
-
-	public ModelAndView reportedReviewSort(Integer pageNum) {
-
-		mv = new ModelAndView();
-
-		int num = (pageNum == null)? 1 : pageNum;
-
-		int listCnt = 6;
-
-		Map<String, Integer> pmap = 
-				new HashMap<String, Integer>();
-		pmap.put("num", num);
-		pmap.put("lcnt", listCnt);
-		List<reportMvReviewDto> rpList = new ArrayList<reportMvReviewDto>();
-
-		rpList = aMapper.selectReportMvReviewSort(pmap);
-
-		String view = "sortByState";
-
-		int maxNum = aMapper.selectReportMvReviewCnt();
-
-		mv.addObject("rpList", rpList);
-		String pageHtml = getPaging(num,listCnt,view,maxNum);
-		mv.addObject("paging", pageHtml);
-
-		//세션에 페이지번호 저장
-		//글작성 화면, 글내용 상세보기 화면 등에서 다시 목록으로
-		//돌아갈때 보고 있던 페이지가 나오도록 하기 위해.
-		session.setAttribute("pageNum", num);
-
-		//jsp 파일 이름 지정
-		mv.setViewName("reportFrm");
-		Integer sort = 0;
-
-		session.setAttribute("sort", sort);
-
-		return mv;
-	}
-
 
 	public int listCnt = 5;
 
@@ -452,7 +413,7 @@ public class AdminService {
 	public String movieOfficialInsert(MultipartHttpServletRequest multi,RedirectAttributes rttr) {
 
 		String view = null;
-		//String msg = "?";
+		String msg = null;
 
 		MovieOfficialDto mvofficialDto = new MovieOfficialDto();
 
@@ -507,21 +468,30 @@ public class AdminService {
 			if(i==4) {
 				mvofficialDto.setStillcut5(LfileName);
 			}
-			else {
+			if(i > 4) {
 				//msg = "파일은 5개까지만 등록 가능합니다.";
 				rttr.addFlashAttribute("msg", "파일은 5개까지만 등록 가능합니다.");
 				filenum = 1;
 				break;
 			}
 		}
-
+		
+		String movieCd = mvDto.getMovie_cd();
+		
+		int checkMovie =  aMapper.selectMvOfficialCntByMovieCode(movieCd);
+		
+		
+		//등록한 스틸컷 5개 이하일 경우만 등록
 		if(filenum == 0) {
-			aMapper.adminMovieInsert(mvofficialDto);
+			if(checkMovie == 0) {
 			//msg = "등록 성공";
-
-			view = "redirect:adminMovieList";
+			aMapper.adminMovieInsert(mvofficialDto);
+			
 			rttr.addFlashAttribute("msg", "등록 성공");
+
+			}			
 		}
+		view = "redirect:adminMovieList";
 
 		return view;
 	}

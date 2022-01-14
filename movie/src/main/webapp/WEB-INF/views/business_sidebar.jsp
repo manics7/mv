@@ -1,15 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>mypage_sidebar</title>
-<!-- 
-<link rel="stylesheet" href="resource/css/mypage_sidebar.css">
-
- -->
-
+    <meta charset="UTF-8">
 <style type="text/css">
 li {
 	list-style: none;
@@ -121,7 +115,6 @@ ul>li>a#bupage_menu:hover:after {
 }
 </style>
 </head>
-<body>
 
 	<div id="side">
 		<h2 style="height: 104px;" class="sidebar_title">
@@ -131,10 +124,8 @@ ul>li>a#bupage_menu:hover:after {
 					<li><a id="bupage_menu" href="./theater">영화관 관리</a></li>
 					<li><a id="bupage_menu" href="./movieInsert">영화 관리</a></li>
 					<li><a id="bupage_menu" href="./roomList">상영관 관리</a></li>
-					<li><a id="bupage_menu" href="#">상영 일정 관리</a></li>
+					<li><a id="bupage_menu" href="./schedule">상영 일정 관리</a></li>
 					<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
 				</ul>
 	</div>
-
-</body>
-</html>
+	</html>
