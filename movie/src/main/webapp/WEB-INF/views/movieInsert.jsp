@@ -41,10 +41,10 @@
 		</select>
 		<select name="watch_grade_nm">
 			<option disabled="disabled">관람등급</option>
-			<option value="전체">전체관람가</option>
-			<option value="12세 이상">12세 이상</option>
-			<option value="15세 이상">15세 이상</option>
-			<option value="청소년 관람불가">청소년 관람불가</option>
+			<option value="all">전체관람가</option>
+			<option value="12">12세 이상</option>
+			<option value="15">15세 이상</option>
+			<option value="18">청소년 관람불가</option>
 		</select>
 		<!-- 파일 처리 영역 -->
 		<input type="file" name="moviePoster" id="posterFile">

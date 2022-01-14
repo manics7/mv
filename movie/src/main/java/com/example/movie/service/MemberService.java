@@ -77,7 +77,6 @@ public class MemberService {
 	@Autowired
 	ReservationRepositoryCustom reservationRepositoryCustom;
 
-
 	public ModelAndView memberUpdateFrm() {
 		mv = new ModelAndView();
 
@@ -171,14 +170,9 @@ public class MemberService {
 					qList.remove(i);
 					qList.add(i,qDto);
 				}
-				
 			}
-	
 		} 
 		
-		
-
-
 		mv.addObject("qList",qList);
 		//전체 글 갯수
 		int maxNum = mMapper.selectQuestionCnt(id);
@@ -196,9 +190,9 @@ public class MemberService {
 
 		return mv;
 	}
+	
 	private String getPaging1(int num, int listCnt,String view,int maxNum) {
 		String pageHtml = null;
-
 
 		int pageCnt = 3;
 
@@ -212,6 +206,7 @@ public class MemberService {
 
 		return pageHtml;
 	}
+	
 	//영화리뷰리스트
 	public ModelAndView pmvReviewFrm(Integer pageNum,int listCnt,String View) {
 
@@ -289,9 +284,7 @@ public class MemberService {
 				mvr.setMvName(mvname);
 				//영화이름 추가한거 리스트에 추가
 				pmvrList.add(mvr);
-
 			}
-
 		}
 
 		mv.addObject("mvrList",pmvrList);
@@ -494,14 +487,8 @@ public class MemberService {
 		//호출한곳에 맞는 view로 반환
 		mv.setViewName(View);
 
-
-
 		return mv;
 	}
-
-
-
-	//	private ModelAndView mv;
 
 	private int listCnt = 4;//페이지 당 게시글 개수
 	//회원 정보 출력을 위한 인출
@@ -518,7 +505,6 @@ public class MemberService {
 		List<MemberDto> mList = mMapper.getList(mmap);
 		System.out.println("mList.size = "+mList.size());		
 		System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가져오는 mapper
-
 
 		return mList;
 	}
@@ -545,8 +531,6 @@ public class MemberService {
 
 		return pageHtml;
 	}
-
-
 
 	public String deletemember(RedirectAttributes rttr) {
 
@@ -583,7 +567,6 @@ public class MemberService {
 
 		List<MemberDto> mselectList = mMapper.selectMember(m_id);
 
-
 		System.out.println("검색 결과 = "+mselectList);
 		mv.addObject("mList", mselectList);
 		return mv;
@@ -619,7 +602,6 @@ public class MemberService {
 
 		return pageHtml;
 	}
-
 
 	// 이용자 회원가입 아이디 중복체크
 	public String idCheck(String mid) {
@@ -704,12 +686,10 @@ public class MemberService {
 		return view;
 	}
 
-
 	// 이용자 로그아웃
 	public String logout() {
 
 		String view = "redirect:/";
-
 
 		session.invalidate();
 
@@ -722,12 +702,14 @@ public class MemberService {
 		mv = new ModelAndView();
 
 		// 영화 상세 정보
-		MovieOfficialDto mvOfficialDto = aMapper.movieDetail(movie_cd);
+		MovieOfficialDto mvOfficialDto = mMapper.movieDetail(movie_cd);
 		// 관람평 목록 가져오기
-		List<ReviewMovieDto> reviewMovie = aMapper.reviewMovie(movie_cd);
-
+		List<ReviewMovieDto> reviewMovie = mMapper.reviewMovie(movie_cd);
+		List<TheaterDto> theaterCode = mMapper.getTheaterCode(movie_cd);
+		
 		mv.addObject("mvOfficial", mvOfficialDto);
 		mv.addObject("reviewMovie", reviewMovie);
+		mv.addObject("theaterName", theaterCode);
 
 		mv.setViewName("movieDetail");
 
@@ -835,7 +817,6 @@ public class MemberService {
 			Optional<Theater> theaterOpt = theaterRepository.findById(thCode);
 			Theater theater = theaterOpt.orElse(null);
 			
-
 			Map<String, Object> map = new HashMap<String, Object>();
 			Optional<MovieOfficial> movieOfficialOpt = movieOfficialRepository.findById(movieCd);
 
@@ -861,13 +842,11 @@ public class MemberService {
 		return list;
 	}
 
-
-
 	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
-	public ModelAndView getMovieList() {
+	public ModelAndView getMovieList(String mainMovieSearch) {
 		mv = new ModelAndView();
-		List<MovieOfficialDto> movieList = mMapper.getMovieList();
-
+		List<MovieOfficialDto> movieList = mMapper.getMovieList(mainMovieSearch);
+		
 		mv.addObject("movieList", movieList);
 		mv.setViewName("currentMovieList");
 
@@ -916,8 +895,6 @@ public class MemberService {
 			
 		}
 
-	
-		
 		return null;
 	}
 
@@ -933,6 +910,16 @@ public class MemberService {
 		rttr.addFlashAttribute("msg", msg);
 		view = "redirect:mmanage";
 		return view;
+	}
+
+	// 박스오피스 목록
+	public ModelAndView boxOffice() {
+		List<MovieOfficialDto> boxOffice = mMapper.getBoxOfficeList();
+
+		mv.addObject("mvOfficial", boxOffice);
+		mv.setViewName("index");
+		
+		return mv;
 	}
 
 }

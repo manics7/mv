@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.entity.Schedule;
@@ -183,7 +184,6 @@ public class MemberController {
 	}
 
 	//회원정보로 1대1문의 글 가져오기 (m_id로 검색)
-
 	@GetMapping("/mboardSelect")
 	public ModelAndView mboardSelect(String m_id) {
 
@@ -195,8 +195,6 @@ public class MemberController {
 
 		return mv;
 	}
-
-
 
 	// 이용자 회원가입
 	@PostMapping("memberInsert")
@@ -281,6 +279,7 @@ public class MemberController {
 		
 		return map;
 	}
+
 	//회원이 1대1문의사항 답변을 확인 할 떄
 	@GetMapping("memReadQuesRe")
 	public ModelAndView readQuesRe(int ques_no) {
@@ -290,18 +289,11 @@ public class MemberController {
 		return mv;
 	}
 
-//	// 영화관 상세 페이지 - 우창 테스트
-//	@GetMapping("theater_detail")
-//	public String theater_detail() {
-//		
-//		return "theater_detail";
-//	}
-	
 	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
 	@GetMapping("currentMovieList")
-	public ModelAndView currentMovieList() {
+	public ModelAndView currentMovieList(String mainMovieSearch) {
 
-		mv = mServ.getMovieList();
+		mv = mServ.getMovieList(mainMovieSearch);
 		
 		return mv;
 	}
@@ -324,7 +316,6 @@ public class MemberController {
 		return map;
 	}
 	
-	
 	@GetMapping("selectSchedule")
 	@ResponseBody
 	public List<Schedule> selectSchedule(String movieCd, Integer thCode, String schDate) {
@@ -336,6 +327,15 @@ public class MemberController {
 		return list;
 	}
 	
+	// 영화 상세 페이지 이동
+		@GetMapping("movieDetail")
+		public ModelAndView movieDetail(String movie_cd) {
+			
+			mv = mServ.movieDetail(movie_cd);
+			
+			return mv;
+		}
+	
 	//관리자 입장에서 회원 삭제.
 	@GetMapping("admindelMember")
 	public String admindelMember(String m_id, RedirectAttributes rttr) {
@@ -343,5 +343,4 @@ public class MemberController {
 		view = mServ.adminDeleteMember(m_id,rttr);
 		return view;
 	}
-	
 }

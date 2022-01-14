@@ -13,10 +13,6 @@ import com.example.movie.entity.Schedule;
 public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 
 	List<Schedule> findBySchDateBetween(Date startDate, Date endDate);
-
-	List<Schedule> findByThCodeAndSchDateBetween(Integer thCode, Date startDate, Date endDate);
-
-	List<Schedule> findByThCodeAndSchDate(Integer thCode, Date schDate);
 	
 	List<Schedule> findByThCodeAndSchDateBetween(Integer thCode, Date startDate, Date endDate);
 

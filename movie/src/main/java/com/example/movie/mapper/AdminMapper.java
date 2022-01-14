@@ -19,12 +19,6 @@ import com.example.movie.dto.reportMvReviewDto;
 
 public interface AdminMapper extends MybatisMapper {
 
-	// 영화 상세 페이지 이동
-	public MovieOfficialDto movieDetail(String movie_cd);
-
-	// 관람평 목록 가져오기
-	public List<ReviewMovieDto> reviewMovie(String movie_cd);
-
 	//회원 정보 출력 에서 회원 작성 글 선택 시 출력 되는 해당 회원의 1대1문의게시글 항목 가져오기
 	List<quesboardDto> getquesboardSelect(String m_id);
 
