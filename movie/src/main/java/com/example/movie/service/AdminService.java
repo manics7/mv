@@ -226,7 +226,7 @@ public class AdminService {
 		return qList;
 	}
 
-	public String getpaging(int num) {
+	public String getpagingQuesBoard(int num) {
 		String pageHtml = null;
 
 		int maxNum = aMapper.getquesBoardCnt();
@@ -359,35 +359,42 @@ public class AdminService {
 
 
 	}
-
-	public List<BusinessDto> getbulist(Integer pageNum) {
+//////////////
+	public ModelAndView getbulist(Integer pageNum) {
+		
+		mv = new ModelAndView();
+		 
+		int num = (pageNum == null)? 1 : pageNum;
+		
 		HashMap<String, Integer> busmap = new HashMap<String, Integer>();
 		busmap.put("pageNum", pageNum);
-		busmap.put("lcnt", listCnt);
+		busmap.put("lcnt", 4);
 
 		List<BusinessDto> buslist = aMapper.getbuslist(busmap);
-
-		return buslist;
-	}
-
-	public String busgetpaging(Integer pageNum) {
-		String pageHtml = null;
 
 		int maxNum = aMapper.getBusCnt();
 
 		int pageCnt = 10;
+		
+		//int listCnt = 4;
 
-		String listName = "mmanageBu";
-
-		PagingUtil paging = new PagingUtil(maxNum, pageNum, listCnt, 
-				pageCnt, listName);
+		String listName = "getBulist";
+		System.out.println("");
 		//PagingUtil paging = new PagingUtil(maxNum, pageCnt, maxNum, pageCnt, listName);
+		String pageHtml = getPaging(num,4,listName,maxNum);
+		//페이징처리
+		//mv에 데이터 투입
+		
+		mv.addObject("paging", pageHtml);
+		session.setAttribute("pageNum", num);
+		
+		mv.addObject("busList", buslist);
+		mv.setViewName("mmanageBu");
 
-		pageHtml = paging.makePaging();
 
-
-		return pageHtml;
+		return mv;
 	}
+
 
 	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
 		mv = new ModelAndView();

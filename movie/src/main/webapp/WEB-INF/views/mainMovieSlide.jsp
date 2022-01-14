@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -128,6 +131,7 @@
     <div class=".main_movielist_cont_wrap slider-type-theater" style="padding-top: 0;">
         <div class="swiper-container swiper-container-initialized swiper-container-horizontal .main_movielist_cont">
             <div class="swiper-wrapper">
+           <!-- <c:out value="${theatedetail}"></c:out>  --> 
             	<c:forEach var ="thdtail" items= "${theatedetail}" varStatus="status">
 				<div class="swiper-slide movie_list_item item2">
 					<a href="#" class="thum">
@@ -144,134 +148,7 @@
 					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
 				</div>
 				</c:forEach>
-                <div class="swiper-slide movie_list_item">
-                    <a href="#" class="thum">
-                        <div class="img">
-                            <img src="imges/movie_list_img1.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-                            <div class="grade">
-                                <span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-                                <span class="talker">평론가</span> <strong>4.3</strong>
-                            </div>
-                        </div>
-                    </a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-
-
-                </div>
-                <div class="swiper-slide movie_list_item">
-                    <a href="#" class="thum">
-                        <div class="img">
-                            <img src="imges/movie_list_img1.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-                            <div class="grade">
-                                <span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-                                <span class="talker">평론가</span> <strong>4.3</strong>
-                            </div>
-                        </div>
-                    </a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-
-
-                </div>
-                <div class="swiper-slide movie_list_item">
-                    <a href="#" class="thum">
-                        <div class="img">
-                            <img src="imges/movie_list_img1.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-                            <div class="grade">
-                                <span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-                                <span class="talker">평론가</span> <strong>4.3</strong>
-                            </div>
-                        </div>
-                    </a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-
-
-                </div>
-                <div class="swiper-slide movie_list_item">
-                    <a href="#" class="thum">
-                        <div class="img">
-                            <img src="imges/movie_list_img1.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-                            <div class="grade">
-                                <span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-                                <span class="talker">평론가</span> <strong>4.3</strong>
-                            </div>
-                        </div>
-                    </a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-
-
-                </div>
-                <div class="swiper-slide movie_list_item">
-                    <a href="#" class="thum">
-                        <div class="img">
-                            <img src="imges/movie_list_img1.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-                            <div class="grade">
-                                <span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-                                <span class="talker">평론가</span> <strong>4.3</strong>
-                            </div>
-                        </div>
-                    </a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-
-
-                </div>
-                <div class="swiper-slide movie_list_item">
-                    <a href="#" class="thum">
-                        <div class="img">
-                            <img src="imges/movie_list_img1.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-                            <div class="grade">
-                                <span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-                                <span class="talker">평론가</span> <strong>4.3</strong>
-                            </div>
-                        </div>
-                    </a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-
-
-                </div>
-                <div class="swiper-slide movie_list_item">
-                    <a href="#" class="thum">
-                        <div class="img">
-                            <img src="imges/movie_list_img1.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-                            <div class="grade">
-                                <span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-                                <span class="talker">평론가</span> <strong>4.3</strong>
-                            </div>
-                        </div>
-                    </a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-
-
-                </div>
-                <div class="swiper-slide movie_list_item">
-                    <a href="#" class="thum">
-                        <div class="img">
-                            <img src="imges/movie_list_img1.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-                            <div class="grade">
-                                <span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-                                <span class="talker">평론가</span> <strong>4.3</strong>
-                            </div>
-                        </div>
-                    </a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-
-
-                </div>
+               
             </div>
         </div>
         <div class="btn">
@@ -281,9 +158,6 @@
 
     </div>
 
-    </div>
-    </div>
-    </div>
 
 </body>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>

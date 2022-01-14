@@ -220,7 +220,7 @@ overflow: hidden;
     width : 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start
 }
 .movie_schedule_list>ul>li{
     list-style: none;
@@ -375,7 +375,6 @@ font-weight: 800;
 .map_box{
     width: 492px;
     height: 284px;
-    background: black;
 }
 
 .loc_list{

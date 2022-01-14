@@ -22,32 +22,116 @@
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c1fb565d3449c4f3b09341b7b630b32"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script type="text/javascript">
-	getDate();
-	console.log("getDate : "+ getDate());
-	function getDate(){
-		$.ajax({
-			type : "GET"
-			,url : "/getDate" 
-			,success : function(data) {
-			var	html ="";
-						data.forEach(function(item, index){
-							
-							var date = item.date
-							var dayOfWeek =item.dayOfWeek;						
-							color = (dayOfWeek == '일' ?  "text-danger" : dayOfWeek == "토" ? "text-primary"  : "");
-							day  = date.substr(8,2);		
-							html+=  "<li class='list-group-item my-0 py-2 dateBtn " +color+" font-weight-bold'  date=" +date +" style ='cursor : pointer;'    >"+ day+" ("+dayOfWeek +")</li>";							
-						});
-						$(".day_paging ul").html(html);
-			},error : function(err) {
-				//console.log("err:", err)
-			}
-		});
-	}
+	<script src="resource/js/theater_detail.js">
 	
 	</script>
+	<script type="text/javascript">
+	
+	
+	
+	$(document).ready(function () {
+		getDate();
+		  
+	    console.log("getDate : " + getDate());
+	    function getDate() {
+	        $.ajax({
+	            type: "GET"
+	            , url: "/getDate"
+	            , success: function (data) {
+	                var html = "";
+	                data.forEach(function (item, index) {
+
+	                    var date = item.date
+	                    var dayOfWeek = item.dayOfWeek;
+	                    color = (dayOfWeek == '일' ? "text-danger" : dayOfWeek == "토" ? "text-primary" : "");
+	                    day = date.substr(8, 2);
+	                    html += "<li class='list-group-item my-0 py-2 dateBtn " + color + " font-weight-bold'  date=" + date + " style ='cursor : pointer;'    >" + day + " (" + dayOfWeek + ")</li>";
+	                });
+	                $(".day_paging ul").html(html);
+	            }, error: function (err) {
+	                //console.log("err:", err)
+	            }
+	        });
+	    }
+
+
+	    $(document).on('click', ".dateBtn", function () {
+	        var date = $(this).attr("date");
+	        $.ajax({
+	            type: "GET"
+	            , url: "getSchedulelist?schDate=" + date + "&thCode=" + ${ th_code }
+	            , success : function (data) {
+	                var html = "";
+
+	                for (i = 0; i < data.length; i++) {
+
+	                    for (j = 0; j < data[i].schedule.scheduleDetail.length; j++) {
+	                        html += "<li><div>"
+
+	                        html += "<p class='stime'>" + data[i].schedule.scheduleDetail[j].schDetailStart + "</p>"
+	                        html += "<p class='etime'>" + data[i].schedule.scheduleDetail[j].schDetailEnd + "</p>"
+	                        html += "<p class='seat'><b>" + data[i].schedule.scheduleDetail[j].rsrvSeatCnt
+	                            + "</b>/ " + data[i].room.seatCnt + " 석</p>"
+	                        html + "</div></li>"
+	                        html += "<p class = mv_info>" + data[i].room.roomName + "-" + data[i].room.roomClass + "</p>"
+	                        html += "<p class = mv_title>" + data[i].movieOfficial.movieNm + "</p>"
+	                    }
+	                }
+	                $(".movie_schedule_list ul").html(html);
+	            }
+	            , error : function (err) {
+	                //console.log("err:", err)
+	            }
+	            });
+
+	});
+	    
+	    });
+
+/*----------------여기부터 위치정보 스크립트-------------------*/
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('경상남도 창원시 마산합포구 동서북 14길 24', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});
+
+
+	</script>
+
 	</head>
 	
 <body>
@@ -398,68 +482,9 @@
 	<!-- Core theme JS-->
 
 </body>
-
 <script type="text/javascript">
-	
-	$(document).ready(function(){
-		getDate();
-		console.log("getDate : "+ getDate());
-		function getDate(){
-			$.ajax({
-				type : "GET"
-				,url : "/getDate" 
-				,success : function(data) {
-				var	html ="";
-							data.forEach(function(item, index){
-								
-								var date = item.date
-								var dayOfWeek =item.dayOfWeek;						
-								color = (dayOfWeek == '일' ?  "text-danger" : dayOfWeek == "토" ? "text-primary"  : "");
-								day  = date.substr(8,2);		
-								html+=  "<li class='list-group-item my-0 py-2 dateBtn " +color+" font-weight-bold'  date=" +date +" style ='cursor : pointer;'    >"+ day+" ("+dayOfWeek +")</li>";							
-							});
-							$(".day_paging ul").html(html);
-				},error : function(err) {
-					//console.log("err:", err)
-				}
-			});
-		}
-		$(document).on('click',".dateBtn" ,function(){
-			var date = $(this).attr("date");
-			$.ajax({
-				type : "GET"
-				,url : "getSchedulelist?schDate=" + date+"&thCode=" +${th_code}    		
-				,success : function(data) {
-				var	html ="";
-				
-				for(i=0; i < data.length; i++){
-					
-					for(j=0; j < data[i].schedule.scheduleDetail.length; j++){
-						html += "<li><div>" 
-						
-						html += "<p class='stime'>"+data[i].schedule.scheduleDetail[j].schDetailStart+"</p>"
-						html += "<p class='etime'>"+data[i].schedule.scheduleDetail[j].schDetailEnd+"</p>"
-						html += "<p class='seat'><b>"+data[i].schedule.scheduleDetail[j].rsrvSeatCnt
-						+ "</b>/ "+data[i].room.seatCnt+" 석</p>"
-						html +"</div></li>"
-						html += "<p class = mv_info>" + data[i].room.roomName +"-"+data[i].room.roomClass + "</p>"
-						html += "<p class = mv_title>" + data[i].movieOfficial.movieNm  + "</p>"
-					}
-					}
-				}
-				$(".movie_schedule_list ul").html(html);
-			},error : function(err) {
-				console.log("err:", err)
-			}
-		}); //dateBtn end
-				//		<p class="mv_info">1관 - 2D</p>
-						//<p class="mv_title">너에게 가는 길</p>
-					//var date = item.date
-					//var dayOfWeek =item.dayOfWeek;	
-					//color = (dayOfWeek == '일' ?  "text-danger" : dayOfWeek == "토" ? "text-primary"  : "");
-					//day  = date.substr(8,2);		
-					//html+=  "<li class='list-group-item my-0 py-2 dateBtn " +color+" font-weight-bold'  date=" +date +" style ='cursor : pointer;'    >"+ day+" ("+dayOfWeek +")</li>";							
-			<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-	});
-	</script>
+
+getDate();
+</script>
+
 </html>

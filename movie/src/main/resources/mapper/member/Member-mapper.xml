@@ -146,4 +146,6 @@
 	<select id="seletThkey" resultType="com.example.movie.dto.TheaterDto">
 	SELECT * FROM theater
 	</select>
+	
+
 </mapper>

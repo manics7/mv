@@ -150,18 +150,18 @@ public class MemberController {
 
 	//회원 정보 출력
 	@GetMapping("/mmanage")
-	public ModelAndView mmanageFrm(String pageNum) throws Exception {
-//		int num = (pageNum == null)? 1 : pageNum;
-		System.out.println("page_num = "+pageNum);
+	public ModelAndView mmanageFrm(Integer pageNum) throws Exception {
+		int num = (pageNum == null)? 1 : pageNum;
+		System.out.println("page_num = "+ pageNum);
 		LOG.info("info Log = " + pageNum);
 
 		ModelAndView mv = new ModelAndView();
 
-		List<MemberDto> mList = mServ.getMemberList(Integer.parseInt(pageNum));
+		List<MemberDto> mList = mServ.getMemberList(num);
 
 		mv.addObject("mList", mList);
 
-		String pageHtml = mServ.getPaging(Integer.parseInt(pageNum));
+		String pageHtml = mServ.getPaging(num);
 		mv.addObject("paging", pageHtml);
 
 
@@ -189,6 +189,8 @@ public class MemberController {
 
 		System.out.println("테스트 검색어 m_id = "+m_id);
 		mv = mServ.mboardSelect(m_id);
+		
+		//페이징 처리 할 예정
 		mv.setViewName("quesboard");
 
 		return mv;
@@ -333,4 +335,13 @@ public class MemberController {
 		List<Schedule> list = scheduleService.selectSchList(movieCd, thCode, schDate);
 		return list;
 	}
+	
+	//관리자 입장에서 회원 삭제.
+	@GetMapping("admindelMember")
+	public String admindelMember(String m_id, RedirectAttributes rttr) {
+		String view = null;
+		view = mServ.adminDeleteMember(m_id,rttr);
+		return view;
+	}
+	
 }

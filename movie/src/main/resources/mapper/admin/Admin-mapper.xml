@@ -71,9 +71,9 @@
 		<select id="getbuslist" parameterType="HashMap"
 		resultType="com.example.movie.dto.BusinessDto">
 		<![CDATA[
-		SELECT * FROM BUSINESS
-		WHERE b_num >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
-			AND b_num <= #{pageNum} * #{lcnt}
+		SELECT * FROM v_businessmem
+		WHERE RONUM >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{pageNum} * #{lcnt}
 		]]>
 	</select>
 	
