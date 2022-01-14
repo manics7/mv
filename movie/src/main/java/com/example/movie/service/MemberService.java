@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -878,7 +879,9 @@ public class MemberService {
 	// 박스오피스 목록
 	public ModelAndView boxOffice() {
 		List<MovieOfficialDto> boxOffice = mMapper.getBoxOfficeList();
-
+			
+		mv = new ModelAndView();
+		
 		mv.addObject("mvOfficial", boxOffice);
 		mv.setViewName("index");
 		
