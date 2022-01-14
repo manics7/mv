@@ -1,8 +1,11 @@
 package com.example.movie.common;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.HttpMethod;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
@@ -145,7 +149,18 @@ public class AwsS3 {
     // 파일 한개URL
     public String getFileURL(String bucketName, String fileName) {
         log.info("넘어오는 파일명 : "+fileName);
-        return amazonS3.generatePresignedUrl(new GeneratePresignedUrlRequest(bucketName, fileName)).toString();
+        Date expiration = new Date();
+        long expTimeMillis = expiration.getTime();
+        //                      밀리세컨*초*분*시*일
+        expTimeMillis += 1000 *  60 * 60 * 24 * 7;
+        expiration.setTime(expTimeMillis);
+        
+        GeneratePresignedUrlRequest generatePresignedUrlRequest =
+        		new GeneratePresignedUrlRequest(bucketName, fileName)
+                        .withMethod(HttpMethod.GET)
+                        .withExpiration(expiration);
+        
+        return amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString();
     }
     // 폴터내 전체 파일리스트 URL 
     public List<String> getFileList(String bucketName, String folder){
@@ -157,7 +172,4 @@ public class AwsS3 {
 		}    	
     	return url;
     }
-    
- 
-	
 }

@@ -99,5 +99,8 @@ public interface MemberMapper  extends MybatisMapper {
 	
 	// 메인 페이지 박스오피스 목록
 	public List<MovieOfficialDto> getBoxOfficeList();
+
+	public List<TheaterDto> seletThkey();
+	//public void adminDeleteMember(String m_id);
 	
 }

@@ -6,10 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>감상평 관리</title>
+<title>QUESTION BOARD</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="resource/css/queboard/queboard.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -17,60 +19,42 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-$(function(){
-	//메시지 출력 부분
-	var msg = "${msg}";
-	if(msg != ""){
-		alert(msg);
-	});
+	//state == 1 ? state.innerHtml("답변완료") : state.innerHtml("미완료");
 </script>
+
 </head>
 <body>
+    <div class="wrap">
+        <nav>
+        <jsp:include page="mypage_header.jsp"></jsp:include>
+        </nav>
 
-	<!-- 상단 메뉴 부분 -->
-	<nav
-		class="navbar navbar-expand-md bg-dark navbar-dark fixed-top shadow-lg">
-		<a class="navbar-brand" href="index.html">MVTI</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navMenu">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navMenu">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a href="board_main.html" class="nav-link">매뉴1</a>
-				</li>
-				<li class="nav-item"><a href="board_main.html" class="nav-link">매뉴2</a>
-				</li>
-				<li class="nav-item"><a href="board_main.html" class="nav-link">매뉴3</a>
-				</li>
-				<li class="nav-item"><a href="board_main.html" class="nav-link">매뉴4</a>
-				</li>
-			</ul>
 
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a href="login.html" class="nav-link">로그인</a>
-				</li>
-				<li class="nav-item"><a href="join.html" class="nav-link">회원가입</a>
-				</li>
-				<li class="nav-item"><a href="modify_user.html"
-					class="nav-link">정보수정</a></li>
-				<li class="nav-item"><a href="index.html" class="nav-link">로그아웃</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-
-	<!-- 게시글 리스트 -->
-	<div class="container" style="margin-top: 100px">
-		<div class="card shadow">
-			<form name="searchFrm" action="mvReviewSearch" method="post">
+        <div class="main_wrap">
+            <!-- 상단 메뉴 부분 -->
+            <div class="cont_wrap">
+                <!-- 게시글 리스트 -->
+                <div class="cont_sidebar">
+                <jsp:include page="mypage_sidebar.jsp"/>
+                </div>
+                <div class="container queboard">
+                    <div class="card shadow">
+                        <!--
+    
+    <div>
+        <h4>회원정보로 검색한 작성 글</h4>
+        ${mbLIst}
+    </div>
+    -->
+                        <div class="card-body qqueboard_con">
+                            			<form name="searchFrm" action="mvReviewSearch" method="post">
 				<div class="card-body">
 					<h4 class="card-title">내가 쓴 감상평</h4>
 					<input type="text" placeholder="영화명 입력" name="mvname"> <input
 						type="submit" value="검색">
 				</div>
 			</form>
-					<table class="table table-hover" id='board_list'>
+                           <table class="table table-hover" id='board_list'>
 						<thead>
 							<tr>
 							<!-- 	<th class="text-center d-none d-md-table-cell">번호</th> -->
@@ -98,7 +82,7 @@ $(function(){
 								</c:forEach>
 						</c:when>
 						<c:otherwise>
-							<td class="text-center d-none d-md-table-cell">작성한 감상평이 없습니다.</td>
+							<td class="text-center d-none d-md-table-cell">감상평이 없습니다.</td>
 						</c:otherwise>
 						
 						</c:choose>
@@ -124,32 +108,42 @@ $(function(){
 						</tbody>
 					</table>
 
-					<div class="d-none d-md-block">
-						<!-- <div class="paging">${paging}</div>  -->
-						<div class="pagination justify-content-center">
-							<div class="page-item">${paging}</div>
-						</div>
-					</div>
+                            <div class="d-none d-md-block">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">${paging}</li>
+                                </ul>
+                            </div>
+<!--  
+  <div class="d-block d-md-none">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item"><a href="#" class="page-link">이전</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                                </ul>
+                            </div>
 
-					<div class="d-block d-md-none">
-						<ul class="pagination justify-content-center">
-							<li class="page-item"><a href="#" class="page-link">이전</a></li>
-							<li class="page-item"><a href="#" class="page-link">다음</a></li>
-						</ul>
-					</div>
-			
-		</div>
-	</div>
+-->
+                          
+                            <!-- href="resource/css/home.css" -->
+                        </div>
+                    </div>
+                </div>
 
-	<div class="container-fluid bg-dark text-white"
-		style="margin-top: 50px; padding-top: 30px; padding-bottom: 30px">
-		<div class="container">
-			<p>sehun</p>
-			<p>게시판</p>
-			<p>사업자번호 : 000-000-000</p>
-		</div>
-	</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="footer_wrap">
+        <footer></footer>
+
+    </div>
+
+
+
+
+
+
 </body>
+
 <script type="text/javascript">
 function delCheck(mv_review){
 	var conf = confirm("삭제하시겠습니까?");

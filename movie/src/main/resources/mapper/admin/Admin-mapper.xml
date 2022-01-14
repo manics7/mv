@@ -71,9 +71,9 @@
 		<select id="getbuslist" parameterType="HashMap"
 		resultType="com.example.movie.dto.BusinessDto">
 		<![CDATA[
-		SELECT * FROM BUSINESS
-		WHERE b_num >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
-			AND b_num <= #{pageNum} * #{lcnt}
+		SELECT * FROM v_businessmem
+		WHERE RONUM >= (#{pageNum} * #{lcnt}) - (#{lcnt} - 1)  
+			AND RONUM <= #{pageNum} * #{lcnt}
 		]]>
 	</select>
 	
@@ -90,7 +90,7 @@
 	
 	<select id="selectQuesReply" parameterType="Integer"
 		resultType="com.example.movie.dto.quesReplyDto">
-		SELECT * FROM question_reply where ques_no = #{ques_no}
+		SELECT * FROM question_reply where ques_no = #{ques_num}
 	</select>
 	
 	<select id="selectMovieRequest"
@@ -108,10 +108,8 @@
 		SELECT * FROM v_question where ques_no = #{ques_no}
 	</select>
 
-	<insert id="quesboard_replywrite" parameterType="com.example.movie.dto.quesReplyDto">
-	INSERT INTO question_reply VALUES(#{ques_reply_no},#{ques_no},#{ques_reply_cont},sysdate,#{ques_reply_state});
-	</insert>
 	
+
 	<select id="selectMovieBySeq" parameterType="Integer"
 		resultType="com.example.movie.dto.MovieDto">
 		SELECT * FROM movie where mv_seq =#{mv_seq}
@@ -136,7 +134,7 @@
 	
 	<!-- 1대1문의사항 답변 삽입  -->
 	<insert id="insertReplyWrite" parameterType="com.example.movie.dto.quesReplyDto">
-	INSERT INTO question_reply VALUES (QUESREPLY_SEQ.nextval,#{ques_no},#{ques_reply_cont},sysdate,1);
+	INSERT INTO question_reply VALUES (QUESREPLY_SEQ.nextval,#{ques_no},#{ques_reply_cont},sysdate,1)
 	</insert>
 	
 	<!-- 신고 영화관리뷰 갯수 -->

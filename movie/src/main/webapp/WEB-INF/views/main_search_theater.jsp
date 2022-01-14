@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -157,8 +159,12 @@
 				</ul>
 				<div class="local_result">
 					<ul>
-						<li><a href="./theaterinsert1?th_code=1">광주극장</a></li>
-						<li><a href="./theaterinsert1?th_code=3">광주독립영화관</a></li>
+					<c:forEach var="thCList" items="${thCodeList}">
+						<li><a href="./theaterinsert1?th_code=${thCList.th_code}">${thCList.th_name}</a></li>
+						</c:forEach>
+						<!-- 
+						
+						<li><a href="./theaterinsert1?th_code=2">광주독립영화관</a></li>
 						<li><a href="./theaterinsert1?th_code=3">더솔아트시네마</a></li>
 						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
 						<li><a href="./theaterinsert?th_code=3">씨네아트 리홈</a></li>
@@ -172,6 +178,10 @@
 						<li><a href="./theaterinsert?th_code=3">광주디지털독립영화관</a></li>
 						<li><a href="./theaterinsert?th_code=3">판타스틱큐</a></li>
 						<li><a href="./theaterinsert?th_code=3">필름포럼</a></li>
+						
+						
+						 -->
+						
 					</ul>
 				</div>
 				<!-- 
