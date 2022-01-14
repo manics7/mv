@@ -77,7 +77,7 @@ public class AdminService {
 
 		mv = new ModelAndView();
 		int num = (pageNum == null)? 1 : pageNum;
-		int listCnt = 6;
+		int listCnt = 4;
 
 
 		String view = "boardreportFrm";
@@ -111,7 +111,7 @@ public class AdminService {
 	public ModelAndView reportedReply(Integer pageNum) {
 		mv = new ModelAndView();
 		int num = (pageNum == null)? 1 : pageNum;
-		int listCnt = 6;
+		int listCnt = 4;
 
 
 		String view = "replyreportFrm";
@@ -146,7 +146,7 @@ public class AdminService {
 		mv = new ModelAndView();
 
 		int num = (pageNum == null)? 1 : pageNum;
-		int listCnt = 5;
+		int listCnt = 4;
 
 		int maxNum = aMapper.selectReportMvReviewCnt();
 
@@ -182,7 +182,7 @@ public class AdminService {
 	@Transactional
 	public String delAdminMvReview(int mvrNum,RedirectAttributes rttr) {
 
-		String view = "redirect:reportFrm";
+		String view = "redirect:mvrreportFrm";
 
 		String rptId = aMapper.selectIdFromMvReview(mvrNum);
 
@@ -265,12 +265,12 @@ public class AdminService {
 
 		List<MovieOfficialDto> movieOfList = aMapper.selectMvOfficial();
 
-		for(int i = 0; i <= movieList.size()-1; i++) {
+		for(int i = 0; i < movieList.size(); i++) {
 
 			MovieDto mvDto1 = movieList.get(i);
 
 			//중복요청 출력할 리스트에서 제거
-			for(int j = i+1; j <= movieList.size()-1; j++) {
+			for(int j = i+1; j < movieList.size(); j++) {
 
 				MovieDto mvDto2 = movieList.get(j);
 
@@ -283,7 +283,7 @@ public class AdminService {
 				}
 			}
 
-			for(int k = 0; k <= movieOfList.size()-1; k++) {
+			for(int k = 0; k < movieOfList.size(); k++) {
 
 				MovieOfficialDto mOfDto = movieOfList.get(k);
 
@@ -339,7 +339,7 @@ public class AdminService {
 		}
 
 
-		String view = "adminMovieList";
+		String view = "adminMovieRequest";
 
 		String pageHtml = getPaging(num,listCnt,view,maxNum);
 		mv.addObject("paging", pageHtml);
@@ -352,8 +352,7 @@ public class AdminService {
 
 
 		mv.addObject("mvList", movieList1);
-		mv.setViewName("adminMovieList");
-
+		mv.setViewName("adminMovieRequest");
 		return mv;
 
 
@@ -422,7 +421,7 @@ public class AdminService {
 
 		String check = multi.getParameter("filecheck");
 
-		movie_content = movie_content.trim();
+		//movie_content = movie_content.trim();
 
 		String seq = multi.getParameter("movie_seq");
 
@@ -469,8 +468,8 @@ public class AdminService {
 				mvofficialDto.setStillcut5(LfileName);
 			}
 			if(i > 4) {
-				//msg = "파일은 5개까지만 등록 가능합니다.";
-				rttr.addFlashAttribute("msg", "파일은 5개까지만 등록 가능합니다.");
+				msg = "파일은 5개까지만 등록 가능합니다.";
+				//rttr.addFlashAttribute("msg", "파일은 5개까지만 등록 가능합니다.");
 				filenum = 1;
 				break;
 			}
@@ -483,17 +482,24 @@ public class AdminService {
 		
 		//등록한 스틸컷 5개 이하일 경우만 등록
 		if(filenum == 0) {
-			if(checkMovie == 0) {
-			//msg = "등록 성공";
+			if(checkMovie == 0) {//미등록영화 등록
+			msg = "등록 성공";
 			aMapper.adminMovieInsert(mvofficialDto);
 			
-			rttr.addFlashAttribute("msg", "등록 성공");
+			rttr.addFlashAttribute("msg", msg);
 
-			}			
+			}
+			else {//이미등록된 영화
+				aMapper.adminMovieUpdate(mvofficialDto);
+				msg = "수정 성공";
+				rttr.addFlashAttribute("msg", msg);
+			}
 		}
+		
 		view = "redirect:adminMovieList";
 
 		return view;
+		//return msg;
 	}
 		//1대1 문의 답변(사용함)(하는중)
 	public String quesboard_reply_insert(quesReplyDto qrdto, RedirectAttributes rttr) {

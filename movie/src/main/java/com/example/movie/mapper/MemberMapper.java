@@ -1,4 +1,6 @@
 package com.example.movie.mapper;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +43,8 @@ public interface MemberMapper  extends MybatisMapper {
 	
 	//스케줄번호로 극장코드검색
 	public int selectThcode (int schno);
+	//스케줄번호로 schTime검색
+	public reservationDto selectSchTime(int schno);
 	//극장코드로 극장이름검색
 	public String selectThname (int thcode);
 	//스케줄번호로 영화코드 검색
@@ -87,5 +91,6 @@ public interface MemberMapper  extends MybatisMapper {
 	// 현재상영작 불러오기
 	public List<MovieOfficialDto> getMovieList();
 	public List<TheaterDto> seletThkey();
+	
 	
 }

@@ -18,4 +18,5 @@ public class reservationDto {
 	
 	private String mvname;
 	private String thname;
+	private Timestamp sch_date;
 }

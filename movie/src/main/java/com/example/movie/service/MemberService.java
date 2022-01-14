@@ -1,5 +1,6 @@
 package com.example.movie.service;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -85,7 +86,7 @@ public class MemberService {
 
 		String birth = mem.getM_birth();
 		// 생일 문자열 뒤에 00:00:00을 없애기 위한 반복문
-		for(int i = 10; i <= birth.length()-1; i++) {
+		for(int i = 10; i < birth.length(); i++) {
 
 			birth = birth.substring(0,i);
 		}
@@ -154,7 +155,7 @@ public class MemberService {
 				qList.add(que);
 			}
 			
-			for(int i = 0; i<= qList.size()-1; i++) {
+			for(int i = 0; i< qList.size(); i++) {
 				QuestionDto qDto = qList.get(i);
 				int qnum = qDto.getQues_no();
 				int ques_state = qDto.getQues_state();
@@ -236,9 +237,9 @@ public class MemberService {
 
 			int list = listCnt -1 ;
 			//mv_review번호를 비교해 큰수 부터(시퀀스 최신순)리스트 정렬
-			for(int i = 0; i <= apmvrList.size()-1; i++) {
+			for(int i = 0; i < apmvrList.size(); i++) {
 
-				for(int j = i+1; j <= apmvrList.size()-1; j++) {
+				for(int j = i+1; j < apmvrList.size(); j++) {
 
 					mvReviewDto mvr1 = apmvrList.get(i);
 
@@ -330,48 +331,6 @@ public class MemberService {
 		return view;
 	}
 
-	public ModelAndView mvReviewSearch(String mvname) {
-
-		MemberDto member = (MemberDto)session.getAttribute("userInfo");
-		String id = member.getM_id();
-
-		List<mvReviewDto> mvrList = mMapper.selectpmvReview(id);
-
-		//검색처리
-		for(int i = 0; i <= mvrList.size()-1; i++) {
-
-			mvReviewDto amvrDto = mvrList.get(i);
-
-			String movieCd = amvrDto.getMv_review_moviecd();
-
-			String mvName = mMapper.selectMovieName(movieCd);
-
-			mvReviewDto mvr = amvrDto;
-			//옮기고 영화이름 추가
-			mvr.setMvName(mvName);
-
-			if(!mvname.equals(mvName)) {
-
-				mvrList.remove(i);
-				i--;
-			}
-		}
-		mv.addObject("mvrList",mvrList);
-
-		int maxNum = 1;
-		int num =1;
-		int listCnt =10;
-		String View = "pmvReviewFrm";
-		//페이징 처리.
-
-		String pageHtml = getPaging1(num,listCnt,View,maxNum);
-		mv.addObject("paging", pageHtml);
-		mv.setViewName("pmvReviewFrm");
-
-		return mv;
-	}
-
-
 	//마이페이지 예매/결제 내역 출력.
 	public ModelAndView selectPurchase (Integer pageNum, int listCnt, String View) {
 
@@ -386,23 +345,9 @@ public class MemberService {
 		//마이페이지에 출력할 것이므로 ...가져온 id에맞는 예매한 예매리스트
 		List<reservationDto> rsrvList = mMapper.selectRsrvByid(id);
 
-		if(View.equals("purchaseFrm")) {//결제내역 페이지 에서 호출했을경우
-
-			//id에맞는취소된 예매내역은 리스트에서 삭제후 저장
-			for(int i = 0; i <= rsrvList.size()-1; i++) {
-
-				reservationDto rsrvDto = rsrvList.get(i);
-
-				int state = rsrvDto.getRsrv_status();
-				//결제취소 == state 1, 1일경우 출력할 리스트에서 제거
-				if(state == 1) {
-					rsrvList.remove(i);
-					i--;
-				}
-			}
-		}
-		else {//결제취소페이지 호출
-			for(int i = 0; i <= rsrvList.size()-1; i++) {
+		
+		if(View.equals("purchaseCancelFrm")) {//결제취소페이지 호출
+			for(int i = 0; i < rsrvList.size(); i++) {
 
 				reservationDto rsrvDto = rsrvList.get(i);
 
@@ -414,11 +359,27 @@ public class MemberService {
 				}
 			}
 		}
-		if(!rsrvList.isEmpty()) {
-			//극장이름,영화등을 함께 묶어서 출력하기위한 for문
-			for(int i = 0; i <= rsrvList.size()-1; i++) {
+		else {//결제내역 페이지 에서 호출했을경우
+
+			//id에맞는취소된 예매내역은 리스트에서 삭제후 저장
+			for(int i = 0; i < rsrvList.size(); i++) {
 
 				reservationDto rsrvDto = rsrvList.get(i);
+
+				int state = rsrvDto.getRsrv_status();
+				//결제취소 == state 1, 1일경우 출력할 리스트에서 제거
+				if(state == 1) {
+					rsrvList.remove(i);
+					i--;
+				}
+			}
+		}
+		if(!rsrvList.isEmpty()) {
+			//극장이름,영화등을 함께 묶어서 출력하기위한 for문
+			for(int i = 0; i < rsrvList.size(); i++) {
+
+				reservationDto rsrvDto = rsrvList.get(i);
+				reservationDto schDate = new reservationDto();
 
 				//예매번호로 에매테이블에서 스케줄번호찾기
 				int schno = rsrvDto.getSch_code();
@@ -428,11 +389,15 @@ public class MemberService {
 				String thname = mMapper.selectThname(thcode);
 				//스케줄번호로 스케줄테이블에서 무비코드 찾기
 				String mvcd = mMapper.selectMoviecode(schno);
+				//스케줄번호로 스케줄테이블에서 스케줄시간찾기
+				schDate = mMapper.selectSchTime(schno);
+				Timestamp sch_date = schDate.getSch_date();
 				//무비코드로 출력할 영화이름찾기 
 				String mvname = mMapper.selectMovieName(mvcd);
-
+				
 				rsrvDto.setMvname(mvname);
 				rsrvDto.setThname(thname);
+				rsrvDto.setSch_date(sch_date);
 
 				rsrvList.remove(i);
 				rsrvList.add(i,rsrvDto);
@@ -920,5 +885,7 @@ public class MemberService {
 		
 		return null;
 	}
+
+
 
 }

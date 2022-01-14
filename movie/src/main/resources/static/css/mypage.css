@@ -31,7 +31,7 @@ h3{
 .sidebar{
     width: 184px;
     height: 450px;
-    border: 1px solid lightgray;
+    /*border: 1px solid lightgray;*/
 }
 
 .page_cont_wrap{
@@ -51,7 +51,7 @@ h3{
 .profile_box{
     width: 228px;
     height: 106px;
-    border: 1px solid lightgray;
+   /* border: 1px solid lightgray;*/
     display: flex;
     align-items: center;
 
@@ -121,7 +121,7 @@ justify-content: space-between;
 }
 .tbl_list{
 width: 100%;
-border: 1px solid lightgray;
+/*border: 1px solid lightgray;*/
 font-size: 11px;
 
 

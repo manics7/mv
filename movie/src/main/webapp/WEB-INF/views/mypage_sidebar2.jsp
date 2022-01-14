@@ -16,7 +16,7 @@
 		<ul id="bupage_list">
 			<li><a id="bupage_menu" href="./mmanage?pageNum=1">예매/구매내역</a></li>
 
-			<li><a id="bupage_menu" href="adminMovieList">내가 본 영화</a></li>
+			<li><a id="bupage_menu" href="mypageMovieFrm">내가 본 영화</a></li>
 			<li><a id="bupage_menu" href="pmvReviewFrm">내가 쓴 감상평</a></li>
 			<li><a id="bupage_menu" href="./questionFrm">1:1문의</a></li>
 			<li><a id="bupage_menu" href="mvrreportFrm">신고관리</a></li>
