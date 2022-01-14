@@ -162,9 +162,14 @@
 				</ul>
 				<div class="local_result">
 					<ul>
+					<!--
+					
 					<c:forEach var="thCList" items="${thCodeList}">
 						<li><a href="./theaterDetailPage?th_code=${thCList.th_code}">${thCList.th_name}</a></li>
 						</c:forEach>
+					
+					
+					  -->
 					
 						
 					</ul>

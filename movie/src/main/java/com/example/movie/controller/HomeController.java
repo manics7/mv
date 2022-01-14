@@ -1,11 +1,15 @@
 package com.example.movie.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.movie.dto.TheaterDto;
 import com.example.movie.service.BusinessService;
 import com.example.movie.service.MemberService;
 
@@ -35,14 +39,14 @@ public class HomeController {
 		return "index";
 	}
 	
-	
+	@ResponseBody
 	@GetMapping("searchTheater")
-	public ModelAndView searchTheater() {
-ModelAndView mv = mServ.selectThcode();
+	public List<TheaterDto> searchTheater() {
+List<TheaterDto> thCodeList = mServ.selectThcode();
 		
-		mv.setViewName("index");
 		
-		return mv;
+		
+		return thCodeList;
 	}
 	
 	

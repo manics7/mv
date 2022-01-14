@@ -245,7 +245,7 @@ public class MemberController {
 		return insertReviewMap;
 	}
 	//영화관 상세 페이지로 이동.
-	@GetMapping("theaterDetailPage")
+	@GetMapping("accessTheaterDetailPage")
 	public ModelAndView theater_detail(Integer th_code) {
 		List<Map<String, Object>> list = mServ.getSch(th_code);
 		mv = new ModelAndView();

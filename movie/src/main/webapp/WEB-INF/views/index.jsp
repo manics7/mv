@@ -7,18 +7,7 @@
 <title>Movie | eivoM</title>
 <link rel="stylesheet" type="text/css" href="resource/css/index.css">
 <script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-function getSearchTheaterData(){
-$.ajax({
-	type: "GET"
-	,url: "/searchTheater"
-	,succes:function(data){
-		
-		console.log(data);
-	}
-})	
-}
-</script>
+
 </head>
 <body>
 
@@ -26,9 +15,7 @@ $.ajax({
 		<header>
 			<jsp:include page="header.jsp"></jsp:include>
 		</header>
-		<div class="search_theater">
-		<jsp:include page="main_search_theater.jsp"></jsp:include>
-		</div>	
+	
 		<div id="section_wrap">
 			<div id="main_wrap">
 				<div id="box_office">
@@ -132,20 +119,7 @@ $.ajax({
 </body>
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		
-		$('.search_rayer').hide();
-		$('.menuitem_4_search_theater').mouseover(function(){
-			console.log("내려간다.");
-			$('.search_rayer').slideDown();
-		});
-		
 	
-		$('.search_close').mouseup(function(){
-			$('.search_rayer').hide();
-		})
-		
-	})
 		//메시지 출력 부분
 		var msg = "${msg}";
 		var info = "${userInfo.m_name}"

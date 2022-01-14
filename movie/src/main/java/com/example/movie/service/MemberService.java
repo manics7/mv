@@ -853,13 +853,11 @@ public class MemberService {
 		return mv;
 	}
 
-	public ModelAndView selectThcode() {
+	public List<TheaterDto> selectThcode() {
 		List<TheaterDto> thCodeList = mMapper.seletThkey();
-		mv = new ModelAndView();
-		mv.addObject("thCodeList", thCodeList);
 		//mv = mMapper.seletThkey();
 		
-		return mv;
+		return thCodeList;
 	}
 
 	public ModelAndView memReadQuesRe(int ques_no, int view) {
