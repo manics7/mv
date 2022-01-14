@@ -15,6 +15,7 @@ import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.service.AdminService;
+import com.example.movie.service.MemberService;
 
 @Controller
 public class AdminController {
@@ -23,6 +24,8 @@ public class AdminController {
 	private AdminService aServ;
 	
 	private ModelAndView mv;
+	@Autowired
+	private MemberService mServ;
 	
 	//신고페이지(영화리뷰)
 	@GetMapping("mvrreportFrm")
@@ -91,21 +94,7 @@ public class AdminController {
 		System.out.println("ques_no = "+ques_no);
 		
 		//문의번호로 가져옴
-		List<quesboardDto> readqlist = aServ.getboardRead(ques_no);
-		
-		//가져온거 어차피 1개니까 0번째로 꺼냄
-		quesboardDto qDto = readqlist.get(0);
-		
-		//문의글 상태. 0 = 미답변,1=답변완료
-		int state = qDto.getQues_state();
-		
-		//답변 완료일시
-		if(state == 1) {
-			
-			//문의번호로 답변 찾아와서 저장
-			quesReplyDto qrDto = aServ.selectQuesReply(ques_no);
-			mv.addObject("reply",qrDto);
-		}
+		quesboardDto readqlist = aServ.getboardRead(ques_no);
 		
 		mv.addObject("qrlist", readqlist);
 		
@@ -134,7 +123,7 @@ public class AdminController {
 		return mv;
 	}
 	
-	//문의사항 답변 달기 ( 하는중 ) 
+	//문의사항 답변 달기 
 	@PostMapping("/quesboard_reply_insert")
 	public String quesboard_reqly_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
 		System.out.println("qrdto"+qrdto);
@@ -189,6 +178,13 @@ public class AdminController {
 		return view;
 	}
 	
+	//관리자 가 자신의 답변 확인.
+	@GetMapping("adminReadQuesRe")
+	public ModelAndView adminReadQuesRe(int ques_no) {
+		mv = new ModelAndView();
+		mv = mServ.memReadQuesRe(ques_no, 1);
+	return mv;
+}
 	// 관리자 페이지로 이동
 	@GetMapping("adminPage")
 	public String adminPage() {

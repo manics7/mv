@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>QUESTION BOARD</title>
+<title>MemberQuesReplyRead</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -26,7 +26,7 @@
 <body>
     <div class="wrap">
         <nav>
-        <jsp:include page="admin_header.jsp"></jsp:include>
+        <jsp:include page="mypage_header.jsp"></jsp:include>
         </nav>
 
 
@@ -35,7 +35,7 @@
             <div class="cont_wrap">
                 <!-- 게시글 리스트 -->
                 <div class="cont_sidebar">
-                <jsp:include page="adminpage_sidebar.jsp"/>
+                <jsp:include page="mypage_sidebar.jsp"/>
                 </div>
                 <div class="container queboard">
                     <div class="card shadow">
@@ -55,24 +55,20 @@
 							<div class="form-group">
 								<label for="board_subject">제목</label> <input type="text"
 									id="board_subject" name="board_subject" class="form-control"
-									value="${qrlist.ques_title}" disabled="disabled" />
+									value="${readqrDto.ques_reply_title}" disabled="disabled" />
 							</div>
-							<div class="form-group">
-								<label for="board_writer_name">작성자</label> <input type="text"
-									id="board_writer_name" name="board_writer_name"
-									class="form-control" value="${qrlist.m_id}" disabled="disabled" />
-							</div>
+							
 							<div class="form-group">
 								<label for="board_date">작성날짜</label> <input type="text"
 									id="board_date" name="board_date" class="form-control"
-									value="${qrlist.ques_date}" disabled="disabled" />
+									value="${readqrDto.ques_reply_date}" disabled="disabled" />
 							</div>
 
 							<div class="form-group">
 								<label for="board_content">내용</label>
 								<textarea id="board_content" name="board_content"
 									class="form-control" rows="10" style="resize: none"
-									disabled="disabled">${qrlist.ques_cont}</textarea>
+									disabled="disabled">${readqrDto.ques_reply_cont}</textarea>
 							</div>
 
 							<!--
@@ -107,15 +103,11 @@
 
 						<div class="form-group">
 							<div class="text-right">
-							<a href="adminReadQuesRe?ques_no=${qrlist.ques_no}" class="btn btn-primary">답변확인</a>
 								<a href="./quesboard?pageNum=1" class="btn btn-primary">목록보기</a> 
+								<c:forEach var="qrlist" items="${qrlist}">
 								<!-- ques_no로 select 하여 해당 게시글에 답변을 하게 하려고 이렇게함. -->
-								<c:choose>
-								<c:when test="${qrlist.ques_state == 0}">
 								<a href="./quesboard_rewrite?ques_no=${qrlist.ques_no}" class="btn btn-info">답변하기</a>
-								</c:when>
-								</c:choose>
-								<a href="#" class="btn btn-danger">삭제하기</a>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
