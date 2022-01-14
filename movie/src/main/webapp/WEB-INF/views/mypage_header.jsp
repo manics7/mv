@@ -100,14 +100,12 @@ a {
 				<div class="logo2">&nbsp;Page&nbsp;</div>
 			</li>
 			<li class="admin_nav_item cont1"><a class="yellow underline"
-				href="./mmanage?pageNum=1">회원관리</a></li>
+				href="purchaseFrm">예매/구매내역</a></li>
 			<li class="admin_nav_item cont2"><a class="yellow underline"
-				href="./adminMovieList">영화관리</a></li>
+				href="mypageMovieFrm">내가 본 영화</a></li>
 			<li class="admin_nav_item cont3"><a class="yellow underline"
-				href="./quesboard?pageNum=1">문의관리</a></li>
+				href="pmvReviewFrm">내가 쓴 감상평</a></li>
 			<li class="admin_nav_item cont4"><a class="yellow underline"
-				href="pmvReviewFrm">영화관관리</a></li>
-			<li class="admin_nav_item cont5"><a class="yellow underline"
 				href="questionFrm">1:1문의</a></li>
 
 		</ul>

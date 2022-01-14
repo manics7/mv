@@ -61,7 +61,8 @@
 							<div class="form-group">
 								<label for="board_date">작성날짜</label> <input type="text"
 									id="board_date" name="board_date" class="form-control"
-									value="${readqrDto.ques_reply_date}" disabled="disabled" />
+									value="<fmt:formatDate value="${readqrDto.ques_reply_date}"
+											pattern="yyyy-MM-dd"/>" disabled="disabled" />
 							</div>
 
 							<div class="form-group">
@@ -103,11 +104,8 @@
 
 						<div class="form-group">
 							<div class="text-right">
-								<a href="./quesboard?pageNum=1" class="btn btn-primary">목록보기</a> 
-								<c:forEach var="qrlist" items="${qrlist}">
-								<!-- ques_no로 select 하여 해당 게시글에 답변을 하게 하려고 이렇게함. -->
-								<a href="./quesboard_rewrite?ques_no=${qrlist.ques_no}" class="btn btn-info">답변하기</a>
-								</c:forEach>
+								<a href="questionFrm" class="btn btn-primary">목록보기</a> 
+								
 							</div>
 						</div>
 					</div>

@@ -6,26 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내가 쓴 감상평</title>
+<title>내가 본 영화</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/queboard/queboard.css">
-<style type="text/css">
-.busbtn{
-	outline : 0;
-	width: 100px;
-	height: 50px;
-	line-height:50px;
-	background: transparent;
-	border: 1px solid lightgray;
-	cursor: pointer;
-}
-.busbtn:hover{
-	background: #f16a1a;
-	color: white;
-}
-</style>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -61,42 +47,39 @@
     </div>
     -->
                         <div class="card-body qqueboard_con">
-                        
+                            			
 				<div class="card-body">
-					<h4 class="card-title">내가 쓴 감상평</h4>
+					<h4 class="card-title">내가 본 영화</h4>
 					
 				</div>
-			
+		
                            <table class="table table-hover" id='board_list'>
 						<thead>
 							<tr>
 							<!-- 	<th class="text-center d-none d-md-table-cell">번호</th> -->
 								<th class="text-center d-none d-md-table-cell">영화명</th>
-								<th class="text-center d-none d-md-table-cell">내용</th>
-								<th class="text-center d-none d-md-table-cell">등록일</th>
-								<th class="text-center d-none d-md-table-cell">평점</th>
-								<th class="text-center d-none d-md-table-cell">관리</th>
+								<th class="text-center d-none d-md-table-cell">극장명</th>
+								<th class="text-center d-none d-md-table-cell">날짜</th>
+								
 							</tr>
 						</thead>
 						<tbody>
 						<!-- 검색 처리 -->
 						<c:choose>
-							<c:when test="${not empty mvrList}">
-								<c:forEach var="mvritem" items="${mvrList}">
+							<c:when test="${not empty qList}">
+								<c:forEach var="qitem" items="${qList}">
 									<tr>
 							<!-- 	<td class="text-center d-none d-md-table-cell">${mvritem.mv_review}</td> -->
-										<td class="text-center d-none d-md-table-cell">${mvritem.mvName}</td>
-										<td class="text-center d-none d-md-table-cell">${mvritem.mv_review_comment}</td>
-										<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${mvritem.mv_review_date}"
-											pattern="yyyy-MM-dd"/></td>
-										<td class="text-center d-none d-md-table-cell">${mvritem.mv_review_score}</td>
-										<td class="text-center d-none d-md-table-cell"><button onclick="delCheck(${mvritem.mv_review})"
-										class="busbtn">감상평 삭제</button></td>
+										<td class="text-center d-none d-md-table-cell">${qitem.mvname}</td>
+									<td class="text-center d-none d-md-table-cell">${qitem.thname}</td>
+									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${qitem.sch_date}"
+										pattern="yyyy-MM-dd"/>
+									</td>
 									</tr>
 								</c:forEach>
 						</c:when>
 						<c:otherwise>
-							<td class="text-center d-none d-md-table-cell">감상평이 없습니다.</td>
+							<td class="text-center d-none d-md-table-cell">감상한 영화가 없습니다.</td>
 						</c:otherwise>
 						
 						</c:choose>
@@ -157,14 +140,4 @@
 
 
 </body>
-
-<script type="text/javascript">
-function delCheck(mv_review){
-	var conf = confirm("삭제하시겠습니까?");
-	
-	if(conf == true){
-		location.href='./delMvReview?mv_review=' + mv_review;
-	}
-}
-</script>
 </html>

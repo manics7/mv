@@ -52,6 +52,7 @@ public class MemberController {
 
 		return mv;
 	}
+	//마이페이지 회원탈퇴
 	@GetMapping("delMember")
 	public String delMember(RedirectAttributes rttr) {
 
@@ -71,7 +72,7 @@ public class MemberController {
 
 		String view = "pmvReviewFrm";
 
-		int listCnt = 10;
+		int listCnt = 4;
 
 		mv = mServ.pmvReviewFrm(pageNum,listCnt,view);
 
@@ -119,18 +120,20 @@ public class MemberController {
 
 		return view;
 	}	
-
-
-	@PostMapping("mvReviewSearch")
-	public ModelAndView mvReviewSearch(String mvname) {
-
-		mv = mServ.mvReviewSearch(mvname);
-
+	//내가본영화
+	@GetMapping("mypageMovieFrm")
+	public ModelAndView mypageMovieFrm(Integer pageNum) {
+		mv = new ModelAndView();
+		String view = "mypageMovieFrm";
+		
+		mv = mServ.selectPurchase(pageNum, 4, view);
+		
 		return mv;
 	}
+
 	@GetMapping("purchaseFrm")
 	public ModelAndView purchaseFrm (Integer pageNum) {
-		int listCnt = 10;
+		int listCnt = 4;
 
 		String View = "purchaseFrm";
 
@@ -140,7 +143,7 @@ public class MemberController {
 	}
 	@GetMapping("purchaseCancelFrm")
 	public ModelAndView purchaseCancelFrm (Integer pageNum) {
-		int listCnt = 10;
+		int listCnt = 4;
 
 		String View = "purchaseCancelFrm";
 

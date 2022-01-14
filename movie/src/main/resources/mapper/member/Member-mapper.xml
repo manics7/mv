@@ -33,15 +33,10 @@
 		resultType="com.example.movie.dto.reservationDto">
 		SELECT * FROM reservation WHERE m_id =#{id}
 	</select>
-
-	<select id="selectPaymentByRsrvno" parameterType="Integer"
-		resultType="com.example.movie.dto.paymentDto">
-		SELECT * FROM payment WHERE rsrv_no=#{rsrvno}
-	</select>
-
-	<select id="selectPaymentCancel" parameterType="String"
-		resultType="String">
-		SELECT tid FROM payment_cancel WHERE tid =#{tid}
+	
+	<select id="selectSchTime" parameterType="Integer"
+		resultType="com.example.movie.dto.reservationDto">
+		SELECT * FROM schedule WHERE sch_code =#{schno}
 	</select>
 
 	<select id="selectThcode" parameterType="Integer"
