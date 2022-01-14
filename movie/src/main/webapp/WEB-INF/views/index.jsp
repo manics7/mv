@@ -6,6 +6,19 @@
 <meta charset="UTF-8">
 <title>Movie | eivoM</title>
 <link rel="stylesheet" type="text/css" href="resource/css/index.css">
+<script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+function getSearchTheaterData(){
+$.ajax({
+	type: "GET"
+	,url: "/searchTheater"
+	,succes:function(data){
+		
+		console.log(data);
+	}
+})	
+}
+</script>
 </head>
 <body>
 

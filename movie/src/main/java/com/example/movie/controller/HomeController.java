@@ -24,26 +24,27 @@ public class HomeController {
 	
 	private ModelAndView mv;
 	
+	
 	@RequestMapping("/")
-	public ModelAndView index() {
+	public String index() {
 		
-		ModelAndView mv = mServ.selectThcode();
+		//ModelAndView mv = mServ.selectThcode();
 		
-		mv.setViewName("index");
+		//mv.setViewName("index");
 		//thCodeList
-		return mv;
+		return "index";
 	}
 	
 	
-//	@GetMapping("searchTheater")
-//	public ModelAndView searchTheater() {
-//ModelAndView mv = mServ.selectThcode();
-//		
-//		mv.setViewName("index");
-//		
-//		return mv;
-//	}
-//	
+	@GetMapping("searchTheater")
+	public ModelAndView searchTheater() {
+ModelAndView mv = mServ.selectThcode();
+		
+		mv.setViewName("index");
+		
+		return mv;
+	}
+	
 	
 	// 이용자 회원가입 페이지 이동
 	@GetMapping("joinFrm")

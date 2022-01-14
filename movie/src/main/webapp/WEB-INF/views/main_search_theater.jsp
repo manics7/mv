@@ -13,7 +13,9 @@
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
 	integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
 	crossorigin="anonymous">
+	<script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="resources/js/search_theater.js"></script>
+
 <title>Document</title>
 
 <style>
