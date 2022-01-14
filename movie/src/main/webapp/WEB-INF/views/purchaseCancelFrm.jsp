@@ -6,130 +6,146 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1문의</title>
-<style type="text/css">
-div {
-}
+<title>QUESTION BOARD</title>
+<!-- Bootstrap CDN -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="resource/css/mmanagestyle/mmanage.css">
 
-.page {
-	margin: 15%;
-}
-
-a {
-	text-decoration: none;
-}
-
-#btn2 {
-	float: right;
-	border: 1px solid black;
-}
-
-#btn1 {
-	float: left;
-	size: 10px;
-}
-
-.main_point_box>div {
-	width: 33.1%;
-	height: 150px;
-	float: left;
-}
-
-.title-row>div {
-	display: block;
-	float: left;
-	height: 30px;
-	font-size: 16px;
-	line-height: 1.6;
-	text-align: center;
-	border : 1px solid gray;
-	background-color: lightgray;
-}
-
-.title-row{
-	border : 1px solid gray;
-}
-.title-row>p{
-	text-align: center;
-}
-
-.data-row>div{
-	float: left;
-	height: 30px;
-	font-size: 16px;
-	line-height: 1.6;
-	text-align: center;
-
-}
-
-.p-10 {
-	width: 8%;
-}
-
-.p-15 {
-	width: 15%;
-}
-
-.p-30 {
-	width: 30%;
-}
-
-.btn-area {
-	margin-top: 10%;
-	clear: both;
-}
-</style>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-
+	//state == 1 ? state.innerHtml("답변완료") : state.innerHtml("미완료");
 </script>
+
 </head>
 <body>
-	<div class="page">
-	<a href ="purchaseFrm">결제내역</a>
-		<div class="title-row">
-			<p>
-				<b>1:1문의</b>
-			</p>
-			<div class="t-no p-10">극장명</div>
-			<div class="t-title p-15">영화명</div>
-			<div class="t-name p-30">예매번호</div>
-			<div class="t-date p-30">예매일</div>
-			<div class="t-view p-15">가격</div>
-		</div>
-		<c:forEach var="qitem" items="${qList}">
-			<div class="data-row">
-				<div class="t-no p-10">${qitem.thname}</div>
-				<div class="t-name p-15">${qitem.mvname}</div>
-				<div class="t-title p-30">${qitem.rsrv_no}
-				</div>
-				<div class="t-date p-30">
-					<fmt:formatDate value="${qitem.rsrv_date}"
-						pattern="yyyy-MM-dd" />
-				</div>
-				<div class="t-view p-15">${qitem.price}</div>
-			</div>
-		</c:forEach>
-		
-		<div id="btn1">
-			<a href="purchaseFrm">예매/구매내역</a>
-		</div>
-		<div id="btn1">
-			<a href="watcheMovieFrm">내가 본 영화</a>
-		</div>
-		<div id="btn1">
-			<a href="pmvReviewFrm">내가 쓴 감상평</a>
-		</div>
-		<div id="btn1">
-			<a href="questionFrm">1:1문의</a>
-		</div>
-		
-		
-		<div class="btn-area">
-				<div class="paging">${paging}</div>
-		</div>
-	</div>
+    <div class="wrap">
+        <nav>
+        <jsp:include page="mypage_header.jsp"></jsp:include>
+        </nav>
+
+
+        <div class="main_wrap">
+            <!-- 상단 메뉴 부분 -->
+            <div class="cont_wrap">
+                <!-- 게시글 리스트 -->
+                <div class="cont_sidebar">
+                <jsp:include page="mypage_sidebar.jsp"/>
+                </div>
+                <div class="container queboard">
+                    <div class="card shadow">
+                    <div class="member_top_btn_wrap">
+							<div class="member_top_btn">
+								<a class="btn_nomal" 
+									href ="purchaseFrm">예매내역</a> 
+									<a class="busbtn" href ="purchaseCancelFrm" style="background: #f16a1a; color: white;">예매취소내역</a>
+							</div>
+
+
+
+						</div>
+                        <!--
+    
+    <div>
+        <h4>회원정보로 검색한 작성 글</h4>
+        ${mbLIst}
+    </div>
+    -->
+                        <div class="card-body qqueboard_con">
+                            <h4 class="card-title">예매내역</h4>
+                            <table class="table table-hover" id='board_list'>
+                                <thead>
+                                    <!-- <tr>
+                                        <th class="text-center d-none d-md-table-cell">글번호</th>
+                                        <th class="text-center d-none d-md-table-cell">제목</th>
+                                        <th class="text-center d-none d-md-table-cell">작성날짜</th>
+                                        <th class="text-center d-none d-md-table-cell">진행사항</th>
+                                        <th class="text-center d-none d-md-table-cell">작성자</th>
+                                        <th class="text-center d-none d-md-table-cell">답변하기</th>
+                                    </tr> -->
+                                    <tr>
+                                        <th class="text-center">극장명</th>
+                                        <th class="text-center">영화명</th>
+                                        <th class="text-center">예매번호</th>
+                                        <th class="text-center">예매일</th>
+                                        <th class="text-center">가격</th>
+                                        
+                                        <!--
+                                        
+                                        <th class="text-center">답변하기</th>
+                                        
+                                          -->
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 이부분은 검색 결과 출력되는 부분 -->
+                                   
+
+<c:choose>
+						<c:when test="${not empty qList}">
+						<c:forEach var="qitem" items="${qList}">
+								<tr>
+									<td class="text-center d-none d-md-table-cell">${qitem.thname}</td>
+									<td class="text-center d-none d-md-table-cell">${qitem.mvname}</td>
+									<td class="text-center d-none d-md-table-cell">${qitem.rsrv_no}</td>
+									<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${qitem.rsrv_date}"
+										pattern="yyyy-MM-dd"/></td>
+									<td class="text-center d-none d-md-table-cell">
+									${qitem.price}
+									</td>
+								</tr>
+									
+					
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+						<td class="text-center d-none d-md-table-cell">예매 내역이 없습니다.</td>
+						</c:otherwise>
+						
+						</c:choose>
+						
+                                </tbody>
+                            </table>
+
+                            <div class="d-none d-md-block">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">${paging}</li>
+                                </ul>
+                            </div>
+<!--  
+  <div class="d-block d-md-none">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item"><a href="#" class="page-link">이전</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                                </ul>
+                            </div>
+
+-->
+                          
+                            <!-- href="resource/css/home.css" -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="footer_wrap">
+        <footer></footer>
+
+    </div>
+
+
+
+
+
 
 </body>
 </html>

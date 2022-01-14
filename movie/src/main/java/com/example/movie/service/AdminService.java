@@ -73,6 +73,7 @@ public class AdminService {
 
 	//신고 영화관후기게시글
 	public ModelAndView reportedReview(Integer pageNum) {
+		
 
 		mv = new ModelAndView();
 		int num = (pageNum == null)? 1 : pageNum;
@@ -225,7 +226,7 @@ public class AdminService {
 		return qList;
 	}
 
-	public String getpaging(int num) {
+	public String getpagingQuesBoard(int num) {
 		String pageHtml = null;
 
 		int maxNum = aMapper.getquesBoardCnt();
@@ -243,20 +244,13 @@ public class AdminService {
 		return pageHtml;
 	}
 
-	public List<quesboardDto> getboardRead(int ques_no) {
+	public quesboardDto getboardRead(int ques_no) {
 
-		List<quesboardDto> readqlist = aMapper.getquesboardRead(ques_no);
+		quesboardDto readqlist = aMapper.getquesboardRead(ques_no);
 
 		return readqlist;
 	}
 
-	//문의답변 전송
-	public quesReplyDto selectQuesReply(int ques_no) {
-
-		quesReplyDto qrDto = aMapper.selectQuesReply(ques_no);
-
-		return qrDto;
-	}
 	//관리자 영화등록 페이지 리스트
 	public ModelAndView adminMovieList(Integer pageNum) {
 
@@ -365,35 +359,42 @@ public class AdminService {
 
 
 	}
-
-	public List<BusinessDto> getbulist(Integer pageNum) {
+//////////////
+	public ModelAndView getbulist(Integer pageNum) {
+		
+		mv = new ModelAndView();
+		 
+		int num = (pageNum == null)? 1 : pageNum;
+		
 		HashMap<String, Integer> busmap = new HashMap<String, Integer>();
 		busmap.put("pageNum", pageNum);
-		busmap.put("lcnt", listCnt);
+		busmap.put("lcnt", 4);
 
 		List<BusinessDto> buslist = aMapper.getbuslist(busmap);
-
-		return buslist;
-	}
-
-	public String busgetpaging(Integer pageNum) {
-		String pageHtml = null;
 
 		int maxNum = aMapper.getBusCnt();
 
 		int pageCnt = 10;
+		
+		//int listCnt = 4;
 
-		String listName = "mmanageBu";
-
-		PagingUtil paging = new PagingUtil(maxNum, pageNum, listCnt, 
-				pageCnt, listName);
+		String listName = "getBulist";
+		System.out.println("");
 		//PagingUtil paging = new PagingUtil(maxNum, pageCnt, maxNum, pageCnt, listName);
+		String pageHtml = getPaging(num,4,listName,maxNum);
+		//페이징처리
+		//mv에 데이터 투입
+		
+		mv.addObject("paging", pageHtml);
+		session.setAttribute("pageNum", num);
+		
+		mv.addObject("busList", buslist);
+		mv.setViewName("mmanageBu");
 
-		pageHtml = paging.makePaging();
 
-
-		return pageHtml;
+		return mv;
 	}
+
 
 	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
 		mv = new ModelAndView();
@@ -506,14 +507,13 @@ public class AdminService {
 		String view = null;	
 		String msg = null;
 		try {
-			qrdto = aMapper.insertReplyWrite(qrdto);
+			aMapper.insertReplyWrite(qrdto);
 			msg = "성공";
 			view = "redirect:quesboard";
 		} catch (Exception e) {
-			view = "redirect:quesboard_replywrite?ques_no=5";
+			view = "redirect:quesboard";
 			msg = "실패";
 		}
-		//qrdto = aMapper.insertReplyWrite(qrdto);
 		
 		rttr.addFlashAttribute("msg",msg);
 		return view;
