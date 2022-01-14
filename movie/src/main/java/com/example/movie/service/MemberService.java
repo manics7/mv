@@ -47,8 +47,6 @@ import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.repository.TheaterRepository;
 import com.example.movie.utill.PagingUtil;
 
-
-
 @Service
 public class MemberService {
 
@@ -862,7 +860,6 @@ public class MemberService {
 
 		return null;
 	}
-
 
 	public String adminDeleteMember(String m_id, RedirectAttributes rttr) {
 		String msg = null;
