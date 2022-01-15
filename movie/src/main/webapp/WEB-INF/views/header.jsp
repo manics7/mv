@@ -3,6 +3,37 @@
 
 
 <link rel="stylesheet" type="text/css" href="resource/css/hf.css">
+<script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	getSearchTheaterData();
+	function getSearchTheaterData(){
+		
+		$.ajax({
+			type: "GET"
+			,url: "/searchTheater"
+			,success:function(data){
+				var html = "";
+				for(i = 0; i < data.length; i++){
+				var th_code = data[i].th_code;
+				var th_name = data[i].th_name;
+				html += "<li><a href='./accessTheaterDetailPage?th_code="+th_code+"'>"+th_name+"</a></li>"
+				}
+				$(".local_result ul").html(html);
+			}	
+			,error : function(err){
+				console.log("err",err)
+			}
+		})	//ajax End
+	}//functiong End
+	
+	//<li><a href="./theaterDetailPage?th_code=${thCList.th_code}">${thCList.th_name}</a></li>
+});//functiong End
+
+
+
+</script>
 
 
 
@@ -84,6 +115,9 @@
 			<div class="modal-content"></div>
 		</div>
 	</div> 
+			<div class="search_theater">
+		<jsp:include page="main_search_theater.jsp"></jsp:include>
+		</div>
 	
 
 <script src="resource/js/jquery-3.6.0.min.js"></script>
@@ -125,4 +159,21 @@ if(userInfo != "") {
 	$("#login_before").css("display", "none");
 	$(".mypage").css("display","inline-block");
 }
+
+	
+	$('.search_rayer').hide();
+	$('.menuitem_4_search_theater').mouseover(function(){
+		console.log("내려간다.");
+		$('.search_rayer').slideDown();
+	});
+	
+
+	$('.search_close').mouseup(function(){
+		$('.search_rayer').hide();
+	})
+	
+
+
+
+
 </script>

@@ -20,14 +20,12 @@
 <!-- FontAwesome CDN-->
 <link rel="stylesheet"
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p&libraries=services"
 	crossorigin="anonymous" />
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c1fb565d3449c4f3b09341b7b630b32"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script src="resource/js/theater_detail.js">
 	
-	</script>
-	<script type="text/javascript">
+	<script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=599889030d8acd127e1969cf1dfccf0f&libraries=services"></script>
+	<script type="text/javascript" >
 	
 	
 	
@@ -90,44 +88,6 @@
 	    
 	    });
 
-/*----------------여기부터 위치정보 스크립트-------------------*/
-
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
-
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
-
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch('경상남도 창원시 마산합포구 동서북 14길 24', function(result, status) {
-
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});
 
 
 	</script>
@@ -439,16 +399,18 @@ geocoder.addressSearch('경상남도 창원시 마산합포구 동서북 14길 2
 			</div>
 			<div class="loc_list">
 				<h3>오시는길</h3>
-				<p>"경상남도 창원시 마산합포구 동서북 14길 24, 3층 씨네아트 리좀"</p>
+				<p>${theatedetail[0].theater.thLocation}</p>
 				<h3>연락처</h3>
 				<p>070-8801-6436 | 010-5949-6438</p>
 				<h3>주차안내</h3>
-				<p>
-					"씨네아트 리좀은 주차장이 없습니다." <br> <br> <br> <br> "가까운
-					주차장으로는 창동 공영주차장, bnk경남은행 주차장이 있습니다." <br> "주차권은 따로 나가지 않습니다."
+				<p>${theatedetail[0].theater.thParking} <br>
+					${theatedetail[0].theater.thName}은 주차장이 없습니다. <br> <br> <br> <br> 가까운
+					주차장으로는 창동 공영주차장, bnk경남은행 주차장이 있습니다. <br> 주차권은 따로 나가지 않습니다.
 				</p>
 			</div>
 		</section>
+		<!-- 영화관 상세정보 받아지는 어떤 값으로 받아지는지 테스트 코드. -->
+		<p style="z-index: 10; border: 1px solid lightgray; width: 200px; white-space: nomal; word-break: nomal; padding: 13px; background: gray; color: white;" > <c:out value="값 태스트 : ${theatedetail[0].theater}"></c:out></p> 
 	</div>
 
 	<div class="cinema_pic_wrap">
@@ -483,8 +445,45 @@ geocoder.addressSearch('경상남도 창원시 마산합포구 동서북 14길 2
 
 </body>
 <script type="text/javascript">
+/*----------------여기부터 위치정보 스크립트-------------------*/
 
-getDate();
+var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+var mapOption = {
+    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};  
+
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+//주소로 좌표를 검색합니다
+geocoder.addressSearch('${theatedetail[0].theater.thLocation}', function(result, status) {
+
+// 정상적으로 검색이 완료됐으면 
+ if (status === kakao.maps.services.Status.OK) {
+
+    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+    // 결과값으로 받은 위치를 마커로 표시합니다
+    var marker = new kakao.maps.Marker({
+    	map: map,
+        position: coords
+    });
+
+    // 인포윈도우로 장소에 대한 설명을 표시합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+    });
+    infowindow.open(map, marker);
+
+    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    map.setCenter(coords);
+}  
+});
+
 </script>
 
 </html>

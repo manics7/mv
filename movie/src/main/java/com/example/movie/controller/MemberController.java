@@ -245,8 +245,9 @@ public class MemberController {
 		
 		return insertReviewMap;
 	}
-	@GetMapping("theaterinsert1")
-	public ModelAndView theater_detail1(Integer th_code) {
+	//영화관 상세 페이지로 이동.
+	@GetMapping("accessTheaterDetailPage")
+	public ModelAndView theater_detail(Integer th_code) {
 		List<Map<String, Object>> list = mServ.getSch(th_code);
 		mv = new ModelAndView();
 		mv.addObject("theatedetail", list);
@@ -255,13 +256,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	// 영화관 상세 페이지 극장 정보 출력
-	@GetMapping("theaterinsert")
-	public ModelAndView theater_detail(Integer th_code) {
-		mv = mServ.inserttheaterinfo(th_code);
-		mv.addObject("th_code",th_code);
-		return mv;
-	}
+
 	// 영화관 검색
 	@GetMapping("searchtheater")
 	public String searchtheater() {

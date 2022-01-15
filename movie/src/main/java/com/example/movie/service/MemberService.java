@@ -700,27 +700,6 @@ public class MemberService {
 		}
 		return reviewListMap;
 	}
-	//영화관 상세정보 출력 
-	public ModelAndView inserttheaterinfo(Integer th_code) {
-	mv = new ModelAndView();
-	List<ThmovieDto> thdtail = mMapper.inserttheaterinfo(th_code);
-	List<SsdscheduleDto> thdschedule = mMapper.selectmovieschedule();
-	Map<String, Object> theaterlist = new HashMap<String, Object>();
-	theaterlist.put("thdtail", thdtail);
-	theaterlist.put("thdschedule", thdschedule);
-	
-//		mv = new ModelAndView();
-//		List<ThmovieDto> thdtail = mMapper.inserttheaterinfo(th_code);
-//		List<SsdscheduleDto> thdschedule = mMapper.selectmovieschedule();
-//		Map<String, Object> theaterlist = new HashMap<String, Object>();
-//		theaterlist.put("thdtail", thdtail);
-//		theaterlist.put("thdschedule", thdschedule);
-
-		mv.addObject("thdetail", thdtail);
-		mv.addObject("thddto", thdschedule);
-		mv.setViewName("theater_detail");
-		return mv;
-	}
 
 	public List<Map<String, Object>> getSch(Integer thCode) {
 		//스케쥴을 언제부터 언제까지 가져올 것인지 세
@@ -817,13 +796,11 @@ public class MemberService {
 		return mv;
 	}
 
-	public ModelAndView selectThcode() {
+	public List<TheaterDto> selectThcode() {
 		List<TheaterDto> thCodeList = mMapper.seletThkey();
-		mv = new ModelAndView();
-		mv.addObject("thCodeList", thCodeList);
 		//mv = mMapper.seletThkey();
 		
-		return mv;
+		return thCodeList;
 	}
 
 	public ModelAndView memReadQuesRe(int ques_no, int view) {

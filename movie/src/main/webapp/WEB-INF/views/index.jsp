@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <title>Movie | eivoM</title>
 <link rel="stylesheet" type="text/css" href="resource/css/index.css">
+<script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 
@@ -16,9 +18,7 @@
 		<header>
 			<jsp:include page="header.jsp"></jsp:include>
 		</header>
-		<div class="search_theater">
-		<jsp:include page="main_search_theater.jsp"></jsp:include>
-		</div>	
+	
 		<div id="section_wrap">
 			<div id="main_wrap">
 				<div id="box_office">
@@ -113,13 +113,16 @@
 			alert(msg);
 		}
 		
-		$('.search_rayer').hide();
-		$('.menuitem_4_search_theater').mouseover(function(){
-			console.log("내려간다.");
-			$('.search_rayer').slideDown();
-		});
+		//$('.search_rayer').hide();
+		//$('.menuitem_4_search_theater').mouseover(function(){
+			//console.log("내려간다.");
+			//$('.search_rayer').slideDown();
+		//});
 		
 	
+		//메시지 출력 부분
+		var msg = "${msg}";
+		var info = "${userInfo.m_name}"
 		$('.search_close').mouseup(function(){
 			$('.search_rayer').hide();
 		})
