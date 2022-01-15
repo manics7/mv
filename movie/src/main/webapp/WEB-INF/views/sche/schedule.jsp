@@ -8,6 +8,11 @@
 <title>사업자 상영일정 관리</title>
 <link rel="stylesheet" href="resource/css/theaterList.css">
 <link rel="stylesheet" href="resource/css/schedule.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="js/scripts.js"></script>
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 	<section>
@@ -50,16 +55,19 @@
 											<th class="sch_time p-20">상영 시간</th>
 											<th class="sch_id p-10">삭제 처리</th>
 										</tr>
+										<c:forEach var="scheduleList" items="scheduleList">
 										<tr class="data-row">
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
+											<td class="room_no p-10"></td>
+											<td class="room_name p-20"></td>
+											<td class="mv_name p-10"></td>
+											<td class="sch_date p-20"></td>
+											<td class="sch_time p-20">
+											</td>
 											<td class="sch_id p-10">
 												<button class="btn-del">삭제</button>
 											</td>
 										</tr>
+										</c:forEach>
 									</table>
 								</c:when>
 							</c:choose>
@@ -70,8 +78,20 @@
 		</div>
 	</section>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="js/scripts.js"></script>
-<script type="text/javascript">
-</script>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

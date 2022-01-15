@@ -1,7 +1,5 @@
 package com.example.movie.service;
 
-<<<<<<< HEAD
-=======
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -17,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
->>>>>>> refs/heads/master
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -45,14 +42,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.SsdscheduleDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.dto.Theater_detailDto;
-<<<<<<< HEAD
-=======
 import com.example.movie.dto.ThmovieDto;
 import com.example.movie.mapper.AdminMapper;
 import com.example.movie.dto.QuestionDto;
@@ -64,7 +60,6 @@ import com.example.movie.entity.Room;
 import com.example.movie.entity.Schedule;
 import com.example.movie.entity.ScheduleDetail;
 import com.example.movie.entity.Theater;
->>>>>>> refs/heads/master
 import com.example.movie.mapper.AdminMapper;
 import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.mvReviewDto;
@@ -100,24 +95,6 @@ public class MemberService {
 	private ModelAndView mv;
 	@Autowired
 	ScheduleRepository scheduleRepository;
-<<<<<<< HEAD
-	
-	@Autowired
-	MovieOfficialRepository movieOfficialRepository;
-	
-	@Autowired
-	TheaterRepository theaterRepository;
-	
-	@Autowired
-	RoomRepository roomRepository;
-	
-	@Autowired 
-	ScheduleDetailRepository scheduleDetailRepository;
-	
-	@Autowired
-	ReservationRepositoryCustom reservationRepositoryCustom;
-	
-=======
 
 	@Autowired
 	MovieOfficialRepository movieOfficialRepository;
@@ -134,7 +111,6 @@ public class MemberService {
 	@Autowired
 	ReservationRepositoryCustom reservationRepositoryCustom;
 
->>>>>>> refs/heads/master
 
 	
 	public ModelAndView memberUpdateFrm() {
@@ -928,22 +904,12 @@ public class MemberService {
 	//영화관 상세정보 출력 
 	public ModelAndView inserttheaterinfo(Integer th_code) {
 		mv = new ModelAndView();
-<<<<<<< HEAD
-		List<TheaterDto> thdtail = mMapper.inserttheaterinfo(th_code);
-		
-		List<Theater_detailDto> thdschedule = mMapper.selectmovieschedule();
-		Map<String, Object> theaterlist = new HashMap<String, Object>();
-		theaterlist.put("thdtail", thdtail);
-		theaterlist.put("thdschedule", thdschedule);
-	
-=======
 		List<ThmovieDto> thdtail = mMapper.inserttheaterinfo(th_code);
 		List<SsdscheduleDto> thdschedule = mMapper.selectmovieschedule();
 		Map<String, Object> theaterlist = new HashMap<String, Object>();
 		theaterlist.put("thdtail", thdtail);
 		theaterlist.put("thdschedule", thdschedule);
 
->>>>>>> refs/heads/master
 		mv.addObject("thdetail", thdtail);
 		mv.addObject("thddto", thdschedule);
 		mv.setViewName("theater_detail");
@@ -956,11 +922,13 @@ public class MemberService {
 		String date= now.toString();	
 		LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));		
 		LocalDate lastDate= now.plusWeeks(2);//2주 마지막날
-<<<<<<< HEAD
 		
 		Date startDate = java.sql.Date.valueOf(dateTime.toLocalDate());
 		Date endDate = java.sql.Date.valueOf(lastDate);
 		
+		//BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
+		//String bId = bDto.getB_id();
+		//int thCode = theaterRepository.findById(bId);
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		List<Schedule> schduleList = scheduleRepository.findByThCodeAndSchDateBetween(thCode,startDate, endDate);
@@ -974,10 +942,10 @@ public class MemberService {
 			Map<String, Object> map = new HashMap<String, Object>();
 			Optional<MovieOfficial> movieOfficialOpt = movieOfficialRepository.findById(movieCd);
 
-			Optional<Theater> theaterOpt = theaterRepository.findById(thcode);
+			Optional<Theater> theaterOpt = theaterRepository.findById(thCode);
 			Theater theater = theaterOpt.orElse(null);
 			//상영관 정보
-			Room room = roomRepository.findByThCodeAndRoomNo(thcode, roomNo);			
+			Room room = roomRepository.findByThCodeAndRoomNo(thCode, roomNo);			
 			MovieOfficial movieOfficial = movieOfficialOpt.orElse(null);
 						
 			List<ScheduleDetail> scheduleDetail = scheduleDetailRepository.findBySchCode(schCode);
@@ -1000,82 +968,6 @@ public class MemberService {
 		
 	}
 
-	public List<Map<String, Object>> getSchedule(Date schDate, Integer thCode) {
-		List<Schedule> schduleList = scheduleRepository.findByThCodeAndSchDate(thCode,schDate);
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		for(int i = 0; i < schduleList.size(); i++) {
-			String movieCd = schduleList.get(i).getMovieCd();
-			Integer thcode = schduleList.get(i).getThCode();
-			Integer roomNo = schduleList.get(i).getRoomNo();
-			Integer schCode = schduleList.get(i).getSchCode();
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			Optional<MovieOfficial> movieOfficialOpt = movieOfficialRepository.findById(movieCd);
-
-			Room room = roomRepository.findByThCodeAndRoomNo(thCode, roomNo);			
-			MovieOfficial movieOfficial = movieOfficialOpt.orElse(null);
-						
-			List<ScheduleDetail> scheduleDetail = scheduleDetailRepository.findBySchCode(schCode);
-			schduleList.get(i).setScheduleDetail(scheduleDetail);
-			
-			for(int j = 0; j < scheduleDetail.size(); j++) {
-			Integer schDetailSeq = scheduleDetail.get(j).getSchDetailSeq();
-			
-			List<String> seatNo = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
-			scheduleDetail.get(j).setRsrvSeatCnt(seatNo.size());
-			
-			}
-			map.put("schedule", schduleList.get(i));
-			map.put("room", room);
-			map.put("movieOfficial", movieOfficial);
-			list.add(map);
-		}
-		return list;
-	}
-
-	
-	
-=======
-
-		Date startDate = java.sql.Date.valueOf(dateTime.toLocalDate());
-		Date endDate = java.sql.Date.valueOf(lastDate);
-
-
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		List<Schedule> schduleList = scheduleRepository.findByThCodeAndSchDateBetween(thCode,startDate, endDate);
-		for(int i = 0; i < schduleList.size(); i++) {
-			String movieCd = schduleList.get(i).getMovieCd();
-			Integer thcode = schduleList.get(i).getThCode();
-			Integer roomNo = schduleList.get(i).getRoomNo();
-			Integer schCode = schduleList.get(i).getSchCode();
-
-			Map<String, Object> map = new HashMap<String, Object>();
-			Optional<MovieOfficial> movieOfficialOpt = movieOfficialRepository.findById(movieCd);
-
-			Optional<Theater> theaterOpt = theaterRepository.findById(thCode);
-			Theater theater = theaterOpt.orElse(null);
-			Room room = roomRepository.findByThCodeAndRoomNo(thCode, roomNo);			
-			MovieOfficial movieOfficial = movieOfficialOpt.orElse(null);
-
-			List<ScheduleDetail> scheduleDetail = scheduleDetailRepository.findBySchCode(schCode);
-			schduleList.get(i).setScheduleDetail(scheduleDetail);
-
-			for(int j = 0; j < scheduleDetail.size(); j++) {
-				Integer schDetailSeq = scheduleDetail.get(j).getSchDetailSeq();
-
-				List<String> seatNo = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
-				scheduleDetail.get(j).setRsrvSeatCnt(seatNo.size());
-
-			}
-			map.put("schedule", schduleList.get(i));
-			map.put("room", room);
-			map.put("movieOfficial", movieOfficial);
-			map.put("theater", theater);
-			list.add(map);
-		}
-		return list;
-
-	}
 
 	public List<Map<String, Object>> getSchedule(Date schDate, Integer thCode) {
 		List<Schedule> schduleList = scheduleRepository.findByThCodeAndSchDate(thCode,schDate);
@@ -1109,8 +1001,6 @@ public class MemberService {
 		}
 		return list;
 	}
-
-
 
 	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
 	public ModelAndView getMovieList() {
@@ -1146,5 +1036,4 @@ public class MemberService {
 		return null;
 	}
 
->>>>>>> refs/heads/master
 }

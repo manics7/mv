@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -557,11 +559,12 @@ public class BusinessService {
 
 		return view;
 	}
-<<<<<<< HEAD
-	/*
+	
 	//상영시간표 목록을 출력
-	public ModelAndView getScheduleList() {
-		mv = new ModelAndView();
+	public List<Map<String, Object>> getScheduleList() {
+		
+		List<Map<String, Object>> scheduleList = new ArrayList<Map<String,Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		//세션에 저장되어 있는 사업자 아이디
 		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
@@ -574,89 +577,84 @@ public class BusinessService {
 		List<RoomDto> scheduleRoomList = new ArrayList<RoomDto>();
 		scheduleRoomList = buMapper.getScheduleRoomList(theaterCode);
 		
-		mv.addObject("scheduleRoomList", scheduleRoomList);
-		
 		//상영시간표 
 		List<ScheduleDto> scheduleCode = new ArrayList<ScheduleDto>();
 		scheduleCode = buMapper.getScheduleCode(theaterCode);
 		
 		List<ScheduleDto> movieCodeList = new ArrayList<ScheduleDto>();
 		List<MovieOfficialDto> movieNameList = new ArrayList<MovieOfficialDto>();
+		List<ScheduleDto> mvCodeList = new ArrayList<ScheduleDto>();
+		List<MovieOfficialDto> mvNameList = new ArrayList<MovieOfficialDto>();
+		
+		//상영날짜
+		List<ScheduleDto> scheduleDateList = new ArrayList<ScheduleDto>();
+		List<String> screeningDate = new ArrayList<String>();
+		
+		//상영시작시간
+		List<ScheduleDetailDto> startTimeList = new ArrayList<ScheduleDetailDto>();
+		List<String> movieStart = new ArrayList<String>();
+		
+		//상영종료시간
+		List<ScheduleDetailDto> endTimeList = new ArrayList<ScheduleDetailDto>();
+		List<String> movieEnd = new ArrayList<String>();
 		
 		for(int a = 0; a < scheduleCode.size(); a++) {
 			ScheduleDto codeDto = scheduleCode.get(a);
 			int schCode = codeDto.getSch_code();
 			
 			//영화 코드
-			
 			movieCodeList = buMapper.getMovieCode(schCode);
+			ScheduleDto movieCodeDto = movieCodeList.get(0);
+			mvCodeList.add(movieCodeDto);
 			
 			//영화명
-			ScheduleDto movieCodeDto = movieCodeList.get(a);
 			String movieCode = movieCodeDto.getMovie_cd();
 			
-			
 			movieNameList = buMapper.getMovieNameList(movieCode);
+			MovieOfficialDto movieNameDto = movieNameList.get(0);
+			mvNameList.add(movieNameDto);
 			
-			mv.addObject("movieCodeList", movieCodeList);
-			mv.addObject("movieNameList", movieNameList);
-		}
-
-		//상영날짜
-		List<ScheduleDto> scheduleDateList = new ArrayList<ScheduleDto>();
-		scheduleDateList = buMapper.getScheduleDateList(scheduleCode);
-		
-		for(int i = 0; i < scheduleDateList.size(); i++) {
-			ScheduleDto scheduleDto = scheduleDateList.get(i);
+			//상영날짜
+			scheduleDateList = buMapper.getScheduleDateList(schCode);
+			ScheduleDto scheduleDto = scheduleDateList.get(0);
 			Date scheduleDate = scheduleDto.getSch_date();
 			String dateList = DateFormatUtils.format(scheduleDate, "yyyy-MM-dd");
 			
-			List<String> screeningDate = new ArrayList<String>();
 			screeningDate.add(dateList);
-			
-			mv.addObject("screeningDate", screeningDate);
+				
+				//상영 시작 시간
+				startTimeList = buMapper.getScheduleStartTime(schCode);
+				
+				//상영종료시간
+				endTimeList = buMapper.getScheduleEndTime(schCode);
+				
+				//시작시간
+				ScheduleDetailDto startDto = startTimeList.get(0);
+				Date startTime = startDto.getSch_detail_start();
+				String startList = DateFormatUtils.format(startTime, "HH:mm");
+				
+				movieStart.add(startList);
+				//종료시간
+				ScheduleDetailDto endDto = endTimeList.get(0);
+				Date endTime = endDto.getSch_detail_end();
+				String endList = DateFormatUtils.format(endTime, "HH:mm");
+				
+				movieEnd.add(endList);
 		}
 		
-		//상영시작시간
-		List<ScheduleDetailDto> startTimeList = new ArrayList<ScheduleDetailDto>();
-		startTimeList = buMapper.getScheduleStartTime(scheduleCode);
+		map.put("scheduleRoomList", scheduleRoomList);
+		map.put("mvNameList", mvNameList);
+		map.put("screeningDate", screeningDate);
+		map.put("movieStart", movieStart);
+		map.put("movieEnd", movieEnd);
 		
-		//상영종료시간
-		List<ScheduleDetailDto> endTimeList = new ArrayList<ScheduleDetailDto>();
-		endTimeList = buMapper.getScheduleEndTime(scheduleCode);
+		scheduleList.add(map);
 		
-		for(int j = 0; j < startTimeList.size(); j++) {
-			//시작시간
-			ScheduleDetailDto startDto = startTimeList.get(j);
-			Date startTime = startDto.getSch_detail_start();
-			String startList = DateFormatUtils.format(startTime, "HH:mm");
-			
-			List<String> movieStart = new ArrayList<String>();
-			movieStart.add(startList);
-			
-			mv.addObject("movieStart", movieStart);
-			
-			//종료시간
-			ScheduleDetailDto endDto = endTimeList.get(j);
-			Date endTime = endDto.getSch_detail_end();
-			String endList = DateFormatUtils.format(endTime, "HH:mm");
-			
-			List<String> movieEnd = new ArrayList<String>();
-			movieEnd.add(endList);
-			
-			mv.addObject("movieEnd", movieEnd);
-		}
 		
-		mv.setViewName("sche/schedule");
-		
-		return mv;
+		return scheduleList;
 	}
-	*/
 	
-
-=======
-
->>>>>>> refs/heads/master
+	
 	// 사업자 영화목록 임시 저장
 	@Transactional
 	public List<TempMovie> insertApiMovie(String date) throws Exception{

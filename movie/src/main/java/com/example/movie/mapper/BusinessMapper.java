@@ -70,16 +70,16 @@ public interface BusinessMapper  extends MybatisMapper {
 	public List<ScheduleDto> getScheduleList();
 	
 	//상영시간표 - 상영날짜 검색
-	public List<ScheduleDto> getScheduleDateList(List<ScheduleDto> scheduleCode);
+	public List<ScheduleDto> getScheduleDateList(Integer schCode);
 	
 	//상영시간표(상세) 전체 검색
 	public List<ScheduleDetailDto> getScheduleDetailList();
 	
 	//상영시간표(상세) 시작시간 검색
-	public List<ScheduleDetailDto> getScheduleStartTime(List<ScheduleDto> sch_code);
+	public List<ScheduleDetailDto> getScheduleStartTime(Integer schCode);
 	
 	//상영시간표(상세) 종료시간 검색
-	public List<ScheduleDetailDto> getScheduleEndTime(List<ScheduleDto> sch_code);
+	public List<ScheduleDetailDto> getScheduleEndTime(Integer schCode);
 	
 	//사업자가 등록한 극장이름
 	public String selectThNameByBid(String b_id);

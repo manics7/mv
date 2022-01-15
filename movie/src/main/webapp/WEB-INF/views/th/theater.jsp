@@ -8,6 +8,7 @@
 <title>사업자 영화관 관리</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="resource/css/theater.css">
+<link rel="stylesheet" href="resource/css/theaterList.css">
 <script type="text/javascript">
 $(function(){
 	//메시지 출력 부분
@@ -23,7 +24,16 @@ $(function(){
 <div class="detail">
 	<div class="inner">
 		<div id="page_wrap">
-			<jsp:include page="business_sidebar.jsp"></jsp:include>
+			<div id="side">
+				<h2><a href="#">Business Page</a></h2>
+				<ul id="bupage_list">
+					<li><a id="bupage_menu" href="#">영화관 관리</a></li>
+					<li><a id="bupage_menu" href="#">영화 관리</a></li>
+					<li><a id="bupage_menu" href="./roomList">상영관 관리</a></li>
+					<li><a id="bupage_menu" href="./schedule">상영 일정 관리</a></li>
+					<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
+				</ul>
+			</div>
 			<div id="th_content">
 				<c:choose>
 					<c:when test="${empty theaterList}">

@@ -251,18 +251,6 @@ public class MemberController {
 		return mv;
 	}
 	
-	@GetMapping("schedule")
-	public ModelAndView schedule(Integer th_code) {
-		List<Map<String, Object>> list = mServ.getSch(th_code);
-		mv = new ModelAndView();
-		mv.addObject("schedule", list);
-		mv.addObject("room", list);
-		mv.addObject("movieOfficial", list);
-		mv.setViewName("sch/schedule");
-		
-		return mv;
-	}
-	
 	// 영화관 상세 페이지 극장 정보 출력
 	@GetMapping("theaterinsert")
 	public ModelAndView theater_detail(Integer th_code) {
@@ -270,6 +258,7 @@ public class MemberController {
 		mv.addObject("th_code",th_code);
 		return mv;
 	}
+	
 	// 영화관 검색
 	@GetMapping("searchtheater")
 	public String searchtheater() {

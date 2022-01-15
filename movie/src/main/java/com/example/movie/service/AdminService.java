@@ -501,10 +501,6 @@ public class AdminService {
 
 		return view;
 	}
-<<<<<<< HEAD
-    
-=======
->>>>>>> refs/heads/master
 		//1대1 문의 답변(사용함)(하는중)
 	public String quesboard_reply_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
 		String view = null;	
@@ -521,11 +517,7 @@ public class AdminService {
 		
 		rttr.addFlashAttribute("msg",msg);
 		return view;
-<<<<<<< HEAD
 		
-	}
 
-=======
 		}
->>>>>>> refs/heads/master
 }

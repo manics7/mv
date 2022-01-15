@@ -103,13 +103,13 @@
 	</select>
 	
 	<!-- 상영시간표 상세에서 시작시간 검색 -->
-	<select id="getScheduleStartTime" parameterType="com.example.movie.dto.ScheduleDto" resultType="com.example.movie.dto.ScheduleDetailDto">
+	<select id="getScheduleStartTime" parameterType="Integer" resultType="com.example.movie.dto.ScheduleDetailDto">
 		SELECT SCH_DETAIL_START FROM SCHEDULE_DETAIL 
 		WHERE sch_code=#{sch_code}
 	</select>
 	
 	<!-- 상영시간표 상세에서 종료시간 검색 -->
-	<select id="getScheduleEndTime" parameterType="com.example.movie.dto.ScheduleDto" resultType="com.example.movie.dto.ScheduleDetailDto">
+	<select id="getScheduleEndTime" parameterType="Integer" resultType="com.example.movie.dto.ScheduleDetailDto">
 		SELECT SCH_DETAIL_END FROM SCHEDULE_DETAIL 
 		WHERE sch_code=#{sch_code}
 	</select>

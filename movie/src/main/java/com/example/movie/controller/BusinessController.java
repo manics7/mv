@@ -4,6 +4,7 @@ package com.example.movie.controller;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -121,6 +122,18 @@ public class BusinessController {
 
 		return mv;
 	}	
+	
+	//상영 시간표 목록 페이지 이동
+	@GetMapping("schedule")
+	public ModelAndView schedule() {
+		List<Map<String, Object>> scheduleList = buServ.getScheduleList();
+		
+		mv = new ModelAndView();
+		mv.addObject("scheduleList", scheduleList);
+		mv.setViewName("sche/schedule");
+		return mv;
+	}
+	
 	/*
 	//상영 시간표 목록 페이지 이동
 	@GetMapping("schedule")
@@ -131,6 +144,7 @@ public class BusinessController {
 		return mv;
 	}
 	*/
+	
 	//상영 시간표 등록 페이지 이동
 	@GetMapping("scheduleAdd")
 	public ModelAndView scheduleAdd() {
