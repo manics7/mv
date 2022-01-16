@@ -202,7 +202,6 @@ public class MemberController {
 	// 이용자 회원가입
 	@PostMapping("memberInsert")
 	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
-		log.info("memberInsert()");
 		String view = mServ.memberInsert(member, rttr);
 
 		return view;

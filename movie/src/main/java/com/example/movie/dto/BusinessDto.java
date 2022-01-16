@@ -11,5 +11,6 @@ public class BusinessDto {
 	private String b_num;
 	private String b_tel;
 	private String b_email;
+	private String authorities;
 	
 }

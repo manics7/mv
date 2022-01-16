@@ -85,7 +85,6 @@
 							
 							<h3>줄거리</h3>
 							${mvOfficial.movie_content }
-<!-- 							내용 입력 할건데요~? -->
 						</div>
 					</div>
 					<div class="theaterList">
@@ -94,9 +93,11 @@
 								<li class="theaterTitle">
 									<div class="titleWrap">
 										<a href="" data-toggle="modal" data-target="#rsrvModal" data-movieCd="${mvOfficial.movie_cd }"
-										   data-thcode="${theaterNames.th_code }"  data-id="100" id="modal">
+										   data-thcode="${theaterNames.th_code }"  data-id="100" id="modal"
+										   style="color: black;">
 											<div class="theaterLogo">
 												<img alt="" src="${theaterNames.th_logo }">
+<!-- 												https://www.indieartcinema.com/assets/img/saveourcinema.jpg -->
 											</div>
 											<div class="theaterName">
 												${theaterNames.th_name }
@@ -112,45 +113,50 @@
 							<h3>영화 후기</h3>
 
 							<!-- 영화 관람평 목록 -->
-							<table>
+							<table id="reviewTable" class="reviewTable">
 								<tr>
-									<td>
-										${userInfo.m_id }
-									</td>
-									
-											<!-- 영화 관람평 작성 -->
-											<c:choose>
-												<c:when test="${empty userInfo.m_id }">
-													<td colspan="3">
-														<input type="text" placeholder="로그인을 해주세요" readonly="readonly">
-													</td>		
-												</c:when>
-												<c:when test="${!empty userInfo.m_id }">
-													<td>
-														<form id="reviewMovie">
-															<input type="text" placeholder="관람평을 작성해 주세요" id="reviewComment" name="mv_review_comment" onkeypress="if(event.keyCode==13){return false;}">
-														</td>
-														<td>
-															<input type="button" onclick="reviewMovieF(${mvOfficial.movie_cd})" value="작성" id="write">
-														</form>		
-													</td>	
-												</c:when>
-											</c:choose>
-									
+									<!-- 영화 관람평 작성 -->
+									<c:choose>
+										<c:when test="${empty userInfo.m_id }">
+											<td class="writer">
+												Unknown
+											</td>
+											<td>
+												<input class="content" type="text" placeholder="로그인을 해주세요" readonly="readonly">
+											</td>
+											<td>
+												<input class="writeBtn" type="button" disabled="disabled" value="작성">
+											</td>		
+										</c:when>
+										<c:when test="${!empty userInfo.m_id }">
+											<td>
+												${userInfo.m_id }
+											</td>
+											<td>
+												<form id="reviewMovie">
+													<input class="content" type="text" placeholder="관람평을 작성해 주세요" id="reviewComment" name="mv_review_comment" onkeypress="if(event.keyCode==13){return false;}">
+												</td>
+												<td>
+													<input class="writeBtn" type="button" onclick="reviewMovieF(${mvOfficial.movie_cd})" value="작성" id="write">
+													</td>
+												</form>		
+												
+										</c:when>
+									</c:choose>
 								</tr>
 								<tr>
-									<td class="writer">작성자</td>
-									<td class="reviewContent">후기</td>
-									<td class="writeDate">작성일</td>
+									<th class="writer">작성자</th>
+									<th class="reviewContent">후기</th>
+									<th class="writeDate">작성일</th>
 								</tr>
 							</table>
-							<table id="reviewList">
+							<table id="reviewList" class="reviewTable">
 								<c:forEach var="reviewMovie" items="${reviewMovie}">
 									<tr>
 										<td class="writer">${reviewMovie.mv_review_id }</td>
 										<td class="reviewContent">${reviewMovie.mv_review_comment }</td>
 										<td class="writeDate">
-											<fmt:formatDate value="${reviewMovie.mv_review_date }" pattern="MM-dd HH:mm"></fmt:formatDate>
+											<fmt:formatDate value="${reviewMovie.mv_review_date }" pattern="MM-dd"></fmt:formatDate><br>
 										</td>
 									</tr>
 								</c:forEach>
@@ -213,9 +219,9 @@
 					
 					for(var i = 0; i < reviewMv.length; i++) {
 						reviewList += "<tr>"
-								   +	"<td>" + reviewMv[i].mv_review_id + "</td>"
-								   +	"<td>" + reviewMv[i].mv_review_comment + "</td>"
-								   +	"<td>" + reviewMv[i].mv_review_date + "</td>"
+								   +	"<td class='writer'>" + reviewMv[i].mv_review_id + "</td>"
+								   +	"<td class='reviewContent'>" + reviewMv[i].mv_review_comment + "</td>"
+								   +	"<td class='writeDate'>" + reviewMv[i].mv_review_date + "</td>"
 								   +  "</tr>";
 					} // for end
 					$("#reviewList").html(reviewList);
@@ -228,7 +234,7 @@
 			}) // ajax end
 		}; // function end	
 		
-			$(document).on("click", "#info", function() {
+			$("#info").click(function() {
 				$(".info").css("display", "inline-block");
 				$("#info").css("border", "1.5px solid #f16a1a");
 				$("#info").css("border-bottom", "0");
@@ -245,7 +251,7 @@
 				$("#stillcut").css("border-width", "0.5px 0 1.5px 0");
 				$("#stillcut").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
 			});
-			$(document).on("click", "#theaterList", function() {
+			$("#theaterList").click(function() {
 				$(".theaterList").css("display", "inline-block");
 				$("#theaterList").css("border", "1.5px solid #f16a1a");
 				$("#theaterList").css("border-bottom", "0");
@@ -279,8 +285,8 @@
 				$("#stillcut").css("border-width", "0.5px 0 1.5px 0");
 				$("#stillcut").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");				
 				});	
-			$(document).on("click", "#stillcut", function() {
-				$(".stillcut").css("display", "inline-block");
+			$("#stillcut").click(function() {
+				$(".stillcut").css("display", "flex");
 				$("#stillcut").css("border", "1.5px solid #f16a1a");
 				$("#stillcut").css("border-bottom", "0");
 				$(".theaterList").css("display", "none");

@@ -8,7 +8,7 @@
 }
 
 a {
-	text-decoration: none;
+	text-decoration: none!important;
 }
 
 ul, ol, li {
@@ -158,12 +158,72 @@ h3 {
 	text-align: center;
 }
 
+.titleWrap {
+	text-align: center;
+	vertical-align: middle;
+}
+
 .theaterLogo {
 	width: 100px;
 	height: 100px;
-	border: 1px solid #fefefe;
+	border: 1px solid #c8c8c8;
+	border-radius: 43px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.review table {
+.theaterLogo img {
+}
+
+.reviewTable {
 	text-align: center;
+}
+
+.reviewTable tr {
+	height: 40px;
+}
+
+.reviewTable td, th {
+	padding: 15px;
+}
+
+.content{
+	width: 570px;
+	padding: 10px;
+}
+
+.writer, .writeDate {
+	width: 150px;
+}
+
+.writeBtn {
+	width: 80px;
+	height: 35px;
+	border: none;
+	color: white;
+	background-color: #f16a1a;
+	border-radius: 5px;
+}
+
+.reviewContent {
+	text-align: left;
+	width: 600px;
+}
+
+.stillcut ul {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+
+.stillcut ul li {
+	float: left;
+}
+
+.stillcut li>img {
+	flex-flow: row wrap;
+	width: 300px;
+	height: 400px;
 }

@@ -49,7 +49,7 @@
 							<div>
 								<form name="mainMovieSearch" action="./currentMovieList" method="get">
 									<input type="text" placeholder="영화명을 입력해주세요!" name="mainMovieSearch">
-									<button type="button"></button>
+									<button></button>
 								</form>
 							</div>
 						</div>
@@ -75,23 +75,29 @@
 					</div>
 					<div></div>
 				</div>
-				<div id="notice_wrap">
-					<div>
-						<h2>공지사항</h2>
-					</div>
-					<div></div>
+				<div class="notice_box">
+					<h2 class="notice_box_title">공지사항</h2>
+					<ul>
+						<li>
+							<a href="#">
+								<span class="text">[기타]개인정보처리방침 변경 안내</span>
+								<span class="date">2020.10.20</span>
+							</a>
+						</li>
+					</ul>
+					<a class="more_1" href="#">더보기</a>
 				</div>
-				<div id="question">
-					<div>
-						<h2>문의사항</h2>
-					</div>
-					<div></div>
-				</div>
-				<div id="question">
-					<div>
-						<h2> <a href="./theaterinsert?th_code=3">영화관1</a></h2>
-					</div>
-					<div></div>
+				<div class="que_box">
+					<h2 class="que_box_title">자주 묻는 질문</h2>
+					<ul>
+						<li>
+							<a href="#">
+								<span class="text">[기타]개인정보처리방침 변경 안내</span>
+								<span class="date">2020.10.20</span>
+							</a>
+						</li>
+					</ul>
+					<a class="more_2" href="#">더보기</a>
 				</div>
 			</div>
 		</div>
