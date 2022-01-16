@@ -2,7 +2,8 @@
 
 * {
 	margin: 0;
-	padding: 0
+	padding: 0;
+	box-sizing: border-box;
 }
 
 .main_wrap {
@@ -27,7 +28,7 @@ input, select {
 	margin: 5px;
 }
 
-#Cd, #dr {
+#Cd, #dr, #Dt, #GN, #Tm, #today {
 	width: 160px;
 }
 
@@ -35,12 +36,12 @@ input, select {
 	width: 340px;
 }
 
-#Dt, #GN, #Tm {
-	width: 160px;
+select {
+	width: 154px;
 }
 
-select {
-	width: 164px;
+input[type=button] {
+	width: 166.5px;
 }
 
 table {
@@ -55,4 +56,13 @@ table {
 
 .nm {
 	width: 320px;
+}
+
+tr {
+	height: 35px;
+	border-bottom: 1px solid #c8c8c8;
+}
+
+th {
+	text-align: left;
 }

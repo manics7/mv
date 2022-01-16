@@ -23,7 +23,8 @@
 				<hr>
 				<div id="dateSelete_wrap">
 					<input type="date" id="today">
-					<input type="button" id="searchMovie" value="영화 조회"><input type="button" id="searchList" value="목록 출력">
+					<input type="button" id="searchMovie" value="영화 조회">
+					<input type="button" id="searchList" value="목록 출력">
 				</div>
 
 				<form action="./movieInsertProc" method="post" enctype="multipart/form-data">
@@ -50,10 +51,11 @@
 						<option value="15">15세 이상</option>
 						<option value="18">청소년 관람불가</option>
 					</select>
+					<input type="text" readonly="readonly" id="upload-name" value="포스터 선택">
 					<br>
 					<!-- 파일 처리 영역 -->
 					<input type="file" name="moviePoster" id="posterFile">
-					<input type="text" readonly="readonly" id="upload-name" value="포스터 선택">
+					
 					<input type="hidden" id="fileCheck" value="0" name="fileUp">
 					<br>
 					<input type="submit" value="영화등록">
