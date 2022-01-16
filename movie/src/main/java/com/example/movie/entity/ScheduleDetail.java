@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,10 +35,12 @@ import lombok.ToString;
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@SequenceGenerator (	name = "SCH_DETAIL_SEQ_GENERATOR"
+,  sequenceName = "SCH_DETAIL_SEQ",  initialValue = 1, allocationSize = 1)	//매핑할 데이터 베이스 스퀀스 이름)
 public class ScheduleDetail {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SCH_DETAIL_SEQ_GENERATOR")
 	@Column(name="SCH_DETAIL_SEQ", columnDefinition="상영 시간 디테일 키")
 	private Integer schDetailSeq;
 	

@@ -314,6 +314,16 @@ public class MemberController {
 		return map;
 	}
 	
+	// 통합 영화 목록 시간 출력
+	@GetMapping("totalMovieTimeList")
+	@ResponseBody
+	public List<Schedule> getTotalMovieTimeList(String movieCd, String schDate) {
+		//List<Map<String, String>> map = scheduleService.getDatesDaysWeek(1);
+		List<Schedule> list  = scheduleService.getTotalMovieTimeList(movieCd, schDate);
+		
+		return list;
+	}
+	
 	@GetMapping("selectSchedule")
 	@ResponseBody
 	public List<Schedule> selectSchedule(String movieCd, Integer thCode, String schDate) {

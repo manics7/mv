@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -27,15 +28,20 @@ import com.example.movie.entity.Theater;
 import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ReservationRepositoryCustom;
 import com.example.movie.repository.RoomRepository;
+import com.example.movie.repository.ScheduleDetailRepository;
 import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.repository.ScheduleRepositoryCustom;
 import com.example.movie.repository.TheaterRepository;
+import com.example.movie.utill.DateUtil;
 
 @Service
 public class ScheduleService {
 
 	@Autowired
 	ScheduleRepository scheduleRepository;
+	
+	@Autowired
+	ScheduleDetailRepository scheduleDetailRepository;
 	
 	@Autowired
 	MovieOfficialRepository movieOfficialRepository;
@@ -89,7 +95,6 @@ public class ScheduleService {
 
 	//처음화면 세팅을 위한 스케쥴에 해당하는 영화,상영관,날짜 목록을 가져온다.
 	public Map<String, Object> getSchedule() {
-		
 		LocalDate now = LocalDate.now();
 		String date= now.toString();	
 		LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));		
@@ -97,9 +102,9 @@ public class ScheduleService {
 		
 		Date startDate = java.sql.Date.valueOf(dateTime.toLocalDate());
 		Date endDate = java.sql.Date.valueOf(lastDate);
+		//List<Schedule> scheduleList = scheduleRepository.findBySchDateBetween(startDate, endDate);
+		List<Schedule> scheduleList = scheduleRepositoryCustom.getDefaultScheule(startDate, endDate);
 		
-		List<Schedule> scheduleList = scheduleRepository.findBySchDateBetween(startDate, endDate);
-
 		//스케쥴에서 영화,극장코드 중복제거해서 가져오기
 		List<String> movieCdList = scheduleList.stream().map(Schedule::getMovieCd).distinct().collect(Collectors.toList());
 		List<Integer> thCodeList = scheduleList.stream().map(Schedule::getThCode).distinct().collect(Collectors.toList());
@@ -198,5 +203,50 @@ public class ScheduleService {
 		}
 		
 		return null;
+	}
+
+	public List<Schedule>  getTotalMovieTimeList(String movieCd, String schDate) {
+		
+		Date SchDate = DateUtil.strToDate(schDate);
+			
+		List<Schedule> scheduleList = scheduleRepository.findByMovieCdAndSchDate(movieCd, SchDate);
+		for (int i = 0; i < scheduleList.size(); i++) {
+			
+			Room room = roomRepository.findByThCodeAndRoomNo(scheduleList.get(i).getThCode(), scheduleList.get(i).getRoomNo());
+			
+			//시간정보 시작시간 10분뒤까지만 보여줌
+			List<ScheduleDetail>schDetailList = scheduleRepositoryCustom.getTotalMovieTimeList(
+					scheduleList.get(i).getSchCode()
+					, scheduleList.get(i).getMovieCd()
+					, schDate);
+			
+			scheduleList.get(i).setRoom(room);
+			scheduleList.get(i).setScheduleDetail(schDetailList);
+			
+			for (int j = 0; j <  scheduleList.get(i).getScheduleDetail().size(); j++) {
+				
+				//예약좌석수
+				Integer rsrvSeatCnt = reservationRepositoryCustom.getRsrvSeatCnt(
+						scheduleList.get(i).getScheduleDetail().get(j).getSchCode()
+						, scheduleList.get(i).getScheduleDetail().get(j).getSchDetailSeq());
+				
+				scheduleList.get(i).getScheduleDetail().get(j).setRsrvSeatCnt(rsrvSeatCnt);
+				
+				//예매종료 표시를 위한 시간계산(10분동안) 
+				LocalDateTime now =LocalDateTime.now();			
+				Date	schDateTime = scheduleList.get(i).getScheduleDetail().get(j).getSchDetailStart();
+				LocalDateTime StartTime = schDateTime.toInstant() // Date -> Instant
+						.atZone(ZoneId.systemDefault()) // Instant -> ZonedDateTime
+						.toLocalDateTime(); // ZonedDateTime -> LocalDateTime
+				//now = now.minusMinutes(10);
+				if(StartTime.isEqual(now) || StartTime.isBefore(now)) {
+					scheduleList.get(i).getScheduleDetail().get(j).setSchStatus("deadline");
+				}
+			}
+		}
+		
+		
+		return scheduleList;
+		
 	}
 }
