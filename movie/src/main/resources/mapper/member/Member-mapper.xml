@@ -121,7 +121,7 @@
 		
 	<!-- 이용자 관람평 목록 다시 검색 -->
 	<select id="selectReviewMovieList" parameterType="String" resultType="com.example.movie.dto.ReviewMovieDto">
-		select * from review_movie where mv_review_moviecd=#{movie_cd} 
+		select * from review_movie where mv_review_moviecd=#{movie_cd} order by mv_review_date desc
 	</select>
 	
 	<select id="inserttheaterinfo" parameterType="Integer" resultType="com.example.movie.dto.TheaterDto">

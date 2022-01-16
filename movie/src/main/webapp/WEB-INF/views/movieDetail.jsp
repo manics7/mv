@@ -21,7 +21,7 @@
 			<div id="container">
 				<div id="bgPoster"
 					style="background-image: url(${mvOfficial.poster })">
-					<div id="movieInfo">
+					<div id="movieInfoDiv">
 						<div id="movieInfoWrap">
 							<p id="movieDetailTitle">${mvOfficial.movie_nm }</p>
 							<p id="movieDetailInfo" class="detailInfo">
@@ -56,7 +56,9 @@
 								<span>배우 </span> ${mvOfficial.actors }
 							</p>
 							<br>
-							<button>예매하기</button>
+							<button data-toggle="modal" data-target="#rsrvModal" data-movieCd="${movieList.movie_cd }" id="modal" style="cursor: pointer;">
+								예매하기
+							</button>
 						</div>
 						<div id="posterBtn">
 							<div id="detailPoster">
@@ -91,43 +93,69 @@
 							<c:forEach var="theaterNames" items="${theaterName }">
 								<li class="theaterTitle">
 									<div class="titleWrap">
-										<div class="theaterLogo">
-											<img alt="" src="${theaterNames.th_logo }">
-										</div>
-										<div class="theaterName">
-											${theaterNames.th_name }
-										</div>
+										<a href="" data-toggle="modal" data-target="#rsrvModal" data-movieCd="${mvOfficial.movie_cd }"
+										   data-thcode="${theaterNames.th_code }"  data-id="100" id="modal">
+											<div class="theaterLogo">
+												<img alt="" src="${theaterNames.th_logo }">
+											</div>
+											<div class="theaterName">
+												${theaterNames.th_name }
+											</div>										
+										</a>
 									</div>
 								</li>
 							</c:forEach>
 						</ul>
 					</div>
 					<div class="review">
-						<!-- 영화 관람평 목록 -->
-						<form id="reviewMovie">
-							<input type="text" placeholder="관람평을 작성해 주세요" id="reviewComment" name="mv_review_comment" onkeypress="if(event.keyCode==13){return false;}">
-							<input type="button" onclick="reviewMovieF(${mvOfficial.movie_cd})" value="작성">
-						</form>
-						<table>
-							<tr>
-								<td>작성자</td>
-								<td>후기</td>
-								<td>작성일</td>
-							</tr>
-						</table>
-						<table id="reviewList">
-							<c:forEach var="reviewMovie" items="${reviewMovie}">
+						<div>
+							<h3>영화 후기</h3>
+
+							<!-- 영화 관람평 목록 -->
+							<table>
 								<tr>
-									<td>${reviewMovie.mv_review_id }</td>
-									<td>${reviewMovie.mv_review_comment }</td>
-									<td><fmt:formatDate
-											value="${reviewMovie.mv_review_date }" pattern="MM-dd HH:mm"></fmt:formatDate>
+									<td>
+										${userInfo.m_id }
 									</td>
+									
+											<!-- 영화 관람평 작성 -->
+											<c:choose>
+												<c:when test="${empty userInfo.m_id }">
+													<td colspan="3">
+														<input type="text" placeholder="로그인을 해주세요" readonly="readonly">
+													</td>		
+												</c:when>
+												<c:when test="${!empty userInfo.m_id }">
+													<td>
+														<form id="reviewMovie">
+															<input type="text" placeholder="관람평을 작성해 주세요" id="reviewComment" name="mv_review_comment" onkeypress="if(event.keyCode==13){return false;}">
+														</td>
+														<td>
+															<input type="button" onclick="reviewMovieF(${mvOfficial.movie_cd})" value="작성" id="write">
+														</form>		
+													</td>	
+												</c:when>
+											</c:choose>
+									
 								</tr>
-							</c:forEach>
-						</table>
-						<!-- 영화 관람평 작성 -->
-						
+								<tr>
+									<td class="writer">작성자</td>
+									<td class="reviewContent">후기</td>
+									<td class="writeDate">작성일</td>
+								</tr>
+							</table>
+							<table id="reviewList">
+								<c:forEach var="reviewMovie" items="${reviewMovie}">
+									<tr>
+										<td class="writer">${reviewMovie.mv_review_id }</td>
+										<td class="reviewContent">${reviewMovie.mv_review_comment }</td>
+										<td class="writeDate">
+											<fmt:formatDate value="${reviewMovie.mv_review_date }" pattern="MM-dd HH:mm"></fmt:formatDate>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
 					</div>
 					<div class="stillcut">
 						<ul>
@@ -163,9 +191,8 @@
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script src="resource/js/jquery.serializeObject.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
 		// 관람평 ajax로 처리
-		function reviewMovieF(movie_cd) {
+		function reviewMovieF(movie_cd) {	
 			console.log("movie_cd" + movie_cd);
 			
 			var reviewMovieList = $("#reviewMovie").serializeObject();
@@ -199,8 +226,7 @@
 					alert("댓글 입력 실패");
 				} // error end
 			}) // ajax end
-		} // function end	
-		
+		}; // function end	
 		
 			$(document).on("click", "#info", function() {
 				$(".info").css("display", "inline-block");
@@ -236,7 +262,7 @@
 				$("#stillcut").css("border-width", "0.5px 0 1.5px 0");
 				$("#stillcut").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");
 			});
-			$(document).on("click", "#review", function() {
+			$("#review").click(function() {
 				$(".review").css("display", "inline-block");
 				$("#review").css("border", "1.5px solid #f16a1a");
 				$("#review").css("border-bottom", "0");
@@ -252,7 +278,7 @@
 				$("#stillcut").css("border-style", "solid solid solid solid");
 				$("#stillcut").css("border-width", "0.5px 0 1.5px 0");
 				$("#stillcut").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");				
-			});
+				});	
 			$(document).on("click", "#stillcut", function() {
 				$(".stillcut").css("display", "inline-block");
 				$("#stillcut").css("border", "1.5px solid #f16a1a");
@@ -270,8 +296,6 @@
 				$("#info").css("border-width", "0.5px 0 1.5px 0");
 				$("#info").css("border-color", "#ebebeb #ebebeb #f16a1a #ebebeb");			
 			});
-	});	
-		
 		
 	</script>
 

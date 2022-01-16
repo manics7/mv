@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
 <link rel="stylesheet" type="text/css" href="resource/css/hf.css">
-
-
 
 <div id="header_wrap">
 	<div class="contain_wrap">

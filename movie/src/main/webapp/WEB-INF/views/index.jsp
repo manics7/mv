@@ -22,7 +22,7 @@
 		<div id="section_wrap">
 			<div id="main_wrap">
 				<div id="box_office">
-					<div id="box-office-title">박스오피스</div>
+					<div id="box-office-title">현재상영작</div>
 					<div id="more-movie">
 
 						<a href="./currentMovieList">
@@ -34,7 +34,7 @@
 						<ol id="box-list">
 							<c:forEach var="boxOfficeList" items="${mvOfficial }" begin="0" end="3">
 								<li class="box-office-list">
-									<a href="#">
+									<a href="./movieDetail?movie_cd=${boxOfficeList.movie_cd }">
 										<img src="${boxOfficeList.poster }" title="${boxOfficeList.movie_nm }">
 									</a>
 									<div class='btn_box'>
