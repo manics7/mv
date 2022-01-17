@@ -274,7 +274,7 @@ public class MemberController {
 		mv = new ModelAndView();
 		mv.addObject("theatedetail", list);
 		mv.addObject("th_code",th_code);
-	mv.addObject("thinfoDto", thDto);
+		mv.addObject("thinfoDto", thDto);
 		mv.setViewName("theater_detail");
 		return mv;
 	}
