@@ -391,7 +391,7 @@ color: white;
 					상영관</a>
 			</div>
 			<div class="img_box box3">
-				<img src="${theatedetail[0].theater.th_image2}" alt=""> <a href="#">1관
+				<img src="${theatedetail[0].theater.th_image3}" alt=""> <a href="#">1관
 					상영관</a>
 			</div>
 		</section>

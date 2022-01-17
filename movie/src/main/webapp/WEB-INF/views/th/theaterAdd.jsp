@@ -80,16 +80,7 @@ $(document).ready(function() {
 <div class="detail">
 	<div class="inner">
 		<div id="page_wrap">
-			<div id="side">
- 				<h2><a href="./businessPage">Business Page</a></h2> 
- 				<ul id="bupage_list"> 
- 					<li><a id="bupage_menu" href="./theater">영화관 관리</a></li>
-					<li><a id="bupage_menu" href="./movieInsert">영화 관리</a></li>
-					<li><a id="bupage_menu" href="./roomList">상영관 관리</a></li>
-					<li><a id="bupage_menu" href="./schedule">상영 일정 관리</a></li>
-					<li><a id="bupage_menu" href="./eventList">이벤트 관리</a></li> 
- 				</ul> 
-			</div>
+			<jsp:include page="../business_sidebar.jsp"></jsp:include>
             <div id="thadd_content">
                     <!-- 페이지 타이틀(영화관 등록)-->
                     <div id="thadd_title">
