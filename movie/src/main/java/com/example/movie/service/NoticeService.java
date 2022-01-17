@@ -1,5 +1,7 @@
 package com.example.movie.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,5 +26,33 @@ public class NoticeService {
 		}
 		
 		return noticeList;
+	}
+
+	public void saveNotice(Notice notice) {
+		if(notice.getViewCnt() == null) {
+			notice.setViewCnt(0);
+		}
+		noticeRepository.save(notice);
+	}
+
+	public void deleteNotice(Notice notice) {
+		noticeRepository.delete(notice);		
+	}
+
+	public Notice selectNotice(Integer noticeNo) {
+		
+		Notice notice = new Notice();
+		if(noticeNo != null){
+			Optional<Notice> noticeOpt = noticeRepository.findById(noticeNo);
+			
+			if(noticeOpt.isPresent()) {
+				notice = noticeOpt.get();
+			
+				notice.setViewCnt(notice.getViewCnt()+1);
+				noticeRepository.save(notice);
+			}
+		}
+		
+		return notice;
 	}
 }

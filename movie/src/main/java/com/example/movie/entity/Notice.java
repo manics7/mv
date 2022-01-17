@@ -9,25 +9,33 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-@Getter
+@Data
 @Table(name = "NOTICE")
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@SequenceGenerator (	name = "NOTICE_NO_SEQ_GENERATOR"
+,  sequenceName = "NOTICE_NO_SEQ",  initialValue = 1, allocationSize = 1)	//매핑할 데이터 베이스 스퀀스 이름)
 public class Notice {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTICE_NO_SEQ_GENERATOR")
 	@Column(name="NOTICE_NO", columnDefinition="글번호")
 	private Integer noticeNo;
 	
@@ -48,25 +56,15 @@ public class Notice {
 	@DateTimeFormat(pattern="yyyy-MM-dd")	
 	//날짜타입(java.util.Date, java.util.Calendar)을 매핑할때 사용.
 	//자바8에서 지원하는 LocalDate, LocalDateTime을 사용할때는 생략 가능(하이버네이트 지원)
-	//@Temporal(TemporalType.DATE) 
+	@Temporal(TemporalType.DATE) 
 	private Date regDate;
 	
 	@Column(name="VIEW_CNT", columnDefinition="조회수")
 	private Integer viewCnt;	
 	
 	@Column(name="NOTICE_CLASS", columnDefinition="구분")
-	private Integer noticeClass;
-
-	@Builder
-    public Notice(Integer noticeNo, String noticeTitle, String noticeContent, Date regDate
-    					,Integer viewCnt, Integer noticeClass, String noticeClassName) {
-        this.noticeNo = noticeNo;
-        this.noticeTitle = noticeTitle;
-        this.noticeContent = noticeContent;
-        this.regDate = regDate;
-        this.viewCnt = viewCnt;        
-    }
-
+	private String noticeClass;
+	
 	@PrePersist
 	public void regDate() {
 		if(this.regDate == null) {

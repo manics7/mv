@@ -44,13 +44,6 @@ public class AdminController {
 			mv = aServ.reportedReview(pageNum);
 			
 			return mv;
-		}//신고페이지(댓글)
-		@GetMapping("replyreportFrm")
-		public ModelAndView replyreportFrm(Integer pageNum) {
-			
-			mv = aServ.reportedReply(pageNum);
-			
-			return mv;
 		}
 	
 	//영화리뷰 삭제처리 (신고)
@@ -60,6 +53,14 @@ public class AdminController {
 		/*int mvrnum = Integer.parseInt(mv_review);*/
 		
 		String view = aServ.delAdminMvReview(movie_review,rttr);
+		
+		return view;
+	}
+	//영화관리뷰게시글 삭제(신고)
+	@GetMapping("delAdminReview")
+	public String delAdminReview (int review_num,RedirectAttributes rttr) {
+		
+		String view = aServ.delAdminReview(review_num,rttr);
 		
 		return view;
 	}
