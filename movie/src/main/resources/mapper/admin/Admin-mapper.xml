@@ -170,5 +170,8 @@
 		SELECT COUNT(*) FROM MOVIE_OFFICIAL WHERE MOVIE_CD =#{movieCd}
 	</select>
 	
+	<delete id="alDeleteMem" parameterType="String">
+	delete from member where m_id=#{m_id}
+	</delete>
 	
 </mapper>

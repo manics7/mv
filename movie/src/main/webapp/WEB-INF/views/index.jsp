@@ -15,10 +15,9 @@
 <body>
 
 	<div id="body_wrap">
-		<header>
-			<jsp:include page="header.jsp"></jsp:include>
-		</header>
-	
+<nav>
+<jsp:include page="main_header.jsp"></jsp:include>
+</nav>
 		<div id="section_wrap">
 			<div id="main_wrap">
 				<div id="box_office">

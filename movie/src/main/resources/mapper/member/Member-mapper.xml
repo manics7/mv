@@ -166,5 +166,10 @@
 	SELECT * FROM theater
 	</select>
 	
+	<select id="getThinfoList" parameterType="integer" resultType="com.example.movie.dto.TheaterDto">
+	select * from theater where th_code = #{th_code}
+	</select>
+	
+	
 
 </mapper>

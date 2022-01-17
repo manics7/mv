@@ -89,6 +89,8 @@ public interface AdminMapper extends MybatisMapper {
 	//무비오피셜 수정(관리자 영화등록 수정)
 	public void adminMovieUpdate(MovieOfficialDto mvofficialDto);
 
+	ModelAndView alDeleteMem(String m_id);
+
 
 
 }

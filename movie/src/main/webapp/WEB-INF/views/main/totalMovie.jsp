@@ -51,6 +51,9 @@
 </head>
 <body>
 
+<nav>
+<jsp:include page="../main_header.jsp"></jsp:include>
+</nav>
 <div class="container">
 	<div class="row" >
 		<div class="col-md-12 " id="movieBox"  >
