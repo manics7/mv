@@ -89,6 +89,10 @@
             height: 23.59px;
             font-weight: 400;
             text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: black;
         }
 
         .fa-star {
@@ -97,6 +101,9 @@
 
         .grade>strong {
             color: #f16a1a;
+        }
+        .grade span{
+        color: black;
         }
 
         .talker::before {}
@@ -145,7 +152,7 @@
 								<span class="talker">평론가</span> <strong>4.3</strong>
 							</div>
 						</div>
-					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
+					</a> <a data-toggle="modal" data-target="#rsrvModal" data-moviecd="${theatedetail[status.index].movieOfficial.movieCd}"  data-thcode="${th_code}"  id="modal" style="text-decoration: none;" href="#" class="movie_list_item_reserbtn">예매하기</a>
 				</div>
 				</c:forEach>
                

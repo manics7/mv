@@ -23,9 +23,29 @@
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p&libraries=services"
 	crossorigin="anonymous" />
 	
+	<style>
+	a{text-decoration: none;
+	color: black;}
+   i img{
+    width: 10px;
+    height: 10px;
+    
+    }
+.que_box_title>ul>li>a:hover{
+text-decoration: none;
+background: transparent;
+color: black;
+
+}
+	
+	
+	
+	</style>
+	
 	<script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=599889030d8acd127e1969cf1dfccf0f&libraries=services"></script>
 	<script type="text/javascript" >
+	
 	
 	
 	
@@ -48,10 +68,12 @@
 	                    html += "<li class='list-group-item my-0 py-2 dateBtn " + color + " font-weight-bold'  date=" + date + " style ='cursor : pointer;'    >" + day + " (" + dayOfWeek + ")</li>";
 	                });
 	                $(".day_paging ul").html(html);
+	                $("#theaterDataList li").eq(0).click()
 	            }, error: function (err) {
 	                //console.log("err:", err)
 	            }
 	        });
+	       
 	    }
 
 
@@ -96,30 +118,10 @@
 	
 <body>
 	<!-- Responsive navbar-->
-	<div class="navbar_wrap">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar">
-			<div class="container">
-				<a class="navbar-brand" href="/">인디&아트|시네마</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link" href="#">영화관찾기</a></li>
-						<li class="nav-item"><a class="nav-link" href="#!">영화검색</a></li>
-						<li class="nav-item"><a class="nav-link" href="#!">마이페이지</a></li>
-						<li class="nav-item"><a class="nav-link" href="#!">로그아웃</a></li>
-						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="#!">빠른예매</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-
-	</div>
+	<!--   -->
+	<nav>
+	<jsp:include page="main_header.jsp"></jsp:include>
+	</nav>
 	
 
 	<!-- Header - set the background image for the header in the line below-->
@@ -182,6 +184,9 @@
 			<div class="main_movielist_cont_wrap">
 			<div class="main_movielist_cont">
 			<jsp:include page="mainMovieSlide.jsp"></jsp:include>
+			
+			
+			
 			<!--  
 			<div class="movie_list_item item1">
 					<a href="#" class="thum">
@@ -255,7 +260,7 @@
 			<!-- 상영일정 페이징 부분 부트스트랩 페이징 컴포넌트 가져올까 생각중...-->
 
 			<div class="day_paging">
-				<ul class="pagination pagination-lg">
+				<ul class="pagination pagination-lg" id="theaterDataList">
 				<!--<li class="page-item" name="datebtn"><a class="page-link" href="#">&laquo;</a>
 					</li>
 					<li class="page-item" name="datebtn"><a class="page-link" href="#">22(수)</a>
@@ -295,29 +300,10 @@
 	                        html += "<p class = mv_title>" + data[i].movieOfficial.movieNm + "</p>"
 			
 			 -->
-
-
-
 <div class="movie_schedule_list">
 				<ul>
 
 <li>
-						<div>
-							<p class="stime"></p>
-							<p class="etime"></p>
-							<p class="seat">
-								<b>
-	                            </b>
-							</p>
-						</div>
-						<p class="mv_info">1관 - 2D</p>
-						<p class="mv_title">너에게 가는 길</p>
-					</li>
-					
-					
-					
-					
-					
 			<!--
 					<li>
 						<div>
@@ -330,51 +316,6 @@
 						<p class="mv_info">1관 - 2D</p>
 						<p class="mv_title">너에게 가는 길</p>
 					</li>
-					<li>
-						<div>
-							<p class="stime">10:00</p>
-							<p class="etime">11:33</p>
-							<p class="seat">
-								<b>48</b> / 51 석
-							</p>
-						</div>
-						<p class="mv_info">1관 - 2D</p>
-						<p class="mv_title">너에게 가는 길</p>
-					</li>
-					<li>
-						<div>
-							<p class="stime">10:00</p>
-							<p class="etime">11:33</p>
-							<p class="seat">
-								<b>48</b> / 51 석
-							</p>
-						</div>
-						<p class="mv_info">1관 - 2D</p>
-						<p class="mv_title">너에게 가는 길</p>
-					</li>
-					<li>
-						<div>
-							<p class="stime">10:00</p>
-							<p class="etime">11:33</p>
-							<p class="seat">
-								<b>48</b> / 51 석
-							</p>
-						</div>
-						<p class="mv_info">1관 - 2D</p>
-						<p class="mv_title">너에게 가는 길</p>
-					</li>
-					<li>
-						<div>
-							<p class="stime">10:00</p>
-							<p class="etime">11:33</p>
-							<p class="seat">
-								<b>48</b> / 51 석
-							</p>
-						</div>
-						<p class="mv_info">1관 - 2D</p>
-						<p class="mv_title">너에게 가는 길</p>
-					</li>
-
 -->
 					
 				</ul>
@@ -386,10 +327,10 @@
 			<div class="notice_box">
 				<h2 class="notice_box_title">공지사항</h2>
 				<ul>
-					<li><a href="#"> <span class="text">[기타]개인정보처리방침 변경
+					<li><a style="color: black;" href="#"> <span class="text">[기타]개인정보처리방침 변경
 								안내</span> <span class="date">2020.10.20</span>
 					</a></li>
-					<li><a href="#"><span class="text">[기타]개인정보처리방침 변경
+					<li><a style="color: black;" href="#"><span class="text">[기타]개인정보처리방침 변경
 								안내</span> <span class="date">2020.10.20</span> </a></li>
 				</ul>
 				<a class="more_1" href="#">더보기</a>
@@ -397,10 +338,10 @@
 			<div class="que_box">
 				<h2 class="que_box_title">자주 묻는 질문</h2>
 				<ul>
-					<li><a href="#"> <span class="text">[기타]개인정보처리방침 변경
+					<li><a style="color: black;" href="#"> <span class="text">[기타]개인정보처리방침 변경
 								안내</span> <span class="date">2020.10.20</span>
 					</a></li>
-					<li><a href="#"><span class="text">[기타]개인정보처리방침 변경
+					<li><a style="color: black;" href="#"><span class="text">[기타]개인정보처리방침 변경
 								안내</span> <span class="date">2020.10.20</span> </a></li>
 				</ul>
 				<a class="more_2" href="#">더보기</a>
@@ -463,6 +404,33 @@
 
 </body>
 <script type="text/javascript">
+
+$(document).ready(function(){
+	
+})
+/*-----색상변경----------*/
+
+
+//선택시 색상변경
+	$(document).on('click',"#theaterDataList li"	
+	
+		,function() {		
+			
+			$(this).addClass("selected"); //클릭된 부분을 상단에 정의된 CCS인 selected클래스로 적용
+			//$(this).css("color","#212529");			
+			$(this).css("background-color","#f16a1a");
+			$(this).css("color","white");
+			
+			$(this).each(function(){	         
+		   		$(this).siblings().removeClass("selected"); //siblings:형제요소들,    removeClass:선택된 클래스의 특성을 없앰
+		   		$(this).siblings().css("background-color","");
+		   		$(this).css("color","");
+			});
+	});
+	
+
+
+
 /*----------------여기부터 위치정보 스크립트-------------------*/
 
 var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
