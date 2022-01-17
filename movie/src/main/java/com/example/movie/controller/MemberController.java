@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.MovieDto;
+import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.entity.Schedule;
@@ -95,6 +96,21 @@ public class MemberController {
 		mv = mServ.selectQuestion(pageNum,listCnt,View);
 
 		return mv;
+	}
+	//문의글 작성 페이지 이동
+	@GetMapping("questionWriteFrm")
+	public String questionWriteFrm() {
+		
+		return"questionWriteFrm";
+	}
+	
+	
+	//문의글 작성 처리
+	@PostMapping("questionWrite")
+	public String questionWrite(QuestionDto quesdto,RedirectAttributes rttr) {
+		String view = mServ.questionWrite(quesdto,rttr);
+		
+		return view;
 	}
 
 	@GetMapping("memberUpdateFrm")

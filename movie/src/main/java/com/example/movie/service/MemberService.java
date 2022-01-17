@@ -866,4 +866,25 @@ public class MemberService {
 		
 		return mv;
 	}
+
+	public String questionWrite(QuestionDto quesDto,RedirectAttributes rttr) {
+		String view = null;
+		String msg = null;
+		
+		MemberDto mem = (MemberDto)session.getAttribute("userInfo");
+		quesDto.setM_id(mem.getM_id());
+		
+		try {
+		mMapper.questionWrite(quesDto);
+		
+		msg = "등록 성공";
+		
+		}catch(Exception e) {
+			msg = "등록 실패";
+		}
+		view = "redirect:questionFrm";
+		
+		rttr.addFlashAttribute("msg",msg);
+		return view;
+	}
 }
