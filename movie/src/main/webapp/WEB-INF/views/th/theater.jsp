@@ -54,11 +54,16 @@
 							<span>주차안내</span><br>
 							<div id="theater_parking">${theaterList.th_parking}</div>
 							<div id="theater_images">
-								<span>사진</span><br>
-								<!-- <div id="theater_image">${theaterList.th_image}</div>
-								<div id="theater_image">${theaterList.th_image}</div>
-								<div id="theater_image">${theaterList.th_image}</div>
-								 -->
+<!-- 								<span>사진</span><br> -->
+<!-- 								 <div id="theater_image"> -->
+<%-- 								 	<img alt="" src="${theaterList.th_image1}"> --%>
+<!-- 								 </div> -->
+<!-- 								 <div id="theater_image"> -->
+<%-- 								 	<img alt="" src="${theaterList.th_image2}"> --%>
+<!-- 								 </div> -->
+<!-- 								 <div id="theater_image"> -->
+<%-- 								 	<img alt="" src="${theaterList.th_image3}"> --%>
+<!-- 								 </div> -->
 							</div>
 						</div>
 						<button id="th-btn" onclick="location.href='./thUpdate'">수정</button>

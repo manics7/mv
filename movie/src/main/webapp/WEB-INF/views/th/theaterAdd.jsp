@@ -75,7 +75,7 @@ $(document).ready(function() {
 <body>
 <section>
 <nav>
-<jsp:include page="business_header.jsp"></jsp:include>
+<jsp:include page="../business_header.jsp"></jsp:include>
 </nav>
 <div class="detail">
 	<div class="inner">
