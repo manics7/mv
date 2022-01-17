@@ -137,8 +137,11 @@ $(document).ready(function(){
 			
 			<li class="admin_nav_item cont3"><a class="main_header_btn yellow underline"style="color: white;"
 				href="/rlist">영화관후기</a></li>
-			<li class="admin_nav_item cont4"><a class="main_header_btn yellow underline menuitem_4_search_theater" style="color: white;"
-				href="pmvReviewFrm">영화관 찾기</a></li>
+			<li class="admin_nav_item cont4">
+				<a class="main_header_btn yellow underline menuitem_4_search_theater" style="color: white;"
+				   href="">영화관 찾기
+				</a>
+			</li>
 			<li class="admin_nav_item cont5"><a class="main_header_btn yellow underline"
 				data-toggle="modal" data-target="#rsrvModal" data-movieCd=""  data-thcode=""  id="modal" style="text-decoration: none;">빠른예매</a></li>
 				

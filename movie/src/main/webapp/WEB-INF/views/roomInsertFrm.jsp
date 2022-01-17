@@ -23,16 +23,7 @@ $(function(){
 <div class="detail">
 	<div class="inner">
 		<div id="page_wrap">
-			<div id="side">
-				<h2><a href="#">Business Page</a></h2>
-				<ul id="bupage_list">
-					<li><a id="bupage_menu" href="#">영화관 관리</a></li>
-					<li><a id="bupage_menu" href="#">영화 관리</a></li>
-					<li><a id="bupage_menu" href="#">상영관 관리</a></li>
-					<li><a id="bupage_menu" href="#">상영 일정 관리</a></li>
-					<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
-				</ul>
-			</div>
+			<jsp:include page="./business_sidebar.jsp"></jsp:include>
             <div class="room_div">
                 <h3 id="room_title2">상영관 등록</h3>
                 <form action="./roomInsert" class="seat_form" method="post" onsubmit="goSubmit()">
@@ -42,7 +33,8 @@ $(function(){
                             영화관 및 상영관 이름을 지정하세요.
                         </legend>
                         <!-- theaterList로 값 받아오기 나중에 -->
-                    <a>영화관 이름</a> <input type="text" id="theater_name" name="th_code" value=""><br>
+                    <input type="hidden" id="theater_name" name="th_code" value="${thInfo[0].th_code }">
+                    <a>영화관 이름</a> <input type="text" id="theater_name" name="th_name" value="${thInfo[0].th_name }" readonly="readonly"><br>
                     <a>상영관 번호</a> <input type="number" id="room_no" name="room_no" required><br>
                     <a>상영관 이름</a> <input type="text" id="room_name" name="room_name" required>
                     </fieldset>

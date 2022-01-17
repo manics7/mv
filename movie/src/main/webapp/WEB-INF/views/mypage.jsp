@@ -32,7 +32,7 @@
 
 <body>
 <nav>
-	<jsp:include page="mypage_header.jsp"></jsp:include>
+	<jsp:include page="main_header.jsp"></jsp:include>
 	</nav>
 	<div class="wrap">
 	

@@ -115,17 +115,18 @@ ul>li>a#bupage_menu:hover:after {
 }
 </style>
 </head>
-
+<body>
 	<div id="side">
 		<h2 style="height: 104px;" class="sidebar_title">
 			<a href="businessPage">Business Page</a>
 		</h2>
 		<ul id="bupage_list">
-					<li><a id="bupage_menu" href="./theater">영화관 관리</a></li>
-					<li><a id="bupage_menu" href="./movieInsert">영화 관리</a></li>
-					<li><a id="bupage_menu" href="./roomList">상영관 관리</a></li>
-					<li><a id="bupage_menu" href="./schedule">상영 일정 관리</a></li>
-					<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
-				</ul>
+			<li><a id="bupage_menu" href="theater">영화관 관리</a></li>
+			<li><a id="bupage_menu" href="./movieInsert">영화 관리</a></li>
+			<li><a id="bupage_menu" href="./roomList">상영관 관리</a></li>
+			<li><a id="bupage_menu" href="schedule">상영 일정 관리</a></li>
+			<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
+		</ul>
 	</div>
-	</html>
+</body>
+</html>

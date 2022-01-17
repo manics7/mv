@@ -13,6 +13,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.example.movie.dto.quesboardDto;
+
+import com.example.movie.mapper.AdminMapper;
+import com.example.movie.mapper.BusinessMapper;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
@@ -22,9 +36,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.MovieOfficialDto;
-import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.SsdscheduleDto;
 import com.example.movie.dto.TheaterDto;
@@ -39,6 +53,15 @@ import com.example.movie.entity.Schedule;
 import com.example.movie.entity.ScheduleDetail;
 import com.example.movie.entity.Theater;
 import com.example.movie.mapper.AdminMapper;
+import com.example.movie.dto.QuestionDto;
+import com.example.movie.dto.mvReviewDto;
+import com.example.movie.dto.paymentDto;
+import com.example.movie.dto.reservationDto;
+import com.example.movie.entity.MovieOfficial;
+import com.example.movie.entity.Room;
+import com.example.movie.entity.Schedule;
+import com.example.movie.entity.ScheduleDetail;
+import com.example.movie.entity.Theater;
 import com.example.movie.mapper.MemberMapper;
 import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ReservationRepositoryCustom;
@@ -318,140 +341,7 @@ public class MemberService {
 			rttr.addFlashAttribute("msg", "삭제 실패");
 		}
 
-		//String view = "redirect:pmvReviewFrm";
-
 		return view;
-	}
-
-	//마이페이지 예매/결제 내역 출력.
-	public ModelAndView selectPurchase (Integer pageNum, int listCnt, String View) {
-
-		int num = (pageNum == null)? 1 : pageNum;
-
-		mv = new ModelAndView();
-
-		//세션에서id가져옴
-		MemberDto member = (MemberDto)session.getAttribute("userInfo");
-		String id = member.getM_id();
-
-		//마이페이지에 출력할 것이므로 ...가져온 id에맞는 예매한 예매리스트
-		List<reservationDto> rsrvList = mMapper.selectRsrvByid(id);
-
-		
-		if(View.equals("purchaseCancelFrm")) {//결제취소페이지 호출
-			for(int i = 0; i < rsrvList.size(); i++) {
-
-				reservationDto rsrvDto = rsrvList.get(i);
-
-				int state = rsrvDto.getRsrv_status();
-				//결제취소 == state 1, 0일경우 출력할 리스트에서 제거
-				if(state == 0) {
-					rsrvList.remove(i);
-					i--;
-				}
-			}
-		}
-		else {//결제내역 페이지 에서 호출했을경우
-
-			//id에맞는취소된 예매내역은 리스트에서 삭제후 저장
-			for(int i = 0; i < rsrvList.size(); i++) {
-
-				reservationDto rsrvDto = rsrvList.get(i);
-
-				int state = rsrvDto.getRsrv_status();
-				//결제취소 == state 1, 1일경우 출력할 리스트에서 제거
-				if(state == 1) {
-					rsrvList.remove(i);
-					i--;
-				}
-			}
-		}
-		if(!rsrvList.isEmpty()) {
-			//극장이름,영화등을 함께 묶어서 출력하기위한 for문
-			for(int i = 0; i < rsrvList.size(); i++) {
-
-				reservationDto rsrvDto = rsrvList.get(i);
-				reservationDto schDate = new reservationDto();
-
-				//예매번호로 에매테이블에서 스케줄번호찾기
-				int schno = rsrvDto.getSch_code();
-				//스케줄번호로 스케줄테이블에서 극장코드 찾기
-				int thcode = mMapper.selectThcode(schno);
-				//극장코드로 극장테이블에서 출력할 극장이름 찾기
-				String thname = mMapper.selectThname(thcode);
-				//스케줄번호로 스케줄테이블에서 무비코드 찾기
-				String mvcd = mMapper.selectMoviecode(schno);
-				//스케줄번호로 스케줄테이블에서 스케줄시간찾기
-				schDate = mMapper.selectSchTime(schno);
-				Timestamp sch_date = schDate.getSch_date();
-				//무비코드로 출력할 영화이름찾기 
-				String mvname = mMapper.selectMovieName(mvcd);
-				
-				rsrvDto.setMvname(mvname);
-				rsrvDto.setThname(thname);
-				rsrvDto.setSch_date(sch_date);
-
-				rsrvList.remove(i);
-				rsrvList.add(i,rsrvDto);
-
-			}
-		}
-		//전체 글 갯수
-		int maxNum = rsrvList.size();
-		//옮길 리스트
-		List<reservationDto> rsrvPList = new ArrayList<reservationDto>();
-		//가져온 리스트가 있을때만 페이징처리
-		if(!rsrvList.isEmpty()) {
-
-			//삭제해야할 리스트 갯수.. (현재 페이지말고 앞의 페이지 갯수 * 페이지별 게시글 수)
-			int page = (num -1) * listCnt;
-
-			//리스트,배열은 0번부터 시작이므로 1빼준다
-			int forpage = page-1;
-			int list = listCnt -1 ;
-
-			//현재pagenum에 해당하지않는 출력되지 않아야 할 앞의 게시물 리스트에서 삭제
-			for(int i = 0; i <= forpage; i++) {
-
-				if(page <= 0) {
-					//1페이지일 경우 page가 0이 되는바람에 forpage가 음수
-					break;
-				}
-
-				int j=0;
-				//0번째 값 삭제로 고정
-				rsrvList.remove(j);
-			}
-
-
-			for(int i = 0; i <= list; i++) {
-				//nmpList로 옮기고 저장
-				if(rsrvList.size() <= list) {
-
-					list = rsrvList.size()-1;
-					//size가 출력해야할list보다 작으면 그만큼만 출력하도록 함 안할시 오류뜸  
-				}
-				reservationDto rsrvDto = rsrvList.get(i);
-
-				rsrvPList.add(rsrvDto);
-			}
-		}
-
-		mv.addObject("qList",rsrvPList);
-
-		//페이징 처리.
-		String pageHtml = getPaging1(num,listCnt,View,maxNum);
-		mv.addObject("paging", pageHtml);
-
-		//세션에 페이지번호 저장
-		//글작성 화면, 글내용 상세보기 화면 등에서 다시 목록으로
-		//돌아갈때 보고 있던 페이지가 나오도록 하기 위해.
-		session.setAttribute("pageNum", num);
-
-		//호출한곳에 맞는 view로 반환
-		mv.setViewName(View);
-
-		return mv;
 	}
 
 	private int listCnt = 4;//페이지 당 게시글 개수
@@ -711,11 +601,14 @@ public class MemberService {
 		String date= now.toString();	
 		LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));		
 		LocalDate lastDate= now.plusWeeks(2);//2주 마지막날
-
+		
 		Date startDate = java.sql.Date.valueOf(dateTime.toLocalDate());
 		Date endDate = java.sql.Date.valueOf(lastDate);
-
-
+		
+		//BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
+		//String bId = bDto.getB_id();
+		//int thCode = theaterRepository.findById(bId);
+		
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		List<Schedule> schduleList = scheduleRepository.findByThCodeAndSchDateBetween(thCode,startDate, endDate);
 		for(int i = 0; i < schduleList.size(); i++) {
@@ -723,34 +616,37 @@ public class MemberService {
 			Integer thcode = schduleList.get(i).getThCode();
 			Integer roomNo = schduleList.get(i).getRoomNo();
 			Integer schCode = schduleList.get(i).getSchCode();
-
+			
+			//영화 정보
 			Map<String, Object> map = new HashMap<String, Object>();
 			Optional<MovieOfficial> movieOfficialOpt = movieOfficialRepository.findById(movieCd);
 
 			Optional<Theater> theaterOpt = theaterRepository.findById(thCode);
 			Theater theater = theaterOpt.orElse(null);
+			//상영관 정보
 			Room room = roomRepository.findByThCodeAndRoomNo(thCode, roomNo);			
 			MovieOfficial movieOfficial = movieOfficialOpt.orElse(null);
-
+						
 			List<ScheduleDetail> scheduleDetail = scheduleDetailRepository.findBySchCode(schCode);
 			schduleList.get(i).setScheduleDetail(scheduleDetail);
-
+			
 			for(int j = 0; j < scheduleDetail.size(); j++) {
-				Integer schDetailSeq = scheduleDetail.get(j).getSchDetailSeq();
-
-				List<String> seatNo = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
-				scheduleDetail.get(j).setRsrvSeatCnt(seatNo.size());
-
+			Integer schDetailSeq = scheduleDetail.get(j).getSchDetailSeq();
+			
+			List<String> seatNo = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
+			scheduleDetail.get(j).setRsrvSeatCnt(seatNo.size());
+			
 			}
-			map.put("schedule", schduleList.get(i));
+			map.put("scheduleList", schduleList.get(i));
 			map.put("room", room);
 			map.put("movieOfficial", movieOfficial);
 			map.put("theater", theater);
 			list.add(map);
 		}
 		return list;
-
+		
 	}
+
 
 	public List<Map<String, Object>> getSchedule(Date schDate, Integer thCode) {
 		List<Schedule> schduleList = scheduleRepository.findByThCodeAndSchDate(thCode,schDate);
