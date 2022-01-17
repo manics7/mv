@@ -141,38 +141,6 @@ public class MemberController {
 
 		return view;
 	}
-	/*
-	//내가본영화
-	@GetMapping("mypageMovieFrm")
-	public ModelAndView mypageMovieFrm(Integer pageNum) {
-		mv = new ModelAndView();
-		String view = "mypageMovieFrm";
-		
-		mv = mServ.selectPurchase(pageNum, 4, view);
-		
-		return mv;
-	}*/
-	/* 보류한다함
-	@GetMapping("purchaseFrm")
-	public ModelAndView purchaseFrm (Integer pageNum) {
-		int listCnt = 4;
-
-		String View = "purchaseFrm";
-
-		mv = mServ.selectPurchase(pageNum,listCnt,View);
-
-		return mv;
-	}
-	@GetMapping("purchaseCancelFrm")
-	public ModelAndView purchaseCancelFrm (Integer pageNum) {
-		int listCnt = 4;
-
-		String View = "purchaseCancelFrm";
-
-		mv = mServ.selectPurchase(pageNum,listCnt,View);
-
-		return mv;
-	}*/
 
 	//회원 정보 출력
 	@GetMapping("/mmanage")

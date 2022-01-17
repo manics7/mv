@@ -58,8 +58,14 @@ public class Theater {
 	@Column(name="TH_PARKING", columnDefinition="주차안내")
 	private String thParking;
 	
-	@Column(name="TH_IMAGE", columnDefinition="영화관 사진")
-	private String thImage;
+	@Column(name="TH_IMAGE1", columnDefinition="영화관 사진")
+	private String thImage1;
+	
+	@Column(name="TH_IMAGE2", columnDefinition="영화관 사진")
+	private String thImage2;
+	
+	@Column(name="TH_IMAGE3", columnDefinition="영화관 사진")
+	private String thImage3;
 	
 	@Column(name="TH_TEL", columnDefinition="전화번호")
 	private String thTel;

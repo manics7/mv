@@ -27,16 +27,7 @@ $(function(){
 <div class="detail">
 	<div class="inner">
 		<div id="page_wrap">
-			<div id="side">
-				<h2><a href="./businessPage">Business Page</a></h2>
-				<ul id="bupage_list">
-					<li><a id="bupage_menu" href="./theater">영화관 관리</a></li>
-					<li><a id="bupage_menu" href="./movieInsert">영화 관리</a></li>
-					<li><a id="bupage_menu" href="./roomList">상영관 관리</a></li>
-					<li><a id="bupage_menu" href="./schedule">상영 일정 관리</a></li>
-					<li><a id="bupage_menu" href="./eventList">이벤트 관리</a></li>
-				</ul>
-			</div>
+			<jsp:include page="../business_sidebar.jsp"></jsp:include>		
 			<div id="th_content">
 				<c:choose>
 					<c:when test="${empty theaterList}">
@@ -92,9 +83,9 @@ $(function(){
 							</div>
 							<div id="theater_images">
 								<!-- 첨부파일이 있을 경우 -->
-     							<c:if test="${!empty theaterList.th_image}">
+     							<c:if test="${!empty theaterList.th_image1}">
          						<!-- 이미지 파일 미리보기 -->
-            						<img src="${theaterList.th_image}" width="200">
+            						<img src="${theaterList.th_image1}" width="200">
       							</c:if>
 							</div>
 						</div>
