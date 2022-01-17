@@ -9,13 +9,15 @@
 <link rel="stylesheet" type="text/css" href="resource/css/currentMovieList.css">
 </head>
 <body>
+	<nav>
+	<jsp:include page="main_header.jsp"></jsp:include>
+	</nav>
 	
-	<jsp:include page="header.jsp"></jsp:include>
 	
 	<div id="section_wrap">
 		<div id="titleMovieList">
 			<div class="title">
-				현재상영작
+				현재상영작fff
 			</div>
 		</div>
 		<div id="main_wrap">

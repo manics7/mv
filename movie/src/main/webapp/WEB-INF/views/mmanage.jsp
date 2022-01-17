@@ -18,6 +18,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -35,10 +36,9 @@
 				<div class="container queboard">
 					<div class="card shadow">
 						<div class="member_top_btn_wrap">
-							<div class="member_top_btn">
+							<div class="member_top_btn" style="justify-content: space-around;">
 								<a class="btn_nomal" style="background: #f16a1a; color: white;"
 									href="./mmanage?pageNum=1">일반회원</a> 
-									<a href="#" class="btn_nomal">불량회원</a> 
 									<a class="busbtn" href="./getBulist?pageNum=1">사업자</a>
 							</div>
 
@@ -79,7 +79,7 @@
 											<c:when test="${not empty mList}">
 												<c:forEach var="mitem" items="${mList}">
 													<tr>
-														<td class="text-center d-none d-md-table-cell">${mitem.m_id}
+														<td class="text-center d-none d-md-table-cell"><a href='javascript:void(0);' onclick="findInfo('${mitem.m_id}','${mitem.m_tel}','${mitem.m_name}','${mitem.m_birth}','${mitem.m_warning}')">${mitem.m_id}</a>  
 														</td>
 														<td><a href='board_read.html'>${mitem.m_name}</a></td>
 														<td class="text-center d-none d-md-table-cell">${mitem.m_tel}
@@ -90,10 +90,12 @@
 
 														<td class="text-center d-none d-md-table-cell"><a
 															type="button" href="./mboardSelect?m_id=${mitem.m_id}">확인</a></td>
-														<td class="text-center d-none d-md-table-cell"><a
-															href="./admindelMember?m_id=${mitem.m_id}">삭제</a></td>
-													</tr>
 
+															
+														<td class="text-center d-none d-md-table-cell"><a class=""
+															href="#" onclick="deletemember('${mitem.m_id}')">삭제</a></td>
+													</tr>
+<!-- ./admindelMember?m_id=${mitem.m_id} -->
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
@@ -148,24 +150,111 @@
 
 
 	<div class="footer_wrap">
-		<footer>
-			<!-- 이부분에 푸터부분 들어감 -->
+	<footer>
+			<jsp:include page="footer.jsp"></jsp:include>
 		</footer>
 
 	</div>
 </body>
-<script src="resources/js/jquery.serializeObject.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	getbulist();
+<script defer type="text/javascript">
+/*
+		getbulist();
+		
+		function getbulist(){
+			$.ajax({
+				type : "POST",
+				url : 
+			})
+		}
+ 
+ 
+ */
+
 	
-	function getbulist(){
-		$.ajax({
-			type : "POST",
-			url : 
-		})
+ function findInfo(m_id, m_tel, m_name, m_birth, m_warning){
+	var m_id = m_id;
+	var m_tel = m_tel;
+	var m_ame = m_name;
+	var m_birth = m_birth;
+	var m_warning = m_warning;
+	
+		swal({
+			title : "유저 정보",
+			text : "\n유저 아이디 :" + m_id +  "\n\n유저 이름 :" + m_name + "\n\n유저 HP :"+m_tel +"\n\n경고 횟수 :"+m_warning ,			
+			icon : "info",
+			confirmButtonText: true,
+			className: "red-bg",
+			});
 	}
-})
+ 
+ 
+ 
+ 
+ /*
+ function deletemember(m_id) {
+	 var m_id = m_id;
+	 swal({
+		  title: "정말 삭제 하시겠습니까?",
+		  text: "OK버튼을 누르시면" + m_id + "회원이 삭제됩니다",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then(function () {       
+    $.ajax({
+        type: "GET",
+        url: "./admindelMember?m_id="+m_id,
+        cache: false,
+        success: function(response) {
+            swal(
+            "Sccess!",
+            "Your note has been saved!",
+            "success"
+            )
+        },
+        failure: function (response) {
+            swal(
+            "Internal Error",
+            "Oops, your note was not saved.", // had a missing comma
+            "error"
+            )
+        }
+    });
+ }
+		}
+ /*
+ /alDeleteMem"
+  function deletemember() {
+	 swal({
+		  title: "정말 삭제 하시겠습니까?",
+		  text: "OK버튼을 누르시면 해당 회원이 삭제됩니다",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		
+ }
+	
+ 
+ .then((willDelete) => {
+	
+				$.ajax({
+					type: "GET"
+					,url: "/alDeleteMem"
+					,success:
+						   swal("해당 회원이 삭제 되었습니다.", {
+							      icon: "success",
+							    }),error :swal("삭제를 취소 하였습니다.")
+				}),
+
+		})
+ 
+ 
+ 
+ */
+	
+
+
 /*
 function movebulist(pageNum){
 	console.log(pageNum);
@@ -187,7 +276,7 @@ function movebulist(pageNum){
 	})
 }
 
-*
 */
+
 </script>
 </html>

@@ -58,6 +58,10 @@
 		DELETE FROM review_movie
 		WHERE mv_review=#{mvrnum}
 	</delete>
+	
+	<insert id="questionWrite" parameterType="com.example.movie.dto.QuestionDto">
+		insert into question values (ques_no_seq.nextval, #{m_id}, #{ques_title}, #{ques_cont}, 0, default)
+	</insert>
 
 <!-- 회원정보 목록 출력 -->
 	<select id="getList" parameterType="HashMap"
@@ -165,6 +169,11 @@
 	<select id="seletThkey" resultType="com.example.movie.dto.TheaterDto">
 	SELECT * FROM theater
 	</select>
+	
+	<select id="getThinfoList" parameterType="integer" resultType="com.example.movie.dto.TheaterDto">
+	select * from theater where th_code = #{th_code}
+	</select>
+	
 	
 
 </mapper>

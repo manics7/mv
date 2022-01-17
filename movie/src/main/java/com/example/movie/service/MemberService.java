@@ -629,11 +629,15 @@ public class MemberService {
 			if(enc.matches(member.getM_pw(), pw)) {
 				// 로그인 성공 - 세션에 회원 정보 저장, member
 				member = mMapper.getMember(member.getM_id());
-
+				if(member.getM_id().equals("admin")) {
+					view = "redirect:adminPage";
+				}
+				else {
+					view = "redirect:/";
+				}
+				
 				// member 정보를 세션에 저장
 				session.setAttribute("userInfo", member);
-
-				view = "redirect:/";
 			}
 			else {
 				view = "redirect:/";
@@ -855,6 +859,8 @@ public class MemberService {
 
 	// 박스오피스 목록
 	public ModelAndView boxOffice() {
+		mv = new ModelAndView();
+		
 		List<MovieOfficialDto> boxOffice = mMapper.getBoxOfficeList();
 			
 		mv = new ModelAndView();
@@ -863,5 +869,26 @@ public class MemberService {
 		mv.setViewName("index");
 		
 		return mv;
+	}
+
+	public String questionWrite(QuestionDto quesDto,RedirectAttributes rttr) {
+		String view = null;
+		String msg = null;
+		
+		MemberDto mem = (MemberDto)session.getAttribute("userInfo");
+		quesDto.setM_id(mem.getM_id());
+		
+		try {
+		mMapper.questionWrite(quesDto);
+		
+		msg = "등록 성공";
+		
+		}catch(Exception e) {
+			msg = "등록 실패";
+		}
+		view = "redirect:questionFrm";
+		
+		rttr.addFlashAttribute("msg",msg);
+		return view;
 	}
 }

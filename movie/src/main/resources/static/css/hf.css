@@ -15,12 +15,14 @@
 
 a {
 	text-decoration: none;
+}
+.search-cell a{
 	color: white;
 }
-
 li {
 	list-style: none;
 }
+
 
 #header_wrap {
 	width: 100%;

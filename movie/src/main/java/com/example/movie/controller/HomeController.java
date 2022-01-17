@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.service.BusinessService;
 import com.example.movie.service.MemberService;
@@ -40,6 +41,8 @@ public class HomeController {
 	@GetMapping("searchTheater")
 	public List<TheaterDto> searchTheater() {
 List<TheaterDto> thCodeList = mServ.selectThcode();
+//List<MovieOfficialDto> mvOffList = mServ.seletMvOffList();
+
 		return thCodeList;
 	}
 	

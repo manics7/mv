@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,38 +34,34 @@ $(function(){
 				</ul>
 			</div>
             <div class="room_div">
-                <h3 id="room_title">상영관 목록</h3>
+                <h3 id="room_title">이벤트 목록</h3>
                     <table class="rv_table">
                         <tr class="title-row">
-                            <th class="t_no p-10">영화관명</th>
-                            <th class="t_theater p-10">상영관명</th>
-                            <th class="t_title p-10">총 좌석 수</th>
-                            <th class="t_date p-10">상영관 종류</th>
-                            <th class="t_id p-10">삭제 처리</th>
+                            <th class="t_no p-10">번호</th>
+                            <th class="t_title p-30">이벤트명</th>
+                            <th class="t_del p-10">삭제 처리</th>
                         </tr>
                 
                         <!-- 상영관 목록이 없을 때 -->
-                        <c:if test="${empty roomList}">
+                        <c:if test="${empty eventList}">
                             <tr class="data_row">
-                                <td colspan="5">등록된 상영관이 없습니다.</td>
+                                <td colspan="3">등록된 이벤트가 없습니다.</td>
                             </tr>
                         </c:if>
                         
                         <!-- 상영관 목록 출력 -->
-                        <c:forEach var="room" items="${roomList}">
+                        <c:forEach var="event" items="${eventList}">
                             <tr class="data_row">
-                                <td class="t_no p-10">${room.thname}</td>
-                                <td class="t_theater p-10">${room.roomno}관[${room.roname}]</td>
-                                <td class="t_title p-10">총 ${room.seatcnt}석</td>
-                                <td class="t_date p-10">${room.roclass}</td>
-                                <td class="t_id p-10">
+                                <td class="t_no p-10">No.${event.event_num}</td>
+                                <td class="t_title p-30">${event.event_title}</td>
+                                <td class="t_del p-10">
                                     <button class="btn-del"
-                                    onclick="delCheck(${room.roomseq})">삭제</button>
+                                    onclick="delCheck(${event.event_num})">삭제</button>
                                 </td>
                             </tr>
                         </c:forEach>
                     </table>
-                <button class="btn-room" onclick="location.href='./roomInsertFrm'">등록</button>
+                <button class="btn-room" onclick="location.href='./eventInsertFrm'">등록</button>
             </div>
 		</div>
 	</div>

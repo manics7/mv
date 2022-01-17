@@ -23,7 +23,7 @@ $(function(){
 </head>
 <body>
 <header>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="main_header.jsp"></jsp:include>
 </header>
 	<h2 id="rv_title"></h2>
 	<div class="rv_header">

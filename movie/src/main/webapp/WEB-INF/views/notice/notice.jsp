@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -11,7 +10,10 @@
 <script src="resource/js/jquery.serializeObject.js"></script>
 <script src="resource/js/bootstrap.bundle.js"></script>
 <style type="text/css">
-a {text-decoration: none!important; color: black;}
+a {
+	text-decoration: none !important;
+	color: black;
+}
 </style>
 <script type="text/javascript">
 
@@ -124,47 +126,66 @@ function noticeWriteFrm(noticeNo){
 
 </script>
 </head>
-<header>
 
-</header>
 
-<section></section>
+<!--  nav  -->
+<nav style="padding-top: 35px; padding-bottom: 35px; background: black;">
+	<jsp:include page="../admin_header.jsp"></jsp:include>
+</nav>
+<!--  /nav  -->
 
-<footer> </footer>
 
-<div class="container">
-<h5 class="text-center mt-3">공지사항</h5>	
-	<form class="form-inline d-flex justify-content-end" method="GET"	action="saveNotice">
-			<div class="form-group mx-sm-3 mb-2">				
-			<label for="searchText" class="sr-only">검색</label> 
-			<input type="text"	class="form-control" id="searchParam" name="searchText">
+<!--  1차 wrap  -->
+<div class="main_wrap" style="width: 100%; margin-top: 60px;">
+	<div class="cotainer_wrap"
+		style="display: flex; justify-content: space-around; margin-top: 60px; width: 1024px; margin: 0 auto;">
+		<div class="cont_sidebar">
+			<jsp:include page="../adminpage_sidebar.jsp" />
 		</div>
-		<button type="button" class="btn btn-secondary mb-2" onclick="javascript:fnObj.getNotice();">검색</button>
-	</form>
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">번호</th>
-				<th scope="col">제목</th>
-				<th scope="col">내용</th>
-				<th scope="col">구분</th>
-				<th scope="col">등록일</th>
-				<th scope="col">조회수</th>
-			</tr>
-		</thead>
-		<tbody>
-					
 
-		</tbody>
-	</table>
-	<nav aria-label="..." class="text-right">
-	<a href="noticeWriteFrm" class="btn btn-secondary mb-2 text-right" id="write" >글쓰기</a>		
-		<ul id="paging" class="pagination justify-content-center"></ul>
-	</nav>
-	
-	
 
+		<div class="container">
+			<div class="row" style="min-height: 600px;">
+				<div class="col-md-11 ml-auto">
+					<h5 class="text-center mt-3">공지사항</h5>
+					<form class="form-inline d-flex justify-content-end" method="GET" action="saveNotice">
+						<div class="form-group mx-sm-3 mb-2">
+
+							<label for="searchText" class="sr-only">검색</label> <input type="text"
+								class="form-control" id="searchParam" name="searchText"
+							>
+						</div>
+						<button type="button" class="btn btn-secondary mb-2"
+							onclick="javascript:fnObj.getNotice();"
+						>검색</button>
+					</form>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">번호</th>
+								<th scope="col">제목</th>
+								<th scope="col">내용</th>
+								<th scope="col">구분</th>
+								<th scope="col">등록일</th>
+								<th scope="col">조회수</th>
+							</tr>
+						</thead>
+						<tbody>
+
+
+						</tbody>
+					</table>
+					<nav aria-label="..." class="text-right">
+						<a href="noticeWriteFrm" class="btn btn-secondary mb-2 text-right" id="write">글쓰기</a>
+						<ul id="paging" class="pagination justify-content-center"></ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-
+<footer>
+	<jsp:include page="../footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

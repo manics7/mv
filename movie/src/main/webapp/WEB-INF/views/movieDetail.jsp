@@ -10,18 +10,23 @@
 <title>영화가 좋다</title>
 <link rel="stylesheet" type="text/css"
 	href="resource/css/movieDetail.css">
+	<link rel="stylesheet" type="text/css" href="resource/css/bootstrap.css">
+	<style type="text/css">
+	
+
+	</style>
 </head>
 
 <body>
 
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="main_header.jsp"></jsp:include>
 
-	<div id="wrap">
+	<div id="wrap" style="margin-top: 0">
 		<div id="background">
 			<div id="container">
 				<div id="bgPoster"
 					style="background-image: url(${mvOfficial.poster })">
-					<div id="movieInfoDiv">
+					<div id="movieInfoDiv" style="padding: 0px;">
 						<div id="movieInfoWrap">
 							<p id="movieDetailTitle">${mvOfficial.movie_nm }</p>
 							<p id="movieDetailInfo" class="detailInfo">
@@ -61,7 +66,7 @@
 							</button>
 						</div>
 						<div id="posterBtn">
-							<div id="detailPoster">
+							<div id="detailPoster" style="padding-top: 0; margin-top: 45px;">
 								<img alt="" src="${mvOfficial.poster }">
 							</div>
 						</div>

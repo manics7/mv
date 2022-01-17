@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.MovieDto;
+import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.entity.Schedule;
+import com.example.movie.mapper.MemberMapper;
 import com.example.movie.service.MemberService;
 import com.example.movie.service.ScheduleService;
 
@@ -35,6 +38,9 @@ public class MemberController {
 	private AdminController aCon;
 
 	private ModelAndView mv;
+	
+	@Autowired
+	private MemberMapper mMapper;
 	
 	@Autowired
 	ScheduleService scheduleService;
@@ -90,6 +96,21 @@ public class MemberController {
 		mv = mServ.selectQuestion(pageNum,listCnt,View);
 
 		return mv;
+	}
+	//문의글 작성 페이지 이동
+	@GetMapping("questionWriteFrm")
+	public String questionWriteFrm() {
+		
+		return"questionWriteFrm";
+	}
+	
+	
+	//문의글 작성 처리
+	@PostMapping("questionWrite")
+	public String questionWrite(QuestionDto quesdto,RedirectAttributes rttr) {
+		String view = mServ.questionWrite(quesdto,rttr);
+		
+		return view;
 	}
 
 	@GetMapping("memberUpdateFrm")
@@ -248,23 +269,20 @@ public class MemberController {
 	@GetMapping("accessTheaterDetailPage")
 	public ModelAndView theater_detail(Integer th_code) {
 		List<Map<String, Object>> list = mServ.getSch(th_code);
+		
+		TheaterDto thDto = mMapper.getThinfoList(th_code);
 		mv = new ModelAndView();
 		mv.addObject("theatedetail", list);
 		mv.addObject("th_code",th_code);
+	mv.addObject("thinfoDto", thDto);
 		mv.setViewName("theater_detail");
 		return mv;
-	}
-	
-
-	// 영화관 검색
-	@GetMapping("searchtheater")
-	public String searchtheater() {
-		return "main_search_theater";
 	}
 	
 	@GetMapping("getDate")
 	@ResponseBody
 	public List<Map<String, String>> getDate(){
+		
 		List<Map<String, String>> map = scheduleService.getDatesDaysWeek(2);
 		
 		return map;

@@ -34,6 +34,17 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
+<script type="text/javascript">
+$(document).ready(function() {
+		//메시지 출력 부분
+		var msg = "${msg}";
+		if(msg != ""){
+			alert(msg);
+		}
+		
+		
+})
+</script>
 
 <body>
 
@@ -161,7 +172,7 @@
 
 	<div class="footer_wrap">
 		<footer>
-			<!-- 이부분에 푸터부분 들어감 -->
+			<jsp:include page="footer.jsp"></jsp:include>
 		</footer>
 
 	</div>

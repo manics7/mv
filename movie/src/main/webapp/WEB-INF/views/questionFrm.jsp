@@ -19,7 +19,15 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	//state == 1 ? state.innerHtml("답변완료") : state.innerHtml("미완료");
+$(document).ready(function() {
+		//메시지 출력 부분
+		var msg = "${msg}";
+		if(msg != ""){
+			alert(msg);
+		}
+		
+		
+})
 </script>
 
 </head>
@@ -47,7 +55,10 @@
     </div>
     -->
                         <div class="card-body qqueboard_con">
-                            <h4 class="card-title">1:1문의</h4>
+                        
+                            <h4 style="display:flex;  justify-content: space-between;" class="card-title">1:1문의 
+                            <a href ="questionWriteFrm" style="background: #f16a1a; color: white; border: none; outline: none; cursor: pointer; padding: 4px; font-size: 14px; margin-right: 50px;">글쓰기</a>  </h4>
+                            
                             <table class="table table-hover" id='board_list'>
                                 <thead>
                                     <!-- <tr>
