@@ -108,5 +108,8 @@ public interface MemberMapper  extends MybatisMapper {
 	//public void adminDeleteMember(String m_id);
 	public TheaterDto getThinfoList(Integer th_code);
 	
+	//문의글작성
+	public void questionWrite(QuestionDto quesDto);
+	
 	
 }
