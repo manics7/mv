@@ -8,7 +8,14 @@
 <meta charset="UTF-8">
 <title>영화관 후기 작성</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="resource/css/review.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="resource/css/main.css" />
+<noscript>
+	<link rel="stylesheet" href="resource/css/noscript.css" />
+</noscript>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script type="text/javascript">
 $(function(){
 	//메시지 출력 부분
@@ -23,37 +30,67 @@ $(function(){
 <header>
 	<jsp:include page="header.jsp"></jsp:include>
 </header>
-	<section>
-	<div class="rv_content">
-		<form action="./reviewWrite" class="write-form" method="post" enctype="multipart/form-data">
-			<!-- 로그인 유저, 제목, 내용, 파일 처리 -->
-			<!-- name의 value는 DTO의 변수명과 일치하게 -->
-			<input type="hidden" name="mid" value="${userInfo.m_id}">
-            <input type="text" class="write-input" name="rtitle" autofocus placeholder="제목을 입력하세요." required>
+	<!-- Wrapper -->
+	<div id="wrapper">
 
-			<select name="th_code" class="th_select">
-				<option value="-10">영화관 선택</option>
-				<c:forEach var="thitem" items="${thList}">
-					<option value="${thitem.th_code}">${thitem.th_name}</option>
-				</c:forEach>
-			</select>
-		
-				<textarea rows="15" name="rcontent" placeholder="내용을 입력하세요." class="write-textarea"></textarea>
-				<div class="filebox">
-				<!-- 파일 입력 처리 영역 -->
-					<label for="file">UPLOAD</label>
-					<input type="file" name="files" id="file" multiple>
-					<input type="text" class="upload-name" value="파일선택" readonly>
-					<input type="hidden" id="filecheck" value="0" name="fileCheck">
+		<!-- Main -->
+		<div id="main">
+
+			<!-- Post -->
+			<section class="post">
+				<!-- <header class="major">
+					<h1>Elements<br />
+						Reference</h1>
+				</header> -->
+				<!-- WriteForm-->
+
+				<!-- Form -->
+				<h2>Review</h2>
+
+				<form action="./reviewWrite" class="write-form" method="post" enctype="multipart/form-data">
+					<!-- 로그인 유저, 제목, 내용, 파일 처리 -->
+					<!-- name의 value는 DTO의 변수명과 일치하게 -->
+					<input type="hidden" name="mid" value="viu97">
+					<div class="row gtr-uniform">
+						<!-- <div class="col-6 col-12-xsmall">
+							<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
+						</div> -->
+						<!-- Break -->
+						<div class="col-2 col-12-xsmall">
+							<select name="th_code" id="demo-category">
+								<option value="-10">영화관 선택</option>
+									<c:forEach var="thitem" items="${thList}">
+										<option value="${thitem.th_code}">${thitem.th_name}</option>
+									</c:forEach>
+							</select>
+						</div>
+						<div class="col-10 col-12-xsmall">
+							<input type="text" name="rtitle" id="demo-name" value="" placeholder="제목" />
+						</div>
+						<!-- Break -->
+						<div class="col-12">
+							<textarea name="rcontent" id="demo-message" placeholder="내용을 입력하세요." rows="15"></textarea>
+						</div>
+						<div class="filebox">
+							<!-- 파일 입력 처리 영역 -->
+								<!-- <label for="file">UPLOAD</label> -->
+								<input type="file" name="files" id="file" multiple>
+								<input type="hidden" class="upload-name" value="파일선택" readonly>
+								<input type="hidden" id="filecheck" value="0" name="fileCheck">
+						</div>
+						<!-- Break -->
+						<div class="col-12">
+							<ul class="actions">
+								<li><input type="submit" value="등록하기" class="primary" /></li>
+								<li><input type="reset" value="초기화" class="primary" /></li>
+								<li><input type="button" value="목록으로" class="primary" onclick="location.href='./rlist?pageNum=${pageNum}'"></li>
+							</ul>
+						</div>
+					</div>
+				</form>
+				</section>
 				</div>
-				<div class="btn-area">
-					<input type="submit" class="btn-write" value="등록하기">
-					<input type="reset" class="btn-write" value="초기화하기">
-					<input type="button" class="btn-write" value="목록으로" onclick="location.href='./rlist?pageNum=${pageNum}'">
 				</div>
-		</form>
-	</div>
-	</section>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>
 </footer>

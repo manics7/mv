@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.EventDto;
 import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.ReviewMovieDto;
@@ -54,5 +55,8 @@ public interface BusinessMapper  extends MybatisMapper {
 
 	// 사업자 영화등록에 필요한 th_code를 session에서 b_id로 찾아오기
 	public int getThcode(String bId);
+	
+	//이벤트 목록 가져오기
+	public List<EventDto> getEventList();
 	
 }

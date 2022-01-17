@@ -284,3 +284,38 @@ ul>li>a#bupage_menu:hover:after {
     color: white;
     border-radius: 3px;
 }
+
+/************************이벤트 등록*************************/
+.room_div h3 {
+    text-align: center;
+}
+.room_div a, .e_file {
+    margin-left: 20px;
+}
+.room_div textarea {
+    resize: none;
+    width: 500px;
+    height: 200px;
+    display: inline;
+    outline: none;
+}
+.e_text {
+    display: inline;
+    float: left;
+}
+.room_div textarea {
+    margin-left: 5px;
+}
+.room_div .e_sub_btn {
+    background-color: orange;
+    border: none;
+    border-radius: 10%;
+    color: white;
+    width: 70px;
+    height: 30px;
+    font-size: 15px;
+    float: right;
+}
+.room_div .e_title {
+	width: 500px;
+}
