@@ -7,7 +7,10 @@
 <title>상영 시간표</title>
 <style type="text/css">
 	//.text-warning {color: #f16a19;}
-	a { text-decoration: none;}
+	a { text-decoration: none!important;
+		margin: 0!important;
+		padding:0!important;
+	}
 	
 	ul, li, p{
 	list-style: none;
@@ -50,8 +53,11 @@
 
 </head>
 <body>
-
+<header>
+			<jsp:include page="../header.jsp"></jsp:include>
+		</header>
 <div class="container">
+
 	<div class="row" >
 		<div class="col-md-12 " id="movieBox"  >
 			<h5 class="mb-3 mt-3 font-weight-bold">영화리스트</h5>
@@ -61,7 +67,7 @@
 				</div>
 				
 					
-				<div class="col-md-3 img-fluid text-center" ><img id="poster" alt="" ></div>
+				<div class="col-md-3 text-center" ><img class="img-fluid" id="poster" alt="" ></div>
 			</div>
 			
 				

@@ -59,8 +59,6 @@ public class PaymentController {
 	@GetMapping("/kakaoPaySuccess")
 	public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, RedirectAttributes rttr) throws IOException, InterruptedException {
 
-	//	Thread thread = new Thread();
-	//	thread.wait(3000);
 		KakaoPayApprovalVO kakaoPayApprovalVO = kakaoPay.kakaoPayInfo(pg_token);
 		
 		int rsrvNo = paymenteService.insertPayment(kakaoPayApprovalVO);

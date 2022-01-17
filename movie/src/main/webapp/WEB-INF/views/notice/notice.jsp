@@ -10,14 +10,26 @@
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script src="resource/js/jquery.serializeObject.js"></script>
 <script src="resource/js/bootstrap.bundle.js"></script>
+<style type="text/css">
+a {text-decoration: none!important; color: black;}
+</style>
 <script type="text/javascript">
 
 
 $(document).ready(function() {
 
 	fnObj.getNotice();
+	
+	
+	$("#searchParam").keydown(function(e) {
+		  if (e.keyCode === 13) {
+		    e.preventDefault();
+		  };
+		});
 
+	
 });
+
 
 
 var fnObj = {
@@ -62,13 +74,13 @@ var fnObj = {
 										
 					//게시판
 					for(var i = 0; i<res.content.length; i++ ){						
-						listHtml += "<tr>";
+						listHtml += "<tr onclick='noticeWriteFrm(" + list[i].noticeNo + " )' style='cursor:pointer'>";
 						listHtml += "<td>"+list[i].noticeNo+"</td>";
 						listHtml += "<td>"+list[i].noticeTitle+"</td>";
 						listHtml += "<td>"+list[i].noticeContent+"</td>";
-						listHtml += "<td>"+(list[i].noticeClass == 0 ? "영화" : "기타") + "</td>";
+						listHtml += "<td>"+list[i].noticeClass + "</td>";
 						listHtml += "<td>"+list[i].regDate +"</td>";
-						listHtml += "<td>"+list[i].viewCnt +"</td>";
+						listHtml += "<td>"+list[i].viewCnt +"</td>";						
 						listHtml += "</tr>";
 					}					
 					
@@ -97,15 +109,22 @@ var fnObj = {
 				},
 				err : function(err) {
 					console.log("err:", err)
-				}
+				},
 			});
 		}		
 	}
 
+
+
+
+function noticeWriteFrm(noticeNo){
+	location.href="noticeWriteFrm?noticeNo="+noticeNo
+}
+
+
 </script>
 </head>
 <header>
-
 
 </header>
 
@@ -114,19 +133,15 @@ var fnObj = {
 <footer> </footer>
 
 <div class="container">
-	<h2>공지사항</h2>
-		<div>
-		총 건수 : <span>${total}</span>
-	</div>
-	<form class="form-inline d-flex justify-content-end" method="GET"
-		action="">
-		<div class="form-group mx-sm-3 mb-2">
+<h5 class="text-center mt-3">공지사항</h5>	
+	<form class="form-inline d-flex justify-content-end" method="GET"	action="saveNotice">
+			<div class="form-group mx-sm-3 mb-2">				
 			<label for="searchText" class="sr-only">검색</label> 
 			<input type="text"	class="form-control" id="searchParam" name="searchText">
 		</div>
-		<button type="button" class="btn btn-light mb-2" onclick="javascript:fnObj.getNotice();">검색</button>
+		<button type="button" class="btn btn-secondary mb-2" onclick="javascript:fnObj.getNotice();">검색</button>
 	</form>
-	<table class="table table-striped">
+	<table class="table">
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
@@ -142,9 +157,11 @@ var fnObj = {
 
 		</tbody>
 	</table>
-	<nav aria-label="...">
+	<nav aria-label="..." class="text-right">
+	<a href="noticeWriteFrm" class="btn btn-secondary mb-2 text-right" id="write" >글쓰기</a>		
 		<ul id="paging" class="pagination justify-content-center"></ul>
 	</nav>
+	
 	
 
 </div>
