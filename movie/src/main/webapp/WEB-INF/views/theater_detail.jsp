@@ -99,7 +99,7 @@
 	<div class="navbar_wrap">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar">
 			<div class="container">
-				<a class="navbar-brand" href="#!">인디&아트|시네마</a>
+				<a class="navbar-brand" href="/">인디&아트|시네마</a>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -108,7 +108,7 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link" href="#!">영화관찾기</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">영화관찾기</a></li>
 						<li class="nav-item"><a class="nav-link" href="#!">영화검색</a></li>
 						<li class="nav-item"><a class="nav-link" href="#!">마이페이지</a></li>
 						<li class="nav-item"><a class="nav-link" href="#!">로그아웃</a></li>
@@ -126,9 +126,9 @@
 	<header class="py-5 bg-image-full main_header main_header">
 		<div class="text-center my-5">
 			<h1 class="text-white fs-3 fw-bolder main_header_title"
-				style="font-size: 20px;">${theatedetail[0].theater.thName}</h1>
+				style="font-size: 20px;">${thinfoDto.th_name}</h1>
 			<img class="img-fluid rounded-circle mb-4 main_header_logo"
-				src="${theatedetail[0].theater.thLogo}" alt="..." />
+				src="${thinfoDto.th_logo}" alt="..." />
 			<!--
                 <p class="text-white-50 mb-0">Landing Page Template</p>
             -->
@@ -281,26 +281,44 @@
 				    
 				</ul>
 			</div>
+			
+			<!--  
+			
+			 html += "<li><div>"
+
+	                        html += "<p class='stime'>" + data[i].schedule.scheduleDetail[j].schDetailStart + "</p>"
+	                        html += "<p class='etime'>" + data[i].schedule.scheduleDetail[j].schDetailEnd + "</p>"
+	                        html += "<p class='seat'><b>" + data[i].schedule.scheduleDetail[j].rsrvSeatCnt
+	                            + "</b>/ " + data[i].room.seatCnt + " 석</p>"
+	                        html + "</div></li>"
+	                        html += "<p class = mv_info>" + data[i].room.roomName + "-" + data[i].room.roomClass + "</p>"
+	                        html += "<p class = mv_title>" + data[i].movieOfficial.movieNm + "</p>"
+			
+			 -->
 
 
 
 <div class="movie_schedule_list">
 				<ul>
 
-					<!-- 
-
-
 <li>
 						<div>
-							<p class="stime">10:00</p>
-							<p class="etime">11:33</p>
+							<p class="stime"></p>
+							<p class="etime"></p>
 							<p class="seat">
-								<b>48</b> / 51 석
+								<b>
+	                            </b>
 							</p>
 						</div>
 						<p class="mv_info">1관 - 2D</p>
 						<p class="mv_title">너에게 가는 길</p>
 					</li>
+					
+					
+					
+					
+					
+			<!--
 					<li>
 						<div>
 							<p class="stime">10:00</p>
@@ -475,7 +493,7 @@ geocoder.addressSearch('${theatedetail[0].theater.thLocation}', function(result,
 
     // 인포윈도우로 장소에 대한 설명을 표시합니다
     var infowindow = new kakao.maps.InfoWindow({
-        content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">${theatedetail[i].theater.thLocation}</div>'
     });
     infowindow.open(map, marker);
 

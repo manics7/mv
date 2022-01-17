@@ -47,7 +47,9 @@
     </div>
     -->
                         <div class="card-body qqueboard_con">
-                            <h4 class="card-title">1:1문의</h4>
+                        
+                            <h4 style="display:flex;  justify-content: space-between;" class="card-title">1:1문의 <button style="background: #f16a1a; color: white; border: none; outline: none; cursor: pointer; padding: 4px; font-size: 14px; margin-right: 50px;">글쓰기</button>  </h4>
+                            
                             <table class="table table-hover" id='board_list'>
                                 <thead>
                                     <!-- <tr>

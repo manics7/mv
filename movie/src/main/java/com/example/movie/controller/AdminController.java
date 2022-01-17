@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
+import com.example.movie.mapper.AdminMapper;
 import com.example.movie.service.AdminService;
 import com.example.movie.service.MemberService;
 
@@ -184,6 +186,16 @@ public class AdminController {
 	public String adminPage() {
 		
 		return "adminPage";
+	}
+	@ResponseBody
+	@GetMapping("alDeleteMem")
+	public ModelAndView alDeleteMem(String m_id) {
+		
+		mv = new ModelAndView();
+		mv = aServ.alDeleteMem(m_id);
+		mv.setViewName("mmanage");
+		
+		return mv;
 	}
 	
 }
