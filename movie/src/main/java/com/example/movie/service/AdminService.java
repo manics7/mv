@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,26 +15,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.common.AwsS3;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
-import com.example.movie.dto.ReportReplyDto;
 import com.example.movie.dto.ReportReviewDto;
-import com.example.movie.dto.mvReviewDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
+import com.example.movie.dto.reportMvReviewDto;
 import com.example.movie.mapper.AdminMapper;
 import com.example.movie.utill.PagingUtil;
-
-import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
-
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.example.movie.dto.reportMvReviewDto;
 
 
 @Service
@@ -107,40 +99,6 @@ public class AdminService {
 		return mv;
 	}
 
-	//신고 댓글
-	public ModelAndView reportedReply(Integer pageNum) {
-		mv = new ModelAndView();
-		int num = (pageNum == null)? 1 : pageNum;
-		int listCnt = 4;
-
-
-		String view = "replyreportFrm";
-
-		Map<String, Integer> pmap = 
-				new HashMap<String, Integer>();
-		pmap.put("num", num);
-		pmap.put("lcnt", listCnt);
-
-		int maxNum = aMapper.selectReportReplyCnt();
-
-		List<ReportReplyDto> rpList = aMapper.selectReportReply(pmap);
-
-		mv.addObject("rpList", rpList);
-
-		String pageHtml = getPaging(num,listCnt,view,maxNum);
-		mv.addObject("paging", pageHtml);
-
-		//세션에 페이지번호 저장
-		//글작성 화면, 글내용 상세보기 화면 등에서 다시 목록으로
-		//돌아갈때 보고 있던 페이지가 나오도록 하기 위해.
-		session.setAttribute("pageNum", num);
-
-		//jsp 파일 이름 지정
-		mv.setViewName(view);
-
-		return mv;
-	}
-
 	//신고 영화리뷰
 	public ModelAndView reportedmvReview (Integer pageNum) {
 		mv = new ModelAndView();
@@ -177,6 +135,30 @@ public class AdminService {
 
 		return mv;
 	}
+	//영화관리뷰 삭제
+	@Transactional
+	public String delAdminReview(int review_num, RedirectAttributes rttr) {
+		String view = "redirect:mvrreportFrm";
+
+		String rptId = aMapper.selectIdFromReview(review_num);
+
+		try {
+
+			aMapper.updateRpReviewState(review_num);
+
+			aMapper.delBoardReview(review_num);
+
+			aMapper.updateWarning(rptId);
+
+			rttr.addFlashAttribute("msg","삭제성공");
+
+		} catch(Exception e) {
+			rttr.addFlashAttribute("msg","삭제 실패");
+		}
+
+		return view;
+	}
+	
 	
 	//영화리뷰 삭제(신고페이지)
 	@Transactional
@@ -532,4 +514,6 @@ public class AdminService {
 		mv.setViewName("mmanage");
 		return mv;
 	}
+
+	
 }

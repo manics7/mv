@@ -10,7 +10,6 @@ import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
-import com.example.movie.dto.ReportReplyDto;
 import com.example.movie.dto.ReportReviewDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.quesReplyDto;
@@ -72,12 +71,8 @@ public interface AdminMapper extends MybatisMapper {
 	public ModelAndView quesboard_replywrite(quesReplyDto qrdto);
 	//신고된 영화관리뷰 게시글 갯수
 	public int selectReportReviewCnt();
-	//신고된 댓글 갯수
-	public int selectReportReplyCnt();
 	//신고 영화관리뷰 리스트
 	public List<ReportReviewDto> selectReportReview(Map<String, Integer> pmap);
-	//신고 댓글 리스트
-	public List<ReportReplyDto> selectReportReply(Map<String, Integer> pmap);
 
 	//1대1 문의사항의 답변 처리.(관리자 입장)
 	public void insertReplyWrite(quesReplyDto qrdto);
@@ -90,6 +85,13 @@ public interface AdminMapper extends MybatisMapper {
 	public void adminMovieUpdate(MovieOfficialDto mvofficialDto);
 
 	ModelAndView alDeleteMem(String m_id);
+	
+	//게시글작성 id 가져오기
+	String selectIdFromReview(int review_num);
+	//영화관리뷰 신고 상태 수정
+	void updateRpReviewState(int review_num);
+	//영화관리뷰 게시글 삭제
+	void delBoardReview(int review_num);
 
 
 
