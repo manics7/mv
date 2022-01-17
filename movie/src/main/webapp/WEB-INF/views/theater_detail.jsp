@@ -383,15 +383,15 @@ color: white;
 		<section class="cenema_pic">
 			<!-- <div class="img_box1_wrap"></div> -->
 			<div class="img_box box1">
-				<img src="/imges/cinema_pic1.jpg" alt=""> <a href="#">1관
+				<img src="${theatedetail[0].theater.th_image1}" alt=""> <a href="#">${theatedetail[0].theater.thName}
 					상영관</a>
 			</div>
 			<div class="img_box box2">
-				<img src="/imges/cinema_pic2.jpg" alt=""> <a href="#">1관
+				<img src="${theatedetail[0].theater.th_image2}" alt=""> <a href="#">1관
 					상영관</a>
 			</div>
 			<div class="img_box box3">
-				<img src="/imges/cinema_pic3.jpg" alt=""> <a href="#">1관
+				<img src="${theatedetail[0].theater.th_image2}" alt=""> <a href="#">1관
 					상영관</a>
 			</div>
 		</section>
@@ -399,9 +399,7 @@ color: white;
 
 	<!-- Footer-->
 	<footer class="py-5">
-	
 			<jsp:include page="footer.jsp"></jsp:include>
-		
 	</footer>
 	<!-- Bootstrap core JS-->
 	

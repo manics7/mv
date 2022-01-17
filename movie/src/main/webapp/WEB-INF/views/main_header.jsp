@@ -33,8 +33,8 @@ a {
 }
 
 
-.admin_nav_item {
-	
+.admin_nav_item logo {
+	height: 25px;
 }
 
 .admin_nav_item>a {
@@ -128,7 +128,7 @@ $(document).ready(function(){
 <body>
 	<div class="admin_nav_wrap">
 		<ul class="admin_nav"style="color: white;">
-			<li class="admin_nav_item logo">
+			<li class="admin_nav_item logo"> 
 				<div class="logo1">&nbsp;MVTI&nbsp;</div>
 				<div class="logo2">&nbsp;MOVIE&nbsp;</div>
 			</li>

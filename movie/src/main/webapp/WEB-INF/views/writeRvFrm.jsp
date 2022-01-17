@@ -28,7 +28,7 @@ $(function(){
 </head>
 <body>
 <header>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="main_header.jsp"></jsp:include>
 </header>
 	<!-- Wrapper -->
 	<div id="wrapper">

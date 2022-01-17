@@ -26,7 +26,7 @@
 			<div id="container">
 				<div id="bgPoster"
 					style="background-image: url(${mvOfficial.poster })">
-					<div id="movieInfoDiv">
+					<div id="movieInfoDiv" style="padding: 0px;">
 						<div id="movieInfoWrap">
 							<p id="movieDetailTitle">${mvOfficial.movie_nm }</p>
 							<p id="movieDetailInfo" class="detailInfo">
@@ -66,7 +66,7 @@
 							</button>
 						</div>
 						<div id="posterBtn">
-							<div id="detailPoster">
+							<div id="detailPoster" style="padding-top: 0; margin-top: 45px;">
 								<img alt="" src="${mvOfficial.poster }">
 							</div>
 						</div>
