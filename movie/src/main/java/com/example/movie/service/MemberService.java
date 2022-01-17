@@ -880,6 +880,8 @@ public class MemberService {
 
 	// 박스오피스 목록
 	public ModelAndView boxOffice() {
+		mv = new ModelAndView();
+		
 		List<MovieOfficialDto> boxOffice = mMapper.getBoxOfficeList();
 
 		mv.addObject("mvOfficial", boxOffice);
