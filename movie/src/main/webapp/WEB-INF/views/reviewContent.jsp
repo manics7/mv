@@ -64,7 +64,9 @@ $(function(){
     <div>${bDto.rnum}</div>
 	<div id="rvtitle"><a id="rv_thname">${bDto.th_name}</a> ${bDto.rtitle}</div>
 	<div id="rvtitle2">${bDto.mid} | ${bDto.rdate} | ${bDto.rview}</div>
+	<br>
 	<hr>
+	<br>
 	<div id="rvcontent">${bDto.rcontent}</div>
 	
 		<!-- 첨부파일이 없을 경우 -->
@@ -93,14 +95,14 @@ $(function(){
 		<textarea rows="3" class="write-input ta"
 			name="recontent" id="comment"
 			placeholder="댓글을 적어주세요."></textarea>
-		<a id="reply_count">0 / 1000byte</a>
+		<a id="reply_count">0 / 200byte</a>
 		<input type="button" value="댓글 전송" id="reply_post_btn"
 			class="btn-write" onclick="replyInsert(${bDto.rnum})">
 	</form>
 	<!-- 댓글 목록 보기 -->
 	<hr>
 	<table style="width: 100%"><!-- 제목 테이블 -->
-		<tr bgcolor="pink" align="center" height="30">
+		<tr bgcolor="orange" align="center" height="30">
 			<td width="20%">WRITER</td>
 			<td width="40%">CONTENTS</td>
 			<td width="30%">DATE</td>
