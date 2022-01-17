@@ -629,11 +629,15 @@ public class MemberService {
 			if(enc.matches(member.getM_pw(), pw)) {
 				// 로그인 성공 - 세션에 회원 정보 저장, member
 				member = mMapper.getMember(member.getM_id());
-
+				if(member.getM_id().equals("admin")) {
+					view = "redirect:adminPage";
+				}
+				else {
+					view = "redirect:/";
+				}
+				
 				// member 정보를 세션에 저장
 				session.setAttribute("userInfo", member);
-
-				view = "redirect:/";
 			}
 			else {
 				view = "redirect:/";
