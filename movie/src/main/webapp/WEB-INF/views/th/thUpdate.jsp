@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>영화관 등록</title>
+<title>영화관 수정</title>
 <link rel="stylesheet" href="resource/css/theaterList.css">
-<link rel="stylesheet" href="resource/css/theaterAdd.css">
+<link rel="stylesheet" href="resource/css/theater.css">
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script src="resource/js/jquery.serializeObject.js"></script>
 <script type="text/javascript">
@@ -66,73 +69,124 @@ $(document).ready(function() {
 		
 	});
 	
+	//메시지 출력 부분
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	}
+	
 }); 
 </script>
 </head>
 <body>
+<nav>
+<jsp:include page="../business_header.jsp"></jsp:include>
+</nav>
 <section>
 <div class="detail">
 	<div class="inner">
 		<div id="page_wrap">
 			<div id="side">
-				<%@ include file="../business_sidebar.jsp"  %>
-<!-- 				<h2><a href="#">Business Page</a></h2> -->
-<!-- 				<ul id="bupage_list"> -->
-<!-- 					<li><a id="bupage_menu" href="#">영화관 관리</a></li> -->
-<!-- 					<li><a id="bupage_menu" href="#">영화 관리</a></li> -->
-<!-- 					<li><a id="bupage_menu" href="#">상영관 관리</a></li> -->
-<!-- 					<li><a id="bupage_menu" href="#">상영 일정 관리</a></li> -->
-<!-- 					<li><a id="bupage_menu" href="#">이벤트 관리</a></li> -->
-<!-- 				</ul> -->
+ 				<h2><a href="./businessPage">Business Page</a></h2> 
+ 				<ul id="bupage_list"> 
+ 					<li><a id="bupage_menu" href="./theater">영화관 관리</a></li>
+					<li><a id="bupage_menu" href="./movieInsert">영화 관리</a></li>
+					<li><a id="bupage_menu" href="./roomList">상영관 관리</a></li>
+					<li><a id="bupage_menu" href="./schedule">상영 일정 관리</a></li>
+					<li><a id="bupage_menu" href="./eventList">이벤트 관리</a></li>
+ 				</ul> 
 			</div>
-			<div id="content">
-				<div id="thadd_title">
-					<h2>영화관 등록</h2>
-				</div>
-				<div id="thadd_cont">
-					<form method="post" enctype="multipart/form-data"
-						action="./theaterAdd" class="thadd_form">
-						<input type="hidden" name="bid" value="btest02">
-						<span>영화관 이름</span><br>
-						<input type="text" title="영화관 이름" name="thname"><br>
-						<span>주소(오시는 길)</span><br>
-						<input type="text" title="오시는 길" name="thplace"><br>
-						<span>영화관 연락처</span><br>
-						<input type="text" title="연락처" name="thtel"><br>
-						<span>주차 안내</span><br>
-						<textarea cols="100" rows="5" name="thpark"></textarea><br>
-						<span>영화관 소개</span><br>
-						<textarea cols="100" rows="5" name="thintro"></textarea><br>
-						<span>지역 코드</span>
-						<select id="reNum" name="reNum"> 
-							<option value="11" selected>서울</option>
-							<option value="23">인천</option>
-							<option value="31">경기</option>
-							<option value="32">강원</option>
-							<option value="33">충북</option>
-							<option value="34">충남</option>
-							<option value="35">전북</option>
-							<option value="36">전남</option>
-							<option value="37">경북</option>
-							<option value="38">경남</option>
-							<option value="39">제주</option>
-						</select><br>
-						<span>로고 이미지</span>
-							<label for="logoFile">업로드</label>
-							<input type="file" name="logoFiles" id="logoFile" multiple>
-							<input type="text" class="logo-name" value="파일선택" readonly>
-							<!-- 업로드할 파일이 있으면 1, 없으면 0 -->
-							<input type="hidden" id="logo-check" value="0" name="logoCheck"><br>
-						<span>영화관 사진</span>
-							<label for="theaterFile">업로드</label>
-							<input type="file" name="theaterFiles" id="theaterFile" multiple>
-							<input type="text" class="theater-name" value="파일선택" readonly>
-							<!-- 업로드할 파일이 있으면 1, 없으면 0 -->
-							<input type="hidden" id="theater-check" value="0" name="theaterCheck"><br>
-							<input type="submit" class="thadd-btn" value="등록" id="uploadBtn">
-					</form>
- 				</div>	
-			</div>	
+            <div id="thadd_content">
+                    <!-- 페이지 타이틀(영화관 등록)-->
+                    <div id="thadd_title">
+                        <h2>영화관 등록</h2>
+                    </div>
+                    <!-- 타이틀 밑에 올 내용-->
+                    <div id="thadd_cont">
+                        <form method="post" enctype="multipart/form-data"
+                            action="./thUpdateFrm" class="thadd_form">
+                            <input type="hidden" name="bid" value="${businessInfo.b_id}">
+                            <input type="hidden" name="th_code" value="${thDto.th_code}">
+                            <!-- 로고 사진 등록-->
+                            <div id="thadd_logo">
+                                <div id="thadd_num">1</div>
+                                <div id="thadd_info_title">
+                                    <p>로고 사진</p>
+                                </div>
+                                <div id="logo_wrap">
+                                    <div id="thfileadd_title">
+                                        <p>우리 영화관을 대표하는 로고 사진을 등록해주세요!</p>
+                                    </div>
+                                    <label for="logoFile">업로드</label>
+                                    <input type="file" name="logoFiles" id="logoFile" value="${thDto.th_logo}" multiple>
+                                    <input type="text" class="logo-name" value="${thDto.th_logo}" readonly>
+                                    <!-- 업로드할 파일이 있으면 1, 없으면 0 -->
+                                    <input type="hidden" id="logo-check" value="0" name="logoCheck">
+                                </div>
+                            </div>
+                            <div id="thadd_image">
+                                <div id="thadd_num">2</div>
+                                <div id="thadd_info_title">
+                                   <p>영화관 사진</p>
+                                </div>
+                                <div id="image_wrap">
+                                    <div id="thfileadd_title">
+                                        <p>우리 영화관을 보여줄 수 있는 사진을 등록해주세요!</p>
+                                    </div>
+                                    <label for="theaterFile">업로드</label>
+                                    <input type="file" name="theaterFiles" id="theaterFile" value="${thDto.th_image}" multiple>
+                                    <input type="text" class="theater-name" value="${thDto.th_image}" readonly>
+                                    <!-- 업로드할 파일이 있으면 1, 없으면 0 -->
+                                    <input type="hidden" id="theater-check" value="0" name="theaterCheck"><br>
+                                </div>
+                            </div>
+                            <div id="thadd_detailinfo">
+                                <div id="thadd_num">3</div>
+                                <div id="thadd_info_title">상세 정보</div>
+                                <div id="detailinfo_wrap">
+                                    <div id="detailinfo_title">
+                                        <p class="title_css">영화관 이름</p>
+                                    </div>
+                                    <input type="text" title="영화관 이름" name="thname" id="td_name" value="${thDto.th_name}"><br>
+                                    <div id="detailinfo_title">
+                                        <p>영화관 소개</p>
+                                    </div><br>
+                                    <textarea cols="100" rows="5" name="thintro">${thDto.th_introduce}</textarea><br>
+                                    <div id="detailinfo_title">
+                                        <p>주소</p>
+                                    </div>
+                                    <input type="text" title="오시는 길" name="thplace" value="${thDto.th_location}"><br>
+                                    <div id="detailinfo_title">
+                                        <p>연락처</p>
+                                    </div>
+                                    <input type="text" title="연락처" name="thtel" value="${thDto.th_tel}"><br>
+                                    <div id="detailinfo_title">
+                                        <p>주차 안내</p>
+                                    </div><br>
+                                    <textarea cols="100" rows="5" name="thpark">${thDto.th_parking}</textarea><br>
+                                    <div id="detailinfo_title">
+                                        <p>지역 코드</p>
+                                    </div>
+                                    <select id="reNum" name="reNum"> 
+                                        <option value="11" selected>서울</option>
+                                        <option value="23">인천</option>
+                                        <option value="31">경기</option>
+                                        <option value="32">강원</option>
+                                        <option value="33">충북</option>
+                                        <option value="34">충남</option>
+                                        <option value="35">전북</option>
+                                        <option value="36">전남</option>
+                                        <option value="37">경북</option>
+                                        <option value="38">경남</option>
+                                        <option value="39">제주</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                                <input type="submit" class="thadd-btn" value="수정" id="uploadBtn">
+                        </form>
+                    </div>
+                </div>
 		</div>
 	</div>
 </div>

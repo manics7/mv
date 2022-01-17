@@ -523,6 +523,8 @@ public class AdminService {
 		
 		rttr.addFlashAttribute("msg",msg);
 		return view;
+		
+
 		}
 
 	public ModelAndView alDeleteMem(String m_id) {

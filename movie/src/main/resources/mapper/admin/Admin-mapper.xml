@@ -23,7 +23,7 @@
 		resultType="com.example.movie.dto.quesboardDto">
 		SELECT * FROM v_question where m_id = #{m_id}
 	</select>
-
+	
 	<!-- 영화리뷰번호로 영화리뷰 찾기 -->
 	<select id="selectMvReviewByReviewNum" parameterType="Integer"
 		resultType="String">

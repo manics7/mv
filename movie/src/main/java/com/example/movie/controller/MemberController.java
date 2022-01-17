@@ -140,7 +140,8 @@ public class MemberController {
 		String view = mServ.delMvReview(mv_review,rttr);
 
 		return view;
-	}	
+	}
+	/*
 	//내가본영화
 	@GetMapping("mypageMovieFrm")
 	public ModelAndView mypageMovieFrm(Integer pageNum) {
@@ -150,8 +151,8 @@ public class MemberController {
 		mv = mServ.selectPurchase(pageNum, 4, view);
 		
 		return mv;
-	}
-
+	}*/
+	/* 보류한다함
 	@GetMapping("purchaseFrm")
 	public ModelAndView purchaseFrm (Integer pageNum) {
 		int listCnt = 4;
@@ -171,7 +172,7 @@ public class MemberController {
 		mv = mServ.selectPurchase(pageNum,listCnt,View);
 
 		return mv;
-	}
+	}*/
 
 	//회원 정보 출력
 	@GetMapping("/mmanage")
@@ -274,7 +275,7 @@ public class MemberController {
 		mv = new ModelAndView();
 		mv.addObject("theatedetail", list);
 		mv.addObject("th_code",th_code);
-	mv.addObject("thinfoDto", thDto);
+		mv.addObject("thinfoDto", thDto);
 		mv.setViewName("theater_detail");
 		return mv;
 	}
@@ -287,6 +288,7 @@ public class MemberController {
 		
 		return map;
 	}
+	
 	@GetMapping("getSchedulelist")
 	@ResponseBody
 	public List<Map<String, Object>> getSchedule(@DateTimeFormat(pattern = "yyyy-MM-dd") Date schDate,Integer thCode){
