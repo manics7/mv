@@ -524,4 +524,11 @@ public class AdminService {
 		rttr.addFlashAttribute("msg",msg);
 		return view;
 		}
+
+	public ModelAndView alDeleteMem(String m_id) {
+		mv = new ModelAndView();
+		mv = aMapper.alDeleteMem(m_id);
+		mv.setViewName("mmanage");
+		return mv;
+	}
 }

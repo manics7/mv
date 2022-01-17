@@ -10,13 +10,18 @@
 <title>영화가 좋다</title>
 <link rel="stylesheet" type="text/css"
 	href="resource/css/movieDetail.css">
+	<link rel="stylesheet" type="text/css" href="resource/css/bootstrap.css">
+	<style type="text/css">
+	
+
+	</style>
 </head>
 
 <body>
 
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="main_header.jsp"></jsp:include>
 
-	<div id="wrap">
+	<div id="wrap" style="margin-top: 0">
 		<div id="background">
 			<div id="container">
 				<div id="bgPoster"
