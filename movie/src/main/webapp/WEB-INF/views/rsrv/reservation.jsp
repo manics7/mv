@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="resource/css/rsrv.css">
 <link rel="stylesheet" type="text/css" href="resource/css/bootstrap.css">
-<script type="text/javascript">
 
-</script>
 <!-- histoty Modal-->
 <div class="modal-content">
 	<div class="modal-header text-white modal-header-bg">
@@ -28,7 +26,7 @@
 				 			 <div class="input-group-append">
 	                   		 	<div class="input-group-text border-right-0 bg-transparent"><i><img alt="" src="resource/images/icon/search.svg"></i></div>
 	                		</div>
-	                		<input class="form-control border-left-0 border" type="search" placeholder="영화관 검색" id="search" onkeyup="filter(this,'theaterList');">	                
+	                		<input class="form-control border-left-0 border" type="search" placeholder="영화 검색" id="search" onkeyup="filter(this,'movieList');">	                
             			</div>
 				        
 				        <div class="col-md-12 mt-2" id="mvSelectBox">				     
