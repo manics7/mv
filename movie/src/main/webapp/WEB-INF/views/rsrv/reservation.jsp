@@ -143,7 +143,7 @@
         </button>
       </div>
       <div class="modal-body">
-        선택하신 영화관에 원하시는 상영스케쥴이 없습니다. 계속하시겠습니까?(선택한 날짜 및 시간이 해제됩니다.)
+        선택한 상영스케쥴이 없습니다. 계속하시겠습니까?(선택한 날짜 및 시간이 해제됩니다.)
       </div>
       <div class="modal-footer">        
       	<div class="mr-auto ml-auto">

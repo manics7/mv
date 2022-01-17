@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.main_wrap {
+	width: 1000px;
+	height: 100%;
+	margin: 60px auto;
+}
+
+.container_wrap {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-evenly;
+	width: 1000px;
+	height: 800px;
+}
+
+.insertMovie {
+	width: 700px;
+}
+
+input, select {
+	margin: 5px;
+}
+
+#Cd, #dr, #Dt, #GN, #Tm, #today {
+	width: 160px;
+}
+
+#Nm, #ac {
+	width: 340px;
+}
+
+select {
+	width: 154px;
+}
+
+input[type=button] {
+	width: 166.5px;
+}
+
+table {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.e {
+	width: 100px;
+}
+
+.nm {
+	width: 320px;
+}
+
+tr {
+	height: 35px;
+	border-bottom: 1px solid #c8c8c8;
+}
+
+th {
+	text-align: left;
+}

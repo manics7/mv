@@ -63,6 +63,26 @@ public class ScheduleRepositoryCustom {
 
 		return schList;
 	}	
+	
+	
+	//시작시간에서  10분 뒤까진 목록에서 보여줄 있도록 +10분추가
+		public List<Schedule> getDefaultScheule(Date startDate, Date endDate){		
+
+			String jpql = "SELECT sch"
+					+ " FROM Schedule sch "
+					+ " JOIN ScheduleDetail schd"
+					+ " 	ON sch.schCode = schd.schCode"
+			//		+ " WHERE TO_CHAR(schd.schDetailEnd,'YYYYMMDD HH24MISS')  >= TO_CHAR(SYSTIMESTAMP ,'YYYYMMDD HH24MISS')"
+					+ " WHERE TO_CHAR(schd.schDetailStart + 10/(24*60),'YYYYMMDD HH24MISS')   >= TO_CHAR(SYSTIMESTAMP,'YYYYMMDD HH24MISS')"
+				//	+ " AND TO_CHAR(schd.schDetailStart + 10/(24*60),'YYYYMMDD HH24MISS')  BETWEEN TO_CHAR(:startDate ,'YYYYMMDD HH24MISS') AND TO_CHAR(:endDate ,'YYYYMMDD HH24MISS')"
+					+ " ORDER BY schd.schDetailSeq asc, sch.schCode asc";
+			TypedQuery<Schedule> query = entityManager.createQuery(jpql, Schedule.class);		
+		//	query.setParameter("startDate", startDate);		 
+		//.setParameter("endDate", endDate);		 
+			return query.getResultList();
+
+		}
+	
 
 	//시작시간에서  10분 뒤까진 목록에서 보여줄 있도록 +10분추가
 	public List<Schedule> getScheule(String movieCd, Integer thCode, String schDate){		
@@ -108,6 +128,28 @@ public class ScheduleRepositoryCustom {
 		return query.getResultList();
 
 	}
+	
+	//시작시간에서  10분 뒤까진 목록에서 보여줄 있도록 +10분추가
+	public List<ScheduleDetail> getTotalMovieTimeList(Integer schCode, String movieCd, String schDate){		
+		Date date =new Date();
+		date = DateUtil.strToDate(schDate);
+
+		String jpql = "SELECT schd"
+				+ " FROM Schedule sch "
+				+ " JOIN ScheduleDetail schd"
+				+ " 	ON sch.schCode = schd.schCode"
+				+ " WHERE sch.schDate = :schDate"
+				+ " AND sch.schCode =:schCode"
+				+ " AND sch.movieCd = :movieCd"
+				+ " AND TO_CHAR(schd.schDetailStart + 10/(24*60),'YYYYMMDD HH24MISS')   >= TO_CHAR(SYSTIMESTAMP,'YYYYMMDD HH24MISS')"
+				+ " ORDER BY schd.schCode, schd.schDetailSeq";
+		TypedQuery<ScheduleDetail> query = entityManager.createQuery(jpql, ScheduleDetail.class);		
+		query.setParameter("schCode", schCode);
+		query.setParameter("movieCd", movieCd);
+		query.setParameter("schDate", date);		 
+		return query.getResultList();
+
+	}
 
 	public BooleanBuilder eqMovieCd(String movieCd) {
 		if(StringUtils.isEmpty(movieCd)) {
@@ -129,6 +171,21 @@ public class ScheduleRepositoryCustom {
 		}
 		Date date = DateUtil.strToDate(schDate);
 		return new BooleanBuilder(schedule.schDate.eq(date));							 
+	}
+	
+	public BooleanBuilder goeSchDate(String schDate) {
+		if(schDate.isEmpty()) {
+			return new BooleanBuilder();
+		}
+		Date date = DateUtil.strToDate(schDate);
+		return new BooleanBuilder(schedule.schDate.goe(date));							 
+	}
+	
+	public BooleanBuilder goeSchDetailStart(Date date) {
+		if(date == null) {
+			return new BooleanBuilder();
+		}
+		return new BooleanBuilder(schDetail.schDetailStart.goe(date));							 
 	}
 
 }

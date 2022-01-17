@@ -63,5 +63,4 @@ public class Member {
 	
 	@Column(name="M_WARNING", columnDefinition="경고횟수")
 	private Integer mWarning;
-	
 }

@@ -207,7 +207,6 @@ public class MemberController {
 	// 이용자 회원가입
 	@PostMapping("memberInsert")
 	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
-		log.info("memberInsert()");
 		String view = mServ.memberInsert(member, rttr);
 
 		return view;
@@ -314,6 +313,16 @@ public class MemberController {
 		 Map<String, Object> map =scheduleService.getSchedule();
 		
 		return map;
+	}
+	
+	// 통합 영화 목록 시간 출력
+	@GetMapping("totalMovieTimeList")
+	@ResponseBody
+	public List<Schedule> getTotalMovieTimeList(String movieCd, String schDate) {
+		//List<Map<String, String>> map = scheduleService.getDatesDaysWeek(1);
+		List<Schedule> list  = scheduleService.getTotalMovieTimeList(movieCd, schDate);
+		
+		return list;
 	}
 	
 	@GetMapping("selectSchedule")
