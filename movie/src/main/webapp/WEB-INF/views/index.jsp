@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <title>Movie | eivoM</title>
 <link rel="stylesheet" type="text/css" href="resource/css/index.css">
+<script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 
@@ -16,13 +18,11 @@
 		<header>
 			<jsp:include page="header.jsp"></jsp:include>
 		</header>
-		<div class="search_theater">
-		<jsp:include page="main_search_theater.jsp"></jsp:include>
-		</div>	
+	
 		<div id="section_wrap">
 			<div id="main_wrap">
 				<div id="box_office">
-					<div id="box-office-title">박스오피스</div>
+					<div id="box-office-title">현재상영작</div>
 					<div id="more-movie">
 
 						<a href="./currentMovieList">
@@ -34,11 +34,11 @@
 						<ol id="box-list">
 							<c:forEach var="boxOfficeList" items="${mvOfficial }" begin="0" end="3">
 								<li class="box-office-list">
-									<a href="#">
+									<a href="./movieDetail?movie_cd=${boxOfficeList.movie_cd }">
 										<img src="${boxOfficeList.poster }" title="${boxOfficeList.movie_nm }">
 									</a>
 									<div class='btn_box'>
-										<a href="#"> 예매 </a>
+										<a href="#" data-toggle="modal" data-target="#rsrvModal" data-movieCd="${boxOfficeList.movie_cd }" id="modal"> 예매 </a>
 									</div>
 								</li>
 							</c:forEach>
@@ -49,7 +49,7 @@
 							<div>
 								<form name="mainMovieSearch" action="./currentMovieList" method="get">
 									<input type="text" placeholder="영화명을 입력해주세요!" name="mainMovieSearch">
-									<button type="button"></button>
+									<button></button>
 								</form>
 							</div>
 						</div>
@@ -75,23 +75,29 @@
 					</div>
 					<div></div>
 				</div>
-				<div id="notice_wrap">
-					<div>
-						<h2>공지사항</h2>
-					</div>
-					<div></div>
+				<div class="notice_box">
+					<h2 class="notice_box_title">공지사항</h2>
+					<ul>
+						<li>
+							<a href="#">
+								<span class="text">[기타]개인정보처리방침 변경 안내</span>
+								<span class="date">2020.10.20</span>
+							</a>
+						</li>
+					</ul>
+					<a class="more_1" href="#">더보기</a>
 				</div>
-				<div id="question">
-					<div>
-						<h2>문의사항</h2>
-					</div>
-					<div></div>
-				</div>
-				<div id="question">
-					<div>
-						<h2> <a href="./theaterinsert?th_code=3">영화관1</a></h2>
-					</div>
-					<div></div>
+				<div class="que_box">
+					<h2 class="que_box_title">자주 묻는 질문</h2>
+					<ul>
+						<li>
+							<a href="#">
+								<span class="text">[기타]개인정보처리방침 변경 안내</span>
+								<span class="date">2020.10.20</span>
+							</a>
+						</li>
+					</ul>
+					<a class="more_2" href="#">더보기</a>
 				</div>
 			</div>
 		</div>
@@ -113,13 +119,16 @@
 			alert(msg);
 		}
 		
-		$('.search_rayer').hide();
-		$('.menuitem_4_search_theater').mouseover(function(){
-			console.log("내려간다.");
-			$('.search_rayer').slideDown();
-		});
+		//$('.search_rayer').hide();
+		//$('.menuitem_4_search_theater').mouseover(function(){
+			//console.log("내려간다.");
+			//$('.search_rayer').slideDown();
+		//});
 		
 	
+		//메시지 출력 부분
+		var msg = "${msg}";
+		var info = "${userInfo.m_name}"
 		$('.search_close').mouseup(function(){
 			$('.search_rayer').hide();
 		})

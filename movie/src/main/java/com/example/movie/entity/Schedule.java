@@ -15,6 +15,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -38,10 +39,12 @@ import lombok.ToString;
 @NoArgsConstructor // 기본생성자 생성
 @ToString // toString() 함수 자동생성
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@SequenceGenerator (	name = "SCH_CODE_SEQ_GENERATOR"
+,  sequenceName = "SCH_CODE_SEQ",  initialValue = 1, allocationSize = 1)	//매핑할 데이터 베이스 스퀀스 이름)
 public class Schedule {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SCH_CODE_SEQ_GENERATOR")
 	@Column(name = "SCH_CODE", columnDefinition = "상영 시간 키")
 	private Integer schCode;
 

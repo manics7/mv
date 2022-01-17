@@ -202,7 +202,6 @@ public class MemberController {
 	// 이용자 회원가입
 	@PostMapping("memberInsert")
 	public String memberInsert(MemberDto member, RedirectAttributes rttr) {
-		log.info("memberInsert()");
 		String view = mServ.memberInsert(member, rttr);
 
 		return view;
@@ -245,8 +244,9 @@ public class MemberController {
 		
 		return insertReviewMap;
 	}
-	@GetMapping("theaterinsert1")
-	public ModelAndView theater_detail1(Integer th_code) {
+	//영화관 상세 페이지로 이동.
+	@GetMapping("accessTheaterDetailPage")
+	public ModelAndView theater_detail(Integer th_code) {
 		List<Map<String, Object>> list = mServ.getSch(th_code);
 		mv = new ModelAndView();
 		mv.addObject("theatedetail", list);
@@ -255,13 +255,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	// 영화관 상세 페이지 극장 정보 출력
-	@GetMapping("theaterinsert")
-	public ModelAndView theater_detail(Integer th_code) {
-		mv = mServ.inserttheaterinfo(th_code);
-		mv.addObject("th_code",th_code);
-		return mv;
-	}
+
 	// 영화관 검색
 	@GetMapping("searchtheater")
 	public String searchtheater() {
@@ -317,6 +311,16 @@ public class MemberController {
 		 Map<String, Object> map =scheduleService.getSchedule();
 		
 		return map;
+	}
+	
+	// 통합 영화 목록 시간 출력
+	@GetMapping("totalMovieTimeList")
+	@ResponseBody
+	public List<Schedule> getTotalMovieTimeList(String movieCd, String schDate) {
+		//List<Map<String, String>> map = scheduleService.getDatesDaysWeek(1);
+		List<Schedule> list  = scheduleService.getTotalMovieTimeList(movieCd, schDate);
+		
+		return list;
 	}
 	
 	@GetMapping("selectSchedule")

@@ -13,6 +13,8 @@
 		ReceivedData : {
 			movieCd : ''
 			,thCode :''
+			,schDate:''
+			,schDetailSeq : ''
 		}
 		// 화면에서 선택한 값들
 		,selectData : { 
@@ -49,18 +51,31 @@
 					fnObj.defaultData.dateList = res.dateList;
 					fnObj.defaultData.schDateList = res.schDateList;
 					var movieCd = fnObj.ReceivedData.movieCd;
+					var thCode = fnObj.ReceivedData.thCode;
+					var schDate = fnObj.ReceivedData.schDate;
 					
+
 					fnObj.setMovieList(res.movieList);
 					fnObj.setTheaterList(res.theaterList);
 					fnObj.setDateList(res.dateList);			
 					
 					
 					if(movieCd != ''){
-						$('#movieList li[movieCd=' +movieCd + ' ] ' ).click();
+						$("#movieList li[moviecd=" +movieCd + " ]" ).click();
 					}	
-					$("#areaList > ul li:first").addClass("selected");
+					if(thCode != ''){
+						$("#theaterList li[thcode=" +thCode + " ]" ).click();
+					}	
+					if(thCode != ''){
+						$("#dateList li[date=" +schDate + " ]" ).click();
+					}						
 					
-					fnObj.backRsrv();			
+					$("#areaList > ul li:first").addClass("selected");
+					//좌석선택에서 뒤로가기 했을떄 기존선택남겨주기
+					if(fnObj.defaultData.isBack.length > 0){
+						fnObj.backRsrv();
+					}
+								
 				},error : function(err) {
 					//console.log("err:", err)
 				}
@@ -70,6 +85,8 @@
 
 			fnObj.ReceivedData.movieCd = "";
 			fnObj.ReceivedData.thCode = "";
+			fnObj.ReceivedData.schDate = "";
+			fnObj.ReceivedData.schDetailSeq = "";
 			fnObj.selectData.movieCd = '';			
 			fnObj.selectData.thCode = '';			
 			fnObj.selectData.date = '';			
@@ -108,9 +125,6 @@
 			});
 			$("#movieList ul").html(html);
 		}
-		,setSido : function() {
-			
-		}	
 		,setTheaterList : function(data){	
 			var html = "";
 			
@@ -169,17 +183,26 @@
 						
 							rsrvSeatCnt = res[i].room.seatCnt-res[i].scheduleDetail[j].rsrvSeatCnt 
 							status = res[i].scheduleDetail[j].schStatus == 'deadline'  ? res[i].scheduleDetail[j].schStatus : '';						
-						
+							var disabled = '';
 							if( status != ''){
 								status = " [예매종료]";		
+								disabled = "disabled"
 							}							
 							html += "<input type='hidden' name='schCode' value="+res[i].schCode+" />"
 							html += "<input type='hidden' name='schDetailSeq' value="+res[i].scheduleDetail[j].schDetailSeq+" />"						
-							html += "<li class='list-group-item my-0 py-2'  roomnm ="+ title + "><b>"+res[i].scheduleDetail[j].schDetailStart+"</b>~"+ res[i].scheduleDetail[j].schDetailEnd													
+							html += "<li class='list-group-item my-0 py-2 "+disabled+"'  roomnm ="+ title + "><b>"+res[i].scheduleDetail[j].schDetailStart+"</b>~"+ res[i].scheduleDetail[j].schDetailEnd													
 							html += status + " <span class='align-right'><b class='text-warning'>"+rsrvSeatCnt+"</b>/"+res[i].room.seatCnt+"석</span></li>";	
 						}
 					}
 					$("#timeList ul").html(html);					
+					
+					var schDetailSeq = fnObj.ReceivedData.schDetailSeq;
+					var timeSeq = $("#timeList input[name='schDetailSeq']");
+					for(var i = 0; i<timeSeq.length; i++){
+						if($(timeSeq[i]).val() ==schDetailSeq)
+						$(timeSeq[i]).next("li:first").click();
+					}
+					
 					
 					if(fnObj.defaultData.isBack.length > 0){
 						$('#timeList li').eq(fnObj.selectData.timeIdx).click();
@@ -354,10 +377,12 @@
 				,success : function(res) {
 					
 					fnObj.defaultData.rsrvNo = res.rsrvNo;
-					
+				
+					$('#rsrvModal .modal-content').load("rsrvPayment",fnObj.getReservationInfo(e,  res.rsrvNo));
+				
 					setTimeout(function(){				
-						$('#rsrvModal .modal-content').load("rsrvPayment",fnObj.getReservationInfo(e,  res.rsrvNo));
-					}, 900); 
+						
+					}, 1000); 
 						
 				}
 				,error: function (error) {
@@ -452,9 +477,9 @@
 		}
 	}
 	//모달창열기
-	$(document).on('click',"#reservationComplete",function(e) {
-		$('#rsrvModal .modal-content').load("reservationComplete");
-	});
+	//$(document).on('click',"#reservationComplete",function(e) {
+	//	$('#rsrvModal .modal-content').load("reservationComplete");
+	//});
 	
 	//모달창열기
 	$(document).on('click',"#modal",function(e) {
@@ -467,7 +492,11 @@
 			modalShow('alertModal');
 			return;
 		}
-		$('#rsrvModal .modal-content').load("rsrvSeat",fnObj.getSeat(e));
+		$('#rsrvModal .modal-content').load("rsrvSeat");
+		setTimeout(function(){				
+			fnObj.getSeat(e)
+		}, 100); 
+	
 	});	
 	
 	//결제선택 페이지 로드
@@ -505,18 +534,22 @@
 		fnObj.init(e);				
 	});	
 	 //모달 닫힐때;	
-	 $('#rsrvModal').on('hidden.bs.modal', function () {
+	 $(document).on('hidden.bs.modal','#rsrvModal', function () {
 		fnObj.resetData();
 	  });
 	
 	//모달화면 보였을때 
-	$('#rsrvModal').on('shown.bs.modal', function (e) {
+	 $(document).on('shown.bs.modal','#rsrvModal', function (e) {
 		fnObj.init(e);
 		var target = $(e.relatedTarget);		
-		var movieCd = $(target).data("movie");
+		var movieCd = $(target).data("moviecd");
 		var thCode = $(target).data("thcode");
-		//fnObj.ReceivedData.movieCd = movieCd;
-		//fnObj.ReceivedData.thCode = thCode;
+		var schDate = $(target).data("schdate");
+		var schDetailSeq = $(target).data("schdetailseq");
+		fnObj.ReceivedData.movieCd = movieCd;
+		fnObj.ReceivedData.thCode = thCode;
+		fnObj.ReceivedData.schDate = schDate;
+		fnObj.ReceivedData.schDetailSeq = schDetailSeq;
 		
 	 });
 	 

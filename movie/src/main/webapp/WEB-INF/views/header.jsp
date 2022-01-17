@@ -1,10 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
 <link rel="stylesheet" type="text/css" href="resource/css/hf.css">
+<script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	getSearchTheaterData();
+	function getSearchTheaterData(){
+		
+		$.ajax({
+			type: "GET"
+			,url: "/searchTheater"
+			,success:function(data){
+				var html = "";
+				for(i = 0; i < data.length; i++){
+				var th_code = data[i].th_code;
+				var th_name = data[i].th_name;
+				html += "<li><a href='./accessTheaterDetailPage?th_code="+th_code+"'>"+th_name+"</a></li>"
+				}
+				$(".local_result ul").html(html);
+			}	
+			,error : function(err){
+				console.log("err",err)
+			}
+		})	//ajax End
+	}//functiong End
+	
+	//<li><a href="./theaterDetailPage?th_code=${thCList.th_code}">${thCList.th_name}</a></li>
+});//functiong End
 
 
+
+</script>
 
 <div id="header_wrap">
 	<div class="contain_wrap">
@@ -35,7 +63,7 @@
 				<li><a href="/rlist">영화관후기</a></li>
 				<li><a href="#" class="menuitem_4_search_theater">영화관찾기</a></li>
 				<li><a href="#">이벤트</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#rsrvModal" data-movie="127"  data-thcode="1"  data-id="100" id="modal">빠른예매</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#rsrvModal" data-movieCd=""  data-thcode=""  id="modal">빠른예매</a></li>
 			</ol>
 		</div>
 	</div>
@@ -59,10 +87,13 @@
 		<form action="./loginProc" method="post">
 			<div id="user_tap" class="login_tap">
 				<div class="login_wrap">
-					<input class="login_input" placeholder="아이디" name="m_id">
+					<input class="login_input" placeholder="회원 아이디" name="m_id">
 					<input class="login_input" placeholder="비밀번호" type="password" name="m_pw">
-					<button class="login_button">로그인</button>
+					<button class="login_button">로그인</button><br>
 					<a>아이디/비밀번호 찾기</a> &nbsp;|&nbsp; <a href="./joinFrm">회원가입</a>
+				</div>
+				<div>
+					<img alt="" src="https://www.indieartcinema.com/assets/img/saveourcinema.jpg">
 				</div>
 				<!-- name = Dto와 이름을 같이 -->
 			</div>
@@ -70,10 +101,13 @@
 		<form action="./bu_loginProc" method="post">
 			<div id="business_tap" class="login_tap">
 				<div class="login_wrap">
-					<input class="login_input" placeholder="아이디" name="b_id">
+					<input class="login_input" placeholder="사업자 아이디" name="b_id">
 					<input class="login_input" placeholder="비밀번호" type="password" name="b_pw">
-					<button class="login_button">로그인</button>
+					<button class="login_button">로그인</button><br>
 					<a>아이디/비밀번호 찾기</a> &nbsp;|&nbsp; <a href="./bu_joinFrm">회원가입</a>
+				</div>
+				<div>
+					<img alt="" src="https://www.indieartcinema.com/assets/img/saveourcinema.jpg">
 				</div>
 			</div>
 		</form>
@@ -84,6 +118,9 @@
 			<div class="modal-content"></div>
 		</div>
 	</div> 
+			<div class="search_theater">
+		<jsp:include page="main_search_theater.jsp"></jsp:include>
+		</div>
 	
 
 <script src="resource/js/jquery-3.6.0.min.js"></script>
@@ -102,7 +139,7 @@ $(".close_btn").click(function() {
 
 // 이용자, 사업자 클릭시 탭 이동
 $("#type_user").click(function() {
-	$("#user_tap").css("display", "inline-block");
+	$("#user_tap").css("display", "flex");
 	$("#type_user").css("border-bottom", "2px solid #f16a1a");
 	$("#business_tap").css("display", "none");
 	$("#type_business").css("border-bottom", "2px solid #717171");
@@ -110,7 +147,7 @@ $("#type_user").click(function() {
 $("#type_business").click(function() {
 	$("#user_tap").css("display", "none");
 	$("#type_user").css("border-bottom", "2px solid #717171");
-	$("#business_tap").css("display", "inline-block");
+	$("#business_tap").css("display", "flex");
 	$("#type_business").css("border-bottom", "2px solid #f16a1a");
 });
 
@@ -125,4 +162,21 @@ if(userInfo != "") {
 	$("#login_before").css("display", "none");
 	$(".mypage").css("display","inline-block");
 }
+
+	
+	$('.search_rayer').hide();
+	$('.menuitem_4_search_theater').mouseover(function(){
+		console.log("내려간다.");
+		$('.search_rayer').slideDown();
+	});
+	
+
+	$('.search_close').mouseup(function(){
+		$('.search_rayer').hide();
+	})
+	
+
+
+
+
 </script>
