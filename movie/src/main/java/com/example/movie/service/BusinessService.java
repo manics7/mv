@@ -227,12 +227,18 @@ public class BusinessService {
 				//영화관 사진 파일이 있으면 파일 이름을 dto에 담기
 				for(int i = 0; i < theaterName.size(); i++) {
 					String TfileName = awsS3.getFileURL(bucket, theaterName.get(i));
+					
+					if(i==0) {
+						theater.setTh_image1(TfileName);	
+					}else if(i==1) {
+						theater.setTh_image2(TfileName);
+					}else if(i==2){
+						theater.setTh_image3(TfileName);
+					}
 
-					theater.setTh_image(TfileName);
-
-					//dto에 담은 내용을 mapper로 넘기기  
-					buMapper.theaterAdd(theater); 
 				}
+				//dto에 담은 내용을 mapper로 넘기기  
+				buMapper.theaterAdd(theater);
 
 			}
 			//영화관 정보 페이지로 이동

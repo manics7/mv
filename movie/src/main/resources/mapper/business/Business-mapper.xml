@@ -11,7 +11,7 @@
 	
 	<!-- 사업자 회원 가입 -->
 	<insert id="businessInsert" parameterType="com.example.movie.dto.BusinessDto">
-		insert into business values (#{b_id}, #{b_pw}, #{b_name}, #{b_num}, #{b_tel}, #{b_email}, default)
+		insert into business values (#{b_id}, #{b_pw}, #{b_name}, #{b_num}, #{b_tel}, #{b_email})
 	</insert>
 	
 	<!-- 사업자 로그인 -->
@@ -29,7 +29,7 @@
 	<insert id="theaterAdd" parameterType="com.example.movie.dto.TheaterDto">
 		INSERT INTO theater
 		VALUES (th_code_seq.NEXTVAL, #{b_id}, #{th_name}, #{th_logo}, #{th_location},
-		 #{th_introduce}, #{th_areacode}, #{th_parking}, #{th_image}, #{th_tel})
+		 #{th_introduce}, #{th_areacode}, #{th_parking}, #{th_image1}, #{th_image2}, #{th_image3}, #{th_tel})
 	</insert>
 	
 	<!-- 사업자가 등록한 영화관에 대한 정보 출력(영화관 정보 검색)  -->
