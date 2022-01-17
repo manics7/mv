@@ -17,6 +17,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/css/**", "/js/**", "/images/**");
 	}
 	
+	
+	
 	@Order(1)
 	@Configuration
 	class UserConfig extends WebSecurityConfigurerAdapter {
@@ -24,7 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			http
 				.csrf().disable()
 				.authorizeRequests()
-					.antMatchers("/**").permitAll()
+					.antMatchers("/").permitAll()
 					.and()
 				.formLogin()
 					.loginPage("/")
@@ -44,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			http
 			.csrf().disable()
 			.authorizeRequests()
-				.antMatchers("/**").permitAll()
+				.antMatchers("/").permitAll()
 				.antMatchers("/businessPage").hasRole("BUSINESS")
 				.and()
 			.formLogin()
@@ -71,5 +73,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		}
 		
 	}
-	
 }
