@@ -27,13 +27,13 @@
 						<c:forEach var="movieList" items="${movieList }">
 							<li class="movie-list">
 								<div class="poster_contain">
-									<div class="poster_box">
-										<img src="${movieList.poster }" alt="${movieList.movie_nm }" class="poster" onerror="noImg(this, 'main');">
-									</div>
-									<div class="movieSummary">
+									<a href="./movieDetail?movie_cd=${movieList.movie_cd }">
+										<div class="poster_box">
+											<img src="${movieList.poster }" alt="${movieList.movie_nm }" class="poster" onerror="noImg(this, 'main');">
+										</div>
+										<div class="movieSummary">
 										<!-- 마우스 올리면 상세 내용 보여짐 -->
 										<!-- 클릭시 영화 상세페이지 이동 -->
-										<a href="./movieDetail?movie_cd=${movieList.movie_cd }">
 											<div class="movieContent">
 												<div class="summary">
 													<span>${movieList.movie_content }</span>
