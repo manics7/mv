@@ -36,12 +36,10 @@
 				<div class="container queboard">
 					<div class="card shadow">
 						<div class="member_top_btn_wrap">
-							<div class="member_top_btn">
+							<div class="member_top_btn" style="justify-content: space-around;">
 								<a class="btn_nomal" style="background: #f16a1a; color: white;"
 									href="./mmanage?pageNum=1">일반회원</a> 
-									<a href="#" class="btn_nomal">불량회원</a> 
 									<a class="busbtn" href="./getBulist?pageNum=1">사업자</a>
-									<button onclick="deletemember()">test</button>
 							</div>
 
 
@@ -152,8 +150,8 @@
 
 
 	<div class="footer_wrap">
-		<footer>
-			<!-- 이부분에 푸터부분 들어감 -->
+	<footer>
+			<jsp:include page="footer.jsp"></jsp:include>
 		</footer>
 
 	</div>

@@ -9,8 +9,10 @@
 <link rel="stylesheet" type="text/css" href="resource/css/movieInsert.css">
 </head>
 <body>	
-
+	<nav style="padding-top:35px; padding-bottom : 35px; background: black;">
 	<jsp:include page="business_header.jsp"></jsp:include>
+	</nav>
+	
 	<div class="main_wrap">
 		<div class="container_wrap">
 			<div>
@@ -75,6 +77,10 @@
 			</div>
 		</div>
 	</div>
+	
+	<footer>
+	<jsp:include page="footer.jsp"></jsp:include>
+	</footer>
 		
 		
 </body>

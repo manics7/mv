@@ -161,7 +161,7 @@
 
 	<div class="footer_wrap">
 		<footer>
-			<!-- 이부분에 푸터부분 들어감 -->
+			<jsp:include page="footer.jsp"></jsp:include>
 		</footer>
 
 	</div>
