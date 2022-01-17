@@ -20,11 +20,15 @@ $(function(){
 </head>
 <body>
 <section>
+<nav style="background:#1d1d1d; padding-top: 35px; padding-bottom: 35px;">
+<jsp:include page="business_header.jsp"></jsp:include>
+</nav>
+
 <div class="detail">
 	<div class="inner">
 		<div id="page_wrap">
-			<div id="side">
-				<h2><a href="#">Business Page</a></h2>
+			<div id="side" >
+				<h2 style=""><a href="#">Business Page</a></h2>
 				<ul id="bupage_list">
 					<li><a id="bupage_menu" href="#">영화관 관리</a></li>
 					<li><a id="bupage_menu" href="#">영화 관리</a></li>
@@ -86,6 +90,9 @@ $(function(){
 	</div>
 </div>
 </section>
+<footer>
+<jsp:include page="footer.jsp"></jsp:include>
+</footer>
 </body>
 
 <script type="text/javascript">

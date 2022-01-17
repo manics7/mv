@@ -753,6 +753,7 @@ public class MemberService {
 	}
 
 	public List<Map<String, Object>> getSchedule(Date schDate, Integer thCode) {
+		
 		List<Schedule> schduleList = scheduleRepository.findByThCodeAndSchDate(thCode,schDate);
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		for(int i = 0; i < schduleList.size(); i++) {
@@ -844,16 +845,18 @@ public class MemberService {
 	}
 
 	public String adminDeleteMember(String m_id, RedirectAttributes rttr) {
-		String msg = null;
 		String view = null;
 		try {
 			mMapper.deleteMember(m_id);	
-			msg = "회원 삭제 성공";
+			view = "redirect:mmanage";
+			rttr.addFlashAttribute("msg", "삭제 성공");
 		} catch (Exception e) {
-		msg = "삭제 실패";
+			view = "redirect:mmanage";
+			rttr.addFlashAttribute("msg", "삭제실패");
+			
 		}
-		rttr.addFlashAttribute("msg", msg);
-		view = "redirect:mmanage";
+		
+		//view = "redirect:mmanage";
 		return view;
 	}
 

@@ -115,7 +115,7 @@ var fnObj = {
 
 
 <!--  nav  -->
-<nav style="padding-top: 35px; padding-bottom: 35px; background: black;">
+<nav style="padding-top: 35px; padding-bottom: 35px; background: #1d1d1d;">
 <jsp:include page="../admin_header.jsp"></jsp:include>
 </nav>
 <!--  /nav  -->
@@ -172,7 +172,7 @@ var fnObj = {
 
 
 </div>
-	<footer>
+	<footer style="margin-top:134px ">
 			<jsp:include page="../footer.jsp"></jsp:include>
 		</footer>
 </body>
