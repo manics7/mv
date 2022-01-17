@@ -10,12 +10,20 @@
 <title>현재상영작</title>
 <link rel="stylesheet" type="text/css" href="resource/css/currentMovieList.css">
 </head>
+
 <body>
-	
-	<jsp:include page="header.jsp"></jsp:include>
-	
+<div class="nav_wrap">
+<div class="nav_wrap_cont" ></div>
+<jsp:include page="main_header.jsp"></jsp:include>
+</div>
+
+
 	<div id="section_wrap">
+
 		<div id="titleMovieList">
+		
+		
+		
 			<div class="title">
 				현재상영작
 			</div>
