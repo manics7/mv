@@ -84,6 +84,11 @@
 		select th_code from theater where b_id=#{bId}
 	</select>
 	
+	<!-- 이벤트 목록 가져오기 -->
+	<select id="getEventList" resultType="com.example.movie.dto.EventDto">
+		SELECT * FROM event
+	</select>
+	
 </mapper>
 
 

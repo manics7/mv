@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.common.AwsS3;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.EventDto;
 import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.RoomDto;
@@ -718,6 +719,28 @@ public class BusinessService {
 		rttr.addFlashAttribute("msg", msg);
 
 		return view;
+	}
+
+	//이벤트 관리 페이지 이동
+	public ModelAndView getEventList() {
+		mv = new ModelAndView();
+		
+		List<EventDto> eventList = buMapper.getEventList();
+
+		mv.addObject("eventList", eventList);
+
+		mv.setViewName("eventList");
+		
+		return mv;
+	}
+
+	//이벤트 등록 페이지 이동
+	public ModelAndView eventInsertFrm() {
+		mv = new ModelAndView();
+
+		mv.setViewName("eventInsertFrm");
+		
+		return mv;
 	}
 
 } // class end
