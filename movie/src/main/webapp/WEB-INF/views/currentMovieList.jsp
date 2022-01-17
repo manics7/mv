@@ -35,10 +35,12 @@
 										<!-- 클릭시 영화 상세페이지 이동 -->
 										<a href="./movieDetail?movie_cd=${movieList.movie_cd }">
 											<div class="movieContent">
-												<span>${movieList.movie_content }</span> 
-											</div>
-											<div class="movieRate">
-												<span>평점!</span>
+												<div class="summary">
+													<span>${movieList.movie_content }</span>
+												</div>
+												<div class="movieRate">
+													<span>평점!</span>
+												</div> 
 											</div>
 										</a>
 									</div>
@@ -46,13 +48,13 @@
 								<div class="movieTitle">
 <!-- 									 -->
 									<c:choose>
-										<c:when test="${movieList.watch_grade_nm eq '12세 이상' }">
+										<c:when test="${movieList.watch_grade_nm eq '12' }">
 											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-12.png)">
 										</c:when>
-										<c:when test="${movieList.watch_grade_nm eq '15세 이상' }">
+										<c:when test="${movieList.watch_grade_nm eq '15' }">
 											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png)">
 										</c:when>
-										<c:when test="${movieList.watch_grade_nm eq '청소년 관람불가' }">
+										<c:when test="${movieList.watch_grade_nm eq '18' }">
 											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-18.png)">
 										</c:when>
 										<c:otherwise>
@@ -86,7 +88,7 @@
 	<script type="text/javascript">
 	
 		$(".poster_box").hover(function() {
-			$(this).next().css("display", "inline-block");
+			$(this).next().css("display", "flex");
 		}, function() {
 			$(this).next().css("display", "none");
 		})

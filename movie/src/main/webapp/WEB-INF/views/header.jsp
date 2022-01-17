@@ -4,6 +4,8 @@
 
 <link rel="stylesheet" type="text/css" href="resource/css/hf.css">
 
+
+
 <div id="header_wrap">
 	<div class="contain_wrap">
 		<a href="/"> <img alt="" src="resource/images/logo.png" id="logo">
@@ -15,10 +17,12 @@
 			</div>
 			<div id="header_right">
 				<div id="login_before">
+				
 					<a href="#" id="login_btn">로그인</a>
 					<a href="#">회원가입</a>
 				</div>
 				<div id="login_after">
+				<a style= "color: white;" class="mypage" href="./mypage">MYpage</a>
 					<a href="#" id="userName"></a>
 					<a href="./logout">로그아웃</a>
 				</div>
@@ -31,7 +35,7 @@
 				<li><a href="/rlist">영화관후기</a></li>
 				<li><a href="#" class="menuitem_4_search_theater">영화관찾기</a></li>
 				<li><a href="#">이벤트</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#rsrvModal" data-movie="127"  data-thcode="1"  data-id="100" id="modal">빠른예매</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#rsrvModal" data-movieCd="127"  data-thcode="1"  data-id="100" id="modal">빠른예매</a></li>
 			</ol>
 		</div>
 	</div>
@@ -114,9 +118,11 @@ $("#type_business").click(function() {
 // "${userInfo.m_name}" - userInfo는 service에서 session에 저장한 이름
 var userInfo = "${userInfo.m_name}";
 
+
 if(userInfo != "") {
 	$("#userName").html(userInfo);
 	$("#login_after").css("display", "inline-block");
 	$("#login_before").css("display", "none");
+	$(".mypage").css("display","inline-block");
 }
 </script>

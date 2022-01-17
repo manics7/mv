@@ -94,9 +94,29 @@ public class BusinessController {
 	@GetMapping("theaterAdd")
 	public String thaddFrm() {
 
-		return "th/theaterAdd";
+		return "./th/theaterAdd";
 	}
-
+	
+	//영화관 수정 페이지 이동
+	@GetMapping("thUpdate")
+	public ModelAndView thUpdate(int th_code) {
+		
+		mv = new ModelAndView();
+		
+		mv = buServ.thUpdate(th_code);
+		
+		return mv;
+	}
+	
+	//영화관 수정
+	@PostMapping("thUpdateFrm")
+	public String thUpdateFrm(MultipartHttpServletRequest multi,
+			RedirectAttributes rttr) {
+		String view = buServ.theaterUpdate(multi, rttr);
+		
+		return view;
+	}
+	
 	//영화관 등록
 	@PostMapping("theaterInsert")
 	public String theaterInsert(MultipartHttpServletRequest multi, RedirectAttributes rttr) {
@@ -106,14 +126,6 @@ public class BusinessController {
 		return view;
 	}
 	
-	//영화관 삭제
-	@GetMapping("theaterDelete")
-	public String theaterDelete(int th_code, RedirectAttributes rttr) {
-		String view = buServ.theaterDelete(th_code, rttr);
-		
-		return view;
-	}
-
 	//영화관 정보 페이지 이동
 	@GetMapping("theater")
 	public ModelAndView theater() {
@@ -122,28 +134,13 @@ public class BusinessController {
 
 		return mv;
 	}	
-	
 	//상영 시간표 목록 페이지 이동
 	@GetMapping("schedule")
-	public ModelAndView schedule() {
-		List<Map<String, Object>> scheduleList = buServ.getScheduleList();
-		
-		mv = new ModelAndView();
-		mv.addObject("scheduleList", scheduleList);
-		mv.setViewName("sche/schedule");
+	public ModelAndView schedule(Integer pageNum) {
+			
+		mv = buServ.getScheduleList(pageNum);
 		return mv;
 	}
-	
-	/*
-	//상영 시간표 목록 페이지 이동
-	@GetMapping("schedule")
-	public ModelAndView schedule() throws ParseException {
-		
-		mv = buServ.getScheduleList();
-
-		return mv;
-	}
-	*/
 	
 	//상영 시간표 등록 페이지 이동
 	@GetMapping("scheduleAdd")
@@ -164,7 +161,13 @@ public class BusinessController {
 
 		return view;
 	}
-	
+	//상영시간표 삭제
+	@GetMapping("scheduleDelete")
+	public String scheduleDelete(int sch_code, RedirectAttributes rttr) {
+		String view = buServ.scheduleDelete(sch_code, rttr);
+		
+		return view;
+	}
 
 	//상영관 목록 이동
 	@GetMapping("roomList")

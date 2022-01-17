@@ -67,7 +67,7 @@ div#side {
 
 /* 메뉴 리스트 */
 ul#bupage_list {
-	border: 1px solid #e1e1e1;
+	/*border: 1px solid #e1e1e1;*/
 	padding-top: 22px;
 	margin-top: 0px;
 	padding-left: 0px;
@@ -129,7 +129,7 @@ ul>li>a#bupage_menu:hover:after {
 		</h2>
 		<ul id="bupage_list">
 			<li><a id="bupage_menu" href="purchaseFrm">예매/구매내역</a></li>
-			<li><a id="bupage_menu" href="watcheMovieFrm">내가 본 영화</a></li>
+			<li><a id="bupage_menu" href="mypageMovieFrm">내가 본 영화</a></li>
 			<li><a id="bupage_menu" href="pmvReviewFrm">내가 쓴 감상평</a></li>
 			<li><a id="bupage_menu" href="questionFrm">1:1문의</a></li>
 		</ul>

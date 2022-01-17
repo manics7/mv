@@ -14,7 +14,5 @@ public interface ScheduleDetailRepository extends JpaRepository<ScheduleDetail, 
 
 	List<ScheduleDetail> findBySchCode(Integer schCode);
 
-
-
 	
 }

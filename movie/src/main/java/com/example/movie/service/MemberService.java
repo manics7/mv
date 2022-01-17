@@ -1,14 +1,6 @@
 package com.example.movie.service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-import com.example.movie.dto.quesboardDto;
-
-import com.example.movie.mapper.AdminMapper;
-import com.example.movie.mapper.BusinessMapper;
-
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -48,11 +42,9 @@ import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.SsdscheduleDto;
 import com.example.movie.dto.TheaterDto;
-import com.example.movie.dto.Theater_detailDto;
 import com.example.movie.dto.ThmovieDto;
-import com.example.movie.mapper.AdminMapper;
-import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.mvReviewDto;
+import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.dto.reservationDto;
 import com.example.movie.entity.MovieOfficial;
@@ -72,15 +64,12 @@ import com.example.movie.entity.ScheduleDetail;
 import com.example.movie.entity.Theater;
 import com.example.movie.mapper.MemberMapper;
 import com.example.movie.repository.MovieOfficialRepository;
-import com.example.movie.repository.ReservationRepository;
 import com.example.movie.repository.ReservationRepositoryCustom;
 import com.example.movie.repository.RoomRepository;
 import com.example.movie.repository.ScheduleDetailRepository;
 import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.repository.TheaterRepository;
 import com.example.movie.utill.PagingUtil;
-
-
 
 @Service
 public class MemberService {
@@ -111,8 +100,6 @@ public class MemberService {
 	@Autowired
 	ReservationRepositoryCustom reservationRepositoryCustom;
 
-
-	
 	public ModelAndView memberUpdateFrm() {
 		mv = new ModelAndView();
 
@@ -120,7 +107,7 @@ public class MemberService {
 
 		String birth = mem.getM_birth();
 		// 생일 문자열 뒤에 00:00:00을 없애기 위한 반복문
-		for(int i = 10; i <= birth.length()-1; i++) {
+		for(int i = 10; i < birth.length(); i++) {
 
 			birth = birth.substring(0,i);
 		}
@@ -152,8 +139,6 @@ public class MemberService {
 		List<QuestionDto> aqList = mMapper.selectQuestion(id);
 
 		List<QuestionDto> qList = new ArrayList<QuestionDto>();
-
-
 		//가져온 글리스트가 있을때만 페이징처리
 		if(!aqList.isEmpty()) {
 
@@ -190,9 +175,27 @@ public class MemberService {
 
 				qList.add(que);
 			}
+			
+			for(int i = 0; i< qList.size(); i++) {
+				QuestionDto qDto = qList.get(i);
+				int qnum = qDto.getQues_no();
+				int ques_state = qDto.getQues_state();
+				
+				if(ques_state == 1) {
+					quesReplyDto qrDto = aMapper.selectQuesReply(qnum);
+					
+					int quesReplyNum = qrDto.getQues_reply_no();
+					String quesReplyTitle = qrDto.getQues_reply_title();
+					
+					qDto.setQues_reply_no(quesReplyNum);
+					qDto.setQues_reply_title(quesReplyTitle);
+					
+					qList.remove(i);
+					qList.add(i,qDto);
+				}
+			}
 		} 
-
-
+		
 		mv.addObject("qList",qList);
 		//전체 글 갯수
 		int maxNum = mMapper.selectQuestionCnt(id);
@@ -210,9 +213,9 @@ public class MemberService {
 
 		return mv;
 	}
+	
 	private String getPaging1(int num, int listCnt,String view,int maxNum) {
 		String pageHtml = null;
-
 
 		int pageCnt = 3;
 
@@ -226,6 +229,7 @@ public class MemberService {
 
 		return pageHtml;
 	}
+	
 	//영화리뷰리스트
 	public ModelAndView pmvReviewFrm(Integer pageNum,int listCnt,String View) {
 
@@ -250,9 +254,9 @@ public class MemberService {
 
 			int list = listCnt -1 ;
 			//mv_review번호를 비교해 큰수 부터(시퀀스 최신순)리스트 정렬
-			for(int i = 0; i <= apmvrList.size()-1; i++) {
+			for(int i = 0; i < apmvrList.size(); i++) {
 
-				for(int j = i+1; j <= apmvrList.size()-1; j++) {
+				for(int j = i+1; j < apmvrList.size(); j++) {
 
 					mvReviewDto mvr1 = apmvrList.get(i);
 
@@ -303,9 +307,7 @@ public class MemberService {
 				mvr.setMvName(mvname);
 				//영화이름 추가한거 리스트에 추가
 				pmvrList.add(mvr);
-
 			}
-
 		}
 
 		mv.addObject("mvrList",pmvrList);
@@ -344,48 +346,6 @@ public class MemberService {
 		return view;
 	}
 
-	public ModelAndView mvReviewSearch(String mvname) {
-
-		MemberDto member = (MemberDto)session.getAttribute("userInfo");
-		String id = member.getM_id();
-
-		List<mvReviewDto> mvrList = mMapper.selectpmvReview(id);
-
-		//검색처리
-		for(int i = 0; i <= mvrList.size()-1; i++) {
-
-			mvReviewDto amvrDto = mvrList.get(i);
-
-			String movieCd = amvrDto.getMv_review_moviecd();
-
-			String mvName = mMapper.selectMovieName(movieCd);
-
-			mvReviewDto mvr = amvrDto;
-			//옮기고 영화이름 추가
-			mvr.setMvName(mvName);
-
-			if(!mvname.equals(mvName)) {
-
-				mvrList.remove(i);
-				i--;
-			}
-		}
-		mv.addObject("mvrList",mvrList);
-
-		int maxNum = 1;
-		int num =1;
-		int listCnt =10;
-		String View = "pmvReviewFrm";
-		//페이징 처리.
-
-		String pageHtml = getPaging1(num,listCnt,View,maxNum);
-		mv.addObject("paging", pageHtml);
-		mv.setViewName("pmvReviewFrm");
-
-		return mv;
-	}
-
-
 	//마이페이지 예매/결제 내역 출력.
 /*	public ModelAndView selectPurchase (Integer pageNum, int listCnt, String View) {
 
@@ -398,6 +358,7 @@ public class MemberService {
 		String id = member.getM_id();
 
 
+<<<<<<< HEAD
 		//마이페이지에 출력할 것이므로 ...가져온 id에맞는 예매한 예매리스트
 <<<<<<< HEAD
 		List<reservationDto> rsrvList = mDao.selectRsrvByid(id);
@@ -489,6 +450,11 @@ public class MemberService {
 		
 //결제내역 tid 가 취소내역tid에 있을경우(일치할경우) apList에 추가 후 저장
 		for(int i = 0; i <= ap1List.size()-1; i++) {
+=======
+		
+		if(View.equals("purchaseCancelFrm")) {//결제취소페이지 호출
+			for(int i = 0; i < rsrvList.size(); i++) {
+>>>>>>> refs/heads/master
 
 <<<<<<< HEAD
 			paymentDto pDto = ap1List.get(i);
@@ -514,6 +480,7 @@ public class MemberService {
 			}
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}
 
 		List<mypagePaymentDto> mpList = new ArrayList<mypagePaymentDto>();
@@ -524,6 +491,12 @@ public class MemberService {
 		if(!rsrvList.isEmpty()) {
 			//극장이름,영화등을 함께 묶어서 출력하기위한 for문
 			for(int i = 0; i <= rsrvList.size()-1; i++) {
+>>>>>>> refs/heads/master
+=======
+		else {//결제내역 페이지 에서 호출했을경우
+
+			//id에맞는취소된 예매내역은 리스트에서 삭제후 저장
+			for(int i = 0; i < rsrvList.size(); i++) {
 >>>>>>> refs/heads/master
 
 <<<<<<< HEAD
@@ -548,6 +521,7 @@ public class MemberService {
 >>>>>>> refs/heads/master
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 			mpDto.setMvname(mvname);
 			mpDto.setThname(thname);
 			mpDto.setAmount(pDto.getAmount());
@@ -556,6 +530,23 @@ public class MemberService {
 
 			mpList.add(mpDto);
 =======
+=======
+				int state = rsrvDto.getRsrv_status();
+				//결제취소 == state 1, 1일경우 출력할 리스트에서 제거
+				if(state == 1) {
+					rsrvList.remove(i);
+					i--;
+				}
+			}
+		}
+		if(!rsrvList.isEmpty()) {
+			//극장이름,영화등을 함께 묶어서 출력하기위한 for문
+			for(int i = 0; i < rsrvList.size(); i++) {
+
+				reservationDto rsrvDto = rsrvList.get(i);
+				reservationDto schDate = new reservationDto();
+
+>>>>>>> refs/heads/master
 				//예매번호로 에매테이블에서 스케줄번호찾기
 				int schno = rsrvDto.getSch_code();
 				//스케줄번호로 스케줄테이블에서 극장코드 찾기
@@ -564,11 +555,15 @@ public class MemberService {
 				String thname = mMapper.selectThname(thcode);
 				//스케줄번호로 스케줄테이블에서 무비코드 찾기
 				String mvcd = mMapper.selectMoviecode(schno);
+				//스케줄번호로 스케줄테이블에서 스케줄시간찾기
+				schDate = mMapper.selectSchTime(schno);
+				Timestamp sch_date = schDate.getSch_date();
 				//무비코드로 출력할 영화이름찾기 
 				String mvname = mMapper.selectMovieName(mvcd);
-
+				
 				rsrvDto.setMvname(mvname);
 				rsrvDto.setThname(thname);
+				rsrvDto.setSch_date(sch_date);
 
 				rsrvList.remove(i);
 				rsrvList.add(i,rsrvDto);
@@ -641,14 +636,8 @@ public class MemberService {
 		//호출한곳에 맞는 view로 반환
 		mv.setViewName(View);
 
-
-
 		return mv;
 	}*/
-
-
-
-	//	private ModelAndView mv;
 
 	private int listCnt = 4;//페이지 당 게시글 개수
 	//회원 정보 출력을 위한 인출
@@ -665,7 +654,6 @@ public class MemberService {
 		List<MemberDto> mList = mMapper.getList(mmap);
 		System.out.println("mList.size = "+mList.size());		
 		System.out.println("BoardCnt = "+mMapper.getBoardCnt()); //전체 글 개수 가져오는 mapper
-
 
 		return mList;
 	}
@@ -692,8 +680,6 @@ public class MemberService {
 
 		return pageHtml;
 	}
-
-
 
 	public String deletemember(RedirectAttributes rttr) {
 
@@ -730,7 +716,6 @@ public class MemberService {
 
 		List<MemberDto> mselectList = mMapper.selectMember(m_id);
 
-
 		System.out.println("검색 결과 = "+mselectList);
 		mv.addObject("mList", mselectList);
 		return mv;
@@ -740,7 +725,7 @@ public class MemberService {
 		//mMap.getmboardSelect(m_id);
 		ModelAndView mv = new ModelAndView();
 		List<quesboardDto> mbList = aMapper.getquesboardSelect(m_id);
-		mv.addObject("mbLIst", mbList);
+		mv.addObject("qlist", mbList);
 
 		System.out.println("mbList = "+mbList);
 		return mv;
@@ -766,7 +751,6 @@ public class MemberService {
 
 		return pageHtml;
 	}
-
 
 	// 이용자 회원가입 아이디 중복체크
 	public String idCheck(String mid) {
@@ -851,12 +835,10 @@ public class MemberService {
 		return view;
 	}
 
-
 	// 이용자 로그아웃
 	public String logout() {
 
 		String view = "redirect:/";
-
 
 		session.invalidate();
 
@@ -869,12 +851,14 @@ public class MemberService {
 		mv = new ModelAndView();
 
 		// 영화 상세 정보
-		MovieOfficialDto mvOfficialDto = aMapper.movieDetail(movie_cd);
+		MovieOfficialDto mvOfficialDto = mMapper.movieDetail(movie_cd);
 		// 관람평 목록 가져오기
-		List<ReviewMovieDto> reviewMovie = aMapper.reviewMovie(movie_cd);
-
+		List<ReviewMovieDto> reviewMovie = mMapper.reviewMovie(movie_cd);
+		List<TheaterDto> theaterCode = mMapper.getTheaterCode(movie_cd);
+		
 		mv.addObject("mvOfficial", mvOfficialDto);
 		mv.addObject("reviewMovie", reviewMovie);
+		mv.addObject("theaterName", theaterCode);
 
 		mv.setViewName("movieDetail");
 
@@ -903,12 +887,19 @@ public class MemberService {
 	}
 	//영화관 상세정보 출력 
 	public ModelAndView inserttheaterinfo(Integer th_code) {
-		mv = new ModelAndView();
-		List<ThmovieDto> thdtail = mMapper.inserttheaterinfo(th_code);
-		List<SsdscheduleDto> thdschedule = mMapper.selectmovieschedule();
-		Map<String, Object> theaterlist = new HashMap<String, Object>();
-		theaterlist.put("thdtail", thdtail);
-		theaterlist.put("thdschedule", thdschedule);
+	mv = new ModelAndView();
+	List<ThmovieDto> thdtail = mMapper.inserttheaterinfo(th_code);
+	List<SsdscheduleDto> thdschedule = mMapper.selectmovieschedule();
+	Map<String, Object> theaterlist = new HashMap<String, Object>();
+	theaterlist.put("thdtail", thdtail);
+	theaterlist.put("thdschedule", thdschedule);
+	
+//		mv = new ModelAndView();
+//		List<ThmovieDto> thdtail = mMapper.inserttheaterinfo(th_code);
+//		List<SsdscheduleDto> thdschedule = mMapper.selectmovieschedule();
+//		Map<String, Object> theaterlist = new HashMap<String, Object>();
+//		theaterlist.put("thdtail", thdtail);
+//		theaterlist.put("thdschedule", thdschedule);
 
 		mv.addObject("thdetail", thdtail);
 		mv.addObject("thddto", thdschedule);
@@ -977,7 +968,10 @@ public class MemberService {
 			Integer thcode = schduleList.get(i).getThCode();
 			Integer roomNo = schduleList.get(i).getRoomNo();
 			Integer schCode = schduleList.get(i).getSchCode();
-
+			
+			Optional<Theater> theaterOpt = theaterRepository.findById(thCode);
+			Theater theater = theaterOpt.orElse(null);
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			Optional<MovieOfficial> movieOfficialOpt = movieOfficialRepository.findById(movieCd);
 
@@ -997,19 +991,42 @@ public class MemberService {
 			map.put("schedule", schduleList.get(i));
 			map.put("room", room);
 			map.put("movieOfficial", movieOfficial);
+			map.put("theater", theater);
 			list.add(map);
 		}
 		return list;
 	}
 
 	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
-	public ModelAndView getMovieList() {
+	public ModelAndView getMovieList(String mainMovieSearch) {
 		mv = new ModelAndView();
-		List<MovieOfficialDto> movieList = mMapper.getMovieList();
-
+		List<MovieOfficialDto> movieList = mMapper.getMovieList(mainMovieSearch);
+		
 		mv.addObject("movieList", movieList);
 		mv.setViewName("currentMovieList");
 
+		return mv;
+	}
+
+	public ModelAndView selectThcode() {
+		List<TheaterDto> thCodeList = mMapper.seletThkey();
+		mv = new ModelAndView();
+		mv.addObject("thCodeList", thCodeList);
+		//mv = mMapper.seletThkey();
+		
+		return mv;
+	}
+
+	public ModelAndView memReadQuesRe(int ques_no, int view) {
+		
+		quesReplyDto qrDto = aMapper.selectQuesReply(ques_no);
+		if(view == 0) {
+			mv.setViewName("memberQuesReplyRead");
+			
+		}else{
+			mv.setViewName("AdminQuesReplyRead");
+		}
+		mv.addObject("readqrDto", qrDto);
 		return mv;
 	}
 
@@ -1032,8 +1049,33 @@ public class MemberService {
 		for(int i = 0; i < schduleList.size(); i++) {
 			
 		}
-		
+
 		return null;
 	}
 
+	public String adminDeleteMember(String m_id, RedirectAttributes rttr) {
+		String msg = null;
+		String view = null;
+		try {
+			mMapper.deleteMember(m_id);	
+			msg = "회원 삭제 성공";
+		} catch (Exception e) {
+		msg = "삭제 실패";
+		}
+		rttr.addFlashAttribute("msg", msg);
+		view = "redirect:mmanage";
+		return view;
+	}
+
+	// 박스오피스 목록
+	public ModelAndView boxOffice() {
+		List<MovieOfficialDto> boxOffice = mMapper.getBoxOfficeList();
+			
+		mv = new ModelAndView();
+		
+		mv.addObject("mvOfficial", boxOffice);
+		mv.setViewName("index");
+		
+		return mv;
+	}
 }

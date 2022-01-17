@@ -19,17 +19,11 @@ import com.example.movie.dto.reportMvReviewDto;
 
 public interface AdminMapper extends MybatisMapper {
 
-	// 영화 상세 페이지 이동
-	public MovieOfficialDto movieDetail(String movie_cd);
-
-	// 관람평 목록 가져오기
-	public List<ReviewMovieDto> reviewMovie(String movie_cd);
-
 	//회원 정보 출력 에서 회원 작성 글 선택 시 출력 되는 해당 회원의 1대1문의게시글 항목 가져오기
 	List<quesboardDto> getquesboardSelect(String m_id);
 
 	//1대1문의게시판 읽기 
-	List<quesboardDto> getquesboardRead(int ques_no);
+	quesboardDto getquesboardRead(int ques_no);
 	
 	//1대1문의사항 게시판 목록 가져오기
 	public List<quesboardDto> getQuesList(Map<String, Integer> qmap);
@@ -86,7 +80,10 @@ public interface AdminMapper extends MybatisMapper {
 	public List<ReportReplyDto> selectReportReply(Map<String, Integer> pmap);
 
 	//1대1 문의사항의 답변 처리.(관리자 입장)
-	public quesReplyDto insertReplyWrite(quesReplyDto qrdto);
+	public void insertReplyWrite(quesReplyDto qrdto);
+
+	public void selectReplyQues();
+	//public quesReplyDto insertReplyWrite(quesReplyDto qrdto);
 	//무비오피셜에 등록된 영화 있는지 검색(중복확인)
 	public int selectMvOfficialCntByMovieCode(String movieCd);
 	//무비오피셜 수정(관리자 영화등록 수정)

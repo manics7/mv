@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.TheaterDto;
 import com.example.movie.entity.Schedule;
@@ -51,6 +52,7 @@ public class MemberController {
 
 		return mv;
 	}
+	//마이페이지 회원탈퇴
 	@GetMapping("delMember")
 	public String delMember(RedirectAttributes rttr) {
 
@@ -70,7 +72,7 @@ public class MemberController {
 
 		String view = "pmvReviewFrm";
 
-		int listCnt = 10;
+		int listCnt = 4;
 
 		mv = mServ.pmvReviewFrm(pageNum,listCnt,view);
 
@@ -80,9 +82,10 @@ public class MemberController {
 	@GetMapping("questionFrm")
 	public ModelAndView questionFrm(Integer pageNum) {
 
-		int listCnt = 10;
+		int listCnt = 4;
 
 		String View = "questionFrm";
+		
 
 		mv = mServ.selectQuestion(pageNum,listCnt,View);
 
@@ -99,10 +102,12 @@ public class MemberController {
 
 	@GetMapping("questionContents")
 	public ModelAndView questionContents(int ques_no) {
+		
 
 		Integer view = 1;
 
 		mv = aCon.requeboardRead(ques_no,view);
+		
 
 		return mv;
 	}
@@ -114,20 +119,22 @@ public class MemberController {
 		String view = mServ.delMvReview(mv_review,rttr);
 
 		return view;
-	}	
-
-
-	@PostMapping("mvReviewSearch")
-	public ModelAndView mvReviewSearch(String mvname) {
-
-		mv = mServ.mvReviewSearch(mvname);
-
-		return mv;
 	}
+	/*
+	//내가본영화
+	@GetMapping("mypageMovieFrm")
+	public ModelAndView mypageMovieFrm(Integer pageNum) {
+		mv = new ModelAndView();
+		String view = "mypageMovieFrm";
+		
+		mv = mServ.selectPurchase(pageNum, 4, view);
+		
+		return mv;
+	}*/
 	/* 보류한다함
 	@GetMapping("purchaseFrm")
 	public ModelAndView purchaseFrm (Integer pageNum) {
-		int listCnt = 10;
+		int listCnt = 4;
 
 		String View = "purchaseFrm";
 
@@ -137,7 +144,7 @@ public class MemberController {
 	}
 	@GetMapping("purchaseCancelFrm")
 	public ModelAndView purchaseCancelFrm (Integer pageNum) {
-		int listCnt = 10;
+		int listCnt = 4;
 
 		String View = "purchaseCancelFrm";
 
@@ -148,18 +155,18 @@ public class MemberController {
 
 	//회원 정보 출력
 	@GetMapping("/mmanage")
-	public ModelAndView mmanageFrm(String pageNum) throws Exception {
-//		int num = (pageNum == null)? 1 : pageNum;
-		System.out.println("page_num = "+pageNum);
+	public ModelAndView mmanageFrm(Integer pageNum) throws Exception {
+		int num = (pageNum == null)? 1 : pageNum;
+		System.out.println("page_num = "+ pageNum);
 		LOG.info("info Log = " + pageNum);
 
 		ModelAndView mv = new ModelAndView();
 
-		List<MemberDto> mList = mServ.getMemberList(Integer.parseInt(pageNum));
+		List<MemberDto> mList = mServ.getMemberList(num);
 
 		mv.addObject("mList", mList);
 
-		String pageHtml = mServ.getPaging(Integer.parseInt(pageNum));
+		String pageHtml = mServ.getPaging(num);
 		mv.addObject("paging", pageHtml);
 
 
@@ -181,18 +188,17 @@ public class MemberController {
 	}
 
 	//회원정보로 1대1문의 글 가져오기 (m_id로 검색)
-
 	@GetMapping("/mboardSelect")
 	public ModelAndView mboardSelect(String m_id) {
 
 		System.out.println("테스트 검색어 m_id = "+m_id);
 		mv = mServ.mboardSelect(m_id);
+		
+		//페이징 처리 할 예정
 		mv.setViewName("quesboard");
 
 		return mv;
 	}
-
-
 
 	// 이용자 회원가입
 	@PostMapping("memberInsert")
@@ -268,10 +274,11 @@ public class MemberController {
 	@GetMapping("getDate")
 	@ResponseBody
 	public List<Map<String, String>> getDate(){
-		List<Map<String, String>> map = scheduleService.getDatesDaysWeek(1);
+		List<Map<String, String>> map = scheduleService.getDatesDaysWeek(2);
 		
 		return map;
 	}
+	
 	@GetMapping("getSchedulelist")
 	@ResponseBody
 	public List<Map<String, Object>> getSchedule(@DateTimeFormat(pattern = "yyyy-MM-dd") Date schDate,Integer thCode){
@@ -280,18 +287,20 @@ public class MemberController {
 		return map;
 	}
 
-	// 영화관 상세 페이지 - 우창 테스트
-	@GetMapping("theater_detail")
-	public String theater_detail() {
-		
-		return "theater_detail";
+	//회원이 1대1문의사항 답변을 확인 할 떄
+	@GetMapping("memReadQuesRe")
+	public ModelAndView readQuesRe(int ques_no) {
+		mv = new ModelAndView();
+		int view = 0;
+		mv = mServ.memReadQuesRe(ques_no, view);
+		return mv;
 	}
-	
+
 	// 현재상영작 목록 페이지 이동(현재상영작 불러오기)
 	@GetMapping("currentMovieList")
-	public ModelAndView currentMovieList() {
+	public ModelAndView currentMovieList(String mainMovieSearch) {
 
-		mv = mServ.getMovieList();
+		mv = mServ.getMovieList(mainMovieSearch);
 		
 		return mv;
 	}
@@ -314,7 +323,6 @@ public class MemberController {
 		return map;
 	}
 	
-	
 	@GetMapping("selectSchedule")
 	@ResponseBody
 	public List<Schedule> selectSchedule(String movieCd, Integer thCode, String schDate) {
@@ -324,5 +332,22 @@ public class MemberController {
 	
 		List<Schedule> list = scheduleService.selectSchList(movieCd, thCode, schDate);
 		return list;
+	}
+	
+	// 영화 상세 페이지 이동
+		@GetMapping("movieDetail")
+		public ModelAndView movieDetail(String movie_cd) {
+			
+			mv = mServ.movieDetail(movie_cd);
+			
+			return mv;
+		}
+	
+	//관리자 입장에서 회원 삭제.
+	@GetMapping("admindelMember")
+	public String admindelMember(String m_id, RedirectAttributes rttr) {
+		String view = null;
+		view = mServ.adminDeleteMember(m_id,rttr);
+		return view;
 	}
 }

@@ -39,10 +39,280 @@
 	font-size: 15px;	
 }
 
+/* 등록 버튼 */
+#scheduleAdd-btn {
+	text-align: center;
+	margin-top: 20px;
+}
+
+#sch-btn {
+	background: rgb(241, 106, 26);
+    border: 1px solid rgb(241, 106, 26);
+    border-radius: 3px;
+    width: 80px;
+    height: 35px;
+    font-size: 15px;
+    color: white;
+}
+
+#sch_content > div:nth-child(4) > div{
+	text-align: center;
+	margin-top: 10px;
+}
+
+#sch_content > div:nth-child(4) > div > font{
+	border : 1px solid lightgray;
+}
+
+/* 상영 일정 등록 전 */
+#sch_title {
+	text-align: center;
+    color: rgb(67, 24, 124);
+}
+
+#content {
+    width: 800px;
+    margin-top: 30px;
+}
+
+#sch_content {
+	text-align: center;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    border: 2px solid rgb(67, 24, 124);
+    border-radius: 5px;
+}
+
+#sch_cont > p {
+    padding-top: 20px;
+    padding-bottom: 20px;	
+}
+
+/* 상영시간표 등록 */
+#schadd_content {
+	width: 800px;
+}
+
+#schadd_title > h2 {
+    text-align: center;
+    color: rgb(67, 24, 124);
+}
+
+#schadd_text {
+    border: 1.5px solid rgb(67, 24, 124);
+    margin-top: 12px;
+    height: 530px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+/* 회차별 영화 선택 */
+#movie_select_title {
+	width: 160px;
+    height: 38px;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 7px;
+    margin-left: 30px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    background: rgb(67, 24, 124);
+    display: inline-block;
+}
+
+#movie_select_title > p {
+	color: white;
+    margin: 0;
+    line-height: 38px;
+    text-align: center;
+}
+
+#mv_select_num1, #mv_select_num2, #mv_select_num3, #mv_select_num4, #mv_select_num5, #mv_select_num6 {
+	border: 2px solid rgb(67, 24, 124);
+    border-radius: 3px;
+    color: rgb(67, 24, 124);
+    width: 70px;
+    display: inline-block;
+    height: 30px;
+}
+
+#mv_select_num1, #mv_select_num4 {
+	margin-left: 50px;
+}
+
+#mv_select_num1 {
+	margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+#mv_select_num1 > p, #mv_select_num2 > p, #mv_select_num3 > p, #mv_select_num4 > p, #mv_select_num5 > p, #mv_select_num6 > p {
+	margin: 0;
+    text-align: center;
+    line-height: 30px;
+}
+
+select.mv_select {
+    margin-left: 5px;
+    margin-right: 10px;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 3px;
+    height: 25px;
+    color: gray;
+}
+
+/* 상영관 선택 */
+#room_select_title {
+	width: 160px;
+    height: 38px;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 7px;
+    margin-left: 30px;
+    margin-top: 30px;
+    background: rgb(67, 24, 124);
+    display: inline-block;
+}
+
+#room_select_title > p {
+	color: white;
+    margin: 0;
+    line-height: 38px;
+    text-align: center;	
+}
+
+#schadd_text > select.room_select {
+	border-radius: 3px;
+	border: 1px solid rgb(67, 24, 124);
+	margin-left: 20px;
+    height: 25px;
+    color: gray;
+}
+
+/* 상영날짜 선택 */
+#date_select_title {
+	width: 120px;
+    height: 38px;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 7px;
+    margin-left: 30px;
+    margin-top: 30px;
+    background: rgb(67, 24, 124);
+    display: inline-block;
+}
+
+#date_select_title > p {
+	color: white;
+    margin: 0;
+    line-height: 38px;
+    text-align: center;
+}
+
+#mvdate {
+	border-radius: 3px;
+    border: 1px solid rgb(67, 24, 124);
+    margin-left: 20px;
+    height: 25px;
+    color: gray;
+}
+
+/* 대기 */
+#time_select_title {
+	width: 180px;
+    height: 38px;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 7px;
+    margin-left: 30px;
+    margin-top: 30px;
+    background: rgb(67, 24, 124);
+    display: inline-block;
+}
+
+#time_select_title > p {
+	color: white;
+    margin: 0;
+    line-height: 38px;
+    text-align: center;
+}
+
+#schadd_text > input[type=text]:nth-child(23) {
+	border-radius: 3px;
+    border: 1px solid rgb(67, 24, 124);
+    margin-left: 20px;
+    height: 25px;
+    color: gray;
+}
 
 
+#schadd_text > span {
+	font-size: 14px;
+    color: rgb(67,24, 124);
+}
+
+/* 상영 시작, 종료 시간 */
+#start_select_title, #end_select_title {
+	width: 160px;
+    height: 38px;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 7px;
+    margin-left: 30px;
+    margin-top: 30px;
+    background: rgb(67, 24, 124);
+    display: inline-block;
+}
+
+#start_select_title > p, #end_select_title > p {
+	color: white;
+    margin: 0;
+    line-height: 38px;
+    text-align: center;
+}
+
+#roomStartTime, #roomEndTime {
+	border-radius: 3px;
+    border: 1px solid rgb(67, 24, 124);
+    margin-left: 20px;
+    height: 25px;
+    color: gray;
+}
+
+/* 등록 버튼 */
+#schadd_btn_wrap {
+	text-align: center;
+	margin-top: 20px;
+}
+
+#schadd_btn {
+	border: 1px solid white;
+    border-radius: 7px;
+    font-size: 17px;
+    width: 72px;
+    height: 38px;
+    background: rgb(67, 24, 124);
+    color: white;
+}
+
+/* 페이징 */
+#content > div:nth-child(5) {
+	text-align: center;
+	margin-top: 15px;
+}
+#content > div:nth-child(5) > div > a {
+	border: 1px solid lightgray;
+}
 
 
+#content > div:nth-child(5) > div > font {
+	border: 1px solid;
+}
+
+/* 유의 사항 */
+#warning {
+	display: inline-block;
+    margin-left: 20px;
+}
+#warning > p {
+	font-size: 14px;
+	color: rgb(241, 106, 26);
+	font-weight: bold;
+}
 
 
 

@@ -12,6 +12,21 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="resource/css/mmanagestyle/mmanage.css">
+<style type="text/css">
+.busbtn5{
+	outline : 0;
+	width: 100px;
+	height: 50px;
+	line-height:50px;
+	background: transparent;
+	border: 1px solid lightgray;
+	cursor: pointer;
+}
+.busbtn5:hover{
+	background: #f16a1a;
+	color: white;
+}
+</style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -61,7 +76,7 @@
 										<tr>
 											<th class="text-center d-none d-md-table-cell">신고자ID</th>
 											<th class="text-center d-none d-md-table-cell">신고 사유</th>
-											<th class="text-center d-none d-md-table-cell">내용</th>
+											<th class="text-center d-none d-md-table-cell">글 제목</th>
 
 											<th class="text-center d-none d-md-table-cell">작성자ID</th>
 											<th class="text-center d-none d-md-table-cell">신고일</th>	
@@ -77,14 +92,14 @@
 							<tr>
 								<td class="text-center d-none d-md-table-cell">${rpitem.rp_m_id}</td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rp_why}</td>
-									<td class="text-center d-none d-md-table-cell">${rpitem.rp_contents}</td>
+									<td class="text-center d-none d-md-table-cell"><a>${rpitem.rp_contents}</a></td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rpt_m_id}</td>
 									<td class="text-center d-none d-md-table-cell"><fmt:formatDate
 											value="${rpitem.rp_date}" pattern="yyyy-MM-dd" /></td>
 									<td class="text-center d-none d-md-table-cell">
 								<c:choose> 
 									<c:when test="${rpitem.rp_state == '0'}">
-										<button id="btn1" onclick="delCheck(${rpitem.movie_review})">미처리</button>
+										<button id="btn1"class="busbtn5" onclick="delCheck(${rpitem.review_num})">미처리</button>
 									</c:when> 
 									<c:otherwise>
 										처리완료

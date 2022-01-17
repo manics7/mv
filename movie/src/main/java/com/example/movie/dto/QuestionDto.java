@@ -12,4 +12,7 @@ public class QuestionDto {
 	private String ques_cont;
 	private int ques_state; 
 	private Timestamp ques_date;
+	
+	private int ques_reply_no;
+	private String ques_reply_title;
 }

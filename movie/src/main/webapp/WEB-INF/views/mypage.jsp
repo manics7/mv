@@ -21,10 +21,21 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	
+	<style type="text/css">
+	nav{
+	width: 100%;
+	}
+	
+	</style>
 </head>
 
 <body>
+<nav>
+	<jsp:include page="mypage_header.jsp"></jsp:include>
+	</nav>
 	<div class="wrap">
+	
 		<div class="main_wrap_wrap">
 			<div class="main_wrap">
 			<div class="sidebar">
@@ -121,7 +132,7 @@
 											<td class="text-center d-none d-md-table-cell">문의 내역이
 												없습니다.</td>
 										</c:otherwise>
-
+									
 									</c:choose>
 								</tbody>
 							</table>

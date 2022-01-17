@@ -33,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.common.AwsS3;
+import com.example.movie.dto.BoardDto;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
@@ -50,6 +51,8 @@ import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ScheduleDetailRepository;
 import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.repository.TempMovieRepository;
+import com.example.movie.utill.PagingUtil;
+import com.example.movie.utill.PagingUtil2;
 
 @Service
 public class BusinessService {
@@ -261,22 +264,101 @@ public class BusinessService {
 		return view;
 	}
 	
-	//영화관 삭제하기
+	//영화관 수정하기
 	@Transactional
-	public String theaterDelete(int th_code, RedirectAttributes rttr) {
+	public String theaterUpdate(MultipartHttpServletRequest multi, RedirectAttributes rttr) {
 		String view = null;
+		String msg = null;
+
+		//데이터 추출
+		String id = multi.getParameter("bid");//사업자 아이디
+		String code1 = multi.getParameter("th_code");
+		int code = Integer.parseInt(code1);
+		String name = multi.getParameter("thname");//영화관 이름
+		String place = multi.getParameter("thplace");//위치 정보(오시는 길)
+		String tel = multi.getParameter("thtel");//영화관 번호
+		String parking = multi.getParameter("thpark");//주차 안내
+		String introduce = multi.getParameter("thintro");//영화관 소개
+		String regeion = multi.getParameter("reNum");//지역 코드
+		String check = multi.getParameter("logoCheck");//로고 이미지
+		String check2 = multi.getParameter("theaterCheck");//영화관 사진
 		
+		//텍스트 내용을 dto에 담기
+		TheaterDto theater = new TheaterDto();
+		theater.setB_id(id);//사업자 아이디
+		theater.setTh_code(code);
+		theater.setTh_name(name);//영화관 이름
+		theater.setTh_location(place);//위치 정보
+		theater.setTh_tel(tel);//영화관 번호
+		theater.setTh_parking(parking);//주차 안내
+		theater.setTh_introduce(introduce);//영화관 소개
+		theater.setTh_areacode(regeion);//지역 코드
+
 		try {
-			buMapper.theaterDelete(th_code);
-			
+
+			//업로드 파일이 있을 경우
+			//check는 로고 이미지, check2는 영화관 사진
+
+			if(check.equals("1") || check2.equals("1")) {
+
+				//로고 파일의 이름 가져오기
+				List<MultipartFile> logoFiles = multi.getFiles("logoFiles");	
+				List<String> logoName = awsS3.uploadFile(logoFiles);
+
+				//로고 사진 파일이 있으면 파일 이름을 dto에 담기
+				for(int i = 0; i < logoName.size(); i++) {
+					String LfileName = awsS3.getFileURL(bucket, logoName.get(i));
+
+					//dto에 넣기
+					theater.setTh_logo(LfileName);
+				}
+
+				//영화관 사진 파일의 이름 가져오기
+				List<MultipartFile> theaterFiles = multi.getFiles("theaterFiles");
+				List<String> theaterName = awsS3.uploadFile(theaterFiles);
+
+				//영화관 사진 파일이 있으면 파일 이름을 dto에 담기
+				for(int i = 0; i < theaterName.size(); i++) {
+					String TfileName = awsS3.getFileURL(bucket, theaterName.get(i));
+
+					theater.setTh_image(TfileName);
+
+					//dto에 담은 내용을 mapper로 넘기기  
+					buMapper.theaterUpdate(theater); 
+				}
+			} else {
+				theater.setTh_logo("");
+				theater.setTh_image("");
+				buMapper.theaterUpdate(theater);
+			}
+					
+			//영화관 정보 페이지로 이동
 			view = "redirect:theater";
-			rttr.addFlashAttribute("msg", "삭제 성공");
+			msg = "수정 성공";
+
 		} catch (Exception e) {
-			// TODO: handle exception
-			view = "redirect:theater";
-			rttr.addFlashAttribute("msg", "삭제 실패");
+			e.printStackTrace();
+			//다시 등록 페이지
+			view = "redirect:thUpdate";
+			msg = "수정 실패";
 		}
+		
+		rttr.addFlashAttribute("msg", msg);
+		
 		return view;
+	}
+	
+	//영화관 수정 페이지
+	public ModelAndView thUpdate(int th_code) {
+			
+		TheaterDto thDto = buMapper.thUpdateInfo(th_code);
+		
+		mv = new ModelAndView();
+		
+		mv.addObject("thDto", thDto);
+		mv.setViewName("./th/thUpdate");
+		
+		return mv;
 	}
 
 	//사업자페이지 사업자정보 (극장이름) 등.. 출력
@@ -439,7 +521,7 @@ public class BusinessService {
 
 		mv.addObject("theaterList", theaterList);
 
-		mv.setViewName("th/theater");
+		mv.setViewName("./th/theater");
 
 		return mv;
 	}
@@ -469,7 +551,7 @@ public class BusinessService {
 		mv.addObject("roomList", roomList);
 		mv.addObject("theaterList", theaterList);
 
-		mv.setViewName("sche/scheduleAdd");
+		mv.setViewName("./sche/scheduleAdd");
 
 		return mv;
 	}
@@ -485,6 +567,9 @@ public class BusinessService {
 		//상영관 종료 시간을 date에서 calendar로 변환
 		Calendar endCalendar = Calendar.getInstance();
 		endCalendar.setTime(roomEndTime);
+		
+		Calendar movieEndCalendar = Calendar.getInstance();
+		movieEndCalendar.setTime(roomStartTime);
 
 		for(int i = 0; i < mvcode.length; i++) {
 			//영화코드(숫자)를 받은 변수 mvcd
@@ -519,10 +604,8 @@ public class BusinessService {
 					int realTime = runningTime + waittingTime;	
 
 					//영화 끝난 시간 = 상영관 시작시간 + 영화 러닝타임
-					Calendar movieEndCalendar = Calendar.getInstance();		
-					movieEndCalendar.setTime(roomStartTime);
-					movieEndCalendar.add(Calendar.MINUTE, realTime);
-
+					movieEndCalendar.add(Calendar.MINUTE, runningTime);
+					
 					//영화 종료 시간이 상영관 종료 시간을 넘을 경우 값을 넣지 않는다
 					if(movieEndCalendar.before(endCalendar)) {
 
@@ -544,6 +627,7 @@ public class BusinessService {
 						scheduleDetailRepository.save(scheduleDetail);
 
 						//영화 시작 시간 = 저번 영화 시간 + (러닝 타임 + 휴식 시간)
+						movieEndCalendar.add(Calendar.MINUTE, waittingTime);
 						startCalendar.add(Calendar.MINUTE, realTime);
 
 					}
@@ -561,25 +645,30 @@ public class BusinessService {
 	}
 	
 	//상영시간표 목록을 출력
-	public List<Map<String, Object>> getScheduleList() {
-		
-		List<Map<String, Object>> scheduleList = new ArrayList<Map<String,Object>>();
-		Map<String, Object> map = new HashMap<String, Object>();
+	public ModelAndView getScheduleList(Integer pageNum) {
+		mv = new ModelAndView();
 		
 		//세션에 저장되어 있는 사업자 아이디
+		String bId;
 		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
-		String bId = bDto.getB_id();
-		
+		bId = bDto.getB_id();
+				
 		//로그인한 사업자와 일치하는 영화관의 코드
 		int theaterCode = buMapper.getTheaterCode(bId);
 		
-		//상영관 번호, 상영관명, 상영관 종류
-		List<RoomDto> scheduleRoomList = new ArrayList<RoomDto>();
-		scheduleRoomList = buMapper.getScheduleRoomList(theaterCode);
+		// null or 페이지 번호
+		int num = (pageNum == null) ? 1 : pageNum;
+		int listCnt = 5;
+				
+		// 게시글 목록 가져오기
+		Map<String, Integer> pmap = new HashMap<String, Integer>();
+		pmap.put("num", num);
+		pmap.put("lcnt", listCnt);
+		pmap.put("th_code", theaterCode);
 		
 		//상영시간표 
 		List<ScheduleDto> scheduleCode = new ArrayList<ScheduleDto>();
-		scheduleCode = buMapper.getScheduleCode(theaterCode);
+		scheduleCode = buMapper.getScheduleCode(pmap);
 		
 		List<ScheduleDto> movieCodeList = new ArrayList<ScheduleDto>();
 		List<MovieOfficialDto> movieNameList = new ArrayList<MovieOfficialDto>();
@@ -598,9 +687,21 @@ public class BusinessService {
 		List<ScheduleDetailDto> endTimeList = new ArrayList<ScheduleDetailDto>();
 		List<String> movieEnd = new ArrayList<String>();
 		
+		//상영관 번호, 상영관명, 상영관 종류
+		List<ScheduleDto> roomNoList = new ArrayList<ScheduleDto>();
+		List<RoomDto> scheduleRoomList = new ArrayList<RoomDto>();
+		List<RoomDto> roomList = new ArrayList<RoomDto>();		
+		
 		for(int a = 0; a < scheduleCode.size(); a++) {
 			ScheduleDto codeDto = scheduleCode.get(a);
 			int schCode = codeDto.getSch_code();
+			
+			//상영관 번호, 상영관명, 상영관 종류
+			roomNoList = buMapper.getRoomCode(schCode);
+			ScheduleDto roomNoDto = roomNoList.get(0);
+			int roomNo = roomNoDto.getRoom_no();
+			RoomDto rodto = buMapper.getScheduleRoomList(roomNo);
+			scheduleRoomList.add(rodto);
 			
 			//영화 코드
 			movieCodeList = buMapper.getMovieCode(schCode);
@@ -641,19 +742,66 @@ public class BusinessService {
 				
 				movieEnd.add(endList);
 		}
+		mv.addObject("scheduleCode", scheduleCode);
+		mv.addObject("scheduleRoomList", scheduleRoomList);
+		mv.addObject("mvNameList", mvNameList);
+		mv.addObject("screeningDate", screeningDate);
+		mv.addObject("movieStart", movieStart);
+		mv.addObject("movieEnd", movieEnd);
+
+		// 페이징 처리
+		String pageHtml = getPaging(num, "schedule");
+		mv.addObject("paging", pageHtml);
+
+		session.setAttribute("pageNum", num);
 		
-		map.put("scheduleRoomList", scheduleRoomList);
-		map.put("mvNameList", mvNameList);
-		map.put("screeningDate", screeningDate);
-		map.put("movieStart", movieStart);
-		map.put("movieEnd", movieEnd);
-		
-		scheduleList.add(map);
-		
-		
-		return scheduleList;
+		mv.setViewName("sche/schedule");
+		return mv;
 	}
 	
+	// 페이징 처리
+	private String getPaging(int num, String listName) {
+		String pageHtml = null;
+		
+		//세션에 저장되어 있는 사업자 아이디
+		String bId;
+		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
+		bId = bDto.getB_id();
+						
+		//로그인한 사업자와 일치하는 영화관의 코드
+		int theaterCode = buMapper.getTheaterCode(bId);
+
+		// 전체 글 개수 구하기(DAO)
+		int maxNum = buMapper.getScheduleCount(theaterCode);
+		mv.addObject("maxNum", maxNum);
+		// 한 페이지에 보여질 페이지 번호 개수
+		int pageCnt = 5;
+
+		PagingUtil paging = new PagingUtil(maxNum, num, 5, pageCnt, listName);
+
+		pageHtml = paging.makePaging();
+
+		return pageHtml;
+	}
+	
+	//상영시간표 삭제
+	@Transactional
+	public String scheduleDelete(int sch_code, RedirectAttributes rttr) {
+		String view = null;
+		
+		try {
+			buMapper.scheduleDelete(sch_code);
+			buMapper.scheduleDetailDelete(sch_code);
+			
+			view = "redirect:schedule";
+			rttr.addFlashAttribute("msg", "삭제 성공");
+		} catch (Exception e) {
+			view = "redirect:schedule";
+			rttr.addFlashAttribute("msg", "삭제 실패");
+		}
+		
+		return view;
+	}
 	
 	// 사업자 영화목록 임시 저장
 	@Transactional
@@ -825,5 +973,7 @@ public class BusinessService {
 
 		return view;
 	}
+
+	
 
 } // class end

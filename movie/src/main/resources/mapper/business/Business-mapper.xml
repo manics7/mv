@@ -37,15 +37,23 @@
 		SELECT * FROM theater WHERE b_id=#{b_id}
 	</select>
 	
+	<!-- 영화관 정보 찾아오기 -->
+	<select id="thUpdateInfo" parameterType="Integer" resultType="com.example.movie.dto.TheaterDto">
+		SELECT * FROM THEATER WHERE TH_CODE=#{th_code}
+	</select>
+	
 	<!-- 영화관 코드 검색 -->
 	<select id="getTheaterCode" parameterType="String" resultType="Integer">
 		SELECT TH_CODE FROM THEATER WHERE b_id=#{b_id}
 	</select>
 	
-	<!-- 영화관 삭제 -->
-	<delete id="theaterDelete" parameterType="Integer">
-		DELETE FROM THEATER WHERE TH_CODE=#{th_code}
-	</delete>
+	<!-- 영화관 수정 -->
+	<update id="theaterUpdate" parameterType="com.example.movie.dto.TheaterDto">
+		UPDATE THEATER SET TH_NAME=#{th_name}, TH_LOGO=#{th_logo}, TH_LOCATION=#{th_location},
+		TH_INTRODUCE=#{th_introduce}, TH_AREACODE=#{th_areacode}, TH_PARKING=#{th_parking},
+		TH_IMAGE=#{th_image}, TH_TEL=#{th_tel}
+		WHERE th_code=#{th_code}
+	</update>
 	
 	<!-- 영화 정보 전체 검색 -->
 	<select id="getMovieList" resultType="com.example.movie.dto.MovieOfficialDto">
@@ -68,13 +76,18 @@
 	</select>
 	
 	<!-- 상영관 번호 검색 -->
+	<select id="getRoomCode" parameterType="Integer" resultType="com.example.movie.dto.ScheduleDto">
+		SELECT ROOM_NO FROM SCHEDULE WHERE SCH_CODE=#{sch_code}
+	</select>
+	
+	<!-- 상영관 번호 검색 -->
 	<select id="getRoomNoList" parameterType="Integer" resultType="com.example.movie.dto.RoomDto">
 		SELECT ROOM_NO FROM ROOM WHERE TH_CODE=#{th_code}
 	</select>
 	
 	<!-- 상영관번호, 상영관명, 상영관 종류 -->
 	<select id="getScheduleRoomList" parameterType="Integer" resultType="com.example.movie.dto.RoomDto">
-		SELECT ROOM_NO, ROOM_NAME, ROOM_CLASS FROM ROOM WHERE TH_CODE=#{th_code}
+		SELECT ROOM_NO, ROOM_NAME, ROOM_CLASS FROM ROOM WHERE ROOM_NO=#{room_no}
 	</select>
 	
 	<!-- 상영관명 -->
@@ -88,8 +101,18 @@
 	</select>
 	
 	<!-- 상영시간표 코드 검색 -->
-	<select id="getScheduleCode" parameterType="Integer" resultType="com.example.movie.dto.ScheduleDto">
-		SELECT SCH_CODE FROM SCHEDULE WHERE th_code=#{th_code}
+	<select id="getScheduleCode" parameterType="HashMap" resultType="com.example.movie.dto.ScheduleDto">
+		SELECT * FROM
+		(SELECT ROWNUM AS RONUM, A.* FROM (SELECT * FROM SCHEDULE WHERE TH_CODE=#{th_code}
+		ORDER BY SCH_CODE ASC) A)
+		<![CDATA[
+		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1) AND RONUM <= #{num} * #{lcnt}
+		]]>
+	</select>
+	
+	<!-- 상영시간표 페이징 -->
+	<select id="getScheduleCount" parameterType="Integer" resultType="Integer">
+		SELECT COUNT(*) FROM SCHEDULE WHERE TH_CODE=#{th_code}
 	</select>
 	
 	<!-- 상영시간표 상영날짜 검색 -->
@@ -113,6 +136,18 @@
 		SELECT SCH_DETAIL_END FROM SCHEDULE_DETAIL 
 		WHERE sch_code=#{sch_code}
 	</select>
+	
+	<!-- 상영시간표 삭제 -->
+	<delete id="scheduleDelete" parameterType="Integer">
+		DELETE FROM SCHEDULE
+		WHERE SCH_CODE=#{sch_code}
+	</delete>
+	
+	<!-- 상영시간표 상세 삭제 -->
+	<delete id="scheduleDetailDelete" parameterType="Integer">
+		DELETE FROM SCHEDULE_DETAIL
+		WHERE SCH_CODE=#{sch_code}
+	</delete>
 	
 	<!-- 상영관 전체 검색 -->
 	<select id="getRoomInfoList" resultType="com.example.movie.dto.RoomDto">

@@ -73,10 +73,11 @@ public class AdminService {
 
 	//신고 영화관후기게시글
 	public ModelAndView reportedReview(Integer pageNum) {
+		
 
 		mv = new ModelAndView();
 		int num = (pageNum == null)? 1 : pageNum;
-		int listCnt = 6;
+		int listCnt = 4;
 
 
 		String view = "boardreportFrm";
@@ -110,7 +111,7 @@ public class AdminService {
 	public ModelAndView reportedReply(Integer pageNum) {
 		mv = new ModelAndView();
 		int num = (pageNum == null)? 1 : pageNum;
-		int listCnt = 6;
+		int listCnt = 4;
 
 
 		String view = "replyreportFrm";
@@ -145,7 +146,7 @@ public class AdminService {
 		mv = new ModelAndView();
 
 		int num = (pageNum == null)? 1 : pageNum;
-		int listCnt = 5;
+		int listCnt = 4;
 
 		int maxNum = aMapper.selectReportMvReviewCnt();
 
@@ -181,7 +182,7 @@ public class AdminService {
 	@Transactional
 	public String delAdminMvReview(int mvrNum,RedirectAttributes rttr) {
 
-		String view = "redirect:reportFrm";
+		String view = "redirect:mvrreportFrm";
 
 		String rptId = aMapper.selectIdFromMvReview(mvrNum);
 
@@ -225,7 +226,7 @@ public class AdminService {
 		return qList;
 	}
 
-	public String getpaging(int num) {
+	public String getpagingQuesBoard(int num) {
 		String pageHtml = null;
 
 		int maxNum = aMapper.getquesBoardCnt();
@@ -243,20 +244,13 @@ public class AdminService {
 		return pageHtml;
 	}
 
-	public List<quesboardDto> getboardRead(int ques_no) {
+	public quesboardDto getboardRead(int ques_no) {
 
-		List<quesboardDto> readqlist = aMapper.getquesboardRead(ques_no);
+		quesboardDto readqlist = aMapper.getquesboardRead(ques_no);
 
 		return readqlist;
 	}
 
-	//문의답변 전송
-	public quesReplyDto selectQuesReply(int ques_no) {
-
-		quesReplyDto qrDto = aMapper.selectQuesReply(ques_no);
-
-		return qrDto;
-	}
 	//관리자 영화등록 페이지 리스트
 	public ModelAndView adminMovieList(Integer pageNum) {
 
@@ -271,12 +265,12 @@ public class AdminService {
 
 		List<MovieOfficialDto> movieOfList = aMapper.selectMvOfficial();
 
-		for(int i = 0; i <= movieList.size()-1; i++) {
+		for(int i = 0; i < movieList.size(); i++) {
 
 			MovieDto mvDto1 = movieList.get(i);
 
 			//중복요청 출력할 리스트에서 제거
-			for(int j = i+1; j <= movieList.size()-1; j++) {
+			for(int j = i+1; j < movieList.size(); j++) {
 
 				MovieDto mvDto2 = movieList.get(j);
 
@@ -289,7 +283,7 @@ public class AdminService {
 				}
 			}
 
-			for(int k = 0; k <= movieOfList.size()-1; k++) {
+			for(int k = 0; k < movieOfList.size(); k++) {
 
 				MovieOfficialDto mOfDto = movieOfList.get(k);
 
@@ -345,7 +339,7 @@ public class AdminService {
 		}
 
 
-		String view = "adminMovieList";
+		String view = "adminMovieRequest";
 
 		String pageHtml = getPaging(num,listCnt,view,maxNum);
 		mv.addObject("paging", pageHtml);
@@ -358,42 +352,48 @@ public class AdminService {
 
 
 		mv.addObject("mvList", movieList1);
-		mv.setViewName("adminMovieList");
-
+		mv.setViewName("adminMovieRequest");
 		return mv;
 
 
 
 	}
-
-	public List<BusinessDto> getbulist(Integer pageNum) {
+//////////////
+	public ModelAndView getbulist(Integer pageNum) {
+		
+		mv = new ModelAndView();
+		 
+		int num = (pageNum == null)? 1 : pageNum;
+		
 		HashMap<String, Integer> busmap = new HashMap<String, Integer>();
 		busmap.put("pageNum", pageNum);
-		busmap.put("lcnt", listCnt);
+		busmap.put("lcnt", 4);
 
 		List<BusinessDto> buslist = aMapper.getbuslist(busmap);
-
-		return buslist;
-	}
-
-	public String busgetpaging(Integer pageNum) {
-		String pageHtml = null;
 
 		int maxNum = aMapper.getBusCnt();
 
 		int pageCnt = 10;
+		
+		//int listCnt = 4;
 
-		String listName = "mmanageBu";
-
-		PagingUtil paging = new PagingUtil(maxNum, pageNum, listCnt, 
-				pageCnt, listName);
+		String listName = "getBulist";
+		System.out.println("");
 		//PagingUtil paging = new PagingUtil(maxNum, pageCnt, maxNum, pageCnt, listName);
+		String pageHtml = getPaging(num,4,listName,maxNum);
+		//페이징처리
+		//mv에 데이터 투입
+		
+		mv.addObject("paging", pageHtml);
+		session.setAttribute("pageNum", num);
+		
+		mv.addObject("busList", buslist);
+		mv.setViewName("mmanageBu");
 
-		pageHtml = paging.makePaging();
 
-
-		return pageHtml;
+		return mv;
 	}
+
 
 	public ModelAndView quesboard_replywrite(quesReplyDto qrdto) {
 		mv = new ModelAndView();
@@ -428,7 +428,7 @@ public class AdminService {
 
 		String check = multi.getParameter("filecheck");
 
-		movie_content = movie_content.trim();
+		//movie_content = movie_content.trim();
 
 		String seq = multi.getParameter("movie_seq");
 
@@ -475,8 +475,8 @@ public class AdminService {
 				mvofficialDto.setStillcut5(LfileName);
 			}
 			if(i > 4) {
-				//msg = "파일은 5개까지만 등록 가능합니다.";
-				rttr.addFlashAttribute("msg", "파일은 5개까지만 등록 가능합니다.");
+				msg = "파일은 5개까지만 등록 가능합니다.";
+				//rttr.addFlashAttribute("msg", "파일은 5개까지만 등록 가능합니다.");
 				filenum = 1;
 				break;
 			}
@@ -489,31 +489,37 @@ public class AdminService {
 		
 		//등록한 스틸컷 5개 이하일 경우만 등록
 		if(filenum == 0) {
-			if(checkMovie == 0) {
-			//msg = "등록 성공";
+			if(checkMovie == 0) {//미등록영화 등록
+			msg = "등록 성공";
 			aMapper.adminMovieInsert(mvofficialDto);
 			
-			rttr.addFlashAttribute("msg", "등록 성공");
+			rttr.addFlashAttribute("msg", msg);
 
-			}			
+			}
+			else {//이미등록된 영화
+				aMapper.adminMovieUpdate(mvofficialDto);
+				msg = "수정 성공";
+				rttr.addFlashAttribute("msg", msg);
+			}
 		}
+		
 		view = "redirect:adminMovieList";
 
 		return view;
+		//return msg;
 	}
 		//1대1 문의 답변(사용함)(하는중)
 	public String quesboard_reply_insert(quesReplyDto qrdto, RedirectAttributes rttr) {
 		String view = null;	
 		String msg = null;
 		try {
-			qrdto = aMapper.insertReplyWrite(qrdto);
+			aMapper.insertReplyWrite(qrdto);
 			msg = "성공";
 			view = "redirect:quesboard";
 		} catch (Exception e) {
-			view = "redirect:quesboard_replywrite?ques_no=5";
+			view = "redirect:quesboard";
 			msg = "실패";
 		}
-		//qrdto = aMapper.insertReplyWrite(qrdto);
 		
 		rttr.addFlashAttribute("msg",msg);
 		return view;
