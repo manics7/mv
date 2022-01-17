@@ -339,7 +339,7 @@ public class AdminService {
 		}
 
 
-		String view = "adminMovieRequest";
+		String view = "adminMovieList";
 
 		String pageHtml = getPaging(num,listCnt,view,maxNum);
 		mv.addObject("paging", pageHtml);
@@ -526,4 +526,11 @@ public class AdminService {
 		
 
 		}
+
+	public ModelAndView alDeleteMem(String m_id) {
+		mv = new ModelAndView();
+		mv = aMapper.alDeleteMem(m_id);
+		mv.setViewName("mmanage");
+		return mv;
+	}
 }

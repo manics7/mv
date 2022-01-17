@@ -17,4 +17,6 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 	List<Schedule> findByThCodeAndSchDateBetween(Integer thCode, Date startDate, Date endDate);
 	
 	List<Schedule> findByThCodeAndSchDate(Integer thCode, Date schDate);
+
+	List<Schedule> findByMovieCdAndSchDate(String movieCd, Date schDate);
 }

@@ -19,12 +19,21 @@ $(function(){
 </script>
 </head>
 <body>
+<nav style="background: black; padding-top: 35px; padding-bottom: 35px;">
+<jsp:include page="business_header.jsp"></jsp:include>
+</nav>
 <section>
 <div class="detail">
 	<div class="inner">
 		<div id="page_wrap">
-			<div id="side">
-				<h2><a href="#">Business Page</a></h2>
+		<div id="side">
+		<jsp:include page="business_sidebar.jsp"></jsp:include>
+		
+		</div>
+		<!-- 
+		
+		<div id="side">
+				<h2><a href="#" style="color: black;">Business Page</a></h2>
 				<ul id="bupage_list">
 					<li><a id="bupage_menu" href="#">영화관 관리</a></li>
 					<li><a id="bupage_menu" href="#">영화 관리</a></li>
@@ -33,7 +42,10 @@ $(function(){
 					<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
 				</ul>
 			</div>
-            <div class="room_div">
+		
+		
+		 -->
+			            <div class="room_div">
                 <h3 id="room_title">상영관 목록</h3>
                     <table class="rv_table">
                         <tr class="title-row">
@@ -71,6 +83,9 @@ $(function(){
 	</div>
 </div>
 </section>
+		<footer>
+			<jsp:include page="footer.jsp"></jsp:include>
+		</footer>
 </body>
 <script type="text/javascript">
 function delCheck(roomseq){

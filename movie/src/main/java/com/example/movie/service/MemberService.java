@@ -814,11 +814,15 @@ public class MemberService {
 			if(enc.matches(member.getM_pw(), pw)) {
 				// 로그인 성공 - 세션에 회원 정보 저장, member
 				member = mMapper.getMember(member.getM_id());
-
+				if(member.getM_id().equals("admin")) {
+					view = "redirect:adminPage";
+				}
+				else {
+					view = "redirect:/";
+				}
+				
 				// member 정보를 세션에 저장
 				session.setAttribute("userInfo", member);
-
-				view = "redirect:/";
 			}
 			else {
 				view = "redirect:/";
@@ -884,27 +888,6 @@ public class MemberService {
 			reviewListMap = null;
 		}
 		return reviewListMap;
-	}
-	//영화관 상세정보 출력 
-	public ModelAndView inserttheaterinfo(Integer th_code) {
-	mv = new ModelAndView();
-	List<ThmovieDto> thdtail = mMapper.inserttheaterinfo(th_code);
-	List<SsdscheduleDto> thdschedule = mMapper.selectmovieschedule();
-	Map<String, Object> theaterlist = new HashMap<String, Object>();
-	theaterlist.put("thdtail", thdtail);
-	theaterlist.put("thdschedule", thdschedule);
-	
-//		mv = new ModelAndView();
-//		List<ThmovieDto> thdtail = mMapper.inserttheaterinfo(th_code);
-//		List<SsdscheduleDto> thdschedule = mMapper.selectmovieschedule();
-//		Map<String, Object> theaterlist = new HashMap<String, Object>();
-//		theaterlist.put("thdtail", thdtail);
-//		theaterlist.put("thdschedule", thdschedule);
-
-		mv.addObject("thdetail", thdtail);
-		mv.addObject("thddto", thdschedule);
-		mv.setViewName("theater_detail");
-		return mv;
 	}
 
 	public List<Map<String, Object>> getSch(Integer thCode) {
@@ -1008,13 +991,11 @@ public class MemberService {
 		return mv;
 	}
 
-	public ModelAndView selectThcode() {
+	public List<TheaterDto> selectThcode() {
 		List<TheaterDto> thCodeList = mMapper.seletThkey();
-		mv = new ModelAndView();
-		mv.addObject("thCodeList", thCodeList);
 		//mv = mMapper.seletThkey();
 		
-		return mv;
+		return thCodeList;
 	}
 
 	public ModelAndView memReadQuesRe(int ques_no, int view) {
@@ -1069,6 +1050,8 @@ public class MemberService {
 
 	// 박스오피스 목록
 	public ModelAndView boxOffice() {
+		mv = new ModelAndView();
+		
 		List<MovieOfficialDto> boxOffice = mMapper.getBoxOfficeList();
 			
 		mv = new ModelAndView();
@@ -1077,5 +1060,26 @@ public class MemberService {
 		mv.setViewName("index");
 		
 		return mv;
+	}
+
+	public String questionWrite(QuestionDto quesDto,RedirectAttributes rttr) {
+		String view = null;
+		String msg = null;
+		
+		MemberDto mem = (MemberDto)session.getAttribute("userInfo");
+		quesDto.setM_id(mem.getM_id());
+		
+		try {
+		mMapper.questionWrite(quesDto);
+		
+		msg = "등록 성공";
+		
+		}catch(Exception e) {
+			msg = "등록 실패";
+		}
+		view = "redirect:questionFrm";
+		
+		rttr.addFlashAttribute("msg",msg);
+		return view;
 	}
 }

@@ -12,7 +12,9 @@ public class TheaterDto {
 	private String th_introduce;//영화관 소개
 	private String th_areacode;//지역 코드
 	private String th_parking;
-	private String th_image;
+	private String th_image1;
+	private String th_image2;
+	private String th_image3;
 	private String th_tel;
 	
 	private String movie_cd;

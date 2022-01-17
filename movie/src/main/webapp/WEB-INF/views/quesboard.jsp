@@ -129,7 +129,9 @@
 
     </div>
     <div class="footer_wrap">
-        <footer></footer>
+       <footer>
+			<jsp:include page="footer.jsp"></jsp:include>
+		</footer>
 
     </div>
 

@@ -58,6 +58,10 @@
 		DELETE FROM review_movie
 		WHERE mv_review=#{mvrnum}
 	</delete>
+	
+	<insert id="questionWrite" parameterType="com.example.movie.dto.QuestionDto">
+		insert into question values (ques_no_seq.nextval, #{m_id}, #{ques_title}, #{ques_cont}, 0, default)
+	</insert>
 
 <!-- 회원정보 목록 출력 -->
 	<select id="getList" parameterType="HashMap"
@@ -100,7 +104,7 @@
 	<insert id="memberInsert" parameterType="com.example.movie.dto.MemberDto">
 		insert into member values (#{m_id}, #{m_pw}, #{m_birth},
 		#{m_tel}, #{m_like}, #{m_email}, #{m_name}, #{m_gender}, default,
-		default, default)
+		default, default, default)
 	</insert>
 
 	<!-- 이용자 로그인 -->
@@ -121,7 +125,7 @@
 		
 	<!-- 이용자 관람평 목록 다시 검색 -->
 	<select id="selectReviewMovieList" parameterType="String" resultType="com.example.movie.dto.ReviewMovieDto">
-		select * from review_movie where mv_review_moviecd=#{movie_cd} 
+		select * from review_movie where mv_review_moviecd=#{movie_cd} order by mv_review_date desc
 	</select>
 	
 	<select id="inserttheaterinfo" parameterType="Integer" resultType="com.example.movie.dto.TheaterDto">
@@ -165,6 +169,11 @@
 	<select id="seletThkey" resultType="com.example.movie.dto.TheaterDto">
 	SELECT * FROM theater
 	</select>
+	
+	<select id="getThinfoList" parameterType="integer" resultType="com.example.movie.dto.TheaterDto">
+	select * from theater where th_code = #{th_code}
+	</select>
+	
 	
 
 </mapper>

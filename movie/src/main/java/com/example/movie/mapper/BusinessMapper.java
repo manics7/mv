@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.example.movie.config.MybatisMapper;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.EventDto;
 import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
-import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.RoomDto;
 import com.example.movie.dto.ScheduleDetailDto;
 import com.example.movie.dto.ScheduleDto;
@@ -114,5 +114,7 @@ public interface BusinessMapper  extends MybatisMapper {
 	//영화관 정보
 	public TheaterDto thUpdateInfo(Integer th_code);
 	
+	//이벤트 목록 가져오기
+	public List<EventDto> getEventList();
 	
 }

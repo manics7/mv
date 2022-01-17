@@ -35,6 +35,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.movie.common.AwsS3;
 import com.example.movie.dto.BoardDto;
 import com.example.movie.dto.BusinessDto;
+import com.example.movie.dto.EventDto;
 import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.MovieOfficialDto;
 import com.example.movie.dto.RoomDto;
@@ -235,18 +236,19 @@ public class BusinessService {
 				//영화관 사진 파일이 있으면 파일 이름을 dto에 담기
 				for(int i = 0; i < theaterName.size(); i++) {
 					String TfileName = awsS3.getFileURL(bucket, theaterName.get(i));
-
-					theater.setTh_image(TfileName);
-
-					//dto에 담은 내용을 mapper로 넘기기  
-					buMapper.theaterAdd(theater); 
+					
+					if(i==0) {
+						theater.setTh_image1(TfileName);	
+					}else if(i==1) {
+						theater.setTh_image2(TfileName);
+					}else if(i==2){
+						theater.setTh_image3(TfileName);
+					}
 				}
-			} else {
-				theater.setTh_logo("");
-				theater.setTh_image("");
-				buMapper.theaterAdd(theater);
-			}
-			
+			} 
+			//dto에 담은 내용을 mapper로 넘기기  
+			buMapper.theaterAdd(theater);
+
 			//영화관 정보 페이지로 이동
 			view = "redirect:theater";
 			msg = "등록 성공";
@@ -320,18 +322,19 @@ public class BusinessService {
 				//영화관 사진 파일이 있으면 파일 이름을 dto에 담기
 				for(int i = 0; i < theaterName.size(); i++) {
 					String TfileName = awsS3.getFileURL(bucket, theaterName.get(i));
-
-					theater.setTh_image(TfileName);
-
-					//dto에 담은 내용을 mapper로 넘기기  
-					buMapper.theaterUpdate(theater); 
-				}
-			} else {
-				theater.setTh_logo("");
-				theater.setTh_image("");
-				buMapper.theaterUpdate(theater);
-			}
 					
+					if(i==0) {
+						theater.setTh_image1(TfileName);	
+					}else if(i==1) {
+						theater.setTh_image2(TfileName);
+					}else if(i==2){
+						theater.setTh_image3(TfileName);
+					}
+				}
+			} 
+			
+			buMapper.theaterUpdate(theater);
+			
 			//영화관 정보 페이지로 이동
 			view = "redirect:theater";
 			msg = "수정 성공";
@@ -910,7 +913,7 @@ public class BusinessService {
 		String actors = multi.getParameter("actors");
 		String show_types = multi.getParameter("show_types");
 		String watch_grade_nm = multi.getParameter("watch_grade_nm");
-		String check = multi.getParameter("fileUp");
+		String check = multi.getParameter("fileCheck");
 
 		MovieDto movieDto = new MovieDto();
 
@@ -929,7 +932,7 @@ public class BusinessService {
 			if(check.equals("1")) {
 
 				//로고 파일의 이름 가져오기
-				List<MultipartFile> posterFile = multi.getFiles("moviePoster");	
+				List<MultipartFile> posterFile = multi.getFiles("poster");	
 				List<String> posterName = awsS3.uploadFile(posterFile);
 
 				//로고 사진 파일이 있으면 파일 이름을 dto에 담기
@@ -953,6 +956,8 @@ public class BusinessService {
 				th_code=0;
 			}
 			if(th_code != 0) {
+				
+				movieDto.setTh_code(th_code);
 				buMapper.movieInsertProc(movieDto);
 				
 				view = "redirect:businessPage";
@@ -974,6 +979,26 @@ public class BusinessService {
 		return view;
 	}
 
-	
+	//이벤트 관리 페이지 이동
+	public ModelAndView getEventList() {
+		mv = new ModelAndView();
+		
+		List<EventDto> eventList = buMapper.getEventList();
+
+		mv.addObject("eventList", eventList);
+
+		mv.setViewName("eventList");
+		
+		return mv;
+	}
+
+	//이벤트 등록 페이지 이동
+	public ModelAndView eventInsertFrm() {
+		mv = new ModelAndView();
+
+		mv.setViewName("eventInsertFrm");
+		
+		return mv;
+	}
 
 } // class end

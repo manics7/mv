@@ -1,6 +1,98 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.admin_nav_wrap {
+	width: 100%;
+	background-color: #1d1d1d;
+}
+
+.admin_nav {
+	margin: 0 auto;
+	display: flex;
+	width: 1024px;
+	justify-content: space-around;
+	background-color: #1d1d1d;
+	padding-top: 35px;
+	padding-bottom: 35px;
+}
+
+
+.admin_nav_item logo {
+	height: 25px;
+}
+
+.admin_nav_item>a {
+	color: white;
+	margin-top: 40px;
+}
+
+.logo {
+	border: 2px solid white;
+	display: flex;
+}
+
+.logo1 {
+	font-weight: 600;
+}
+
+.logo2 {
+	border-left: 2px solid #ffffff;
+	font-weight: 100;
+}
+
+.logo1, .logo2 {
+	color: white;
+	padding: 1.2px;
+}
+
+/* .logo2 {
+            color: white;
+        } */
+.underline {
+	line-height: 1.2;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+		"Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+		"Segoe UI Symbol";
+	font-size: 1em;
+	font-weight: 600;
+	background-image: linear-gradient(transparent calc(100% - 3px), #000 3px);
+	background-repeat: no-repeat;
+	background-size: 0% 100%;
+	transition: background-size 0.8s;
+	color: #000;
+	cursor: pointer;
+}
+
+@media ( min-width : 1000px) {
+	.underline {
+		font-size: 1em;
+	}
+}
+
+.underline.yellow {
+	background-image: linear-gradient(transparent 60%, #f16a1a 40%);
+}
+
+.underline:hover {
+	background-size: 100% 100%;
+}
+</style>
 <link rel="stylesheet" type="text/css" href="resource/css/hf.css">
 <script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -29,47 +121,42 @@ $(document).ready(function(){
 	
 	//<li><a href="./theaterDetailPage?th_code=${thCList.th_code}">${thCList.th_name}</a></li>
 });//functiong End
-
-
-
 </script>
+<title>Document</title>
+</head>
 
-<div id="header_wrap">
-	<div class="contain_wrap">
-		<a href="/"> <img alt="" src="resource/images/logo.png" id="logo">
-		</a>
-		<div id="header_top">
-			<div id="header_left">
-				<a href="#">공지사항</a>
-				<a href="#">고객센터</a>
-			</div>
-			<div id="header_right">
-				<div id="login_before">
+<body>
+	<div class="admin_nav_wrap">
+		<ul class="admin_nav"style="color: white;">
+			<li class="admin_nav_item logo"> 
+				<div class="logo1">&nbsp;MVTI&nbsp;</div>
+				<div class="logo2">&nbsp;MOVIE&nbsp;</div>
+			</li>
+			<li class="admin_nav_item cont1"><a class="main_header_btn yellow underline" style="color: white;"
+				href="./currentMovieList">영화</a></li>
+			
+			<li class="admin_nav_item cont3"><a class="main_header_btn yellow underline"style="color: white;"
+				href="/rlist">영화관후기</a></li>
+			<li class="admin_nav_item cont4"><a class="main_header_btn yellow underline menuitem_4_search_theater" style="color: white;"
+				href="pmvReviewFrm">영화관 찾기</a></li>
+			<li class="admin_nav_item cont5"><a class="main_header_btn yellow underline"
+				data-toggle="modal" data-target="#rsrvModal" data-movieCd=""  data-thcode=""  id="modal" style="text-decoration: none;">빠른예매</a></li>
 				
-					<a href="#" id="login_btn">로그인</a>
-					<a href="#">회원가입</a>
+				<li><div id="login_before">
+				
+					<a href="#" id="login_btn" style="color: white;">로그인/</a>
+					<a href="#" style="color: white;">회원가입</a>
 				</div>
 				<div id="login_after">
 				<a style= "color: white;" class="mypage" href="./mypage">MYpage</a>
 					<a href="#" id="userName"></a>
 					<a href="./logout">로그아웃</a>
-				</div>
-			</div>
-		</div>
-		<div id="header_bottom">
-			<ol>
-				<li><a href="./currentMovieList">영화</a></li>
-				<li><a href="theater_detail">영화관</a></li>
-				<li><a href="/rlist">영화관후기</a></li>
-				<li><a href="#" class="menuitem_4_search_theater">영화관찾기</a></li>
-				<li><a href="#">이벤트</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#rsrvModal" data-movieCd=""  data-thcode=""  id="modal">빠른예매</a></li>
-			</ol>
-		</div>
-	</div>
-</div>
+				</div></li>
 
-<!-- 로그인 창 -->
+		</ul>
+
+	</div>
+	<!-- 로그인 창 -->
 <div id="login_bg">
 	<div id="login_box">
 		<div class="login_box_header">
@@ -122,7 +209,10 @@ $(document).ready(function(){
 		<jsp:include page="main_search_theater.jsp"></jsp:include>
 		</div>
 	
+	
 
+
+</body>
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script src="resource/js/bootstrap.bundle.js"></script>
 <script type="text/javascript"  src="resource/js/rsrv.js"></script>
@@ -180,3 +270,4 @@ if(userInfo != "") {
 
 
 </script>
+</html>

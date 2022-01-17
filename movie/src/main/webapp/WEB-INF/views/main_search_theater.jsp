@@ -9,10 +9,15 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 부트스트랩 css CDN -->
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
 	integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
 	crossorigin="anonymous">
+	<!--  jQuery -->
+	<script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="resources/js/search_theater.js"></script>
+
 <title>Document</title>
 
 <style>
@@ -159,183 +164,25 @@
 				</ul>
 				<div class="local_result">
 					<ul>
+					<!--
+					
 					<c:forEach var="thCList" items="${thCodeList}">
-						<li><a href="./theaterinsert1?th_code=${thCList.th_code}">${thCList.th_name}</a></li>
+						<li><a href="./theaterDetailPage?th_code=${thCList.th_code}">${thCList.th_name}</a></li>
 						</c:forEach>
-						<!-- 
-						
-						<li><a href="./theaterinsert1?th_code=2">광주독립영화관</a></li>
-						<li><a href="./theaterinsert1?th_code=3">더솔아트시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
-						<li><a href="./theaterinsert?th_code=3">씨네아트 리홈</a></li>
-						<li><a href="./theaterinsert?th_code=3">아트하우스모모</a></li>
-						<li><a href="./theaterinsert?th_code=3">인도중앙시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">오오극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">인디플러스 포항</a></li>
-						<li><a href="./theaterinsert?th_code=3">인디플러스 천안</a></li>
-						<li><a href="./theaterinsert?th_code=3">인천 미림극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">광주디지털독립영화관</a></li>
-						<li><a href="./theaterinsert?th_code=3">판타스틱큐</a></li>
-						<li><a href="./theaterinsert?th_code=3">필름포럼</a></li>
-						
-						
-						 -->
+					
+					
+					  -->
+					
 						
 					</ul>
 				</div>
-				<!-- 
-				
-				<div class="local_result">
-					<ul>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
-						<li><a href="./theaterinsert?th_code=3">아트하우스모모</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈중앙시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-
-					</ul>
-				</div>
-				<div class="local_result">
-					<ul>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-
-					</ul>
-				</div>
-				<div class="local_result">
-					<ul>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-
-					</ul>
-				</div>
-				<div class="local_result">
-					<ul>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-
-					</ul>
-				</div>
-				<div class="local_result">
-					<ul>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-
-					</ul>
-				</div>
-				<div class="local_result">
-					<ul>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-
-					</ul>
-				</div>
-				<div class="local_result">
-					<ul>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-
-					</ul>
-				</div>
-				<div class="local_result">
-					<ul>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-
-					</ul>
-				</div>
-				<div class="local_result">
-					<ul>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈독립영화관</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">동성아트홀</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈아트 리홈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈</a></li>
-						<li><a href="./theaterinsert?th_code=3">에무시네마</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-						<li><a href="./theaterinsert?th_code=3">세훈극장</a></li>
-
-					</ul>
-				</div>
-				
-				 -->
 				
 				
 			</div>
 		</div>
 	</div>
 </body>
+<!-- jQuery Cdn -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>

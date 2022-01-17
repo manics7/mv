@@ -240,4 +240,20 @@ public class BusinessController {
 		return view;
 	}
 	
+	//이벤트 관리 페이지 이동
+	@GetMapping("eventList")
+	public ModelAndView eventList() {
+		mv = buServ.getEventList();
+
+		return mv;
+	}
+	
+	//이벤트 등록 페이지 이동
+	@GetMapping("eventInsertFrm")
+	public ModelAndView eventInsertFrm() {
+		mv = buServ.eventInsertFrm();
+
+		return mv;
+	}
+	
 } // class end
