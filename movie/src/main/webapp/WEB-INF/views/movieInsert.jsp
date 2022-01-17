@@ -51,12 +51,12 @@
 						<option value="15">15세 이상</option>
 						<option value="18">청소년 관람불가</option>
 					</select>
-					<input type="text" readonly="readonly" id="upload-name" value="포스터 선택">
+					<input type="text" readonly="readonly" class="upload-name" value="포스터 선택">
 					<br>
 					<!-- 파일 처리 영역 -->
-					<input type="file" name="moviePoster" id="posterFile">
+					<input type="file" name="poster" id="file">
 					
-					<input type="hidden" id="fileCheck" value="0" name="fileUp">
+					<input type="hidden" id="filecheck" value="0" name="fileCheck">
 					<br>
 					<input type="submit" value="영화등록">
 				</form>
@@ -82,9 +82,8 @@
 	<script src="resource/js/jquery-3.6.0.min.js"></script>
 	<script src="resource/js/jquery.serializeObject.js"></script>
 	<script type="text/javascript">
-	
-	$(document).ready(function(){
 		
+	$(document).ready(function() {
 		var msg = "${msg}";
 		if(msg != "") {
 			alert(msg);
@@ -146,44 +145,42 @@
 			
 			var movieCd = $(td).eq(0).attr("movieCd");
 			var movieNm = $(td).eq(1).attr("movieNm");
-			var repGenreNm = $(td).eq(2).attr("repGenreNm");
-			var openDt = $(td).eq(3).attr("openDt");
-			var genreAlt = $(td).eq(4).attr("genreAlt");
+// 			var repGenreNm = $(td).eq(2).attr("repGenreNm");
+			var openDt = $(td).eq(2).attr("openDt");
+			var genreAlt = $(td).eq(3).attr("genreAlt");
 			//폼의 input 에 저장
 			$("#Cd").val(movieCd);
 			$("#Nm").val(movieNm);
-			$("#Genre").val(repGenreNm);
+// 			$("#Genre").val(repGenreNm);
 			$("#Dt").val(openDt);
 			$("#GN").val(genreAlt);
 			
 		});		
 		
 		// 업로드할 파일을 선택하면 upload-name요소에 파일 이름 출력, file
-		$("#posterFile").on("change", function() {
+		$("#file").on("change", function() {
 			// 파일 목록 가져오기
-			var fileUpload = $("#posterFile")
-			console.log(fileUpload);
+			var files = $("#file")[0].files;
+			console.log(files);
 			
 			var fileName = "";
 			
-			if(fileUpload.length == 1) {
-				fileName = fileUpload.name
+			if(files.length == 1) {
+				fileName = files[0].name;
 			}
 			
-			$("#upload-name").val(fileName);
+			$(".upload-name").val(fileName);
 			
 			// 파일 취소 시
 			if(fileName == "") {
 				$("#fileCheck").val(0);
-				$("#upload-name").val("포스터 선택")
+				$(".upload-name").val("포스터 선택");
 			}
 			// 파일 선택 시
 			else {
 				$("#fileCheck").val(1);
-				$("#upload-name").val(fileName);
 			}
-		});
-		
+		});		
 	});
 
 	</script>
