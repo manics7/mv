@@ -8,6 +8,10 @@
 <script type="text/javascript"  src="resource/js/rsrv.js"></script>
 <style type="text/css">
 
+::-webkit-scrollbar { width: 5px;  height: 5px; /*스크롤바의 너비*/ } 
+::-webkit-scrollbar-track {background: #efefef; -webkit-border-radius: 10px; border-radius:10px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2)}
+::-webkit-scrollbar-thumb {height: 50px; width: 50px; background: rgba(0,0,0,.2); -webkit-border-radius: 8px; border-radius: 8px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.1)}
+
 .btn-warning {background-color: #f16a19; color: white; border: none;}
 .btn-warning:hover {background-color: #f16a19; color: white; cursor: pointer; border: none;}
 .btn-warning:not(:hover) {background-color: #f16a19; color: white; border: none;}
@@ -115,7 +119,9 @@ width: 45px;
 #mask {  
   position:absolute;  
   left:0;
-  top:0;
+    top:0;  
+  //width:765px;
+  //height:637px;
   z-index:9000;  
   background-color:#000;  
   display:none;  

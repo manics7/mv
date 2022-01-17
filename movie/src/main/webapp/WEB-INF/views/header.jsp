@@ -63,7 +63,7 @@ $(document).ready(function(){
 				<li><a href="/rlist">영화관후기</a></li>
 				<li><a href="#" class="menuitem_4_search_theater">영화관찾기</a></li>
 				<li><a href="#">이벤트</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#rsrvModal" data-movieCd="127"  data-thcode="1"  data-id="100" id="modal">빠른예매</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#rsrvModal" data-movieCd=""  data-thcode=""  id="modal">빠른예매</a></li>
 			</ol>
 		</div>
 	</div>
