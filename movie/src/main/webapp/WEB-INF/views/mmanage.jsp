@@ -190,6 +190,9 @@
 	}
  
  
+ 
+ 
+ /*
  function deletemember(m_id) {
 	 var m_id = m_id;
 	 swal({

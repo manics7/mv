@@ -113,9 +113,26 @@ var fnObj = {
 
 <footer> </footer>
 
+
+<!--  nav  -->
+<nav style="padding-top: 35px; padding-bottom: 35px; background: black;">
+<jsp:include page="../admin_header.jsp"></jsp:include>
+</nav>
+<!--  /nav  -->
+
+
+<!--  1차 wrap  -->
+<div class="main_wrap" style="width: 100%; margin-top: 60px;">
+<div class="cotainer_wrap" style="display: flex; justify-content: space-around; margin-top: 60px; width: 1024px; margin: 0 auto;" >
+ <div class="cont_sidebar">
+                <jsp:include page="../adminpage_sidebar.jsp"/>
+                </div>
+
+
 <div class="container">
-	<h2>공지사항</h2>
-		<div>
+	
+		<div style="display: flex; justify-content:space-between; ">
+		<h4>공지사항</h4>
 		총 건수 : <span>${total}</span>
 	</div>
 	<form class="form-inline d-flex justify-content-end" method="GET"
@@ -146,6 +163,13 @@ var fnObj = {
 		<ul id="paging" class="pagination justify-content-center"></ul>
 	</nav>
 	
+
+</div>
+
+
+
+</div>
+
 
 </div>
 
