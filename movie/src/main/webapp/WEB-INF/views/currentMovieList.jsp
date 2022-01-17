@@ -11,19 +11,26 @@
 <link rel="stylesheet" type="text/css" href="resource/css/currentMovieList.css">
 </head>
 <body>
-	
-	<jsp:include page="header.jsp"></jsp:include>
+
 	
 	<div id="section_wrap">
-		<div id="titleMovieList">
-			<div class="title">
+		<div class="header_wrap" style="width:100%; background: black;">
+	<nav style="width:1024px; margin: 0 auto;" >
+	<jsp:include page="main_header.jsp"></jsp:include>
+	</nav>
+	
+	</div>
+	
+	
+				<h2 class="currentMovieTitle">
 				현재상영작
-			</div>
-		</div>
+				</h2> 
 		<div id="main_wrap">
+		
 			<div id="movie_wrap">
 				<div id="current_movieList">
 					<ol id="movie_list">
+					<h2 style="text-align: center; font-size: 30px; padding-bottom: 50px;">현재 상영작</h2>
 						<c:forEach var="movieList" items="${movieList }">
 							<li class="movie-list">
 								<div class="poster_contain">

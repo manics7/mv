@@ -37,6 +37,12 @@ background: transparent;
 color: black;
 
 }
+
+.header_btn1:hover{
+background: #f16a1a;
+color: white;
+}
+
 	
 	
 	
@@ -158,8 +164,8 @@ color: black;
 					<div class="main_btn_wrap">
 						<div class="main_btn">
 							<button class="header_btn1">영화관홈</button>
-							<button class="header_btn1">예매하기</button>
-							<button class="header_btn1">상영시간표</button>
+							<button data-toggle="modal" data-target="#rsrvModal" data-movieCd=""  data-thcode=""  id="modal" style="text-decoration: none;" class="header_btn1 reserBtn">예매하기</button>
+							<button class="header_btn1 scheduleBtn">상영시간표</button>
 						</div>
 					</div>
 				</div>
@@ -252,7 +258,7 @@ color: black;
 	</div>
 
 	<div class="screening_schedule_wrap">
-		<section class="screening_schedule">
+		<section id="reserSchedule" class="screening_schedule">
 			<!--부트스트랩으로 py5라고 있었음.-->
 			<a class="cinema_timetable">
 				<h2>상영시간표</h2>
@@ -377,26 +383,23 @@ color: black;
 		<section class="cenema_pic">
 			<!-- <div class="img_box1_wrap"></div> -->
 			<div class="img_box box1">
-				<img src="/imges/cinema_pic1.jpg" alt=""> <a href="#">1관
+				<img src="${theatedetail[0].theater.th_image1}" alt=""> <a href="#">${theatedetail[0].theater.thName}
 					상영관</a>
 			</div>
 			<div class="img_box box2">
-				<img src="/imges/cinema_pic2.jpg" alt=""> <a href="#">1관
+				<img src="${theatedetail[0].theater.th_image2}" alt=""> <a href="#">1관
 					상영관</a>
 			</div>
 			<div class="img_box box3">
-				<img src="/imges/cinema_pic3.jpg" alt=""> <a href="#">1관
+				<img src="${theatedetail[0].theater.th_image2}" alt=""> <a href="#">1관
 					상영관</a>
 			</div>
 		</section>
 	</div>
 
 	<!-- Footer-->
-	<footer class="py-5 bg-dark">
-		<div class="container">
-			<p class="m-0 text-center text-white">Copyright &copy; Your
-				Website 2021</p>
-		</div>
+	<footer class="py-5">
+			<jsp:include page="footer.jsp"></jsp:include>
 	</footer>
 	<!-- Bootstrap core JS-->
 	
@@ -404,6 +407,32 @@ color: black;
 
 </body>
 <script type="text/javascript">
+
+//scroll to id functionization
+function scrollIntoView(selector) {
+  const scrollTo = document.querySelector(selector);
+  scrollTo.scrollIntoView({ behavior: 'smooth' });
+}
+
+//Handle click on "contac me" button on home
+const goToSchedule = document.querySelector('.scheduleBtn');
+goToSchedule.addEventListener('click', (event) => {
+  scrollIntoView('#reserSchedule');
+});
+
+$(document).ready(function($) {
+
+    $(".scheduleBtn").click(function(event){         
+
+            event.preventDefault();
+
+            $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
+
+    });
+
+});
+
+
 
 $(document).ready(function(){
 	
