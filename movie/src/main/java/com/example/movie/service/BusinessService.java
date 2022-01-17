@@ -697,6 +697,8 @@ public class BusinessService {
 				th_code=0;
 			}
 			if(th_code != 0) {
+				
+				movieDto.setTh_code(th_code);
 				buMapper.movieInsertProc(movieDto);
 				
 				view = "redirect:businessPage";
