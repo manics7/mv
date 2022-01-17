@@ -23,7 +23,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +32,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.common.AwsS3;
-import com.example.movie.dto.BoardDto;
 import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.EventDto;
 import com.example.movie.dto.MovieDto;
@@ -53,7 +51,6 @@ import com.example.movie.repository.ScheduleDetailRepository;
 import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.repository.TempMovieRepository;
 import com.example.movie.utill.PagingUtil;
-import com.example.movie.utill.PagingUtil2;
 
 @Service
 public class BusinessService {
@@ -76,7 +73,7 @@ public class BusinessService {
 
 	@Autowired
 	ScheduleDetailRepository scheduleDetailRepository;
-
+	
 	@Value("${aws.s3.bucket}")
 	private String bucket;
 
@@ -556,7 +553,7 @@ public class BusinessService {
 		//상영관
 		List<RoomDto> roomList = new ArrayList<RoomDto>();
 		
-		roomList = buMapper.getRoomInfoList();
+		roomList = buMapper.getRoomInfoList(theaterList.get(0).getTh_code());
 		
 		mv.addObject("movieList", movieList);
 		mv.addObject("roomList", roomList);
@@ -568,9 +565,11 @@ public class BusinessService {
 	}
 	
 	//상영시간표 등록
+	@Transactional
 	public String testInsert(Date roomStartTime, Date roomEndTime, Integer thcode, 
-			String[] mvcode, Integer room, String mvdate, String wait) {
-
+			List<String> mvcode, Integer room, String mvdate, String wait) {
+		
+		
 		//상영관 시작 시간을 date에서 calendar로 변환
 		Calendar startCalendar = Calendar.getInstance();		
 		startCalendar.setTime(roomStartTime);
@@ -582,14 +581,15 @@ public class BusinessService {
 		Calendar movieEndCalendar = Calendar.getInstance();
 		movieEndCalendar.setTime(roomStartTime);
 
-		for(int i = 0; i < mvcode.length; i++) {
+		for(int i = 0; i < mvcode.size(); i++) {
 			//영화코드(숫자)를 받은 변수 mvcd
-			String mvcd = mvcode[i];
+			String mvcd = mvcode.get(i);
 
 			//받아온 영화코드로 관리자가 등록한 영화 테이블 내용 검색
 			Optional<MovieOfficial> mv = movieOfficialRepository.findById(mvcd);
 			
 			if(mv.isPresent()) {
+				
 				//받아 온 상영날짜를 date 형태로 변환
 				SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
 				Date movieDate;
@@ -599,14 +599,22 @@ public class BusinessService {
 					//대기 시간
 					int waittingTime;
 					waittingTime = Integer.parseInt(wait);
-
-					//상영시간표 dto에 넣음
+					
 					Schedule schedule = new Schedule();
-					schedule.setMovieCd(mv.get().getMovieCd());//영화코드
-					schedule.setThCode(thcode);//영화관코드
-					schedule.setRoomNo(room);//상영관 번호
-					schedule.setSchDate(movieDate);//상영날짜
-					schedule.setSchTime(waittingTime);//상영 전 대기시간
+					
+					Optional<Schedule> schOpt = Optional.ofNullable(scheduleRepository.findByMovieCdAndThCodeAndRoomNoAndSchDate(mvcd, thcode, room, movieDate));
+					if(schOpt.isEmpty()) {
+						//상영시간표 dto에 넣음
+						
+						schedule.setMovieCd(mv.get().getMovieCd());//영화코드
+						schedule.setThCode(thcode);//영화관코드
+						schedule.setRoomNo(room);//상영관 번호
+						schedule.setSchDate(movieDate);//상영날짜
+						schedule.setSchTime(waittingTime);//상영 전 대기시간
+					}else {
+						schedule= schOpt.get();
+					}
+					
 
 					//영화 러닝타임 가져옴
 					int runningTime = mv.get().getShowTm();
@@ -621,25 +629,28 @@ public class BusinessService {
 					if(movieEndCalendar.before(endCalendar)) {
 
 						//상영시간표를 db에 넣기
-						scheduleRepository.save(schedule);
+						scheduleRepository.save(schedule);		
 						
-						//영화 종료 시간을 calendar에서 date로
-						Date movieEndTime = new Date(movieEndCalendar.getTimeInMillis());
-						//영화 시작 시간을 calendar에서 date로
-						Date movieStartTime = new Date(startCalendar.getTimeInMillis());
-						//상영시간표 상세
-						ScheduleDetail scheduleDetail = new ScheduleDetail();
+						//Optional<List<ScheduleDetail>> detailOpt	= Optional.ofNullable(scheduleDetailRepository.findBySchCode(schedule.getSchCode()))							
+							
+												
+							//영화 종료 시간을 calendar에서 date로
+							Date movieEndTime = new Date(movieEndCalendar.getTimeInMillis());
+							//영화 시작 시간을 calendar에서 date로
+							Date movieStartTime = new Date(startCalendar.getTimeInMillis());
+							//상영시간표 상세
+							ScheduleDetail scheduleDetail = new ScheduleDetail();
 
-						scheduleDetail.setSchCode(schedule.getSchCode());//상영시간표 키
-						scheduleDetail.setSchDetailStart(movieStartTime);//영화 시작 시간
-						scheduleDetail.setSchDetailEnd(movieEndTime);//영화 종료 시간
+							scheduleDetail.setSchCode(schedule.getSchCode());//상영시간표 키
+							scheduleDetail.setSchDetailStart(movieStartTime);//영화 시작 시간
+							scheduleDetail.setSchDetailEnd(movieEndTime);//영화 종료 시간
 
-						//상영시간표 상세를 db에 넣기
-						scheduleDetailRepository.save(scheduleDetail);
+							//상영시간표 상세를 db에 넣기
+							scheduleDetailRepository.save(scheduleDetail);
 
-						//영화 시작 시간 = 저번 영화 시간 + (러닝 타임 + 휴식 시간)
-						movieEndCalendar.add(Calendar.MINUTE, waittingTime);
-						startCalendar.add(Calendar.MINUTE, realTime);
+							//영화 시작 시간 = 저번 영화 시간 + (러닝 타임 + 휴식 시간)
+							movieEndCalendar.add(Calendar.MINUTE, waittingTime);
+							startCalendar.add(Calendar.MINUTE, realTime);
 
 					}
 				} catch (ParseException e) {
@@ -702,17 +713,21 @@ public class BusinessService {
 		List<ScheduleDto> roomNoList = new ArrayList<ScheduleDto>();
 		List<RoomDto> scheduleRoomList = new ArrayList<RoomDto>();
 		List<RoomDto> roomList = new ArrayList<RoomDto>();		
-		
+	
 		for(int a = 0; a < scheduleCode.size(); a++) {
 			ScheduleDto codeDto = scheduleCode.get(a);
 			int schCode = codeDto.getSch_code();
 			
 			//상영관 번호, 상영관명, 상영관 종류
 			roomNoList = buMapper.getRoomCode(schCode);
-			ScheduleDto roomNoDto = roomNoList.get(0);
-			int roomNo = roomNoDto.getRoom_no();
-			RoomDto rodto = buMapper.getScheduleRoomList(roomNo);
-			scheduleRoomList.add(rodto);
+			for (int i = 0; i < roomNoList.size(); i++) {
+				ScheduleDto roomNoDto = roomNoList.get(i);
+				int roomNo = roomNoDto.getRoom_no();
+				int thCode = codeDto.getTh_code();
+				RoomDto rodto = buMapper.getScheduleRoomList(thCode, roomNo);
+				scheduleRoomList.add(rodto);
+			}
+			
 			
 			//영화 코드
 			movieCodeList = buMapper.getMovieCode(schCode);

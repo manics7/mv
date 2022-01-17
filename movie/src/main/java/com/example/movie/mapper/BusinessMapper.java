@@ -53,7 +53,7 @@ public interface BusinessMapper  extends MybatisMapper {
 	public List<MovieOfficialDto> getMovieNameList(String movie_cd);
 	
 	//상영관 번호, 상영관명, 상영관 종류 검색
-	public RoomDto getScheduleRoomList(Integer room_no);
+	public RoomDto getScheduleRoomList(Integer th_code, Integer room_no);
 	
 	//상영관 코드 검색
 	public List<ScheduleDto> getRoomCode(Integer sch_code);
@@ -68,7 +68,7 @@ public interface BusinessMapper  extends MybatisMapper {
 	public List<RoomDto> getRoomClassList(Integer th_code);
 	
 	//상영관 검색(전체)
-	public List<RoomDto> getRoomInfoList();
+	public List<RoomDto> getRoomInfoList(Integer th_code);
 	
 	//상영시간표 정보 검색
 	public List<ScheduleDto> getScheduleList();
