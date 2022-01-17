@@ -65,7 +65,6 @@ $(document).ready(function() {
 								<a class="btn_nomal" style="background: #f16a1a; color: white;"
 									href="./mvrreportFrm">영화리뷰신고</a> 
 									<a href="boardreportFrm" class="btn_nomal">게시글신고</a> 
-									<a class="busbtn" href="replyreportFrm">댓글신고</a>
 							</div>
 
 
