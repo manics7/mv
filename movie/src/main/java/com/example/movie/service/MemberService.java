@@ -13,6 +13,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.example.movie.dto.quesboardDto;
+
+import com.example.movie.mapper.AdminMapper;
+import com.example.movie.mapper.BusinessMapper;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
@@ -22,9 +36,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.MovieOfficialDto;
-import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.SsdscheduleDto;
 import com.example.movie.dto.TheaterDto;
@@ -39,6 +53,15 @@ import com.example.movie.entity.Schedule;
 import com.example.movie.entity.ScheduleDetail;
 import com.example.movie.entity.Theater;
 import com.example.movie.mapper.AdminMapper;
+import com.example.movie.dto.QuestionDto;
+import com.example.movie.dto.mvReviewDto;
+import com.example.movie.dto.paymentDto;
+import com.example.movie.dto.reservationDto;
+import com.example.movie.entity.MovieOfficial;
+import com.example.movie.entity.Room;
+import com.example.movie.entity.Schedule;
+import com.example.movie.entity.ScheduleDetail;
+import com.example.movie.entity.Theater;
 import com.example.movie.mapper.MemberMapper;
 import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ReservationRepositoryCustom;
@@ -324,7 +347,7 @@ public class MemberService {
 	}
 
 	//마이페이지 예매/결제 내역 출력.
-	public ModelAndView selectPurchase (Integer pageNum, int listCnt, String View) {
+/*	public ModelAndView selectPurchase (Integer pageNum, int listCnt, String View) {
 
 		int num = (pageNum == null)? 1 : pageNum;
 
@@ -334,13 +357,117 @@ public class MemberService {
 		MemberDto member = (MemberDto)session.getAttribute("userInfo");
 		String id = member.getM_id();
 
-		//마이페이지에 출력할 것이므로 ...가져온 id에맞는 예매한 예매리스트
-		List<reservationDto> rsrvList = mMapper.selectRsrvByid(id);
 
+<<<<<<< HEAD
+		//마이페이지에 출력할 것이므로 ...가져온 id에맞는 예매한 예매리스트
+<<<<<<< HEAD
+		List<reservationDto> rsrvList = mDao.selectRsrvByid(id);
+		List<Integer> rsrvnoList = new ArrayList<Integer>();
+		
+		//예매리스트에서 예매번호만 따로 리스트로 만듦
+		for(int i = 0; i <= rsrvList.size()-1; i++) {
+=======
+		List<reservationDto> rsrvList = mMapper.selectRsrvByid(id);
+>>>>>>> refs/heads/master
+
+<<<<<<< HEAD
+			reservationDto rsrvDto = rsrvList.get(i);
+			int rsrvno = rsrvDto.getRsrv_no();
+
+			rsrvnoList.add(rsrvno);
+		}
+		//결제내역 리스트
+		List<paymentDto> apList = new ArrayList<paymentDto>();
+
+	//결제내역 테이블에 mid가 없어서.. id로 가져온 예매번호들로 결제내역들가져옴
+		for(int i = 0; i <= rsrvnoList.size()-1; i++) {
+
+			int rsrvno = rsrvnoList.get(i);
+
+			paymentDto pDto = mDao.selectPaymentByRsrvno(rsrvno);
+
+			apList.add(pDto);
+
+		}
+		
+		//결제 취소 tid내역 리스트
+		List<String> acpList = new ArrayList<String>();
+
+		for(int i = 0; i <= apList.size()-1; i++) {
+
+			paymentDto pDto = apList.get(i);
+
+			String tid = pDto.getTid();
+
+			String ctid = mDao.selectPaymentCancel(tid);
+
+			if(ctid != null) {
+				acpList.add(ctid);
+			}
+		}
+
+	
+	if(View.equals("purchaseFrm")) {//결제내역 페이지 에서 호출했을경우
+	
+//id에맞는 예매번호, 그 예매번호에 맞는 결제리스트에서 취소된 결제내역은 리스트에서 삭제후 저장
+		for(int i = 0; i <= apList.size()-1; i++) {
+
+			paymentDto pDto = apList.get(i);
+			
+			String tid = pDto.getTid();
+
+			for(int j = 0; j <= acpList.size()-1; j++) {
+
+				String ctid = acpList.get(j);
+
+				if(tid.equals(ctid)) {
+					apList.remove(i);
+=======
+		if(View.equals("purchaseFrm")) {//결제내역 페이지 에서 호출했을경우
+
+			//id에맞는취소된 예매내역은 리스트에서 삭제후 저장
+			for(int i = 0; i <= rsrvList.size()-1; i++) {
+
+				reservationDto rsrvDto = rsrvList.get(i);
+
+				int state = rsrvDto.getRsrv_status();
+				//결제취소 == state 1, 1일경우 출력할 리스트에서 제거
+				if(state == 1) {
+					rsrvList.remove(i);
+>>>>>>> refs/heads/master
+					i--;
+				}
+			}
+		}
+	}
+	else {//결제 취소페이지에서 호출했을 경우
+		
+		//가져온 결제내역 apList 복사
+		List<paymentDto>ap1List = apList;
+		
+		//apList 초기화
+		apList = new ArrayList<paymentDto>();
+		
+//결제내역 tid 가 취소내역tid에 있을경우(일치할경우) apList에 추가 후 저장
+		for(int i = 0; i <= ap1List.size()-1; i++) {
+=======
 		
 		if(View.equals("purchaseCancelFrm")) {//결제취소페이지 호출
 			for(int i = 0; i < rsrvList.size(); i++) {
+>>>>>>> refs/heads/master
 
+<<<<<<< HEAD
+			paymentDto pDto = ap1List.get(i);
+			
+			String tid = pDto.getTid();
+
+			for(int j = 0; j <= acpList.size()-1; j++) {
+
+				String ctid = acpList.get(j);
+
+				if(tid.equals(ctid)) {
+					apList.add(pDto);
+=======
 				reservationDto rsrvDto = rsrvList.get(i);
 
 				int state = rsrvDto.getRsrv_status();
@@ -348,16 +475,62 @@ public class MemberService {
 				if(state == 0) {
 					rsrvList.remove(i);
 					i--;
+>>>>>>> refs/heads/master
 				}
 			}
 		}
+<<<<<<< HEAD
+<<<<<<< HEAD
+	}
+
+		List<mypagePaymentDto> mpList = new ArrayList<mypagePaymentDto>();
+
+		//극장이름,영화등을 함께 묶어서 출력하기위한 for문
+		for(int i = 0; i <= apList.size()-1; i++) {
+=======
+		if(!rsrvList.isEmpty()) {
+			//극장이름,영화등을 함께 묶어서 출력하기위한 for문
+			for(int i = 0; i <= rsrvList.size()-1; i++) {
+>>>>>>> refs/heads/master
+=======
 		else {//결제내역 페이지 에서 호출했을경우
 
 			//id에맞는취소된 예매내역은 리스트에서 삭제후 저장
 			for(int i = 0; i < rsrvList.size(); i++) {
+>>>>>>> refs/heads/master
 
+<<<<<<< HEAD
+			paymentDto pDto = apList.get(i);
+
+			mypagePaymentDto mpDto = new mypagePaymentDto();
+
+			//예매번호
+			String prsno = pDto.getRsrv_no();
+			//예매번호로 에매테이블에서 스케줄번호찾기
+			int schno = mDao.selectSchno(prsno);
+			//스케줄번호로 스케줄테이블에서 극장코드 찾기
+			int thcode = mDao.selectThcode(schno);
+			//극장코드로 극장테이블에서 출력할 극장이름 찾기
+			String thname = mDao.selectThname(thcode);
+			//스케줄번호로 스케줄테이블에서 무비코드 찾기
+			String mvcd = mDao.selectMoviecode(schno);
+			//무비코드로 출력할 영화이름찾기 
+			String mvname = mDao.selectMovieName(mvcd);
+=======
 				reservationDto rsrvDto = rsrvList.get(i);
+>>>>>>> refs/heads/master
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+			mpDto.setMvname(mvname);
+			mpDto.setThname(thname);
+			mpDto.setAmount(pDto.getAmount());
+			mpDto.setApproved_at(pDto.getApproved_at());
+			mpDto.setRsrv_no(prsno);
+
+			mpList.add(mpDto);
+=======
+=======
 				int state = rsrvDto.getRsrv_status();
 				//결제취소 == state 1, 1일경우 출력할 리스트에서 제거
 				if(state == 1) {
@@ -373,6 +546,7 @@ public class MemberService {
 				reservationDto rsrvDto = rsrvList.get(i);
 				reservationDto schDate = new reservationDto();
 
+>>>>>>> refs/heads/master
 				//예매번호로 에매테이블에서 스케줄번호찾기
 				int schno = rsrvDto.getSch_code();
 				//스케줄번호로 스케줄테이블에서 극장코드 찾기
@@ -395,14 +569,20 @@ public class MemberService {
 				rsrvList.add(i,rsrvDto);
 
 			}
+>>>>>>> refs/heads/master
 		}
 		//전체 글 갯수
-		int maxNum = rsrvList.size();
+		int maxNum = mpList.size();
 		//옮길 리스트
-		List<reservationDto> rsrvPList = new ArrayList<reservationDto>();
+		List<mypagePaymentDto> nmpList = new ArrayList<mypagePaymentDto>();
 		//가져온 리스트가 있을때만 페이징처리
+<<<<<<< HEAD
+		if(!mpList.isEmpty()) {
+			
+=======
 		if(!rsrvList.isEmpty()) {
 
+>>>>>>> refs/heads/master
 			//삭제해야할 리스트 갯수.. (현재 페이지말고 앞의 페이지 갯수 * 페이지별 게시글 수)
 			int page = (num -1) * listCnt;
 
@@ -420,27 +600,32 @@ public class MemberService {
 
 				int j=0;
 				//0번째 값 삭제로 고정
-				rsrvList.remove(j);
+				mpList.remove(j);
 			}
 
 
 			for(int i = 0; i <= list; i++) {
 				//nmpList로 옮기고 저장
-				if(rsrvList.size() <= list) {
+				if(mpList.size() <= list) {
 
+<<<<<<< HEAD
+					list = mpList.size()-1;
+			//size가 출력해야할list보다 작으면 그만큼만 출력하도록 함 안할시 오류뜸  
+=======
 					list = rsrvList.size()-1;
 					//size가 출력해야할list보다 작으면 그만큼만 출력하도록 함 안할시 오류뜸  
+>>>>>>> refs/heads/master
 				}
-				reservationDto rsrvDto = rsrvList.get(i);
+				mypagePaymentDto mpd = mpList.get(i);
 
-				rsrvPList.add(rsrvDto);
+				nmpList.add(mpd);
 			}
 		}
 
-		mv.addObject("qList",rsrvPList);
+		mv.addObject("qList",nmpList);
 
 		//페이징 처리.
-		String pageHtml = getPaging1(num,listCnt,View,maxNum);
+		String pageHtml = getPaging(num,listCnt,View,maxNum);
 		mv.addObject("paging", pageHtml);
 
 		//세션에 페이지번호 저장
@@ -452,7 +637,7 @@ public class MemberService {
 		mv.setViewName(View);
 
 		return mv;
-	}
+	}*/
 
 	private int listCnt = 4;//페이지 당 게시글 개수
 	//회원 정보 출력을 위한 인출
@@ -711,11 +896,14 @@ public class MemberService {
 		String date= now.toString();	
 		LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));		
 		LocalDate lastDate= now.plusWeeks(2);//2주 마지막날
-
+		
 		Date startDate = java.sql.Date.valueOf(dateTime.toLocalDate());
 		Date endDate = java.sql.Date.valueOf(lastDate);
-
-
+		
+		//BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
+		//String bId = bDto.getB_id();
+		//int thCode = theaterRepository.findById(bId);
+		
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		List<Schedule> schduleList = scheduleRepository.findByThCodeAndSchDateBetween(thCode,startDate, endDate);
 		for(int i = 0; i < schduleList.size(); i++) {
@@ -723,34 +911,37 @@ public class MemberService {
 			Integer thcode = schduleList.get(i).getThCode();
 			Integer roomNo = schduleList.get(i).getRoomNo();
 			Integer schCode = schduleList.get(i).getSchCode();
-
+			
+			//영화 정보
 			Map<String, Object> map = new HashMap<String, Object>();
 			Optional<MovieOfficial> movieOfficialOpt = movieOfficialRepository.findById(movieCd);
 
 			Optional<Theater> theaterOpt = theaterRepository.findById(thCode);
 			Theater theater = theaterOpt.orElse(null);
+			//상영관 정보
 			Room room = roomRepository.findByThCodeAndRoomNo(thCode, roomNo);			
 			MovieOfficial movieOfficial = movieOfficialOpt.orElse(null);
-
+						
 			List<ScheduleDetail> scheduleDetail = scheduleDetailRepository.findBySchCode(schCode);
 			schduleList.get(i).setScheduleDetail(scheduleDetail);
-
+			
 			for(int j = 0; j < scheduleDetail.size(); j++) {
-				Integer schDetailSeq = scheduleDetail.get(j).getSchDetailSeq();
-
-				List<String> seatNo = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
-				scheduleDetail.get(j).setRsrvSeatCnt(seatNo.size());
-
+			Integer schDetailSeq = scheduleDetail.get(j).getSchDetailSeq();
+			
+			List<String> seatNo = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
+			scheduleDetail.get(j).setRsrvSeatCnt(seatNo.size());
+			
 			}
-			map.put("schedule", schduleList.get(i));
+			map.put("scheduleList", schduleList.get(i));
 			map.put("room", room);
 			map.put("movieOfficial", movieOfficial);
 			map.put("theater", theater);
 			list.add(map);
 		}
 		return list;
-
+		
 	}
+
 
 	public List<Map<String, Object>> getSchedule(Date schDate, Integer thCode) {
 		List<Schedule> schduleList = scheduleRepository.findByThCodeAndSchDate(thCode,schDate);
