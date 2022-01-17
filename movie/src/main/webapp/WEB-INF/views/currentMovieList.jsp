@@ -68,7 +68,7 @@
 									<fmt:formatDate value="${movieList.open_dt }" pattern="yyyy.MM.dd"/> 
 								</div>
 								<div class="btn_box">
-									<button>
+									<button data-toggle="modal" data-target="#rsrvModal" data-movieCd="${movieList.movie_cd }" id="modal" style="cursor: pointer;">
 										예매
 									</button>
 								</div>
@@ -87,11 +87,11 @@
 	<script src="resource/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 	
-		$(".poster_box").hover(function() {
-			$(this).next().css("display", "flex");
-		}, function() {
-			$(this).next().css("display", "none");
-		})
+// 		$(".poster_box").hover(function() {
+// 			$(this).next().css("display", "flex");
+// 		}, function() {
+// 			$(this).next().css("display", "none");
+// 		})
 		
 	</script>
 

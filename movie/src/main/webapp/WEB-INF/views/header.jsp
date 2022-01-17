@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
 <link rel="stylesheet" type="text/css" href="resource/css/hf.css">
 <script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -34,8 +33,6 @@ $(document).ready(function(){
 
 
 </script>
-
-
 
 <div id="header_wrap">
 	<div class="contain_wrap">
@@ -90,10 +87,13 @@ $(document).ready(function(){
 		<form action="./loginProc" method="post">
 			<div id="user_tap" class="login_tap">
 				<div class="login_wrap">
-					<input class="login_input" placeholder="아이디" name="m_id">
+					<input class="login_input" placeholder="회원 아이디" name="m_id">
 					<input class="login_input" placeholder="비밀번호" type="password" name="m_pw">
-					<button class="login_button">로그인</button>
+					<button class="login_button">로그인</button><br>
 					<a>아이디/비밀번호 찾기</a> &nbsp;|&nbsp; <a href="./joinFrm">회원가입</a>
+				</div>
+				<div>
+					<img alt="" src="https://www.indieartcinema.com/assets/img/saveourcinema.jpg">
 				</div>
 				<!-- name = Dto와 이름을 같이 -->
 			</div>
@@ -101,10 +101,13 @@ $(document).ready(function(){
 		<form action="./bu_loginProc" method="post">
 			<div id="business_tap" class="login_tap">
 				<div class="login_wrap">
-					<input class="login_input" placeholder="아이디" name="b_id">
+					<input class="login_input" placeholder="사업자 아이디" name="b_id">
 					<input class="login_input" placeholder="비밀번호" type="password" name="b_pw">
-					<button class="login_button">로그인</button>
+					<button class="login_button">로그인</button><br>
 					<a>아이디/비밀번호 찾기</a> &nbsp;|&nbsp; <a href="./bu_joinFrm">회원가입</a>
+				</div>
+				<div>
+					<img alt="" src="https://www.indieartcinema.com/assets/img/saveourcinema.jpg">
 				</div>
 			</div>
 		</form>
@@ -136,7 +139,7 @@ $(".close_btn").click(function() {
 
 // 이용자, 사업자 클릭시 탭 이동
 $("#type_user").click(function() {
-	$("#user_tap").css("display", "inline-block");
+	$("#user_tap").css("display", "flex");
 	$("#type_user").css("border-bottom", "2px solid #f16a1a");
 	$("#business_tap").css("display", "none");
 	$("#type_business").css("border-bottom", "2px solid #717171");
@@ -144,7 +147,7 @@ $("#type_user").click(function() {
 $("#type_business").click(function() {
 	$("#user_tap").css("display", "none");
 	$("#type_user").css("border-bottom", "2px solid #717171");
-	$("#business_tap").css("display", "inline-block");
+	$("#business_tap").css("display", "flex");
 	$("#type_business").css("border-bottom", "2px solid #f16a1a");
 });
 

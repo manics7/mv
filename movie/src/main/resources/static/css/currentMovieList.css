@@ -88,9 +88,10 @@ ol, ul, li {
 	width: 220px;
 	height: 310px;
 	margin-top: -310px;
-/* 	padding: 10px; */
 	display: none;
 	background-color: rgba(0, 0, 0, 0.6);
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .movieContent {
@@ -98,7 +99,6 @@ ol, ul, li {
 	flex-flow: column nowrap;
 	width: 220px;
 	height: 310px;
-/* 	margin-top: -310px; */
 	padding: 10px;
 	background-color: rgba(0, 0, 0, 0.6);
 }
@@ -135,8 +135,11 @@ ol, ul, li {
 
 .movieNm {
 	display: inline-block;
-	width: 170px;
+	width: 175px;
 	height: 25px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .movieOpenDt {
