@@ -339,7 +339,7 @@ public class AdminService {
 		}
 
 
-		String view = "adminMovieRequest";
+		String view = "adminMovieList";
 
 		String pageHtml = getPaging(num,listCnt,view,maxNum);
 		mv.addObject("paging", pageHtml);

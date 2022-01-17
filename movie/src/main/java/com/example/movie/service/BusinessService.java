@@ -654,7 +654,7 @@ public class BusinessService {
 		String actors = multi.getParameter("actors");
 		String show_types = multi.getParameter("show_types");
 		String watch_grade_nm = multi.getParameter("watch_grade_nm");
-		String check = multi.getParameter("fileUp");
+		String check = multi.getParameter("fileCheck");
 
 		MovieDto movieDto = new MovieDto();
 
@@ -673,7 +673,7 @@ public class BusinessService {
 			if(check.equals("1")) {
 
 				//로고 파일의 이름 가져오기
-				List<MultipartFile> posterFile = multi.getFiles("moviePoster");	
+				List<MultipartFile> posterFile = multi.getFiles("poster");	
 				List<String> posterName = awsS3.uploadFile(posterFile);
 
 				//로고 사진 파일이 있으면 파일 이름을 dto에 담기
@@ -697,6 +697,8 @@ public class BusinessService {
 				th_code=0;
 			}
 			if(th_code != 0) {
+				
+				movieDto.setTh_code(th_code);
 				buMapper.movieInsertProc(movieDto);
 				
 				view = "redirect:businessPage";
