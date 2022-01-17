@@ -425,6 +425,7 @@ public class AdminService {
 
 
 		String movie_content = multi.getParameter("movie_content");
+		movie_content = movie_content.replaceAll("\n", "<br>");
 
 		String check = multi.getParameter("filecheck");
 

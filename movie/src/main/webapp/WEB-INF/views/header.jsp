@@ -162,7 +162,6 @@ if(userInfo != "") {
 	$("#login_before").css("display", "none");
 	$(".mypage").css("display","inline-block");
 }
-
 	
 	$('.search_rayer').hide();
 	$('.menuitem_4_search_theater').mouseover(function(){

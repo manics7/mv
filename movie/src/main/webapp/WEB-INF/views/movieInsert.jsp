@@ -173,12 +173,12 @@
 			
 			// 파일 취소 시
 			if(fileName == "") {
-				$("#fileCheck").val(0);
+				$("#filecheck").val(0);
 				$(".upload-name").val("포스터 선택");
 			}
 			// 파일 선택 시
 			else {
-				$("#fileCheck").val(1);
+				$("#filecheck").val(1);
 			}
 		});		
 	});
