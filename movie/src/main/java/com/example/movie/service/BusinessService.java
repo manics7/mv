@@ -52,6 +52,8 @@ import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.repository.TempMovieRepository;
 import com.example.movie.utill.PagingUtil;
 
+import net.bytebuddy.agent.builder.AgentBuilder.InitializationStrategy.SelfInjection.Split;
+
 @Service
 public class BusinessService {
 
@@ -863,16 +865,10 @@ public class BusinessService {
 			String repGenreNm = (String) entity.get("repGenreNm");
 			String openDt = (String) entity.get("openDt");
 			String genreAlt = (String) entity.get("genreAlt");
-
-			if(!repGenreNm.equals("성인물(에로)") && !repGenreNm.equals("멜로/로맨스") && !repGenreNm.equals("드라마")) {
-
-//				System.out.print(movieCd + " / ");
-//				System.out.print(movieNm + ", ");
-//				System.out.print(repGenreNm + ", ");
-//				System.out.println(openDt);
+			
+			if(!repGenreNm.equals("성인물(에로)") && repGenreNm.indexOf("로") == -1 && !repGenreNm.equals("드라마")) {
 
 				TempMovie tempMovie = new TempMovie();
-
 
 				tempMovie.setMovieCd(movieCd);
 				tempMovie.setMovieNm(movieNm);
@@ -881,9 +877,7 @@ public class BusinessService {
 				tempMovie.setGenreAlt(genreAlt);
 
 				tempMovieRepository.save(tempMovie);
-
 			}
-
 		}
 
 		//List<TempMovie> tempMovie = tempMovieRepository.findByOpenDtLessThanEqualOrderByOpenDtDesc(date.replaceAll("-", ""));
