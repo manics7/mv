@@ -82,7 +82,7 @@
 	<!-- 파일 정보 저장하기 -->
 	<insert id="rvFileInsert" parameterType="com.example.movie.dto.BoardFileDto">
 		INSERT INTO RF
-		VALUES (REVIEW_FILE_NUM.NEXTVAL,#{review_num},#{review_file_name})
+		VALUES (REVIEW_FILE_NO_SEQ.NEXTVAL,#{review_num},#{review_file_name})
 	</insert>
 	
 	<!-- 게시글 본문 가져오기 -->
@@ -136,8 +136,13 @@
 	<!-- 신고 처리하기 -->
 	<insert id="reportRvInsert" parameterType="com.example.movie.dto.ReportReviewDto">
 		INSERT INTO REPORT_REVIEW
-		VALUES (RP_RV_SEQ.NEXTVAL,#{review_num},#{rp_m_id},#{rpt_m_id},#{rp_why},DEFAULT,DEFAULT)
+		VALUES (RP_RV_SEQ.NEXTVAL,#{review_num},#{rp_m_id},#{rpt_m_id},#{rp_why},DEFAULT,#{rp_contents},DEFAULT)
 	</insert>
+	
+	<!-- 파일 삭제하기 -->
+	<delete id="RvFileDelete" parameterType="Integer">
+		DELETE FROM RF WHERE REVIEW_NUM=#{rnum}
+	</delete>
 	
 							
 </mapper>
