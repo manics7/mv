@@ -10,11 +10,6 @@ a {
 	text-decoration: none;
 }
 
-ol, ul, li {
-	list-style: none;
-	float: left;
-}
-
 #section_wrap {
 	
 	width: 100%;

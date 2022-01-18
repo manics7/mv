@@ -1,6 +1,5 @@
 package com.example.movie.service;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,24 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import com.example.movie.dto.quesboardDto;
-
-import com.example.movie.mapper.AdminMapper;
-import com.example.movie.mapper.BusinessMapper;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -36,32 +20,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.movie.dto.BusinessDto;
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.MovieOfficialDto;
+import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.ReviewMovieDto;
-import com.example.movie.dto.SsdscheduleDto;
 import com.example.movie.dto.TheaterDto;
-import com.example.movie.dto.ThmovieDto;
 import com.example.movie.dto.mvReviewDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
-import com.example.movie.dto.reservationDto;
 import com.example.movie.entity.MovieOfficial;
 import com.example.movie.entity.Room;
 import com.example.movie.entity.Schedule;
 import com.example.movie.entity.ScheduleDetail;
 import com.example.movie.entity.Theater;
 import com.example.movie.mapper.AdminMapper;
-import com.example.movie.dto.QuestionDto;
-import com.example.movie.dto.mvReviewDto;
-import com.example.movie.dto.paymentDto;
-import com.example.movie.dto.reservationDto;
-import com.example.movie.entity.MovieOfficial;
-import com.example.movie.entity.Room;
-import com.example.movie.entity.Schedule;
-import com.example.movie.entity.ScheduleDetail;
-import com.example.movie.entity.Theater;
 import com.example.movie.mapper.MemberMapper;
 import com.example.movie.repository.MovieOfficialRepository;
 import com.example.movie.repository.ReservationRepositoryCustom;
@@ -69,6 +41,7 @@ import com.example.movie.repository.RoomRepository;
 import com.example.movie.repository.ScheduleDetailRepository;
 import com.example.movie.repository.ScheduleRepository;
 import com.example.movie.repository.TheaterRepository;
+import com.example.movie.utill.DeduplicationUtils;
 import com.example.movie.utill.PagingUtil;
 
 @Service
@@ -594,7 +567,7 @@ public class MemberService {
 		}
 		return reviewListMap;
 	}
-
+	
 	public List<Map<String, Object>> getSch(Integer thCode) {
 		//스케쥴을 언제부터 언제까지 가져올 것인지 세
 		LocalDate now = LocalDate.now();
@@ -605,12 +578,12 @@ public class MemberService {
 		Date startDate = java.sql.Date.valueOf(dateTime.toLocalDate());
 		Date endDate = java.sql.Date.valueOf(lastDate);
 		
-		//BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
-		//String bId = bDto.getB_id();
-		//int thCode = theaterRepository.findById(bId);
-		
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		List<Schedule> schduleList = scheduleRepository.findByThCodeAndSchDateBetween(thCode,startDate, endDate);
+		
+		schduleList =DeduplicationUtils.deduplication(schduleList, Schedule::getMovieCd);		
+		
+		
 		for(int i = 0; i < schduleList.size(); i++) {
 			String movieCd = schduleList.get(i).getMovieCd();
 			Integer thcode = schduleList.get(i).getThCode();
@@ -630,15 +603,15 @@ public class MemberService {
 			List<ScheduleDetail> scheduleDetail = scheduleDetailRepository.findBySchCode(schCode);
 			schduleList.get(i).setScheduleDetail(scheduleDetail);
 			
-			for(int j = 0; j < scheduleDetail.size(); j++) {
-			Integer schDetailSeq = scheduleDetail.get(j).getSchDetailSeq();
+			//for(int j = 0; j < scheduleDetail.size(); j++) {
+			//Integer schDetailSeq = scheduleDetail.get(j).getSchDetailSeq();
 			
-			List<String> seatNo = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
-			scheduleDetail.get(j).setRsrvSeatCnt(seatNo.size());
+			//List<String> seatNo = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
+			//scheduleDetail.get(j).setRsrvSeatCnt(seatNo.size());
 			
-			}
+			//}
 			map.put("scheduleList", schduleList.get(i));
-			map.put("room", room);
+			//map.put("room", room);
 			map.put("movieOfficial", movieOfficial);
 			map.put("theater", theater);
 			list.add(map);
@@ -786,5 +759,5 @@ public class MemberService {
 		
 		rttr.addFlashAttribute("msg",msg);
 		return view;
-	}
+	}	
 }

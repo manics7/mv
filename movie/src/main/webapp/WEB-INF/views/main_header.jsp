@@ -129,7 +129,7 @@ $(document).ready(function(){
 	<div class="admin_nav_wrap">
 		<ul class="admin_nav"style="color: white;">
 			<li class="admin_nav_item logo"> 
-				<div class="logo1">&nbsp;MVTI&nbsp;</div>
+				<div style="cursor: pointer;" onclick="location.href='/'" class="logo1">&nbsp;MVTI&nbsp;</div>
 				<div class="logo2">&nbsp;MOVIE&nbsp;</div>
 			</li>
 			<li class="admin_nav_item cont1"><a class="main_header_btn yellow underline" style="color: white;"
