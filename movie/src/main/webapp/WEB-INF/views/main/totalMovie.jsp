@@ -64,7 +64,7 @@
 				</div>
 				
 					
-				<div class="col-md-3 img-fluid text-center" ><img id="poster" alt="" ></div>
+				<div class="col-md-3 text-center" ><img class="img-fluid" id="poster" alt="" ></div>
 			</div>
 			
 				
