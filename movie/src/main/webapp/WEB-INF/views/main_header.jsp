@@ -20,6 +20,8 @@ a {
 .admin_nav_wrap {
 	width: 100%;
 	background-color: #1d1d1d;
+	position: fixed;
+	z-index: 99;
 }
 
 .admin_nav {
@@ -129,7 +131,7 @@ $(document).ready(function(){
 	<div class="admin_nav_wrap">
 		<ul class="admin_nav"style="color: white;">
 			<li class="admin_nav_item logo"> 
-				<div class="logo1">&nbsp;MVTI&nbsp;</div>
+				<div style="cursor: pointer;" onclick="location.href='/'" class="logo1">&nbsp;MVTI&nbsp;</div>
 				<div class="logo2">&nbsp;MOVIE&nbsp;</div>
 			</li>
 			<li class="admin_nav_item cont1"><a class="main_header_btn yellow underline" style="color: white;"
@@ -148,7 +150,7 @@ $(document).ready(function(){
 				<li><div id="login_before">
 				
 					<a href="#" id="login_btn" style="color: white;">로그인/</a>
-					<a href="#" style="color: white;">회원가입</a>
+					<a href="./joinFrm" style="color: white;">회원가입</a>
 				</div>
 				<div id="login_after">
 				<a style= "color: white;" class="mypage" href="./mypage">MYpage</a>

@@ -19,7 +19,7 @@ $(function(){
 </script>
 </head>
 <body>
-<nav style="background: black; padding-top: 35px; padding-bottom: 35px;">
+<nav style="background: #1d1d1d; padding-top: 35px; padding-bottom: 35px;">
 <jsp:include page="business_header.jsp"></jsp:include>
 </nav>
 <section>

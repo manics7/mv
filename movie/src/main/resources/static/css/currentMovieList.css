@@ -161,6 +161,8 @@ ol, ul, li {
 	font-size: 16px;
 }
 .currentMovieTitle{
-	background: black;
+	background: #1d1d1d;
 	height: 100px;
+	width: 100%;
+	
 }

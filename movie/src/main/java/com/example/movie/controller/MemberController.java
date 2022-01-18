@@ -334,8 +334,7 @@ public class MemberController {
 	//관리자 입장에서 회원 삭제.
 	@GetMapping("admindelMember")
 	public String admindelMember(String m_id, RedirectAttributes rttr) {
-		String view = null;
-		view = mServ.adminDeleteMember(m_id,rttr);
+	    String view = mServ.adminDeleteMember(m_id,rttr);
 		return view;
 	}
 }

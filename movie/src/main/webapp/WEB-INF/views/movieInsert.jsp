@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="resource/css/movieInsert.css">
 </head>
 <body>	
-	<nav style="padding-top:35px; padding-bottom : 35px; background: black;">
+	<nav style="padding-top:35px; padding-bottom : 35px; background: #1d1d1d;">
 	<jsp:include page="business_header.jsp"></jsp:include>
 	</nav>
 	
