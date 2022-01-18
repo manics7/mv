@@ -61,7 +61,7 @@
 								<span>배우 </span> ${mvOfficial.actors }
 							</p>
 							<br>
-							<button data-toggle="modal" data-target="#rsrvModal" data-movieCd="${movieList.movie_cd }" id="modal" style="cursor: pointer;">
+							<button data-toggle="modal" data-target="#rsrvModal" data-movieCd="${mvOfficial.movie_cd }" id="modal" style="cursor: pointer;">
 								예매하기
 							</button>
 						</div>

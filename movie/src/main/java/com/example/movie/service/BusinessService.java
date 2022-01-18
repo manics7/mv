@@ -380,14 +380,33 @@ public class BusinessService {
 	}
 
 	//상영관 목록 가져오기
-	public ModelAndView getRoomList() {
+	public ModelAndView getRoomList(String bId) {
 		mv = new ModelAndView();
 
-		List<RoomDto> roomList = buMapper.getRoomList();
-
-		mv.addObject("roomList", roomList);
-
-		mv.setViewName("roomList");
+		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
+		String businessId = bDto.getB_id();
+		
+		int thCode = 0;
+		
+		try {
+			
+			thCode = buMapper.getThcode(businessId);
+			
+		} catch (Exception e) {
+			thCode=0;
+		}
+		if(thCode != 0) {
+			
+			List<RoomDto> roomList = buMapper.getRoomList(thCode);
+			
+			mv.addObject("roomList", roomList);
+			
+			mv.setViewName("roomList");
+		}
+		else {
+			mv.setViewName("redirect:theater"); 
+			String msg = "영화관을 먼저 등록해주세요!";
+		}
 
 		return mv;
 	}

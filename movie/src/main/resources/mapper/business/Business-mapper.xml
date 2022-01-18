@@ -168,8 +168,8 @@
 	</select>
 	
 	<!-- 상영관 목록 가져오기 -->
-	<select id="getRoomList" resultType="com.example.movie.dto.RoomDto">
-		SELECT * FROM ROLIST
+	<select id="getRoomList" parameterType="Integer"  resultType="com.example.movie.dto.RoomDto">
+		SELECT * FROM ROLIST where th_code = #{thCode}
 	</select>
 	
 	<!-- 상영관 삭제하기 -->
