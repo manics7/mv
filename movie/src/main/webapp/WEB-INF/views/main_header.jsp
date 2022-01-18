@@ -20,7 +20,6 @@ a {
 .admin_nav_wrap {
 	width: 100%;
 	background-color: #1d1d1d;
-	position: fixed;
 	z-index: 99;
 }
 

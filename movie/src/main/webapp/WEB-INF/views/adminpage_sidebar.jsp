@@ -23,5 +23,9 @@
 		</ul>
 	</div>
 
+
+<!-- adminpage -->
+
+
 </body>
 </html>
