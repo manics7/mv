@@ -153,9 +153,9 @@ public class BusinessController {
 	@PostMapping("scheduleInsert")
 	public String scheduleInsert(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date roomStartTime, 
 			@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date roomEndTime, 
-			Integer thcode, @RequestParam(name = "mvcode[]" ,required = false) List<String> mvcode, Integer room, String mvdate, String wait) throws ParseException {
-
-		String view = buServ.testInsert(roomStartTime, roomEndTime, thcode, mvcode, room, mvdate, wait);
+			Integer thcode, @RequestParam List<String> mvcode, Integer room, String mvdate, String wait) throws ParseException {
+String view = null;
+		//String view = buServ.testInsert(roomStartTime, roomEndTime, thcode, mvcode, room, mvdate, wait);
 
 		return view;
 	}

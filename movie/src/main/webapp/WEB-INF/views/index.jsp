@@ -69,9 +69,10 @@
 			</div>
 			<div id="section_container">
 				<div id="event_wrap">
-					<div>
+					<!-- <div>
 						<h2>이벤트</h2>
-					</div>
+					</div> -->
+					
 					<div></div>
 				</div>
 				<div class="notice_box">

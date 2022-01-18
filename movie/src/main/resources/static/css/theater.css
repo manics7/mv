@@ -1,6 +1,10 @@
 @charset "UTF-8";
 
 /* 영화관 상세 정보 페이지*/
+*{
+	margin: 0;
+	padding: 0;
+}
 div#th_content {
     width: 800px;
     margin-top: 30px;
@@ -53,8 +57,10 @@ div#thadd_title {
 }
 
 #thadd_logo, #thadd_image {
-    width: 385px;
-    margin-top: 20px;
+    width: 415px;
+/*margin-top: 20px;*/}
+#image_wrap{
+	
 }
 
 #thadd_num {
@@ -89,7 +95,7 @@ div#thadd_title {
     cursor: pointer;
     border: 1px solid rgb(67, 24, 124);
     border-radius: 5px;
-    width: 13%;
+    width: 24%;
     margin-left: 29px;
     margin-top: 15px;
 }

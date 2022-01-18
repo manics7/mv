@@ -1,5 +1,6 @@
 package com.example.movie.service;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +29,7 @@ import com.example.movie.dto.TheaterDto;
 import com.example.movie.dto.mvReviewDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
+import com.example.movie.dto.reservationDto;
 import com.example.movie.entity.MovieOfficial;
 import com.example.movie.entity.Room;
 import com.example.movie.entity.Schedule;
@@ -677,7 +679,7 @@ public class MemberService {
 	}
 	
 	public List<Map<String, Object>> getSch(Integer thCode) {
-		//스케쥴을 언제부터 언제까지 가져올 것인지 세
+		//스케쥴을 언제부터 언제까지 가져올 것인지 세ㄹㄹㄹ?
 		LocalDate now = LocalDate.now();
 		String date= now.toString();	
 		LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));		
