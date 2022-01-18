@@ -363,12 +363,12 @@ color: white;
 			</div>
 			<div class="loc_list">
 				<h3>오시는길</h3>
-				<p>${theatedetail[0].theater.thLocation}</p>
+				<p>${thinfoDto.th_location}</p>
 				<h3>연락처</h3>
 				<p>070-8801-6436 | 010-5949-6438</p>
 				<h3>주차안내</h3>
-				<p>${theatedetail[0].theater.thParking} <br>
-					${theatedetail[0].theater.thName}은 주차장이 없습니다. <br> <br> <br> <br> 가까운
+				<p>${thinfoDto.th_parking} <br>
+					${thinfoDto.th_name}은 주차장이 없습니다. <br> <br> <br> <br> 가까운
 					주차장으로는 창동 공영주차장, bnk경남은행 주차장이 있습니다. <br> 주차권은 따로 나가지 않습니다.
 				</p>
 			</div>
@@ -382,7 +382,9 @@ color: white;
 		<section class="cenema_pic">
 			<!-- <div class="img_box1_wrap"></div> -->
 			<div class="img_box box1">
+
 				<img src="${thinfoDto.th_image1}" alt=""> <a href="#">1관
+
 					상영관</a>
 			</div>
 			<div class="img_box box2">
@@ -390,7 +392,9 @@ color: white;
 					상영관</a>
 			</div>
 			<div class="img_box box3">
-				<img src="${thinfoDto.th_image2}" alt=""> <a href="#">1관
+
+				<img src="${thinfoDto.th_image3}" alt=""> <a href="#">1관
+
 					상영관</a>
 			</div>
 		</section>
@@ -474,7 +478,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 //주소로 좌표를 검색합니다
-geocoder.addressSearch('${theatedetail[0].theater.thLocation}', function(result, status) {
+geocoder.addressSearch('${thinfoDto.th_location}', function(result, status) {
 
 // 정상적으로 검색이 완료됐으면 
  if (status === kakao.maps.services.Status.OK) {
@@ -489,7 +493,7 @@ geocoder.addressSearch('${theatedetail[0].theater.thLocation}', function(result,
 
     // 인포윈도우로 장소에 대한 설명을 표시합니다
     var infowindow = new kakao.maps.InfoWindow({
-        content: '<div style="width:150px;text-align:center;padding:6px 0;">${theatedetail[i].theater.thLocation}</div>'
+//         content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 영화관</div>'
     });
     infowindow.open(map, marker);
 

@@ -92,7 +92,7 @@ public class ReservationService {
 		Room room = roomRepository.findByThCodeAndRoomNo(schedule.getThCode(), schedule.getRoomNo());
 		MovieOfficial movieOfficial = movieOfficialRepository.findById(schedule.getMovieCd()).orElse(null);
 		
-		List<Seat> seatList = seatRepository.findByThCodeAndRoomNo(schedule.getThCode(), schedule.getRoomNo());
+		List<Seat> seatList = seatRepository.findByThCodeAndRoomNoOrderBySeatRowAscSeatColAsc(schedule.getThCode(), schedule.getRoomNo());
 		List<String>seatNoList = reservationRepositoryCustom.getRsrvSeatNoList(schCode, schDetailSeq);
 		Map<String,Object> map = new HashMap<String, Object>();
 		

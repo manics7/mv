@@ -40,7 +40,7 @@ $(function(){
         <div class="main_wrap">
             <div class="cont_wrap">
                 <div class="cont_sidebar">
-                <%@ include file="../business_sidebar.jsp"  %>
+              <jsp:include page="./business_sidebar.jsp"></jsp:include>
                 </div>
                 <div class="container modify_mem_wrap">
                     <h2 class="modify_mem_title">회원 정보 수정</h2>

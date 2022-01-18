@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -10,14 +9,29 @@
 <script src="resource/js/jquery-3.6.0.min.js"></script>
 <script src="resource/js/jquery.serializeObject.js"></script>
 <script src="resource/js/bootstrap.bundle.js"></script>
+<style type="text/css">
+a {
+	text-decoration: none !important;
+	color: black;
+}
+</style>
 <script type="text/javascript">
 
 
 $(document).ready(function() {
 
 	fnObj.getNotice();
+	
+	
+	$("#searchParam").keydown(function(e) {
+		  if (e.keyCode === 13) {
+		    e.preventDefault();
+		  };
+		});
 
+	
 });
+
 
 
 var fnObj = {
@@ -62,13 +76,13 @@ var fnObj = {
 										
 					//게시판
 					for(var i = 0; i<res.content.length; i++ ){						
-						listHtml += "<tr>";
+						listHtml += "<tr onclick='noticeWriteFrm(" + list[i].noticeNo + " )' style='cursor:pointer'>";
 						listHtml += "<td>"+list[i].noticeNo+"</td>";
 						listHtml += "<td>"+list[i].noticeTitle+"</td>";
 						listHtml += "<td>"+list[i].noticeContent+"</td>";
-						listHtml += "<td>"+(list[i].noticeClass == 0 ? "영화" : "기타") + "</td>";
+						listHtml += "<td>"+list[i].noticeClass + "</td>";
 						listHtml += "<td>"+list[i].regDate +"</td>";
-						listHtml += "<td>"+list[i].viewCnt +"</td>";
+						listHtml += "<td>"+list[i].viewCnt +"</td>";						
 						listHtml += "</tr>";
 					}					
 					
@@ -97,83 +111,86 @@ var fnObj = {
 				},
 				err : function(err) {
 					console.log("err:", err)
-				}
+				},
 			});
 		}		
 	}
 
+
+
+
+function noticeWriteFrm(noticeNo){
+	location.href="noticeWriteFrm?noticeNo="+noticeNo
+}
+
+
 </script>
 </head>
-<header>
-
-
-</header>
-
-<section></section>
-
-<footer> </footer>
 
 
 <!--  nav  -->
+
 <nav style="padding-top: 35px; padding-bottom: 35px; background: #1d1d1d;">
 <jsp:include page="../admin_header.jsp"></jsp:include>
+
+
 </nav>
 <!--  /nav  -->
 
 
 <!--  1차 wrap  -->
 <div class="main_wrap" style="width: 100%; margin-top: 60px;">
-<div class="cotainer_wrap" style="display: flex; justify-content: space-around; margin-top: 60px; width: 1024px; margin: 0 auto;" >
- <div class="cont_sidebar">
-                <jsp:include page="../adminpage_sidebar.jsp"/>
-                </div>
-
-
-<div class="container">
-	
-		<div style="display: flex; justify-content:space-between; ">
-		<h4>공지사항</h4>
-		총 건수 : <span>${total}</span>
-	</div>
-	<form class="form-inline d-flex justify-content-end" method="GET"
-		action="">
-		<div class="form-group mx-sm-3 mb-2">
-			<label for="searchText" class="sr-only">검색</label> 
-			<input type="text"	class="form-control" id="searchParam" name="searchText">
+	<div class="cotainer_wrap"
+		style="display: flex; justify-content: space-around; margin-top: 60px; width: 1024px; margin: 0 auto;">
+		<div class="cont_sidebar">
+			<jsp:include page="../adminpage_sidebar.jsp" />
 		</div>
-		<button type="button" class="btn btn-light mb-2" onclick="javascript:fnObj.getNotice();">검색</button>
-	</form>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th scope="col">번호</th>
-				<th scope="col">제목</th>
-				<th scope="col">내용</th>
-				<th scope="col">구분</th>
-				<th scope="col">등록일</th>
-				<th scope="col">조회수</th>
-			</tr>
-		</thead>
-		<tbody>
-					
 
-		</tbody>
-	</table>
-	<nav aria-label="...">
-		<ul id="paging" class="pagination justify-content-center"></ul>
-	</nav>
-	
 
+		<div class="container">
+			<div class="row" style="min-height: 600px;">
+				<div class="col-md-11 ml-auto">
+					<h5 class="text-center mt-3">공지사항</h5>
+					<form class="form-inline d-flex justify-content-end" method="GET" action="saveNotice">
+						<div class="form-group mx-sm-3 mb-2">
+
+							<label for="searchText" class="sr-only">검색</label> <input type="text"
+								class="form-control" id="searchParam" name="searchText"
+							>
+						</div>
+						<button type="button" class="btn btn-secondary mb-2"
+							onclick="javascript:fnObj.getNotice();"
+						>검색</button>
+					</form>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">번호</th>
+								<th scope="col">제목</th>
+								<th scope="col">내용</th>
+								<th scope="col">구분</th>
+								<th scope="col">등록일</th>
+								<th scope="col">조회수</th>
+							</tr>
+						</thead>
+						<tbody>
+
+
+						</tbody>
+					</table>
+					<nav aria-label="..." class="text-right">
+						<a href="noticeWriteFrm" class="btn btn-secondary mb-2 text-right" id="write">글쓰기</a>
+						<ul id="paging" class="pagination justify-content-center"></ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
-
-
-</div>
-
-
-</div>
 	<footer style="margin-top:134px ">
 			<jsp:include page="../footer.jsp"></jsp:include>
 		</footer>
+
 </body>
 </html>
