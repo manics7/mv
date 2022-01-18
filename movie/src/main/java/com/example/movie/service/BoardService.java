@@ -316,10 +316,12 @@ public class BoardService {
 
 	// 게시글 삭제 처리
 	@Transactional
-	public String reviewDelete(int rnum, RedirectAttributes rttr) {
+	public String reviewDelete(Integer rnum, RedirectAttributes rttr) {
 		String view = null;
 
 		try {
+			bMapper.RvFileDelete(rnum);
+			bMapper.ReplyDelete(rnum);
 			bMapper.RvboardDelete(rnum);
 			view = "redirect:rlist";
 			rttr.addFlashAttribute("msg", "삭제 성공");

@@ -32,9 +32,6 @@ $(function(){
 	//신고하기 버튼 처리(본인의 글이면 신고 불가)
 	$("#report_btn").show();
 	
-	var mid = "${userInfo.m_id}";
-	var bid = "${bDto.mid}";
-	
 	if(mid == bid){
 		$("#report_btn").hide();
 	}
