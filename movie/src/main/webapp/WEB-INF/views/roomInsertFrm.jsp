@@ -20,10 +20,16 @@ $(function(){
 </head>
 <body>
 <section>
+<nav style="background:#1d1d1d; padding-top: 35px; padding-bottom: 35px;">
+<jsp:include page="business_header.jsp"></jsp:include>
+</nav>
+
 <div class="detail">
 	<div class="inner">
 		<div id="page_wrap">
+
 			<jsp:include page="./business_sidebar.jsp"></jsp:include>
+
             <div class="room_div">
                 <h3 id="room_title2">상영관 등록</h3>
                 <form action="./roomInsert" class="seat_form" method="post" onsubmit="goSubmit()">
@@ -78,6 +84,9 @@ $(function(){
 	</div>
 </div>
 </section>
+<footer>
+<jsp:include page="footer.jsp"></jsp:include>
+</footer>
 </body>
 
 <script type="text/javascript">

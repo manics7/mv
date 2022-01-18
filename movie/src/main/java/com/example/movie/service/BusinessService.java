@@ -369,7 +369,6 @@ public class BusinessService {
 		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
 		String Bid = bDto.getB_id();
 
-
 		//List<String> thnList = new ArrayList<String>();
 		String thName = buMapper.selectThNameByBid(Bid);
 
@@ -567,9 +566,9 @@ public class BusinessService {
 	//상영시간표 등록
 	@Transactional
 	public String testInsert(Date roomStartTime, Date roomEndTime, Integer thcode, 
-			List<String> mvcode, Integer room, String mvdate, String wait) {
-		
-		
+
+    List<String> mvcode, Integer room, String mvdate, String wait) {
+	
 		//상영관 시작 시간을 date에서 calendar로 변환
 		Calendar startCalendar = Calendar.getInstance();		
 		startCalendar.setTime(roomStartTime);
@@ -580,7 +579,11 @@ public class BusinessService {
 		
 		Calendar movieEndCalendar = Calendar.getInstance();
 		movieEndCalendar.setTime(roomStartTime);
-
+		
+		//대기 시간
+		int waittingTime;
+		waittingTime = Integer.parseInt(wait);
+		
 		for(int i = 0; i < mvcode.size(); i++) {
 			//영화코드(숫자)를 받은 변수 mvcd
 			String mvcd = mvcode.get(i);
@@ -588,8 +591,24 @@ public class BusinessService {
 			//받아온 영화코드로 관리자가 등록한 영화 테이블 내용 검색
 			Optional<MovieOfficial> mv = movieOfficialRepository.findById(mvcd);
 			
+			//받아 온 상영날짜를 date 형태로 변환
+			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
+			Date movieDate;
+			movieDate = dateFormat.parse(mvdate);
+			
+			//상영시간표 dto에 넣음
+			Schedule schedule = new Schedule();
+			schedule.setMovieCd(mv.get().getMovieCd());//영화코드
+			schedule.setThCode(thcode);//영화관코드
+			schedule.setRoomNo(room);//상영관 번호
+			schedule.setSchDate(movieDate);//상영날짜
+			schedule.setSchTime(waittingTime);//상영 전 대기시간
+			
+			//상영시간표를 db에 넣기
+			scheduleRepository.save(schedule);
 			if(mv.isPresent()) {
 				
+
 				//받아 온 상영날짜를 date 형태로 변환
 				SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
 				Date movieDate;
@@ -652,10 +671,6 @@ public class BusinessService {
 							movieEndCalendar.add(Calendar.MINUTE, waittingTime);
 							startCalendar.add(Calendar.MINUTE, realTime);
 
-					}
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}	
 			}
 		}

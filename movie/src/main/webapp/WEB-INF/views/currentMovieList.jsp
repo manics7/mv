@@ -23,7 +23,6 @@
 	
 	
 				<h2 class="currentMovieTitle">
-				현재상영작
 				</h2> 
 		<div id="main_wrap">
 		

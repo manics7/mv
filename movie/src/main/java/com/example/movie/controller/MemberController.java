@@ -113,14 +113,6 @@ public class MemberController {
 		return view;
 	}
 
-	@GetMapping("memberUpdateFrm")
-	public ModelAndView memberUpdateFrm() {
-
-		mv = mServ.memberUpdateFrm();
-
-		return mv;
-	}
-
 	@GetMapping("questionContents")
 	public ModelAndView questionContents(int ques_no) {
 		
@@ -140,6 +132,37 @@ public class MemberController {
 		String view = mServ.delMvReview(mv_review,rttr);
 
 		return view;
+	}
+	
+	//내가본영화
+	@GetMapping("mypageMovieFrm")
+	public ModelAndView mypageMovieFrm(Integer pageNum) {
+		mv = new ModelAndView();
+		String view = "mypageMovieFrm";
+		
+		mv = mServ.selectPurchase(pageNum, 4, view);
+		
+		return mv;
+	}
+	@GetMapping("purchaseFrm")
+	public ModelAndView purchaseFrm (Integer pageNum) {
+		int listCnt = 4;
+
+		String View = "purchaseFrm";
+
+		mv = mServ.selectPurchase(pageNum,listCnt,View);
+
+		return mv;
+	}
+	@GetMapping("purchaseCancelFrm")
+	public ModelAndView purchaseCancelFrm (Integer pageNum) {
+		int listCnt = 4;
+
+		String View = "purchaseCancelFrm";
+
+		mv = mServ.selectPurchase(pageNum,listCnt,View);
+
+		return mv;
 	}
 
 	//회원 정보 출력
@@ -334,8 +357,7 @@ public class MemberController {
 	//관리자 입장에서 회원 삭제.
 	@GetMapping("admindelMember")
 	public String admindelMember(String m_id, RedirectAttributes rttr) {
-		String view = null;
-		view = mServ.adminDeleteMember(m_id,rttr);
+	    String view = mServ.adminDeleteMember(m_id,rttr);
 		return view;
 	}
 }

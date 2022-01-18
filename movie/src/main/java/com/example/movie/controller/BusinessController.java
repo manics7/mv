@@ -70,9 +70,13 @@ public class BusinessController {
 
 	// 사업자 메인 페이지 이동
 	@GetMapping("businessPage")
-	public String businessPage() {
-
-		return "businessPage";
+	public ModelAndView businessPage() {
+		mv= new ModelAndView();
+		
+		mv = buServ.businessPage();
+		
+		
+		return mv;
 	}
 
 	// 사업자 로그아웃
@@ -80,13 +84,6 @@ public class BusinessController {
 	public String bu_logout() {
 
 		String view = buServ.bu_logout();
-
-		return view;
-	}
-
-	@GetMapping("businessUpdateFrm")
-	public String businessUpdateFrm() {
-		String view = "businessUpdateFrm";
 
 		return view;
 	}
@@ -156,7 +153,7 @@ public class BusinessController {
 	@PostMapping("scheduleInsert")
 	public String scheduleInsert(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date roomStartTime, 
 			@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date roomEndTime, 
-			Integer thcode, @RequestParam List<String> mvcode, Integer room, String mvdate, String wait) {
+			Integer thcode, @RequestParam(name = "mvcode[]" ,required = false) List<String> mvcode, Integer room, String mvdate, String wait) throws ParseException {
 
 		String view = buServ.testInsert(roomStartTime, roomEndTime, thcode, mvcode, room, mvdate, wait);
 
