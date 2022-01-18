@@ -20,8 +20,32 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	//state == 1 ? state.innerHtml("답변완료") : state.innerHtml("미완료");
+	
+	function rsrvCancel(){
+		
+		 var form = document.getElementById("form");
+		  form.action = "rsrvCancel";
+		  form.mothod = "post";
+		  form.submit();
+	}
+	
+	
 </script>
-
+<style type="text/css">
+.rsrvbtn{
+	outline : 0;
+	width: 100px;
+	height: 50px;
+	line-height:50px;
+	background: transparent;
+	border: 1px solid lightgray;
+	cursor: pointer;
+}
+.rsrvbtn:hover{
+	background: #f16a1a;
+	color: white;
+}
+</style>
 </head>
 <body>
     <div class="wrap">
@@ -56,6 +80,7 @@
         ${mbLIst}
     </div>
     -->
+    <form method="post" id="form">
                         <div class="card-body qqueboard_con">
                             <h4 class="card-title">예매내역</h4>
                             <table class="table table-hover" id='board_list'>
@@ -74,6 +99,7 @@
                                         <th class="text-center">예매번호</th>
                                         <th class="text-center">예매일</th>
                                         <th class="text-center">가격</th>
+                                        <th class="text-center"></th>
                                         
                                         <!--
                                         
@@ -86,7 +112,6 @@
                                 <tbody>
                                     <!-- 이부분은 검색 결과 출력되는 부분 -->
                                    
-
 <c:choose>
 						<c:when test="${not empty qList}">
 						<c:forEach var="qitem" items="${qList}">
@@ -98,6 +123,10 @@
 										pattern="yyyy-MM-dd"/></td>
 									<td class="text-center d-none d-md-table-cell">
 									${qitem.price}
+									</td>
+									<td class="text-center d-none d-md-table-cell">
+										<input type="hidden" name="rsrvNo" value="${qitem.rsrv_no}">										
+										<button class="rsrvbtn" onclick="rsrvCancel()">예매 취소</button>
 									</td>
 								</tr>
 									
@@ -118,6 +147,7 @@
                                     <li class="page-item">${paging}</li>
                                 </ul>
                             </div>
+                      </form>
 <!--  
   <div class="d-block d-md-none">
                                 <ul class="pagination justify-content-center">
