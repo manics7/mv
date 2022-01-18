@@ -21,7 +21,10 @@
 		<div class="detail">
 			<div class="inner">
 				<div id="page_wrap">
-					<div id="side">
+				
+				<jsp:include page="../business_sidebar.jsp"></jsp:include>
+				<!-- 
+				<div id="side">
 						<h2>
 							<a href="./businessPage">Business Page</a>
 						</h2>
@@ -33,6 +36,11 @@
 							<li><a id="bupage_menu" href="./eventList">이벤트 관리</a></li>
 						</ul>
 					</div>
+				
+				
+				
+				  -->
+					
 					<div id="content">
 						<div id="sch_title">
 							<h2>상영 시간표</h2>
@@ -86,6 +94,10 @@
 			</div>
 		</div>
 	</section>
+	
+	<footer> 
+	<jsp:include page="../footer.jsp"></jsp:include>
+	</footer>
 	
 </body>
 <script type="text/javascript">
