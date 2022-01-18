@@ -74,7 +74,7 @@
 								<th class="text-center d-none d-md-table-cell">영화명</th>
 								<th class="text-center d-none d-md-table-cell">내용</th>
 								<th class="text-center d-none d-md-table-cell">등록일</th>
-								<th class="text-center d-none d-md-table-cell">평점</th>
+							<!--	<th class="text-center d-none d-md-table-cell">평점</th>-->
 								<th class="text-center d-none d-md-table-cell">관리</th>
 							</tr>
 						</thead>
@@ -89,7 +89,7 @@
 										<td class="text-center d-none d-md-table-cell">${mvritem.mv_review_comment}</td>
 										<td class="text-center d-none d-md-table-cell"><fmt:formatDate value="${mvritem.mv_review_date}"
 											pattern="yyyy-MM-dd"/></td>
-										<td class="text-center d-none d-md-table-cell">${mvritem.mv_review_score}</td>
+										<!--<td class="text-center d-none d-md-table-cell">${mvritem.mv_review_score}</td>-->
 										<td class="text-center d-none d-md-table-cell"><button onclick="delCheck(${mvritem.mv_review})"
 										class="busbtn">감상평 삭제</button></td>
 									</tr>
