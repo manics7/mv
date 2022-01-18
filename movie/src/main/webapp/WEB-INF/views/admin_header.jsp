@@ -105,8 +105,6 @@ a {
 				href="./adminMovieList">영화관리</a></li>
 			<li class="admin_nav_item cont3"><a class="yellow underline"
 				href="./quesboard?pageNum=1">문의관리</a></li>
-			<li class="admin_nav_item cont4"><a class="yellow underline"
-				href="pmvReviewFrm">영화관관리</a></li>
 			<li class="admin_nav_item cont5"><a class="yellow underline"
 				href="questionFrm">신고관리</a></li>
 

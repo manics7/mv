@@ -184,8 +184,7 @@ color: white;
 		<section class="main_movielist">
 			<!--부트스트랩으로 py5라고 있었음.-->
 			<div class="main_movielist_top">
-				<a href="#" style="color: black;">현재상영중</a> <a href="#"
-					style="color: gray;">상영예정작</a>
+				<a href="#" style="color: black;">현재상영중</a> 
 			</div>
 			<div class="main_movielist_cont_wrap">
 			<div class="main_movielist_cont">
@@ -383,7 +382,9 @@ color: white;
 		<section class="cenema_pic">
 			<!-- <div class="img_box1_wrap"></div> -->
 			<div class="img_box box1">
-				<img src="${thinfoDto.th_image1}" alt=""> <a href="#">${thinfoDto.th_name}
+
+				<img src="${thinfoDto.th_image1}" alt=""> <a href="#">1관
+
 					상영관</a>
 			</div>
 			<div class="img_box box2">
@@ -391,7 +392,9 @@ color: white;
 					상영관</a>
 			</div>
 			<div class="img_box box3">
+
 				<img src="${thinfoDto.th_image3}" alt=""> <a href="#">1관
+
 					상영관</a>
 			</div>
 		</section>
