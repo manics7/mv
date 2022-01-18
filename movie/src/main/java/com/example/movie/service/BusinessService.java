@@ -390,13 +390,27 @@ public class BusinessService {
 		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
 		String businessId = bDto.getB_id();
 		
-		int thCode = buMapper.getThcode(businessId);
+		int thCode = 0;
 		
-		List<RoomDto> roomList = buMapper.getRoomList(thCode);
-
-		mv.addObject("roomList", roomList);
-
-		mv.setViewName("roomList");
+		try {
+			
+			thCode = buMapper.getThcode(businessId);
+			
+		} catch (Exception e) {
+			thCode=0;
+		}
+		if(thCode != 0) {
+			
+			List<RoomDto> roomList = buMapper.getRoomList(thCode);
+			
+			mv.addObject("roomList", roomList);
+			
+			mv.setViewName("roomList");
+		}
+		else {
+			mv.setViewName("redirect:theater"); 
+			String msg = "영화관을 먼저 등록해주세요!";
+		}
 
 		return mv;
 	}
