@@ -1,5 +1,6 @@
 package com.example.movie.service;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +29,7 @@ import com.example.movie.dto.TheaterDto;
 import com.example.movie.dto.mvReviewDto;
 import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
+import com.example.movie.dto.reservationDto;
 import com.example.movie.entity.MovieOfficial;
 import com.example.movie.entity.Room;
 import com.example.movie.entity.Schedule;

@@ -32,6 +32,7 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public ModelAndView index() {
+		
 		mv = mServ.boxOffice();
 		return mv;
 	}
