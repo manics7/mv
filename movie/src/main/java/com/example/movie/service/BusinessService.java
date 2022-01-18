@@ -384,10 +384,15 @@ public class BusinessService {
 	}
 
 	//상영관 목록 가져오기
-	public ModelAndView getRoomList() {
+	public ModelAndView getRoomList(String bId) {
 		mv = new ModelAndView();
 
-		List<RoomDto> roomList = buMapper.getRoomList();
+		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
+		String businessId = bDto.getB_id();
+		
+		int thCode = buMapper.getThcode(businessId);
+		
+		List<RoomDto> roomList = buMapper.getRoomList(thCode);
 
 		mv.addObject("roomList", roomList);
 

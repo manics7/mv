@@ -89,7 +89,7 @@ public interface BusinessMapper  extends MybatisMapper {
 	public String selectThNameByBid(String b_id);
 	
 	//상영관 목록 가져오기
-	public List<RoomDto> getRoomList();
+	public List<RoomDto> getRoomList(Integer thCode);
 	//상영관 삭제하기
 	public boolean RoomDelete(Integer roomseq);
 	//상영관 등록하기

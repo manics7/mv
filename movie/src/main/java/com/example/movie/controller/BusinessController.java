@@ -171,8 +171,8 @@ public class BusinessController {
 
 	//상영관 목록 이동
 	@GetMapping("roomList")
-	public ModelAndView roomList() {
-		mv = buServ.getRoomList();
+	public ModelAndView roomList(String bId) {
+		mv = buServ.getRoomList(bId);
 
 		return mv;
 	}
