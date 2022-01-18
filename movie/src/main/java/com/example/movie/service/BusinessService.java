@@ -683,6 +683,7 @@ public class BusinessService {
 
 			return view;
 		}
+
 	//상영시간표 목록을 출력
 	public ModelAndView getScheduleList(Integer pageNum) {
 		mv = new ModelAndView();
