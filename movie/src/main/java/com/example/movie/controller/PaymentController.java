@@ -92,13 +92,22 @@ public class PaymentController {
 		return "rsrv/reservationComplete";
 	}	
 	//카카오 결제 취소 -> 예매취소처리
-	@PostMapping("paymentCencel")
-	public String paymentCencel(Integer rsrvNo, Model model) throws IOException {
+	@PostMapping("paymentCancel")
+	public String paymentCancel(Integer rsrvNo, Model model) throws IOException {
 		Payment payment =  paymenteService.getPayment(rsrvNo);
 		KakaoPayCancelVO kakaoPayCancelVO = kakaoPay.kakaoPayCancel(payment);
 		reservationService.reservationCancel(rsrvNo);
 		model.addAttribute("rsrvNo",rsrvNo);
 		return "rsrv/reservationCancel";
+	}			
+	
+	//카카오 결제 취소 -> 예매취소처리
+	@PostMapping("rsrvCancel")
+	public String rsrvCancel(Integer rsrvNo, Model model) throws IOException {
+		Payment payment =  paymenteService.getPayment(rsrvNo);
+		KakaoPayCancelVO kakaoPayCancelVO = kakaoPay.kakaoPayCancel(payment);
+		reservationService.reservationCancel(rsrvNo);
+		return "purchaseFrm";
 	}			
 	
 	//결제완료후 예매취소페이지를 모달창에 로드

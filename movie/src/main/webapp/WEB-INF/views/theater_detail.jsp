@@ -152,7 +152,7 @@ cursor: pointer;
 					<!--(custome css)메인 상단 매뉴 추가-->
 					<div class="main_btn_wrap">
 						<div class="main_btn">
-							<button class="header_btn1">영화관홈</button>
+							<button class="header_btn1" style="background: #f16a1a; color: white;">영화관홈</button>
 							<button data-toggle="modal" data-target="#rsrvModal" data-moviecd="${theatedetail[status.index].movieOfficial.movieCd}"  data-thcode="${th_code}"  id="modal" style="text-decoration: none;">예매하기</button>
 							<button class="header_btn1 scheduleBtn">상영시간표</button>
 						</div>
@@ -163,9 +163,11 @@ cursor: pointer;
 	</section>
 	<!-- (custom css) 메인 베너-->
 	<div class="main_banner_wrap">
-		<div class="main_banner_img"
-			style="background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800')">
-		</div>
+	
+	<div style="width: 1024px;height: 256px; background: black; margin: 0 auto;" >
+	<img style="width: 100%; height: 100%;"  alt="" src="https://img.dtryx.com/event/2021/12/C3848B4A-A0CC-4617-8A33-C90D5F83981C.large.jpg">
+	</div>
+	
 	</div>
 	<!-- Content section-->
 	<!-- (custom css)메인 영화 리스트-->

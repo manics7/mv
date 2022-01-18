@@ -96,7 +96,7 @@ a {
 	<div class="admin_nav_wrap">
 		<ul class="admin_nav">
 			<li class="admin_nav_item logo">
-				<div class="logo1">&nbsp;Admin&nbsp;</div>
+				<div style="cursor: pointer;" onclick="location.href='/'" class="logo1">&nbsp;Admin&nbsp;</div>
 				<div class="logo2">&nbsp;Page&nbsp;</div>
 			</li>
 			<li class="admin_nav_item cont1"><a class="yellow underline"
@@ -107,6 +107,8 @@ a {
 				href="./quesboard?pageNum=1">문의관리</a></li>
 			<li class="admin_nav_item cont5"><a class="yellow underline"
 				href="questionFrm">신고관리</a></li>
+				<li class="admin_nav_item cont5"><a class="yellow underline"
+				href="./logout">로그아웃</a></li>
 
 		</ul>
 

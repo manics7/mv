@@ -32,7 +32,7 @@
 
 <body>
 
-<nav style="background: #1d1d1d;">
+<nav style="background: #1d1d1d; padding-top: 0">
 
 	<jsp:include page="main_header.jsp"></jsp:include>
 	</nav>
@@ -149,6 +149,9 @@
 
 
 	</div>
+	<footer>
+	<jsp:include page="footer.jsp"></jsp:include>
+	</footer>
 </body>
 
 </html>
