@@ -33,98 +33,19 @@
 				<div class="cont_sidebar">
 					<jsp:include page="adminpage_sidebar.jsp" />
 				</div>
-				<div class="container queboard">
+				<div class="container queboard" style="padding: 100px 0;">
 					<div class="card shadow">
-						<div class="member_top_btn_wrap">
-							<div class="member_top_btn">
-								<a class="btn_nomal" style="background: #f16a1a; color: white;"
-									href="./mmanage?pageNum=1">일반회원</a> 
-								<a>불량회원</a> 
-								<a href="./getBulist?pageNum=1">사업자</a>
-							</div>
-
-						</div>
+	
 						<form name="searchFrm" action="./memberSelect?pageNum=1"
 							method="post">
 							<div class="card-body">
 
 
-								<div class="member_top">
-									<h4 class="card-title">회원관리</h4>
-									<div class="input_box">
-										<input type="text" placeholder="ID 입력" name="m_id"> <input
-											type="submit" value="검색">
-									</div>
-
+								<div class="member_top" style="justify-content: space-around;">
+									<h4 class="card-title" style="text-align: center;">관리자페이지</h4>
 								</div>
 
-								<table class="table table-hover" id='board_list'>
-									<thead>
-										<tr>
-											<th class="text-center d-none d-md-table-cell">회원ID</th>
-											<th class="text-center d-none d-md-table-cell">이름</th>
-											<th class="text-center d-none d-md-table-cell">HP</th>
-
-											<th class="text-center d-none d-md-table-cell">생년월일</th>
-											<th class="text-center d-none d-md-table-cell">경고횟수</th>
-											<th class="text-center d-none d-md-table-cell">회원 게시글 확인</th>
-											<th class="text-center d-none d-md-table-cell">회원 탈퇴처리</th>
-										</tr>
-									</thead>
-									<tbody>
-										<!-- 검색 처리 -->
-										<c:choose>
-
-											<c:when test="${not empty mList}">
-												<c:forEach var="mitem" items="${mList}">
-													<tr>
-														<td class="text-center d-none d-md-table-cell">${mitem.m_id}
-														</td>
-														<td><a href='board_read.html'>${mitem.m_name}</a></td>
-														<td class="text-center d-none d-md-table-cell">${mitem.m_tel}
-														</td>
-														<td class="text-center d-none d-md-table-cell">${mitem.m_birth}
-														</td>
-														<td class="text-center d-none d-md-table-cell">${mitem.m_warning}</td>
-
-														<td class="text-center d-none d-md-table-cell"><a
-															type="button" href="./mboardSelect?m_id=${mitem.m_id}">확인</a></td>
-														<td class="text-center d-none d-md-table-cell"><a
-															href="./deleteMember">삭제</a></td>
-													</tr>
-
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												<td class="text-center d-none d-md-table-cell">일치하는 회원
-													정보가 없습니다.</td>
-											</c:otherwise>
-
-										</c:choose>
-
-										<!--  
-
-                               <c:forEach var="mitem" items="${mseList}">
-                                        <tr>
-                                            <td><c:if test="${mseList == 'null'}">존재 하지 않는 회원 입니다.</c:if></td>
-                                            <td class="text-center d-none d-md-table-cell">${mitem.m_id}</td>
-                                            <td><a href='board_read.html'>${mitem.m_name}</a></td>
-                                            <td class="text-center d-none d-md-table-cell">${mitem.m_phone}</td>
-                                            <td class="text-center d-none d-md-table-cell">${mitem.m_addr}</td>
-                                            <td class="text-center d-none d-md-table-cell">${mitem.m_birth}</td>
-                                            <td class="text-center d-none d-md-table-cell"><a type="button" href="./mboardSelect?m_id=${mitem.m_id}">확인</a></td>
-                                            <td class="text-center d-none d-md-table-cell"><a
-                                                href="./deleteMember">삭제</a></td>
-                                        </tr>
-                                    </c:forEach>
-
-
--->
-
-
-										<!--  -->
-									</tbody>
-								</table>
+								
 
 								<div class="d-none d-md-block">
 									<ul class="pagination justify-content-center">

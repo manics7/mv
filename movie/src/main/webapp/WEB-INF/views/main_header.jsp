@@ -9,6 +9,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+a.visited:visited{
+color: white;
+text-decoration: none;
+}
+li.visited:hover{
+color: white;
+text-decoration: none;
+}
 li {
 	list-style: none;
 }
@@ -143,7 +151,7 @@ $(document).ready(function(){
 				   href="">영화관 찾기
 				</a>
 			</li>
-			<li class="admin_nav_item cont5"><a class="main_header_btn yellow underline"
+			<li class="admin_nav_item cont5 visited"><a class="main_header_btn yellow underline"
 				data-toggle="modal" data-target="#rsrvModal" data-movieCd=""  data-thcode=""  id="modal" style="text-decoration: none;">빠른예매</a></li>
 				
 				<li><div id="login_before">
@@ -152,9 +160,9 @@ $(document).ready(function(){
 					<a href="./joinFrm" style="color: white;">회원가입</a>
 				</div>
 				<div id="login_after">
-				<a style= "color: white;" class="mypage" href="./mypage">MYpage</a>
-					<a href="#" id="userName"></a>
-					<a href="./logout">로그아웃</a>
+				<a style= "color: white;" class="mypage visited" href="./mypage">MYpage</a>
+					<a class="visited" href="#" id="userName"></a>
+					<a class="visited" href="./logout">로그아웃</a>
 				</div></li>
 
 		</ul>
@@ -209,7 +217,7 @@ $(document).ready(function(){
 			<div class="modal-content"></div>
 		</div>
 	</div> 
-			<div class="search_theater">
+			<div class="search_theater" style="height: 0;">
 		<jsp:include page="main_search_theater.jsp"></jsp:include>
 		</div>
 	
@@ -269,7 +277,22 @@ if(userInfo != "") {
 		$('.search_rayer').hide();
 	})
 	
+	//영화, 극장검색
+	function filter(id) {
 
+		var value, item;
+
+		value = $(id).val().toUpperCase();
+		item = $(".local_result ul li");
+		item.each(function() {
+			if ($(this).text().toUpperCase().indexOf(value) > -1) {
+				$(this).css("display", "flex");
+			} else {
+				$(this).css("display", "none");
+			}
+		})
+	}
+	
 
 
 

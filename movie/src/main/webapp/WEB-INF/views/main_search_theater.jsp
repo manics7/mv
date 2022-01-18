@@ -17,6 +17,7 @@
 	<!--  jQuery -->
 	<script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
 
+
 <title>Document</title>
 
 <style>
@@ -182,26 +183,7 @@
 	</div>
 </body>
 <!-- jQuery Cdn -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
-<script type="text/javascript">
-	//영화, 극장검색
-	function filter(id, target) {
 
-		var value, item;
-
-		value = $(id).val().toUpperCase();
-		item = $(".local_result li");
-		item.each(function() {
-			if ($(this).text().toUpperCase().indexOf(value) > -1) {
-				$(this).css("display", "flex");
-			} else {
-				$(this).css("display", "none");
-			}
-		})
-	}
-	
-</script>
+<
 
 </html>
