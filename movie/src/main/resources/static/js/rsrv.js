@@ -873,7 +873,7 @@
 	$(document).on("click", "#rsrvCancel" , function(){
 		$.ajax({						
 				type : "POST"
-				,url : "/paymentCencel"
+				,url : "/paymentCancel"
 				,data : "rsrvNo="+$("#rsrvNo").val() 
 				//,dataType : "json"
 				,success : function(res) {	
