@@ -152,6 +152,7 @@ public class MemberController {
 		
 		return mv;
 	}
+	
 	@GetMapping("purchaseFrm")
 	public ModelAndView purchaseFrm (Integer pageNum) {
 		int listCnt = 4;

@@ -294,7 +294,7 @@ public class MemberService {
 
 		return view;
 	}
-
+	
 	//마이페이지 예매/결제 내역 출력.
 		public ModelAndView selectPurchase (Integer pageNum, int listCnt, String View) {
 
