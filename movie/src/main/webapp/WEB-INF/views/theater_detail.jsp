@@ -43,6 +43,11 @@ background: #f16a1a;
 color: white;
 }
 
+.movie_schedule_list ul>div{
+cursor: pointer;
+}
+
+
 	
 	
 	
@@ -94,11 +99,10 @@ color: white;
 	                for (i = 0; i < data.length; i++) {
 
 	                    for (j = 0; j < data[i].schedule.scheduleDetail.length; j++) {
-	                        html += "<li><div>"
-
+	                        html += "<li><div 'style= cursor: pointer;' onClick='#' data-toggle='modal' data-target='#rsrvModal' data-moviecd="+data[i].movieOfficial.movieCd+"  data-thcode="+data[i].theater.thCode+" data-schdate="+data[i].schedule.schDate+" data-schdetailseq="+data[i].schedule.scheduleDetail[j].schDetailSeq+" id='modal' style='text-decoration:none;'>"
 	                        html += "<p class='stime'>" + data[i].schedule.scheduleDetail[j].schDetailStart + "</p>"
 	                        html += "<p class='etime'>" + data[i].schedule.scheduleDetail[j].schDetailEnd + "</p>"
-	                        html += "<p class='seat'><b>" + data[i].schedule.scheduleDetail[j].rsrvSeatCnt
+	                        html += "<p class='seat'><b>" +  Number(data[i].room.seatCnt - data[i].schedule.scheduleDetail[j].rsrvSeatCnt)
 	                            + "</b>/ " + data[i].room.seatCnt + " 석</p>"
 	                        html + "</div></li>"
 	                        html += "<p class = mv_info>" + data[i].room.roomName + "-" + data[i].room.roomClass + "</p>"
@@ -137,22 +141,7 @@ color: white;
 				style="font-size: 20px;">${thinfoDto.th_name}</h1>
 			<img class="img-fluid rounded-circle mb-4 main_header_logo"
 				src="${thinfoDto.th_logo}" alt="..." />
-			<!--
-                <p class="text-white-50 mb-0">Landing Page Template</p>
-            -->
 		</div>
-		<!-- <div class="main_btn_wrap">
-            <div class="main_btn">
-
-                <button class="header_btn1">영화관홈</button>
-                <button class="header_btn1">예매하기</button>
-                <button class="header_btn1">상영시간표</button>
-
-            </div>
-
-        </div> -->
-
-
 	</header>
 	<!-- Content section-->
 	<div class="tab_list_wrap"></div>
@@ -164,7 +153,7 @@ color: white;
 					<div class="main_btn_wrap">
 						<div class="main_btn">
 							<button class="header_btn1">영화관홈</button>
-							<button data-toggle="modal" data-target="#rsrvModal" data-movieCd=""  data-thcode=""  id="modal" style="text-decoration: none;" class="header_btn1 reserBtn">예매하기</button>
+							<button data-toggle="modal" data-target="#rsrvModal" data-moviecd="${theatedetail[status.index].movieOfficial.movieCd}"  data-thcode="${th_code}"  id="modal" style="text-decoration: none;">예매하기</button>
 							<button class="header_btn1 scheduleBtn">상영시간표</button>
 						</div>
 					</div>
@@ -184,72 +173,13 @@ color: white;
 		<section class="main_movielist">
 			<!--부트스트랩으로 py5라고 있었음.-->
 			<div class="main_movielist_top">
-				<a href="#" style="color: black;">현재상영중</a> <a href="#"
-					style="color: gray;">상영예정작</a>
+				<a href="#" style="color: black;">현재상영중</a> 
 			</div>
 			<div class="main_movielist_cont_wrap">
 			<div class="main_movielist_cont">
 			<jsp:include page="mainMovieSlide.jsp"></jsp:include>
 			
 			
-			
-			<!--  
-			<div class="movie_list_item item1">
-					<a href="#" class="thum">
-						<div class="img">
-							<img src="imges/movie_list_img1.jpg" alt="">
-						</div>
-						<div class="info">
-							<div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-							<div class="grade">
-								<span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-								<span class="talker">평론가</span> <strong>4.3</strong>
-							</div>
-						</div>
-					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-				</div>
-			
-			-->
-				
-				
-				
-				<!-- 
-				
-					<c:forEach var ="thdtail" items= "${theatedetail}" varStatus="status">
-				<div class="movie_list_item item2">
-					<a href="#" class="thum">
-						<div class="img">
-							<img src="${theatedetail[status.index].movieOfficial.poster}" alt="">
-						</div>
-						<div class="info">
-							<div class="subj" title="드라이브 마이 카">${theatedetail[status.index].movieOfficial.movieNm}</div>
-							<div class="grade">
-								<span><i class="fas fa-star"></i></span> <span>${status.index}</span> <strong>5.0</strong>
-								<span class="talker">평론가</span> <strong>4.3</strong>
-							</div>
-						</div>
-					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-				</div>
-				</c:forEach>
-				 -->
-				
-			
-				<!--  
-				<div class="movie_list_item item3">
-					<a href="#" class="thum">
-						<div class="img">
-							<img src="imges/movie_list_img3.jpg" alt="">
-						</div>
-						<div class="info">
-							<div class="subj" title="드라이브 마이 카">드라이브 마이 카</div>
-							<div class="grade">
-								<span><i class="fas fa-star"></i></span> <span>일반</span> <strong>5.0</strong>
-								<span class="talker">평론가</span> <strong>4.3</strong>
-							</div>
-						</div>
-					</a> <a href="#" class="movie_list_item_reserbtn">예매하기</a>
-				</div>
-				-->
 			</div>
 			</div>
 			
@@ -257,8 +187,8 @@ color: white;
 		</section>
 	</div>
 
-	<div class="screening_schedule_wrap">
-		<section id="reserSchedule" class="screening_schedule">
+	<div class="screening_schedule_wrap" style="height: auto;">
+		<section id="reserSchedule" style="height: auto;" class="screening_schedule">
 			<!--부트스트랩으로 py5라고 있었음.-->
 			<a class="cinema_timetable">
 				<h2>상영시간표</h2>
@@ -267,63 +197,12 @@ color: white;
 
 			<div class="day_paging">
 				<ul class="pagination pagination-lg" id="theaterDataList">
-				<!--<li class="page-item" name="datebtn"><a class="page-link" href="#">&laquo;</a>
-					</li>
-					<li class="page-item" name="datebtn"><a class="page-link" href="#">22(수)</a>
-					</li>
-					<li class="page-item" name="datebtn"><a class="page-link" href="#">23(수)</a>
-					</li>
-					<li class="page-item" name="datebtn"><a class="page-link" href="#">24(목)</a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">25(금)</a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">26(토)</a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">27(일)</a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">28(월)</a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">29(화)</a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">&raquo;</a>
-					</li>
-					<li>${theatedetail[0].schedule.scheduleDetail}</li>
-				    -->
-				    
+				
 				</ul>
 			</div>
-			
-			<!--  
-			
-			 html += "<li><div>"
-
-	                        html += "<p class='stime'>" + data[i].schedule.scheduleDetail[j].schDetailStart + "</p>"
-	                        html += "<p class='etime'>" + data[i].schedule.scheduleDetail[j].schDetailEnd + "</p>"
-	                        html += "<p class='seat'><b>" + data[i].schedule.scheduleDetail[j].rsrvSeatCnt
-	                            + "</b>/ " + data[i].room.seatCnt + " 석</p>"
-	                        html + "</div></li>"
-	                        html += "<p class = mv_info>" + data[i].room.roomName + "-" + data[i].room.roomClass + "</p>"
-	                        html += "<p class = mv_title>" + data[i].movieOfficial.movieNm + "</p>"
-			
-			 -->
 <div class="movie_schedule_list">
 				<ul>
-
 <li>
-			<!--
-					<li>
-						<div>
-							<p class="stime">10:00</p>
-							<p class="etime">11:33</p>
-							<p class="seat">
-								<b>48</b> / 51 석
-							</p>
-						</div>
-						<p class="mv_info">1관 - 2D</p>
-						<p class="mv_title">너에게 가는 길</p>
-					</li>
--->
-					
 				</ul>
 			</div>
 		</section>
@@ -333,11 +212,10 @@ color: white;
 			<div class="notice_box">
 				<h2 class="notice_box_title">공지사항</h2>
 				<ul>
-					<li><a style="color: black;" href="#"> <span class="text">[기타]개인정보처리방침 변경
-								안내</span> <span class="date">2020.10.20</span>
-					</a></li>
-					<li><a style="color: black;" href="#"><span class="text">[기타]개인정보처리방침 변경
-								안내</span> <span class="date">2020.10.20</span> </a></li>
+				<c:forEach var="noticeListll" items="${noticeList.content}">
+				<li><a style="color: black;" href="#"> <span class="text">[${noticeListll.noticeClass}]${noticeListll.noticeTitle}</span> <span class="date">${noticeListll.regDate}</span>
+				</c:forEach>
+					
 				</ul>
 				<a class="more_1" href="#">더보기</a>
 			</div>
@@ -369,13 +247,12 @@ color: white;
 				<p>070-8801-6436 | 010-5949-6438</p>
 				<h3>주차안내</h3>
 				<p>${thinfoDto.th_parking} <br>
-					${thinfoDto.th_name}은 주차장이 없습니다. <br> <br> <br> <br> 가까운
-					주차장으로는 창동 공영주차장, bnk경남은행 주차장이 있습니다. <br> 주차권은 따로 나가지 않습니다.
+					${thinfoDto.th_name}은 주차장이 없습니다. <br> <br> <br> <br> 
 				</p>
 			</div>
 		</section>
 		<!-- 영화관 상세정보 받아지는 어떤 값으로 받아지는지 테스트 코드. -->
-		<p style="z-index: 10; border: 1px solid lightgray; width: 200px; white-space: nomal; word-break: nomal; padding: 13px; background: gray; color: white;" > <c:out value="값 태스트 : ${theatedetail[0].theater}"></c:out></p> 
+		<!-- <p style="z-index: 10; border: 1px solid lightgray; width: 200px; white-space: nomal; word-break: nomal; padding: 13px; background: gray; color: white;" > <c:out value="값 태스트 : ${theatedetail[0].theater}"></c:out></p> --> 
 	</div>
 
 	<div class="cinema_pic_wrap">
@@ -383,15 +260,19 @@ color: white;
 		<section class="cenema_pic">
 			<!-- <div class="img_box1_wrap"></div> -->
 			<div class="img_box box1">
-				<img src="${thinfoDto.th_image1}" alt=""> <a href="#">${thinfoDto.th_name}
+
+				<img src="${thinfoDto.th_image1}" alt=""> <a href="#">1관
+
 					상영관</a>
 			</div>
 			<div class="img_box box2">
-				<img src="${thinfoDto.th_image2}" alt=""> <a href="#">1관
+				<img src="${thinfoDto.th_image2}" alt=""> <a href="#">2관
 					상영관</a>
 			</div>
 			<div class="img_box box3">
-				<img src="${thinfoDto.th_image3}" alt=""> <a href="#">1관
+
+				<img src="${thinfoDto.th_image3}" alt=""> <a href="#">3관
+
 					상영관</a>
 			</div>
 		</section>
@@ -432,8 +313,6 @@ $(document).ready(function($) {
 
 });
 
-
-
 $(document).ready(function(){
 	
 })
@@ -456,10 +335,6 @@ $(document).ready(function(){
 		   		$(this).css("color","");
 			});
 	});
-	
-
-
-
 /*----------------여기부터 위치정보 스크립트-------------------*/
 
 var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
@@ -490,7 +365,7 @@ geocoder.addressSearch('${thinfoDto.th_location}', function(result, status) {
 
     // 인포윈도우로 장소에 대한 설명을 표시합니다
     var infowindow = new kakao.maps.InfoWindow({
-//         content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 영화관</div>'
+         content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 영화관</div>'
     });
     infowindow.open(map, marker);
 

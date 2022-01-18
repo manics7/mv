@@ -22,9 +22,8 @@ $(function(){
 </head>
 <body>
 <header>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="main_header.jsp"></jsp:include>
 </header>
-	<h2 id="rv_title"></h2>
 	<div class="rv_header">
 		<div class="rv_info">
 			<a id="rv_info">총 ${maxNum}개의 게시물이 있습니다.</a>
@@ -54,7 +53,6 @@ $(function(){
 				<th class="t_date p-10">작성일</th>
 				<th class="t_id p-10">작성자</th>
 				<th class="t_view p-10">조회수</th>
-				<th class="t_like p-10">추천수</th>
 			</tr>
 	
 			<!-- 검색 내역 없을 때 -->
@@ -80,7 +78,6 @@ $(function(){
 					</td>
 					<td class="t_id p-10">${bitem.mid}</td>
 					<td class="t_view p-10">${bitem.rview}</td>
-					<td class="t_like p-10">${bitem.rlike}</td>
 				</tr>
 			</c:forEach>
 		</table>

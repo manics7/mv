@@ -113,6 +113,7 @@ public class AdminController {
 
 	}
 
+	
 
 
 	//문의글 작성 폼으로 넘어가면서 문의번호 넘기기 

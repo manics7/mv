@@ -20,6 +20,7 @@ a {
 .admin_nav_wrap {
 	width: 100%;
 	background-color: #1d1d1d;
+	z-index: 99;
 }
 
 .admin_nav {
@@ -148,7 +149,7 @@ $(document).ready(function(){
 				<li><div id="login_before">
 				
 					<a href="#" id="login_btn" style="color: white;">로그인/</a>
-					<a href="#" style="color: white;">회원가입</a>
+					<a href="./joinFrm" style="color: white;">회원가입</a>
 				</div>
 				<div id="login_after">
 				<a style= "color: white;" class="mypage" href="./mypage">MYpage</a>

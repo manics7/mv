@@ -247,10 +247,13 @@ public class BoardService {
 		mv.addObject("thList", thList);
 
 		BoardDto bDto = bMapper.getRvContent(rnum);
+		// 파일 목록 가져오기
+		List<BoardFileDto> bfDto = bMapper.getBfList(rnum);
 
 		// 멤버 세션 처리 나중에
 
 		mv.addObject("bDto", bDto);
+		mv.addObject("bfDto", bfDto);
 		mv.setViewName("updateRvFrm");
 
 		return mv;
@@ -262,22 +265,44 @@ public class BoardService {
 		String view = null;
 
 		String id = multi.getParameter("mid");
-		String rnum = multi.getParameter("rnum");
-		String thcode = multi.getParameter("th_code");
+		int rnum = Integer.parseInt(multi.getParameter("rnum"));
+		int thcode = Integer.parseInt(multi.getParameter("th_code"));
 		String title = multi.getParameter("rtitle");
 		String content = multi.getParameter("rcontent");
+		String check = multi.getParameter("fileCheck");
 		content = content.trim();
 
 		BoardDto bDto = new BoardDto();
 
 		bDto.setMid(id);
-		bDto.setRnum(Integer.parseInt(rnum));
-		bDto.setTh_code(Integer.parseInt(thcode));
+		bDto.setRnum(rnum);
+		bDto.setTh_code(thcode);
 		bDto.setRtitle(title);
 		bDto.setRcontent(content);
+		
+		BoardFileDto bfDto = new BoardFileDto();
 
 		try {
-			bMapper.RvUpdate(bDto);
+			if (check.equals("1")) {
+				List<MultipartFile> Files = multi.getFiles("files");
+				List<String> fileName = awsS3.uploadFile(Files);
+				
+				bMapper.RvFileDelete(rnum);
+				bMapper.RvUpdate(bDto);
+				
+				bfDto.setReview_num(rnum);
+				
+				for (int i = 0; i < fileName.size(); i++) {
+					String BfileName = awsS3.getFileURL(bucket,fileName.get(i));
+					
+					bfDto.setReview_file_name(BfileName);
+					bMapper.rvFileInsert(bfDto);
+				}
+			}
+			else {
+				bMapper.RvUpdate(bDto);
+			}
+			
 			rttr.addFlashAttribute("msg", "수정 성공");
 		} catch (Exception e) {
 			// e.printStackTrace();
@@ -333,12 +358,14 @@ public class BoardService {
 		String rpId = hs.getParameter("rp_m_id");
 		String rptId = hs.getParameter("rpt_m_id");
 		String rpWhy = hs.getParameter("rp_why");
+		String rpcontent = hs.getParameter("rp_contents");
 
 		ReportReviewDto RpRvDto = new ReportReviewDto();
 		RpRvDto.setReview_num(reviewNum);
 		RpRvDto.setRp_m_id(rpId);
 		RpRvDto.setRpt_m_id(rptId);
 		RpRvDto.setRp_why(rpWhy);
+		RpRvDto.setRp_contents(rpcontent);
 
 		try {
 			bMapper.reportRvInsert(RpRvDto);

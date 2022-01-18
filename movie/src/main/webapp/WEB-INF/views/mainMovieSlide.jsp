@@ -148,7 +148,7 @@
 						<div class="info">
 							<div class="subj" title="드라이브 마이 카">${theatedetail[status.index].movieOfficial.movieNm}</div>
 							<div class="grade">
-								<span><i class="fas fa-star"></i></span> <span>${status.index}</span> <strong>5.0</strong>
+								<span><i class="fas fa-star"></i></span> <span></span> <strong>5.0</strong>
 								<span class="talker">평론가</span> <strong>4.3</strong>
 							</div>
 						</div>

@@ -16,6 +16,5 @@ public class TheaterDto {
 	private String th_image2;
 	private String th_image3;
 	private String th_tel;
-	
 	private String movie_cd;
 }

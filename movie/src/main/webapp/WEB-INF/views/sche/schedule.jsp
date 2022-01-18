@@ -86,6 +86,7 @@
 			</div>
 		</div>
 	</section>
+	
 </body>
 <script type="text/javascript">
 function delCheck(sch_code){
