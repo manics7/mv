@@ -46,7 +46,6 @@
 
 							</div>
 						</div>
-						<a class="txt_box" href="businessUpdateFrm">개인정보 수정</a>
 
 					</div>
 					<div class="main_point_box">

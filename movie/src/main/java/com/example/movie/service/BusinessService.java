@@ -372,7 +372,6 @@ public class BusinessService {
 		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
 		String Bid = bDto.getB_id();
 
-
 		//List<String> thnList = new ArrayList<String>();
 		String thName = buMapper.selectThNameByBid(Bid);
 
@@ -561,8 +560,9 @@ public class BusinessService {
 	
 	//상영시간표 등록
 	public String testInsert(Date roomStartTime, Date roomEndTime, Integer thcode, 
-			String[] mvcode, Integer room, String mvdate, String wait) {
-
+			List<String> mvcode , Integer room, String mvdate, String wait) throws ParseException {
+		int chasu = mvcode.size();
+		mvcode = mvcode.stream().distinct().collect(Collectors.toList());
 		//상영관 시작 시간을 date에서 calendar로 변환
 		Calendar startCalendar = Calendar.getInstance();		
 		startCalendar.setTime(roomStartTime);
@@ -573,70 +573,68 @@ public class BusinessService {
 		
 		Calendar movieEndCalendar = Calendar.getInstance();
 		movieEndCalendar.setTime(roomStartTime);
+		
+		//대기 시간
+		int waittingTime;
+		waittingTime = Integer.parseInt(wait);
+		
+		
+		
 
-		for(int i = 0; i < mvcode.length; i++) {
+		for(int i = 0; i < mvcode.size(); i++) {
 			//영화코드(숫자)를 받은 변수 mvcd
-			String mvcd = mvcode[i];
+			String mvcd = mvcode.get(i);
 
 			//받아온 영화코드로 관리자가 등록한 영화 테이블 내용 검색
 			Optional<MovieOfficial> mv = movieOfficialRepository.findById(mvcd);
 			
+			//받아 온 상영날짜를 date 형태로 변환
+			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
+			Date movieDate;
+			movieDate = dateFormat.parse(mvdate);
+			
+			//상영시간표 dto에 넣음
+			Schedule schedule = new Schedule();
+			schedule.setMovieCd(mv.get().getMovieCd());//영화코드
+			schedule.setThCode(thcode);//영화관코드
+			schedule.setRoomNo(room);//상영관 번호
+			schedule.setSchDate(movieDate);//상영날짜
+			schedule.setSchTime(waittingTime);//상영 전 대기시간
+			
+			//상영시간표를 db에 넣기
+			scheduleRepository.save(schedule);
 			if(mv.isPresent()) {
-				//받아 온 상영날짜를 date 형태로 변환
-				SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
-				Date movieDate;
-				try {
-					movieDate = dateFormat.parse(mvdate);
+				
+				//영화 러닝타임 가져옴
+				int runningTime = mv.get().getShowTm();
 
-					//대기 시간
-					int waittingTime;
-					waittingTime = Integer.parseInt(wait);
+				//러닝타임 + 휴식(대기) 시간
+				int realTime = runningTime + waittingTime;	
 
-					//상영시간표 dto에 넣음
-					Schedule schedule = new Schedule();
-					schedule.setMovieCd(mv.get().getMovieCd());//영화코드
-					schedule.setThCode(thcode);//영화관코드
-					schedule.setRoomNo(room);//상영관 번호
-					schedule.setSchDate(movieDate);//상영날짜
-					schedule.setSchTime(waittingTime);//상영 전 대기시간
+				//영화 끝난 시간 = 상영관 시작시간 + 영화 러닝타임
+				movieEndCalendar.add(Calendar.MINUTE, runningTime);
+				
+				//영화 종료 시간이 상영관 종료 시간을 넘을 경우 값을 넣지 않는다
+				if(movieEndCalendar.before(endCalendar)) {
 
-					//영화 러닝타임 가져옴
-					int runningTime = mv.get().getShowTm();
+					//영화 종료 시간을 calendar에서 date로
+					Date movieEndTime = new Date(movieEndCalendar.getTimeInMillis());
+					//영화 시작 시간을 calendar에서 date로
+					Date movieStartTime = new Date(startCalendar.getTimeInMillis());
+					//상영시간표 상세
+					ScheduleDetail scheduleDetail = new ScheduleDetail();
 
-					//러닝타임 + 휴식(대기) 시간
-					int realTime = runningTime + waittingTime;	
+					scheduleDetail.setSchCode(schedule.getSchCode());//상영시간표 키
+					scheduleDetail.setSchDetailStart(movieStartTime);//영화 시작 시간
+					scheduleDetail.setSchDetailEnd(movieEndTime);//영화 종료 시간
 
-					//영화 끝난 시간 = 상영관 시작시간 + 영화 러닝타임
-					movieEndCalendar.add(Calendar.MINUTE, runningTime);
-					
-					//영화 종료 시간이 상영관 종료 시간을 넘을 경우 값을 넣지 않는다
-					if(movieEndCalendar.before(endCalendar)) {
+					//상영시간표 상세를 db에 넣기
+					scheduleDetailRepository.save(scheduleDetail);
 
-						//상영시간표를 db에 넣기
-						scheduleRepository.save(schedule);
-						
-						//영화 종료 시간을 calendar에서 date로
-						Date movieEndTime = new Date(movieEndCalendar.getTimeInMillis());
-						//영화 시작 시간을 calendar에서 date로
-						Date movieStartTime = new Date(startCalendar.getTimeInMillis());
-						//상영시간표 상세
-						ScheduleDetail scheduleDetail = new ScheduleDetail();
+					//영화 시작 시간 = 저번 영화 시간 + (러닝 타임 + 휴식 시간)
+					movieEndCalendar.add(Calendar.MINUTE, waittingTime);
+					startCalendar.add(Calendar.MINUTE, realTime);
 
-						scheduleDetail.setSchCode(schedule.getSchCode());//상영시간표 키
-						scheduleDetail.setSchDetailStart(movieStartTime);//영화 시작 시간
-						scheduleDetail.setSchDetailEnd(movieEndTime);//영화 종료 시간
-
-						//상영시간표 상세를 db에 넣기
-						scheduleDetailRepository.save(scheduleDetail);
-
-						//영화 시작 시간 = 저번 영화 시간 + (러닝 타임 + 휴식 시간)
-						movieEndCalendar.add(Calendar.MINUTE, waittingTime);
-						startCalendar.add(Calendar.MINUTE, realTime);
-
-					}
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}	
 			}
 		}

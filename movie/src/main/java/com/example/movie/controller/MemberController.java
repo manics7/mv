@@ -113,14 +113,6 @@ public class MemberController {
 		return view;
 	}
 
-	@GetMapping("memberUpdateFrm")
-	public ModelAndView memberUpdateFrm() {
-
-		mv = mServ.memberUpdateFrm();
-
-		return mv;
-	}
-
 	@GetMapping("questionContents")
 	public ModelAndView questionContents(int ques_no) {
 		
@@ -141,7 +133,7 @@ public class MemberController {
 
 		return view;
 	}
-	/*
+	
 	//내가본영화
 	@GetMapping("mypageMovieFrm")
 	public ModelAndView mypageMovieFrm(Integer pageNum) {
@@ -151,8 +143,7 @@ public class MemberController {
 		mv = mServ.selectPurchase(pageNum, 4, view);
 		
 		return mv;
-	}*/
-	/* 보류한다함
+	}
 	@GetMapping("purchaseFrm")
 	public ModelAndView purchaseFrm (Integer pageNum) {
 		int listCnt = 4;
@@ -172,7 +163,7 @@ public class MemberController {
 		mv = mServ.selectPurchase(pageNum,listCnt,View);
 
 		return mv;
-	}*/
+	}
 
 	//회원 정보 출력
 	@GetMapping("/mmanage")
