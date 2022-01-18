@@ -51,7 +51,7 @@
 	<update id="theaterUpdate" parameterType="com.example.movie.dto.TheaterDto">
 		UPDATE THEATER SET TH_NAME=#{th_name}, TH_LOGO=#{th_logo}, TH_LOCATION=#{th_location},
 		TH_INTRODUCE=#{th_introduce}, TH_AREACODE=#{th_areacode}, TH_PARKING=#{th_parking},
-		TH_IMAGE=#{th_image}, TH_TEL=#{th_tel}
+		TH_IMAGE1=#{th_image1}, TH_IMAGE2=#{th_image2}, TH_IMAGE3=#{th_image3}, TH_TEL=#{th_tel}
 		WHERE th_code=#{th_code}
 	</update>
 	
@@ -128,13 +128,13 @@
 	<!-- 상영시간표 상세에서 시작시간 검색 -->
 	<select id="getScheduleStartTime" parameterType="Integer" resultType="com.example.movie.dto.ScheduleDetailDto">
 		SELECT SCH_DETAIL_START FROM SCHEDULE_DETAIL 
-		WHERE sch_code=#{sch_code}
+		WHERE sch_code=${sch_code}
 	</select>
 	
 	<!-- 상영시간표 상세에서 종료시간 검색 -->
 	<select id="getScheduleEndTime" parameterType="Integer" resultType="com.example.movie.dto.ScheduleDetailDto">
 		SELECT SCH_DETAIL_END FROM SCHEDULE_DETAIL 
-		WHERE sch_code=#{sch_code}
+		WHERE sch_code=${sch_code}
 	</select>
 	
 	<!-- 상영시간표 삭제 -->
@@ -160,7 +160,7 @@
 	
 	<!-- 상영관 목록 가져오기 -->
 	<select id="getRoomList" resultType="com.example.movie.dto.RoomDto">
-		SELECT * FROM ROOM
+		SELECT * FROM ROLIST
 	</select>
 	
 	<!-- 상영관 삭제하기 -->

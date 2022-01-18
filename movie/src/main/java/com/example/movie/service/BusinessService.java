@@ -417,6 +417,14 @@ public class BusinessService {
 	public ModelAndView roomInsertFrm() {
 		mv = new ModelAndView();
 
+		String bId;
+		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
+		bId = bDto.getB_id();
+
+		List<TheaterDto> theaterList = buMapper.getTheaterList(bId);
+		
+		mv.addObject("thInfo", theaterList);
+		
 		mv.setViewName("roomInsertFrm");
 
 		return mv;

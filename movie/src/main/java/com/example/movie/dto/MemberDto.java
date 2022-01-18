@@ -15,6 +15,5 @@ public class MemberDto {
 	private int m_point;
 	private int m_grade;
 	private int m_warning;
-	private String authorities;
 
 }

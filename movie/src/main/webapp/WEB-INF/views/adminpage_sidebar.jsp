@@ -17,7 +17,6 @@
 			<li><a id="bupage_menu" href="./mmanage?pageNum=1">회원관리</a></li>
 
 			<li><a id="bupage_menu" href="adminMovieList">영화관리</a></li>
-			<li><a id="bupage_menu" href="">영화관관리</a></li>
 			<li><a id="bupage_menu" href="./quesboard?pageNum=1">문의관리</a></li>
 			<li><a id="bupage_menu" href="mvrreportFrm">신고관리</a></li>
 			<li><a id="bupage_menu" href="/notice">공지사항</a></li>

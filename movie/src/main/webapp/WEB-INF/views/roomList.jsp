@@ -19,7 +19,7 @@ $(function(){
 </script>
 </head>
 <body>
-<nav style="background: black; padding-top: 35px; padding-bottom: 35px;">
+<nav style="background: #1d1d1d; padding-top: 35px; padding-bottom: 35px;">
 <jsp:include page="business_header.jsp"></jsp:include>
 </nav>
 <section>
@@ -27,7 +27,7 @@ $(function(){
 	<div class="inner">
 		<div id="page_wrap">
 		<div id="side">
-		<jsp:include page="business_sidebar.jsp"></jsp:include>
+		<jsp:include page="./business_sidebar.jsp"></jsp:include>
 		
 		</div>
 		<!-- 
@@ -66,7 +66,7 @@ $(function(){
                         <!-- 상영관 목록 출력 -->
                         <c:forEach var="room" items="${roomList}">
                             <tr class="data_row">
-                                <td class="t_no p-10">${room.thname}</td>
+                                <td class="t_no p-10">${room.th_name}</td>
                                 <td class="t_theater p-10">${room.room_no}관[${room.room_name}]</td>
                                 <td class="t_title p-10">총 ${room.seat_cnt}석</td>
                                 <td class="t_date p-10">${room.room_class}</td>

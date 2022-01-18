@@ -20,6 +20,8 @@ a {
 .admin_nav_wrap {
 	width: 100%;
 	background-color: #1d1d1d;
+	position: fixed;
+	z-index: 99;
 }
 
 .admin_nav {
@@ -129,7 +131,7 @@ $(document).ready(function(){
 	<div class="admin_nav_wrap">
 		<ul class="admin_nav"style="color: white;">
 			<li class="admin_nav_item logo"> 
-				<div class="logo1">&nbsp;MVTI&nbsp;</div>
+				<div style="cursor: pointer;" onclick="location.href='/'" class="logo1">&nbsp;MVTI&nbsp;</div>
 				<div class="logo2">&nbsp;MOVIE&nbsp;</div>
 			</li>
 			<li class="admin_nav_item cont1"><a class="main_header_btn yellow underline" style="color: white;"
@@ -137,15 +139,18 @@ $(document).ready(function(){
 			
 			<li class="admin_nav_item cont3"><a class="main_header_btn yellow underline"style="color: white;"
 				href="/rlist">영화관후기</a></li>
-			<li class="admin_nav_item cont4"><a class="main_header_btn yellow underline menuitem_4_search_theater" style="color: white;"
-				href="pmvReviewFrm">영화관 찾기</a></li>
+			<li class="admin_nav_item cont4">
+				<a class="main_header_btn yellow underline menuitem_4_search_theater" style="color: white;"
+				   href="">영화관 찾기
+				</a>
+			</li>
 			<li class="admin_nav_item cont5"><a class="main_header_btn yellow underline"
 				data-toggle="modal" data-target="#rsrvModal" data-movieCd=""  data-thcode=""  id="modal" style="text-decoration: none;">빠른예매</a></li>
 				
 				<li><div id="login_before">
 				
 					<a href="#" id="login_btn" style="color: white;">로그인/</a>
-					<a href="#" style="color: white;">회원가입</a>
+					<a href="./joinFrm" style="color: white;">회원가입</a>
 				</div>
 				<div id="login_after">
 				<a style= "color: white;" class="mypage" href="./mypage">MYpage</a>

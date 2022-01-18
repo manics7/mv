@@ -81,7 +81,7 @@
 													<tr>
 														<td class="text-center d-none d-md-table-cell"><a href='javascript:void(0);' onclick="findInfo('${mitem.m_id}','${mitem.m_tel}','${mitem.m_name}','${mitem.m_birth}','${mitem.m_warning}')">${mitem.m_id}</a>  
 														</td>
-														<td><a href='board_read.html'>${mitem.m_name}</a></td>
+														<td><a href='javascript:void(0);' onclick="findInfo('${mitem.m_id}','${mitem.m_tel}','${mitem.m_name}','${mitem.m_birth}','${mitem.m_warning}')">${mitem.m_name}</a></td>
 														<td class="text-center d-none d-md-table-cell">${mitem.m_tel}
 														</td>
 														<td class="text-center d-none d-md-table-cell">${mitem.m_birth}
@@ -92,8 +92,8 @@
 															type="button" href="./mboardSelect?m_id=${mitem.m_id}">확인</a></td>
 
 															
-														<td class="text-center d-none d-md-table-cell"><a class=""
-															href="#" onclick="deletemember('${mitem.m_id}')">삭제</a></td>
+														<td class="text-center d-none d-md-table-cell"><a class="#"
+															href='javascript:void(0);' onclick="delCheck('${mitem.m_id}')">삭제</a></td>
 													</tr>
 <!-- ./admindelMember?m_id=${mitem.m_id} -->
 												</c:forEach>
@@ -156,7 +156,18 @@
 
 	</div>
 </body>
-<script defer type="text/javascript">
+<script type="text/javascript">
+
+function delCheck(m_id){
+	var m_id = m_id;
+	var conf = confirm("삭제하시겠습니까?");
+	
+	if(conf == true){
+		location.href='./admindelMember?m_id=' + m_id;
+	}
+}
+
+
 /*
 		getbulist();
 		
