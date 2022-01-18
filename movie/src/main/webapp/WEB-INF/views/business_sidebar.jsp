@@ -125,7 +125,6 @@ ul>li>a#bupage_menu:hover:after {
 					<li><a id="bupage_menu" href="./movieInsert">영화 관리</a></li>
 					<li><a id="bupage_menu" href="./roomList">상영관 관리</a></li>
 					<li><a id="bupage_menu" href="./schedule">상영 일정 관리</a></li>
-					<li><a id="bupage_menu" href="#">이벤트 관리</a></li>
 				</ul>
 	</div>
 	</html>
