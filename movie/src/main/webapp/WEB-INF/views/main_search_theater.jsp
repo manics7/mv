@@ -16,7 +16,7 @@
 	crossorigin="anonymous">
 	<!--  jQuery -->
 	<script type="text/javascript" src="resource/js/jquery-3.6.0.min.js"></script>
- <!-- <script type="text/javascript" src="resources/js/search_theater.js"></script>   -->  
+
 
 <title>Document</title>
 

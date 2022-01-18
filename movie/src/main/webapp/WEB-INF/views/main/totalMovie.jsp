@@ -40,7 +40,7 @@
 	#schTimeList ul {border-bottom: 1px solid rgba(0, 0, 0, 0.125); }
 	.time_title {border-bottom: 1px solid rgba(0, 0, 0, 0.125) ;}
 	
-	//#areaList > ul > li:hover  {background-color: #f16a1a; color: white;}
+	//#totalAreaList > ul > li:hover  {background-color: #f16a1a; color: white;}
 	//#dateList > ul > li:hover  {background-color: #f16a1a; color: white;}
 	#schTimeList > ul > li:hover  {background-color: #f16a1a; color: white;}
 	#schTimeList span:not(hover)  {color: #f16a1a;}
@@ -78,7 +78,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12" >
-			<ul class="list-group list-group-horizontal" id="areaList">
+			<ul class="list-group list-group-horizontal" id="totalAreaList">
 			  <!-- <li class="list-group-item py-2 px-2 w-100  selected " id="areaCode-00">전체</li> -->
 			  <li class="list-group-item py-2 px-2 w-100" id="areaCode-11">서울</li>
 			  <li class="list-group-item py-2 px-2 w-100" id="areaCode-31">경기</li>
@@ -277,7 +277,7 @@
 								html +="</ul>";
 							}
 							$("#schTimeList").html(html);						
-							$("#areaList li").eq(0).click();
+							$("#totalAreaList li").eq(0).click();
 						}
 					
 
@@ -288,7 +288,7 @@
 			}			
 			
 			//선택시 색상변경
-			$(document).on('click',"#schDateList li, #theaterList li, #areaList li"		
+			$(document).on('click',"#schDateList li, #theaterList li, #totalAreaList li #schTimeList li"		
 				,function() {		
 					$(this).addClass("selected"); //클릭된 부분을 상단에 정의된 CCS인 selected클래스로 적용
 					$(this).css("background-color","#f16a1a");
@@ -378,14 +378,14 @@
 			}
 			
 			//지역선택 시 극장목록 검색
-			$(document).on("click", "#areaList li" , function(){
+			$(document).on("click", "#totalAreaList li" , function(){
 
 				selectArea();
 			    
 			});
 			function selectArea(){
 				var timeList = $("ul[th_areacode]");		
-				var areaCode = $("#areaList li.selected").attr("id").substr(9,11)
+				var areaCode = $("#totalAreaList li.selected").attr("id").substr(9,11)
 			
 				///if(areaCode == "00"){
 				//	$(timeList[i]).prev().css("display","flex");
@@ -438,11 +438,6 @@
 	</script>
 	
 	
-	<div class="modal fade" id="rsrvModal" tabindex="-1" role="dialog"	aria-labelledby="label" aria-hidden="true" data-backdrop="static">
-		<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-			<div class="modal-content"></div>
-		</div>
-	</div>
 	
 	<div class="modal fade" id="confirmModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
