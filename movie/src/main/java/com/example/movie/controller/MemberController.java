@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +22,11 @@ import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.QuestionDto;
 import com.example.movie.dto.ReviewMovieDto;
 import com.example.movie.dto.TheaterDto;
+import com.example.movie.entity.Notice;
 import com.example.movie.entity.Schedule;
 import com.example.movie.mapper.MemberMapper;
 import com.example.movie.service.MemberService;
+import com.example.movie.service.NoticeService;
 import com.example.movie.service.ScheduleService;
 
 import lombok.extern.java.Log;
@@ -38,6 +42,9 @@ public class MemberController {
 	private AdminController aCon;
 
 	private ModelAndView mv;
+	@Autowired
+	private NoticeService noticeService; 
+	
 	
 	@Autowired
 	private MemberMapper mMapper;
@@ -49,6 +56,7 @@ public class MemberController {
 
 	@GetMapping("mypage")
 	public ModelAndView mypage(Integer pageNum) {
+	
 
 		String view ="mypage";
 
@@ -236,11 +244,12 @@ public class MemberController {
 	}
 	//영화관 상세 페이지로 이동.
 	@GetMapping("accessTheaterDetailPage")
-	public ModelAndView theater_detail(Integer th_code) {
+	public ModelAndView theater_detail(Integer th_code, Pageable pageable) {
 		List<Map<String, Object>> list = mServ.getSch(th_code);
-		
 		TheaterDto thDto = mMapper.getThinfoList(th_code);
+		Page<Notice> noticeList = noticeService.getNoticeList("", pageable);
 		mv = new ModelAndView();
+		mv.addObject("noticeList", noticeList);
 		mv.addObject("theatedetail", list);
 		mv.addObject("th_code",th_code);
 		mv.addObject("thinfoDto", thDto);

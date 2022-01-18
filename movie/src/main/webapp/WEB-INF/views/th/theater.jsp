@@ -28,7 +28,7 @@ $(function(){
 	<div class="inner">
 		<div id="page_wrap">
 			<jsp:include page="../business_sidebar.jsp"></jsp:include>		
-			<div id="th_content">
+			<div id="th_content" style="margin-top: 0px;">
 				<c:choose>
 					<c:when test="${empty theaterList}">
 						<div id="th_title">
@@ -43,11 +43,11 @@ $(function(){
 					</c:when>
 					<c:when test="${!empty theaterList}">
 						<c:forEach var="theaterList" items="${theaterList}">
-						<div id="thLogo">
+						<div id="thLogo" style="width: 180px; height: 104px; margin-left: 297px;">
 								<!-- 첨부파일이 있을 경우 -->
      							<c:if test="${!empty theaterList.th_logo}">
          						<!-- 이미지 파일 미리보기 -->
-            						<img src="${theaterList.th_logo}">
+            						<img style="height: 100px;" src="${theaterList.th_logo}">
       							</c:if>
 						</div>
 						<div id="th_title">
@@ -100,5 +100,8 @@ $(function(){
 	</div>
 </div>
 </section>
+<footer>
+<jsp:include page="../footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>
