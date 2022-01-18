@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -641,6 +642,7 @@ public class MemberService {
 
 			List<ScheduleDetail> scheduleDetail = scheduleDetailRepository.findBySchCode(schCode);
 			schduleList.get(i).setScheduleDetail(scheduleDetail);
+			scheduleDetail.stream().sorted(Comparator.comparing(ScheduleDetail::getSchDetailStart));
 
 			for(int j = 0; j < scheduleDetail.size(); j++) {
 				Integer schDetailSeq = scheduleDetail.get(j).getSchDetailSeq();
