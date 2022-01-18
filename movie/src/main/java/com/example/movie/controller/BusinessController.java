@@ -157,6 +157,7 @@ public class BusinessController {
 
 		String view = buServ.testInsert(roomStartTime, roomEndTime, thcode, mvcode, room, mvdate, wait);
 
+
 		return view;
 	}
 	//상영시간표 삭제

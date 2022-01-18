@@ -41,4 +41,6 @@ public interface BoardMapper extends MybatisMapper {
 	public List<ReplyDto> getReList(Integer rnum);
 	//신고 처리하기
 	public void reportRvInsert(ReportReviewDto RpRbDto);
+	//파일 삭제하기
+	public boolean RvFileDelete(Integer rnum);
 }

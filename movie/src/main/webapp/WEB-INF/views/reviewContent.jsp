@@ -29,19 +29,29 @@ $(function(){
 		$("#upbtn").show();
 		$("#delbtn").show();
 	}
+	//신고하기 버튼 처리(본인의 글이면 신고 불가)
+	$("#report_btn").show();
+	
+	var mid = "${userInfo.m_id}";
+	var bid = "${bDto.mid}";
+	
+	if(mid == bid){
+		$("#report_btn").hide();
+	}
 });
 </script>
 </head>
 <body>
 <header>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="main_header.jsp"></jsp:include>
 </header>
-<section class="rv_section2">
+			<!-- Post -->
+			<section class="post">
 <div class="rv_content">
 	<button id="report_btn">신고하기</button>
     <div id="popupDiv"> <!-- 팝업창 -->
         <button id="popCloseBtn">X</button>
-		<h1>게시글 신고 사유 선택</h1>
+		<h3>게시글 신고 사유 선택</h3>
 		<form action="./rpWhyInsert" class="rp_why_form" method="post">
 			<input type="checkbox" id="checkmark1" class="checkmark" name="rp_why" value="욕설비방">
 			<label for="checkmark1" id="check01">욕설/비방</label>
@@ -55,15 +65,15 @@ $(function(){
 			<label for="checkmark5" id="check05">스포일러</label>
 			<input type="checkbox" id="checkmark6" class="checkmark" name="rp_why" value="기타">
 			<label for="checkmark6" id="check06">기타</label>
-			<input type="number" name="review_num" value="${bDto.rnum}">
-			<input type="text" name="rp_m_id" value="${userInfo.m_id}"><!--신고자 아이디-->
-			<input type="text" name="rpt_m_id" value="${bDto.mid}"><!--신고 당하는 아이디-->
+			<input type="hidden" name="review_num" value="${bDto.rnum}">
+			<input type="hidden" name="rp_contents" value="${bDto.rtitle}">
+			<input type="hidden" name="rp_m_id" value="${userInfo.m_id}"><!--신고자 아이디-->
+			<input type="hidden" name="rpt_m_id" value="${bDto.mid}"><!--신고 당하는 아이디-->
 			<button type="submit">신고하기</button>
 		</form>
     </div>
-    <div>${bDto.rnum}</div>
 	<div id="rvtitle"><a id="rv_thname">${bDto.th_name}</a> ${bDto.rtitle}</div>
-	<div id="rvtitle2">${bDto.mid} | ${bDto.rdate} | ${bDto.rview}</div>
+	<div id="rvtitle2">${bDto.mid} | ${bDto.rdate} | 조회수 ${bDto.rview}</div>
 	<br>
 	<hr>
 	<br>
@@ -77,12 +87,11 @@ $(function(){
 		<c:if test="${!empty bfDto}">
 			<!-- 이미지 파일 미리보기 -->
 			<c:forEach var="f" items="${bfDto}">
-				<img src="${f.review_file_name}" width="100">
+				<img src="${f.review_file_name}" width="100" height="100">
 			</c:forEach>
 		</c:if>
 	
 	<div class="btn-area">
-		<button id="likebtn">LIKE<br>${bDto.rlike}</button>
 		<button class="btn-write" id="upbtn"
 			onclick="location.href='./updateRvFrm?rnum=${bDto.rnum}'">수정</button>
 		<button class="btn-write" id="delbtn"
@@ -95,18 +104,15 @@ $(function(){
 		<textarea rows="3" class="write-input ta"
 			name="recontent" id="comment"
 			placeholder="댓글을 적어주세요."></textarea>
-		<a id="reply_count">0 / 200byte</a>
 		<input type="button" value="댓글 전송" id="reply_post_btn"
 			class="btn-write" onclick="replyInsert(${bDto.rnum})">
 	</form>
 	<!-- 댓글 목록 보기 -->
-	<hr>
 	<table style="width: 100%"><!-- 제목 테이블 -->
-		<tr bgcolor="orange" align="center" height="30">
+		<tr class="re_tr" bgcolor="white" align="center" height="30">
 			<td width="20%">WRITER</td>
 			<td width="40%">CONTENTS</td>
 			<td width="30%">DATE</td>
-			<td width="10%">신고 처리</td>
 		</tr>
 	</table>
 	<table id="re_table" style="width: 100%"><!-- 목록 테이블 -->
@@ -118,7 +124,6 @@ $(function(){
 					<fmt:formatDate value="${ritem.redate}"
 						pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
-				<td width="10%"><button id="report_btn">신고하기</button></td>
 			</tr>
 		</c:forEach>
 	</table>
