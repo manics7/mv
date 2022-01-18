@@ -137,7 +137,7 @@ $(document).ready(function(){
 			<li class="admin_nav_item cont2"><a class="yellow underline"style="color: white;"
 				href="./adminMovieList">영화관</a></li>
 			<li class="admin_nav_item cont3"><a class="yellow underline"style="color: white;"
-				href="./quesboard?pageNum=1">영화관후기</a></li>
+				href="./rlist">영화관후기</a></li>
 			<li class="admin_nav_item cont4"><a class="yellow underline menuitem_4_search_theater" style="color: white;"
 				href="pmvReviewFrm">영화관 찾기</a></li>
 			<li class="admin_nav_item cont5"><a class="yellow underline"

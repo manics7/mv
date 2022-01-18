@@ -28,7 +28,7 @@ $(function(){
 </head>
 <body>
 <header>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="main_header.jsp"></jsp:include>
 </header>
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -50,7 +50,7 @@ $(function(){
 				<form action="./reviewWrite" class="write-form" method="post" enctype="multipart/form-data">
 					<!-- 로그인 유저, 제목, 내용, 파일 처리 -->
 					<!-- name의 value는 DTO의 변수명과 일치하게 -->
-					<input type="hidden" name="mid" value="viu97">
+					<input type="hidden" name="mid" value="${userInfo.m_id}">
 					<div class="row gtr-uniform">
 						<!-- <div class="col-6 col-12-xsmall">
 							<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
@@ -89,8 +89,8 @@ $(function(){
 					</div>
 				</form>
 				</section>
-				</div>
-				</div>
+			</div>
+		</div>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>
 </footer>

@@ -5,6 +5,10 @@ body {
     padding: 0;
 }
 
+.post {
+	margin-bottom: 700px;
+}
+
 
 /******************************리스트*******************************/
 
@@ -21,6 +25,7 @@ body {
     width: 1024px;
     height: 80px;
     margin: 0 auto;
+    margin-top: 70px;
 }
 .rv_header > .rv_info {
     float: left;
@@ -114,7 +119,7 @@ td.t_no, td.t_view, td.t_like {
 
 /* 페이징 버튼 */
 .btn-area2 .paging {
-	width: 100%;
+	width: 200px;
 	margin: 0px auto;
 	opacity: 0.8;
 	margin-top: 15px;
@@ -148,13 +153,13 @@ td.t_no, td.t_view, td.t_like {
 	margin: 5px auto;
 }
 .wr-btn {
-	background-color: orange;
+	background-color: black;
 	border: none;
 	display: inline-block;
 	width: 65px;
 	padding: 5px 5px;
 	font-size: 15px;
-	color: #fff;
+	color: white;
 	float: right;
 }
 .wr-btn:hover {
@@ -169,7 +174,7 @@ td.t_no, td.t_view, td.t_like {
 	width: 1024px;
 	height: 800px;
 	margin: 0 auto;
-	margin-top: 150px;
+	margin-top: 70px;
 	padding: 15px;
 	/* border: 1px solid #e1e1e1; */
 }
@@ -207,14 +212,15 @@ td.t_no, td.t_view, td.t_like {
 	margin-bottom: 20px;
 }
 .btn-write {
-	background-color: orange;
-	border: none;
+	background-color: white;
+	border: 2px solid black;
 	padding: 7px;
-	color: white;
+	color: black;
 	text-align: center;
 }
 .btn-write:hover {
-	background-color: red;
+	background-color: black;
+	color: white;
 }
 #likebtn {
 	display: block;
@@ -283,16 +289,25 @@ td.t_no, td.t_view, td.t_like {
 #reply_co {
 	width: 100%;
 }
+.re_tr td {
+	background-color: black;
+	color: white;
+}
+td {
+	text-align: center;
+}
 
 /*************************신고 팝업창************************/
 #popupDiv {  /* 팝업창 css */
     top : 0px;
     position: absolute;
-    background: gray;
+    background-color: white;
     width: 400px;
-    height: 400px;
+    height: 450px;
     display: none; 
 	text-align: center;
+	border: 1px solid white;
+	box-shadow: 3px 3px 3px 3px #e1e1e1;
 }
 #popup_mask { /* 팝업 배경 css */
 	position: fixed;
@@ -300,9 +315,9 @@ td.t_no, td.t_view, td.t_like {
 	height: 1000px;
 	top: 0px;
 	left: 0px;
-		display: none; 
-		background-color:#000;
-		opacity: 0.8;
+	display: none; 
+	background-color:#black;
+	opacity: 0.8;
 }
 #popCloseBtn {
 	float: right;
@@ -311,37 +326,63 @@ td.t_no, td.t_view, td.t_like {
 	height: 30px;
 	font-size: 20px;
 }
-#popupDiv > h1 {
+#popupDiv > h3 {
 	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	color: black;
+}
+.rp_why_form > button {
+	margin-top: 20px;
+	background-color: black;
+    border: none;
+    border-radius: 10%;
+    color: white;
+    width: 80px;
+    height: 40px;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+.rp_why_form > button:hover {
+	background-color: red;
+}
+.rp_why_form > label {
+	background-color: #e1e1e1;
 }
 #popupDiv > form > input {
 	display: none;
 }
 #checkmark1:checked ~ #check01 {
-    background: orange;
+    background: black;
+    color: white;
 }
 #checkmark2:checked ~ #check02 {
-    background: orange;
+    background: black;
+    color: white;
 }
 #checkmark3:checked ~ #check03 {
-    background: orange;
+    background: black;
+    color: white;
 }
 #checkmark4:checked ~ #check04 {
-    background: orange;
+    background: black;
+    color: white;
 }
 #checkmark5:checked ~ #check05 {
-    background: orange;
+    background: black;
+    color: white;
 }
 #checkmark6:checked ~ #check06 {
-    background: orange;
+    background: black;
+    color: white;
 }
 label {
 	margin: 0 auto;
 	width: 300px;
 	height: 50px;
-	background-color: #e1e1e1;
-	border: 1px solid black;
+	border: 1px solid white;
 	line-height: 50px;
 	display: block;
 	text-align: center;
+	background-color: skyblue;
 }

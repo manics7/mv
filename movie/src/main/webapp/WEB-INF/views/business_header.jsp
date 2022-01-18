@@ -106,7 +106,7 @@ a {
 			<li class="admin_nav_item cont3"><a class="yellow underline"
 				href="./quesboard?pageNum=1">상영관관리</a></li>
 			<li class="admin_nav_item cont4"><a class="yellow underline"
-				href="pmvReviewFrm">쌍영 일정 관리</a></li>
+				href="pmvReviewFrm">상영 일정 관리</a></li>
 			<li class="admin_nav_item cont5"><a class="yellow underline"
 				href="questionFrm">이벤트 관리</a></li>
 
