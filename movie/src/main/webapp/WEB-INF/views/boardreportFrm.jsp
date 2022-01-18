@@ -54,7 +54,6 @@
 								<a class="btn_nomal"
 									href="./mvrreportFrm">영화리뷰신고</a> 
 									<a href="boardreportFrm" class="btn_nomal" style="background: #f16a1a; color: white;">게시글신고</a> 
-									<a class="busbtn" href="replyreportFrm">댓글신고</a>
 							</div>
 
 
@@ -92,7 +91,7 @@
 							<tr>
 								<td class="text-center d-none d-md-table-cell">${rpitem.rp_m_id}</td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rp_why}</td>
-									<td class="text-center d-none d-md-table-cell"><a>${rpitem.rp_contents}</a></td>
+									<td class="text-center d-none d-md-table-cell"><a href="content?rnum=${rpitem.review_num}">${rpitem.rp_contents}</a></td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rpt_m_id}</td>
 									<td class="text-center d-none d-md-table-cell"><fmt:formatDate
 											value="${rpitem.rp_date}" pattern="yyyy-MM-dd" /></td>
@@ -166,4 +165,13 @@
 
 	</div>
 </body>
+<script type="text/javascript">
+function delCheck(review_num){
+	var conf = confirm("삭제하시겠습니까?");
+	
+	if(conf == true){
+		location.href='./delAdminReview?review_num=' + review_num;
+	}
+}
+</script>
 </html>

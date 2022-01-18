@@ -11,19 +11,21 @@
 <link rel="stylesheet" type="text/css" href="resource/css/currentMovieList.css">
 </head>
 <body>
-	
-	<jsp:include page="header.jsp"></jsp:include>
+
 	
 	<div id="section_wrap">
-		<div id="titleMovieList">
-			<div class="title">
-				현재상영작
+		<div class="currentMovieTitle">
+			<div style="width: 1024px; margin: 0 auto;">
+				<jsp:include page="main_header.jsp"></jsp:include>
 			</div>
-		</div>
+		</div> 
 		<div id="main_wrap">
 			<div id="movie_wrap">
 				<div id="current_movieList">
 					<ol id="movie_list">
+						<h2 style="text-align: center; font-size: 30px; padding-bottom: 50px;">
+							현재 상영작
+						</h2>
 						<c:forEach var="movieList" items="${movieList }">
 							<li class="movie-list">
 								<div class="poster_contain">
@@ -55,7 +57,7 @@
 											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-15.png)">
 										</c:when>
 										<c:when test="${movieList.watch_grade_nm eq '18' }">
-											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-18.png)">
+											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-19.png)">
 										</c:when>
 										<c:otherwise>
 											<p class="watchGrade" style="background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/txt-age-all.png)">

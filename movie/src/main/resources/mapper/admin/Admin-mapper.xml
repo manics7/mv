@@ -23,7 +23,7 @@
 		resultType="com.example.movie.dto.quesboardDto">
 		SELECT * FROM v_question where m_id = #{m_id}
 	</select>
-
+	
 	<!-- 영화리뷰번호로 영화리뷰 찾기 -->
 	<select id="selectMvReviewByReviewNum" parameterType="Integer"
 		resultType="String">
@@ -36,6 +36,10 @@
 		SELECT mv_review_id FROM review_movie WHERE mv_review=#{mvrNum}
 	</select>
 	
+	<select id="selectIdFromReview" parameterType="Integer" resultType="String">
+		SELECT m_id FROM REVIEW WHERE REVIEW_NUM=#{review_num}
+	</select>
+	
 	<!-- 경고증가 -->
 	<update id="updateWarning" parameterType="String">
 		UPDATE member SET m_warning = m_warning+1 WHERE m_id=#{id}
@@ -45,10 +49,19 @@
 	<update id="updateRpMvReviewState" parameterType="Integer">
 		UPDATE report_mv_review SET rp_state =1 WHERE movie_review=#{mvrNum}
 	</update>
+	<!-- 영화관리뷰신고 상태값 변경 -->
+	<update id="updateRpReviewState" parameterType="Integer">
+		UPDATE report_review SET rp_state =1 WHERE review_num=#{review_num}
+	</update>
+	
 	
 	<!-- 영화리뷰삭제 -->
 	<delete id="delMvReview" parameterType="Integer">
 		DELETE FROM review_movie WHERE mv_review=#{mvrNum}
+	</delete>
+	<!-- 영화관리뷰 삭제 -->
+	<delete id="delBoardReview" parameterType="Integer">
+		DELETE FROM review WHERE review_num=#{review_num}
 	</delete>
 	
 <!-- 문의글 목록 출력 -->
@@ -142,24 +155,14 @@
 		SELECT COUNT(*) FROM report_review
 	</select>
 	
-	<!-- 신고 댓글 갯수 -->
-	<select id="selectReportReplyCnt" resultType="Integer">
-		SELECT COUNT(*) FROM report_reply
-	</select>
+	
+	
+
 	
 	<select id="selectReportReview" parameterType="HashMap"
 		resultType="com.example.movie.dto.ReportReviewDto">
 		<![CDATA[
 		SELECT * FROM REPORTREVIEWLIST_1
-		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
-			AND RONUM <= #{num} * #{lcnt}
-		]]>
-	</select>
-	
-	<select id="selectReportReply" parameterType="HashMap"
-		resultType="com.example.movie.dto.ReportReplyDto">
-		<![CDATA[
-		SELECT * FROM REPORTREPLYLIST_1
 		WHERE RONUM >= (#{num} * #{lcnt}) - (#{lcnt} - 1)  
 			AND RONUM <= #{num} * #{lcnt}
 		]]>

@@ -5,9 +5,6 @@
 	padding: 0;
 }
 
-body {
-	width: 100%;
-}
 
 a {
 	text-decoration: none;
@@ -15,11 +12,10 @@ a {
 
 ol, ul, li {
 	list-style: none;
-	float: left;
 }
 
 #section_wrap {
-	position: relative;
+	
 	width: 100%;
 	margin: 0 auto;
 }
@@ -42,6 +38,8 @@ ol, ul, li {
 	width: 100%;
 	height: 100%;
 	margin: 0 auto;
+	margin-top: 200px;
+	
 }
 
 #movie_wrap {
@@ -70,7 +68,7 @@ ol, ul, li {
 	margin-left: 40px;
 }
 
-.movie-list:nth-child(4n + 1) {
+.movie-list:nth-child(4n + 2) {
 	margin-left: 0;
 }
 
@@ -160,4 +158,10 @@ ol, ul, li {
 	border-radius: 4px;
 	color: white;
 	font-size: 16px;
+}
+.currentMovieTitle{
+	background: #1d1d1d;
+	height: 100px;
+	width: 100%;
+	
 }

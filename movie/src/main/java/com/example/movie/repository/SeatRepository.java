@@ -10,6 +10,6 @@ import com.example.movie.entity.Seat;
 @Repository
 public interface SeatRepository extends JpaRepository<Seat, Integer> {
 
-	List<Seat> findByThCodeAndRoomNo(Integer thCode, Integer roomNo);
+	List<Seat> findByThCodeAndRoomNoOrderBySeatRowAscSeatColAsc(Integer thCode, Integer roomNo);
 
 }

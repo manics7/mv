@@ -32,7 +32,7 @@
 		<div class="main_wrap_wrap">
 			<div class="main_wrap">
 			<div class="sidebar">
-				<%@ include file="./business_sidebar.jsp"  %>
+				<jsp:include page="./business_sidebar.jsp"></jsp:include>
 			</div>
 				<div class="page_cont_wrap">
 					<div class="user_info">
@@ -46,7 +46,6 @@
 
 							</div>
 						</div>
-						<a class="txt_box" href="businessUpdateFrm">개인정보 수정</a>
 
 					</div>
 					<div class="main_point_box">

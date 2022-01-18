@@ -59,7 +59,7 @@ $(document).ready(function(){
 		<div id="header_bottom">
 			<ol>
 				<li><a href="./currentMovieList">영화</a></li>
-				<li><a href="#">영화관</a></li>
+				<li><a href="theater_detail">영화관</a></li>
 				<li><a href="/rlist">영화관후기</a></li>
 				<li><a href="#" class="menuitem_4_search_theater">영화관찾기</a></li>
 				<li><a href="#">이벤트</a></li>
@@ -162,7 +162,6 @@ if(userInfo != "") {
 	$("#login_before").css("display", "none");
 	$(".mypage").css("display","inline-block");
 }
-
 	
 	$('.search_rayer').hide();
 	$('.menuitem_4_search_theater').mouseover(function(){

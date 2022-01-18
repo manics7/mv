@@ -37,6 +37,12 @@ background: transparent;
 color: black;
 
 }
+
+.header_btn1:hover{
+background: #f16a1a;
+color: white;
+}
+
 	
 	
 	
@@ -158,8 +164,8 @@ color: black;
 					<div class="main_btn_wrap">
 						<div class="main_btn">
 							<button class="header_btn1">영화관홈</button>
-							<button class="header_btn1">예매하기</button>
-							<button class="header_btn1">상영시간표</button>
+							<button data-toggle="modal" data-target="#rsrvModal" data-movieCd=""  data-thcode=""  id="modal" style="text-decoration: none;" class="header_btn1 reserBtn">예매하기</button>
+							<button class="header_btn1 scheduleBtn">상영시간표</button>
 						</div>
 					</div>
 				</div>
@@ -178,8 +184,7 @@ color: black;
 		<section class="main_movielist">
 			<!--부트스트랩으로 py5라고 있었음.-->
 			<div class="main_movielist_top">
-				<a href="#" style="color: black;">현재상영중</a> <a href="#"
-					style="color: gray;">상영예정작</a>
+				<a href="#" style="color: black;">현재상영중</a> 
 			</div>
 			<div class="main_movielist_cont_wrap">
 			<div class="main_movielist_cont">
@@ -252,7 +257,7 @@ color: black;
 	</div>
 
 	<div class="screening_schedule_wrap">
-		<section class="screening_schedule">
+		<section id="reserSchedule" class="screening_schedule">
 			<!--부트스트랩으로 py5라고 있었음.-->
 			<a class="cinema_timetable">
 				<h2>상영시간표</h2>
@@ -358,12 +363,12 @@ color: black;
 			</div>
 			<div class="loc_list">
 				<h3>오시는길</h3>
-				<p>${theatedetail[0].theater.thLocation}</p>
+				<p>${thinfoDto.th_location}</p>
 				<h3>연락처</h3>
 				<p>070-8801-6436 | 010-5949-6438</p>
 				<h3>주차안내</h3>
-				<p>${theatedetail[0].theater.thParking} <br>
-					${theatedetail[0].theater.thName}은 주차장이 없습니다. <br> <br> <br> <br> 가까운
+				<p>${thinfoDto.th_parking} <br>
+					${thinfoDto.th_name}은 주차장이 없습니다. <br> <br> <br> <br> 가까운
 					주차장으로는 창동 공영주차장, bnk경남은행 주차장이 있습니다. <br> 주차권은 따로 나가지 않습니다.
 				</p>
 			</div>
@@ -377,26 +382,27 @@ color: black;
 		<section class="cenema_pic">
 			<!-- <div class="img_box1_wrap"></div> -->
 			<div class="img_box box1">
-				<img src="/imges/cinema_pic1.jpg" alt=""> <a href="#">1관
+
+				<img src="${thinfoDto.th_image1}" alt=""> <a href="#">1관
+
 					상영관</a>
 			</div>
 			<div class="img_box box2">
-				<img src="/imges/cinema_pic2.jpg" alt=""> <a href="#">1관
+				<img src="${thinfoDto.th_image2}" alt=""> <a href="#">1관
 					상영관</a>
 			</div>
 			<div class="img_box box3">
-				<img src="/imges/cinema_pic3.jpg" alt=""> <a href="#">1관
+
+				<img src="${thinfoDto.th_image3}" alt=""> <a href="#">1관
+
 					상영관</a>
 			</div>
 		</section>
 	</div>
 
 	<!-- Footer-->
-	<footer class="py-5 bg-dark">
-		<div class="container">
-			<p class="m-0 text-center text-white">Copyright &copy; Your
-				Website 2021</p>
-		</div>
+	<footer class="py-5">
+			<jsp:include page="footer.jsp"></jsp:include>
 	</footer>
 	<!-- Bootstrap core JS-->
 	
@@ -404,6 +410,32 @@ color: black;
 
 </body>
 <script type="text/javascript">
+
+//scroll to id functionization
+function scrollIntoView(selector) {
+  const scrollTo = document.querySelector(selector);
+  scrollTo.scrollIntoView({ behavior: 'smooth' });
+}
+
+//Handle click on "contac me" button on home
+const goToSchedule = document.querySelector('.scheduleBtn');
+goToSchedule.addEventListener('click', (event) => {
+  scrollIntoView('#reserSchedule');
+});
+
+$(document).ready(function($) {
+
+    $(".scheduleBtn").click(function(event){         
+
+            event.preventDefault();
+
+            $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
+
+    });
+
+});
+
+
 
 $(document).ready(function(){
 	
@@ -446,7 +478,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 //주소로 좌표를 검색합니다
-geocoder.addressSearch('${theatedetail[0].theater.thLocation}', function(result, status) {
+geocoder.addressSearch('${thinfoDto.th_location}', function(result, status) {
 
 // 정상적으로 검색이 완료됐으면 
  if (status === kakao.maps.services.Status.OK) {
@@ -461,7 +493,7 @@ geocoder.addressSearch('${theatedetail[0].theater.thLocation}', function(result,
 
     // 인포윈도우로 장소에 대한 설명을 표시합니다
     var infowindow = new kakao.maps.InfoWindow({
-        content: '<div style="width:150px;text-align:center;padding:6px 0;">${theatedetail[i].theater.thLocation}</div>'
+//         content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 영화관</div>'
     });
     infowindow.open(map, marker);
 

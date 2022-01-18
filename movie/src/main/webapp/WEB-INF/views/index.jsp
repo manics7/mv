@@ -24,7 +24,7 @@
 					<div id="box-office-title">현재상영작</div>
 					<div id="more-movie">
 
-						<a href="./currentMovieList">
+						<a style="color: white;" href="./currentMovieList">
 							더많은 영화보기 
 							<img alt="" src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-more-cross-gray.png">
 						</a>
@@ -37,7 +37,7 @@
 										<img src="${boxOfficeList.poster }" title="${boxOfficeList.movie_nm }">
 									</a>
 									<div class='btn_box'>
-										<a href="#" data-toggle="modal" data-target="#rsrvModal" data-movieCd="${boxOfficeList.movie_cd }" id="modal"> 예매 </a>
+										<a href="#" data-toggle="modal" data-target="#rsrvModal" data-movieCd="${boxOfficeList.movie_cd }" id="modal" style="color: white;"> 예매 </a>
 									</div>
 								</li>
 							</c:forEach>

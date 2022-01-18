@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
-/* 영화관 상세 정보 페이지(등록 할 수 있는 페이지)*/
+/* 영화관 상세 정보 페이지*/
 div#th_content {
     width: 800px;
-    margin-top: 70px;
+    margin-top: 30px;
 }
 
 div#th_title {
@@ -37,3 +37,379 @@ div#th_title {
     font-size: 15px;
     color: white;
 }
+
+/* 등록 페이지 */
+div#thadd_content {
+    width: 800px;
+}
+
+div#thadd_title {
+    text-align: center;
+    color: rgb(67, 24, 124);
+}
+
+#thadd_logo, #thadd_num, #thadd_info_title, #thadd_image, #detailinfo_num, #detailinfo_title{
+    display: inline-block;
+}
+
+#thadd_logo, #thadd_image {
+    width: 385px;
+    margin-top: 20px;
+}
+
+#thadd_num {
+    background: rgb(67, 24, 124);
+    color: white;
+    border-radius: 3px;
+    height: 23px;
+    width: 21px;
+    text-align: center;
+    border: 1px solid rgb(67, 24, 124);
+    margin-left: 6px;
+}
+
+#thadd_info_title {
+    color: rgb(67, 24, 124);
+    font-weight: bold;
+    margin-left: 7px;
+    font-size: 18px;
+}
+
+#thadd_detailinfo {
+    margin-top: 40px;
+}
+
+/* 파일 업로드 */
+#logo_wrap label, #image_wrap label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    vertical-align: middle;
+    background-color: rgb(67, 24, 124);
+    cursor: pointer;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 5px;
+    width: 13%;
+    margin-left: 29px;
+    margin-top: 15px;
+}
+
+#logoFile, #theaterFile {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.logo-name, .theater-name {
+    display: inline-block;
+    width: 47%;
+    height: 35px;
+    font-size: 16px;
+    padding: 0 10px;
+    vertical-align: middle;
+    background-color: white;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 5px;
+    color: rgb(67, 24, 124);
+    font-weight: 600;
+    margin-top: 14px;
+}
+
+/* */
+#logo_wrap, #image_wrap {
+    border: 1.5px solid rgb(67, 24, 124);
+    margin-top: 12px;
+    height: 117px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+#thfileadd_title {
+    width: 385px;
+    height: 21px;
+}
+
+#thfileadd_title p {
+    font-size: 15px;
+    margin-left: 18px;
+}
+
+/* 상세 정보 */
+#detailinfo_wrap {
+    border: 1.5px solid rgb(67, 24, 124);
+    margin-top: 12px;
+    height: 509px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+/* 상세정보 항목들 박스 */
+#detailinfo_title {
+    width: 125px;
+    height: 38px;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 7px;
+    margin-left: 30px;
+    margin-top: 10px;
+    background: rgb(67, 24, 124);
+}
+/*상세정보 항목들 글자*/
+#detailinfo_title > p {
+    text-align: center;
+    margin: 0;
+    line-height: 38px;
+    color: white;
+    font-size: 15px;
+}
+/*주소 입력 부분*/
+#detailinfo_wrap > input[type=text]:nth-child(9) {
+    margin-left: 20px;
+    border: 2px solid rgb(67, 24, 124);
+    border-radius: 5px;
+    color: rgb(67, 24, 124);
+    width: 470px;
+    height: 30px;
+}
+/*연락처 입력 부분*/
+#detailinfo_wrap > input[type=text]:nth-child(12) {
+    margin-left: 20px;
+    border: 2px solid rgb(67, 24, 124);
+    border-radius: 5px;
+    color: rgb(67, 24, 124);
+    width: 470px;
+    height: 30px;
+}
+/*영화관 이름 입력 부분*/
+#td_name {
+    margin-left: 20px;
+    border: 2px solid rgb(67, 24, 124);
+    border-radius: 5px;
+    color: rgb(67, 24, 124);
+    width: 470px;
+    height: 30px;
+}
+
+/*영화관 소개 입력 부분*/
+#detailinfo_wrap > textarea:nth-child(6){
+    margin-left: 50px;
+    margin-top: 10px;
+    border: 2px solid rgb(67, 24, 124);
+    border-radius: 5px;
+    color: rgb(67, 24, 124);
+    resize: none;
+}
+
+/*주차 안내 입력 부분*/
+#detailinfo_wrap > textarea:nth-child(16) {
+    margin-left: 50px;
+    margin-top: 10px;
+    border: 2px solid rgb(67, 24, 124);
+    border-radius: 5px;
+    color: rgb(67, 24, 124);
+    resize: none;
+}
+
+/*지역 선택*/
+#reNum {
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 4px;
+    margin-left: 20px;
+    width: 80px;
+    height: 30px;
+    font-size: 16px;
+}
+
+/*등록 버튼*/
+#uploadBtn {
+    border: 1px solid white;
+    margin-left: 392px;
+    border-radius: 7px;
+    font-size: 17px;
+    width: 72px;
+    height: 38px;
+    background: rgb(67, 24, 124);
+    color: white;
+}
+
+/* 등록 후 보여지는 페이지 */
+#theater_cont {
+	margin-top: 30px;
+    margin-bottom: 35px;
+    border: 1px solid rgb(67, 24, 124);
+    border-radius: 3px;
+    padding: 0 10px;
+    height: 520px;
+}
+
+/*영화관 소개 */
+#th_intro_title{
+	display: inline-block;
+    text-align: center;
+}
+
+#th_intro_title > p {
+	margin: 0;
+    display: inline-block;
+    border: 1px solid rgb(67, 24, 124);
+    background: rgb(67, 24, 124);
+    color: white;
+    width: 105px;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+#th_intro_cont > p {
+	margin: 0;
+    margin-top: 13px;
+    border: 3px solid rgb(67, 24, 124);
+    border-radius: 4px;
+    width: 700px;
+    margin-left: 20px;
+    color: rgb(67, 24, 124);
+    font-weight: bold;
+    padding: 3px 10px;
+    margin-bottom: 10px;
+}
+
+/*연락처*/
+#th_tel_title {
+    display: inline-block;
+    text-align: center;	
+}
+
+#th_tel_title > p {
+	margin: 0;
+    margin-top: 10px;
+    display: inline-block;
+    border: 1px solid rgb(67, 24, 124);
+    background: rgb(67, 24, 124);
+    color: white;
+    width: 105px;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 10px;
+}
+
+#th_tel_cont {
+    display: inline-block;	
+}
+
+#th_tel_cont > p {
+	display: inline-block;
+    border: 3px solid rgb(67, 24, 124);
+    border-radius: 4px;
+    color: rgb(67, 24, 124);
+    font-weight: bold;
+    padding: 2px 25px;
+    margin-left: 15px;
+}
+
+#th_location_title {
+ 	display: inline-block;
+    text-align: center;
+}
+
+
+#th_location_title > p {
+    margin: 0;
+    margin-top: 10px;
+    display: inline-block;
+    border: 1px solid rgb(67, 24, 124);
+    background: rgb(67, 24, 124);
+    color: white;
+    width: 105px;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;	
+    margin-left: 10px;
+}
+
+#th_location_cont {
+	display: inline-block;
+}
+
+#th_location_cont > p {
+	display: inline-block;
+    border: 3px solid rgb(67, 24, 124);
+    border-radius: 4px;
+    color: rgb(67, 24, 124);
+    font-weight: bold;
+    padding: 2px 25px;
+    margin-left: 15px;
+}
+
+/* 주차 안내 */
+#th_parking_title {
+	display: inline-block;
+    text-align: center;
+}
+
+#th_parking_title > p {
+	margin: 0;
+    margin-top: 10px;
+    display: inline-block;
+    border: 1px solid rgb(67, 24, 124);
+    background: rgb(67, 24, 124);
+    color: white;
+    width: 105px;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;	
+    margin-left: 10px;
+}
+
+#th_parking_cont {
+	display: inline-block;
+}
+
+#th_parking_cont > p {
+	display: inline-block;
+    border: 3px solid rgb(67, 24, 124);
+    border-radius: 4px;
+    color: rgb(67, 24, 124);
+    font-weight: bold;
+    padding: 2px 25px;
+    margin-left: 15px;
+}
+
+#btn_wrap {
+	text-align: center;
+}
+
+/* 로고 사진 */
+#thLogo {
+	width: 96px;
+    height: 96px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-left: 350px;	
+}
+
+/* 영화관 사진 */
+#th_image_title > p {
+    margin: 0;
+    margin-top: 10px;
+    display: inline-block;
+    border: 1px solid rgb(67, 24, 124);
+    background: rgb(67, 24, 124);
+    color: white;
+    width: 105px;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+#theater_images > img {
+	margin-left: 20px;
+    margin-top: 15px;
+}
+

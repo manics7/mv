@@ -31,8 +31,10 @@
 </head>
 
 <body>
-<nav>
-	<jsp:include page="mypage_header.jsp"></jsp:include>
+
+<nav style="background: #1d1d1d;">
+
+	<jsp:include page="main_header.jsp"></jsp:include>
 	</nav>
 	<div class="wrap">
 	

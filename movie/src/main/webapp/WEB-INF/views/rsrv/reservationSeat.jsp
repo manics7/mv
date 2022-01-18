@@ -63,9 +63,12 @@ width: 33px;
 
 #seat {
  overflow: auto;
- height: auto; 
+ width:700px; 
+ height: auto;
  max-height: 405px;  
 }
+
+
 #seat .btn {
 	width: 45px;
 	height: 40px;	
@@ -120,11 +123,16 @@ width: 45px;
   position:absolute;  
   left:0;
     top:0;  
-  //width:765px;
-  //height:637px;
   z-index:9000;  
-  background-color:#000;  
+  background-color:#000000;  
   display:none;  
+}
+.mask_text {
+    top: 40%;
+    position: relative;
+    font-size: 2em;
+    color: white;
+    text-align: center;
 }
 
 </style>
@@ -197,7 +205,7 @@ $(doucment).ready(function(){
 				
 					<div class="col-sm-8 border-right">			
 					<div id="mask">
-					        <p class="white-text">관람하실 인원을 선택해주세요.</p>
+					        <p class="mask_text font-weight-bold">관람하실 인원을 선택해주세요.</p>
 					   </div>
 						<div class="row">
 							<div class="col-md-12 pt-2">
@@ -274,4 +282,29 @@ $(doucment).ready(function(){
     </div>
   </div>
 </div>	
+
+<div class="modal fade" id="alertCnt" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">알림</h5>
+        <button type="button" class="close" aria-label="Close" onclick="javascript:modalClose('alertCnt');">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>선택한 좌석이 예매 인원 보다 많습니다.</p>
+		<p>선택좌석 해제후, 인원을 선택해주세요.</p>
+        
+      </div>
+      <div class="modal-footer">        
+        <button type="button" class="btn btn-secondary mr-auto ml-auto" onclick="javascript:modalClose('alertCnt');">확인</button>
+      </div>
+    </div>
+  </div>
+</div>	
+
+
+
+
 

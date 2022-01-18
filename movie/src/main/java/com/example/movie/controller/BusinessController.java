@@ -4,6 +4,7 @@ package com.example.movie.controller;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -68,9 +70,13 @@ public class BusinessController {
 
 	// 사업자 메인 페이지 이동
 	@GetMapping("businessPage")
-	public String businessPage() {
-
-		return "businessPage";
+	public ModelAndView businessPage() {
+		mv= new ModelAndView();
+		
+		mv = buServ.businessPage();
+		
+		
+		return mv;
 	}
 
 	// 사업자 로그아웃
@@ -82,20 +88,33 @@ public class BusinessController {
 		return view;
 	}
 
-	@GetMapping("businessUpdateFrm")
-	public String businessUpdateFrm() {
-		String view = "businessUpdateFrm";
-
-		return view;
-	}
-
-	//영화관 등록 페이지
+	//영화관 등록 페이지 이동
 	@GetMapping("theaterAdd")
 	public String thaddFrm() {
 
-		return "th/theaterAdd";
+		return "./th/theaterAdd";
 	}
-
+	
+	//영화관 수정 페이지 이동
+	@GetMapping("thUpdate")
+	public ModelAndView thUpdate(int th_code) {
+		
+		mv = new ModelAndView();
+		
+		mv = buServ.thUpdate(th_code);
+		
+		return mv;
+	}
+	
+	//영화관 수정
+	@PostMapping("thUpdateFrm")
+	public String thUpdateFrm(MultipartHttpServletRequest multi,
+			RedirectAttributes rttr) {
+		String view = buServ.theaterUpdate(multi, rttr);
+		
+		return view;
+	}
+	
 	//영화관 등록
 	@PostMapping("theaterInsert")
 	public String theaterInsert(MultipartHttpServletRequest multi, RedirectAttributes rttr) {
@@ -104,8 +123,8 @@ public class BusinessController {
 
 		return view;
 	}
-
-	//영화관 정보 페이지
+	
+	//영화관 정보 페이지 이동
 	@GetMapping("theater")
 	public ModelAndView theater() {
 
@@ -113,15 +132,15 @@ public class BusinessController {
 
 		return mv;
 	}	
-
-	//상영 시간표 목록 페이지
+	//상영 시간표 목록 페이지 이동
 	@GetMapping("schedule")
-	public String schedule() {
-
-		return "sche/schedule";
+	public ModelAndView schedule(Integer pageNum) {
+			
+		mv = buServ.getScheduleList(pageNum);
+		return mv;
 	}
-
-	//상영 시간표 등록 페이지
+	
+	//상영 시간표 등록 페이지 이동
 	@GetMapping("scheduleAdd")
 	public ModelAndView scheduleAdd() {
 
@@ -134,17 +153,24 @@ public class BusinessController {
 	@PostMapping("scheduleInsert")
 	public String scheduleInsert(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date roomStartTime, 
 			@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date roomEndTime, 
-			Integer thcode, String mvcode[], Integer room, String mvdate, String wait) {
+			Integer thcode, @RequestParam(name = "mvcode[]" ,required = false) List<String> mvcode, Integer room, String mvdate, String wait) throws ParseException {
 
 		String view = buServ.testInsert(roomStartTime, roomEndTime, thcode, mvcode, room, mvdate, wait);
 
 		return view;
 	}
+	//상영시간표 삭제
+	@GetMapping("scheduleDelete")
+	public String scheduleDelete(int sch_code, RedirectAttributes rttr) {
+		String view = buServ.scheduleDelete(sch_code, rttr);
+		
+		return view;
+	}
 
 	//상영관 목록 이동
 	@GetMapping("roomList")
-	public ModelAndView roomList() {
-		mv = buServ.getRoomList();
+	public ModelAndView roomList(String bId) {
+		mv = buServ.getRoomList(bId);
 
 		return mv;
 	}

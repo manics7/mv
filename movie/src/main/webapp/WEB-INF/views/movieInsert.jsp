@@ -9,8 +9,10 @@
 <link rel="stylesheet" type="text/css" href="resource/css/movieInsert.css">
 </head>
 <body>	
-
+	<nav style="padding-top:35px; padding-bottom : 35px; background: #1d1d1d;">
 	<jsp:include page="business_header.jsp"></jsp:include>
+	</nav>
+	
 	<div class="main_wrap">
 		<div class="container_wrap">
 			<div>
@@ -75,6 +77,10 @@
 			</div>
 		</div>
 	</div>
+	
+	<footer>
+	<jsp:include page="footer.jsp"></jsp:include>
+	</footer>
 		
 		
 </body>
@@ -173,12 +179,12 @@
 			
 			// 파일 취소 시
 			if(fileName == "") {
-				$("#fileCheck").val(0);
+				$("#filecheck").val(0);
 				$(".upload-name").val("포스터 선택");
 			}
 			// 파일 선택 시
 			else {
-				$("#fileCheck").val(1);
+				$("#filecheck").val(1);
 			}
 		});		
 	});

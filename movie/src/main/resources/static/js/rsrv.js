@@ -268,7 +268,7 @@
 		    var maskWidth = $(window).width();  
 			
 		    //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
-		    $('#mask').css({'width':maskWidth,'height':maskHeight});  
+		    $('#mask').css({'width':758,'height':637});  
 			
 		    //애니메이션 효과
 		    $('#mask').fadeIn(100);      
@@ -378,7 +378,9 @@
 					
 					fnObj.defaultData.rsrvNo = res.rsrvNo;
 				
-					$('#rsrvModal .modal-content').load("rsrvPayment",fnObj.getReservationInfo(e,  res.rsrvNo));
+					$('#rsrvModal .modal-content').load("rsrvPayment",function(){
+					fnObj.getReservationInfo(e,  res.rsrvNo)
+					});
 				
 					setTimeout(function(){				
 						
@@ -691,9 +693,10 @@
 		$(this).addClass("active");
 		$(this).siblings().removeClass("active"); 
 		
-		var adultCnt = $("#adultCnt .active").text(); 
-		var youthCnt = $("#youthCnt .active").text();	
-		var sumCnt = Number(youthCnt)+Number(adultCnt);
+		var adultCnt = parseInt($("#adultCnt .active").text()); 
+		var youthCnt = parseInt($("#youthCnt .active").text());	
+		var sumCnt = parseInt(youthCnt)+parseInt(adultCnt);
+		var seatList =  $("#seat .active"); 
 		
 		if(sumCnt > 0) {
 			$("#mask").hide();
@@ -703,6 +706,10 @@
 			
 		var youthPrice = Number(youthCnt*7000);
 		var adultPrice = Number(adultCnt*9000);
+		
+		if(seatList.length > 0 && seatList.length > sumCnt){
+			modalShow("alertCnt");
+		}
 		
 		if(sumCnt > 8 ){
 			if($(this).parent().attr("id") == 'adultCnt'){
@@ -714,7 +721,7 @@
 				$("#youthCnt a").eq(0).addClass("active");
 				$("#price").html(adultPrice.toLocaleString('ko-KR'));
 			}
-			alert("최대 8인");
+			alert(sumCnt+"최대 8인");
 			return;
 		}
 		$("#price").html(Number(youthPrice+adultPrice).toLocaleString('ko-KR'));
