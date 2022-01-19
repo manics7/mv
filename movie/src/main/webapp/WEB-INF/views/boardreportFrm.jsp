@@ -91,7 +91,16 @@
 							<tr>
 								<td class="text-center d-none d-md-table-cell">${rpitem.rp_m_id}</td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rp_why}</td>
-									<td class="text-center d-none d-md-table-cell"><a href="content?rnum=${rpitem.review_num}">${rpitem.rp_contents}</a></td>
+									<td class="text-center d-none d-md-table-cell">
+									<c:choose> 
+									<c:when test="${rpitem.rp_state == '0'}">
+										<a href="content?rnum=${rpitem.review_num}">${rpitem.rp_contents}</a>
+									</c:when> 
+									<c:otherwise>
+										<a>${rpitem.rp_contents}</a>
+									</c:otherwise> 
+								</c:choose> 
+									</td>
 									<td class="text-center d-none d-md-table-cell">${rpitem.rpt_m_id}</td>
 									<td class="text-center d-none d-md-table-cell"><fmt:formatDate
 											value="${rpitem.rp_date}" pattern="yyyy-MM-dd" /></td>
