@@ -78,18 +78,15 @@ $(function(){
 								<textarea name="rcontent" id="demo-message" placeholder="내용을 입력하세요." rows="15">${bDto.rcontent}</textarea>
 							</div>
 							<div class="filebox">
-								<c:if test="${empty bfDto}">
-									<label style="width: 100%">첨부 파일 없음</label>
-								</c:if>
 								<c:if test="${!empty bfDto}">
 									<!-- 이미지 파일 미리보기 -->
 									<c:forEach var="f" items="${bfDto}">
 										<img id="img_pre" src="${f.review_file_name}" width="100" height="100">
-									</c:forEach>
-									<input type="file" name="files" id="file" multiple>
-									<input type="hidden" class="upload-name" value="파일변경" readonly>
-									<input type="hidden" id="filecheck" value="0" name="fileCheck">	
+									</c:forEach>	
 								</c:if>
+								<input type="file" name="files" id="file" multiple>
+								<input type="hidden" class="upload-name" value="파일변경" readonly>
+								<input type="hidden" id="filecheck" value="0" name="fileCheck">
 							</div>
 							<!-- Break -->
 							<div class="col-12">

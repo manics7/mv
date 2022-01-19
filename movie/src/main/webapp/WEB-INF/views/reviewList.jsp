@@ -18,6 +18,14 @@ $(function(){
 	if(msg != ""){
 		alert(msg);
 	}
+	//로그인 안 했을 때 글쓰기 버튼 비활성화
+	$(".wr-btn").show();
+	
+	var mid = "${userInfo.m_id}";
+	
+	if(mid == null || mid == ""){
+		$(".wr-btn").hide();
+	}
 });
 </script>
 </head>
