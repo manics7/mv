@@ -36,6 +36,7 @@ public class AdminService {
 
 	@Autowired 
 	private AdminMapper aMapper;
+	@Autowired
 	private BoardMapper bMapper;
 	@Autowired
 	private HttpSession session;
@@ -140,29 +141,27 @@ public class AdminService {
 	//영화관리뷰 삭제
 	@Transactional
 	public String delAdminReview(int review_num, RedirectAttributes rttr) {
-		String view = "redirect:mvrreportFrm";
-
-		Integer rnum = review_num;
+		String view = "redirect:boardreportFrm";
 		
 		String rptId = aMapper.selectIdFromReview(review_num);
 
-	//	try {
+		try {
 
 			aMapper.updateRpReviewState(review_num);
-
-			bMapper.RvFileDelete(rnum);
-			
-			bMapper.ReplyDelete(rnum);
 			
 			aMapper.delBoardReview(review_num);
 
 			aMapper.updateWarning(rptId);
+			
+			bMapper.RvFileDelete(review_num);
+			
+			bMapper.ReplyDelete(review_num);
 
 			rttr.addFlashAttribute("msg","삭제성공");
 
-	//	} catch(Exception e) {
+		} catch(Exception e) {
 			rttr.addFlashAttribute("msg","삭제 실패");
-	//	}
+		}
 
 		return view;
 	}
