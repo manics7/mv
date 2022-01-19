@@ -341,11 +341,11 @@
 			//일정에 없는 영화 선택시 모달창열기
 			$(document).on('click', "li.disable, p.disable", function(e){		
 				e.stopImmediatePropagation();
-				modalShow("confirmModal");
+				modalShow("totalConfirmModal");
 			});
 			//일정에 없는 영화 선택시 모달창에서 확인 누르면 초기화
-			$(document).on('click', "#confirm", function(e){
-				modalClose("confirmModal");	
+			$(document).on('click', "#totalConfirm", function(e){
+				modalClose("totalConfirmModal");	
 				location.href="totalMovie";
 			});
 						
@@ -442,7 +442,7 @@
 	
 	
 	
-	<div class="modal fade" id="confirmModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal fade" id="totalConfirmModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -456,7 +456,7 @@
       </div>
       <div class="modal-footer">        
       	<div class="mr-auto ml-auto">
-      	   <button type="button" class="btn btn-primary" id="confirm">확인</button>
+      	   <button type="button" class="btn btn-primary" id="totalConfirm">확인</button>
      	   <button type="button" class="btn btn-secondary" data-dismiss="modal" > 취소</button>
       	</div>       
       </div>
