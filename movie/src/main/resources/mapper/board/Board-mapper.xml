@@ -136,7 +136,7 @@
 	<!-- 신고 처리하기 -->
 	<insert id="reportRvInsert" parameterType="com.example.movie.dto.ReportReviewDto">
 		INSERT INTO REPORT_REVIEW
-		VALUES (RP_RV_SEQ.NEXTVAL,#{review_num},#{rp_m_id},#{rpt_m_id},#{rp_why},DEFAULT,#{rp_contents},DEFAULT)
+		VALUES (RP_RV_SEQ.NEXTVAL,#{review_num},#{rp_m_id},#{rpt_m_id},#{rp_why},DEFAULT,DEFAULT,#{rp_contents})
 	</insert>
 	
 	<!-- 파일 삭제하기 -->

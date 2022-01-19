@@ -26,6 +26,7 @@ import com.example.movie.dto.quesReplyDto;
 import com.example.movie.dto.quesboardDto;
 import com.example.movie.dto.reportMvReviewDto;
 import com.example.movie.mapper.AdminMapper;
+import com.example.movie.mapper.BoardMapper;
 import com.example.movie.utill.PagingUtil;
 
 
@@ -35,6 +36,7 @@ public class AdminService {
 
 	@Autowired 
 	private AdminMapper aMapper;
+	private BoardMapper bMapper;
 	@Autowired
 	private HttpSession session;
 
@@ -140,21 +142,27 @@ public class AdminService {
 	public String delAdminReview(int review_num, RedirectAttributes rttr) {
 		String view = "redirect:mvrreportFrm";
 
+		Integer rnum = review_num;
+		
 		String rptId = aMapper.selectIdFromReview(review_num);
 
-		try {
+	//	try {
 
 			aMapper.updateRpReviewState(review_num);
 
+			bMapper.RvFileDelete(rnum);
+			
+			bMapper.ReplyDelete(rnum);
+			
 			aMapper.delBoardReview(review_num);
 
 			aMapper.updateWarning(rptId);
 
 			rttr.addFlashAttribute("msg","삭제성공");
 
-		} catch(Exception e) {
+	//	} catch(Exception e) {
 			rttr.addFlashAttribute("msg","삭제 실패");
-		}
+	//	}
 
 		return view;
 	}
