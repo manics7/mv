@@ -134,9 +134,9 @@ public class BusinessController {
 	}	
 	//상영 시간표 목록 페이지 이동
 	@GetMapping("schedule")
-	public ModelAndView schedule(Integer pageNum) {
+	public ModelAndView schedule(Integer pageNum,RedirectAttributes rttr) {
 			
-		mv = buServ.getScheduleList(pageNum);
+		mv = buServ.getScheduleList(pageNum,rttr);
 		return mv;
 	}
 	
@@ -169,8 +169,8 @@ public class BusinessController {
 
 	//상영관 목록 이동
 	@GetMapping("roomList")
-	public ModelAndView roomList(String bId) {
-		mv = buServ.getRoomList(bId);
+	public ModelAndView roomList(RedirectAttributes rttr) {
+		mv = buServ.getRoomList(rttr);
 
 		return mv;
 	}

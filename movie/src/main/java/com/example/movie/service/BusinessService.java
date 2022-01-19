@@ -382,9 +382,10 @@ public class BusinessService {
 	}
 
 	//상영관 목록 가져오기
-	public ModelAndView getRoomList(String bId) {
+	public ModelAndView getRoomList(RedirectAttributes rttr) {
 		mv = new ModelAndView();
-
+		String msg = null;
+		
 		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
 		String businessId = bDto.getB_id();
 		
@@ -407,9 +408,9 @@ public class BusinessService {
 		}
 		else {
 			mv.setViewName("redirect:theater"); 
-			String msg = "영화관을 먼저 등록해주세요!";
+			msg = "영화관을 먼저 등록해주세요!";
 		}
-
+		rttr.addFlashAttribute("msg",msg);
 		return mv;
 	}
 
@@ -687,14 +688,14 @@ public class BusinessService {
 		}
 
 	//상영시간표 목록을 출력
-	public ModelAndView getScheduleList(Integer pageNum) {
+	public ModelAndView getScheduleList(Integer pageNum,RedirectAttributes rttr) {
 		mv = new ModelAndView();
-		
+		String msg = null;
 		//세션에 저장되어 있는 사업자 아이디
 		String bId;
 		BusinessDto bDto = (BusinessDto)session.getAttribute("businessInfo");
 		bId = bDto.getB_id();
-				
+		try {
 		//로그인한 사업자와 일치하는 영화관의 코드
 		int theaterCode = buMapper.getTheaterCode(bId);
 		
@@ -802,6 +803,12 @@ public class BusinessService {
 		session.setAttribute("pageNum", num);
 		
 		mv.setViewName("sche/schedule");
+		
+		}catch(Exception e){
+			mv.setViewName("redirect:theater");
+			msg = "영화관을 먼저 등록해주세요.";
+		}
+		rttr.addFlashAttribute("msg",msg);
 		return mv;
 	}
 	
