@@ -172,7 +172,7 @@
 	
 			
 			//영화, 날짜, 극장을 선택한 조건으로 스케쥴정보를 가져온다.
-			function selectItem(e){
+			function selectItem(e, _this){
 				e.stopImmediatePropagation();
 				
 				var params = {
@@ -190,22 +190,25 @@
 					,success : function(res) {
 						var html = "";
 					 	
-						if($("#schDateList li").hasClass("selected")){				
+						if($(_this).attr("schDate")){
 							$("#schMovieList p, #theaterList li").addClass("disable");	
 							res.forEach(function(item){				
 								$("#schMovieList p[movieCd=" +item.movieCd+ "]").css("cursor","pointer").removeClass("disable");	
 						//		$("#theaterList li[thCode=" +item.thCode+ "]").css("cursor","pointer").removeClass("disable");	
 							});
 						}
+							
 			 
 						
-						if($("#schMovieList p").hasClass("selected")){
+						if($(_this).attr("movieCd")){
 							$("#theaterList li, #schDateList li").addClass("disable");		
 							res.forEach(function(item){
 							//	$("#theaterList li[thCode=" +item.thCode+ "]").css("cursor","pointer").removeClass("disable");	
 								$("#schDateList li[schDate=" +item.schDate+ "]").css("cursor","pointer").removeClass("disable");	
-							});											
-						}	 
+							});	
+						}
+						
+																
 						var selectCnt = $("#schMovieList p.selected, #schDateList li.selected").length;
 						if(selectCnt == 2){
 						getTimeList();
@@ -288,7 +291,7 @@
 			}			
 			
 			//선택시 색상변경
-			$(document).on('click',"#schDateList li, #theaterList li, #totalAreaList li #schTimeList li"		
+			$(document).on('click',"#schDateList li, #theaterList li, #totalAreaList li, #schTimeList li"		
 				,function() {		
 					$(this).addClass("selected"); //클릭된 부분을 상단에 정의된 CCS인 selected클래스로 적용
 					$(this).css("background-color","#f16a1a");
@@ -352,13 +355,13 @@
 				movieCd = 	$(this).attr("movieCd");
 				$("#movieNm").text($(this).text());
 				$("#poster").attr("src",$(this).next().val());
-				selectItem(e);
+				selectItem(e ,this);
 			});
 			
 			//날짜 선택시
 			$(document).on("click", "#schDateList li" , function(e){
 				schDate = $(this).attr("schDate");
-				selectItem(e);		
+				selectItem(e , this);		
 				
 			});
 			
