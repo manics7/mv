@@ -44,5 +44,5 @@ public interface BoardMapper extends MybatisMapper {
 	//파일 삭제하기
 	public boolean RvFileDelete(Integer rnum);
 	//댓글 삭제하기
-	public void ReplyDelete(Integer rnum);
+	public boolean ReplyDelete(Integer rnum);
 }

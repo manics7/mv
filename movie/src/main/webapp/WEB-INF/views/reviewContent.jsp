@@ -35,6 +35,12 @@ $(function(){
 	if(mid == bid){
 		$("#report_btn").hide();
 	}
+	
+	//로그인 안 했을시 댓글 버튼 비활성화
+	if(mid == null || mid == ""){
+		$("#reply_post_btn").hide();
+		$("#report_btn").hide();
+	}
 });
 </script>
 </head>
