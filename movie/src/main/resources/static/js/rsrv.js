@@ -515,7 +515,8 @@
 		var sumCnt = Number(youthCnt)+Number(adultCnt);
 		var seatList =  $("#seat .active").length; 
 		if(sumCnt != seatList){
-			modalShow('alertModal');
+			var msg = "관람인원과 선택 좌석 수가 동일하지 않습니다."
+			modalShow('alertModal',msg);
 			return;
 		}
 		fnObj.insertReservation(e);
