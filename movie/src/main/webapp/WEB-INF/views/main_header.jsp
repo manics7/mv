@@ -278,7 +278,7 @@ if(userInfo != "") {
 	})
 	
 	//영화, 극장검색
-	function filter(id) {
+	function filterth(id) {
 
 		var value, item;
 

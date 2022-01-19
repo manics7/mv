@@ -19,7 +19,6 @@
 
 
 <title>Document</title>
-
 <style>
 .search_rayer {
 	width: 1197px;
@@ -146,7 +145,7 @@
 		<div class="inner">
 			<div class="search_box">
 				<i style="color: lightgray;" class="fas fa-search"></i> <input
-					type="text" placeholder="영화관찾기" onkeyup="filter(this);">
+					type="text" placeholder="영화관찾기" onkeyup="filterth(this);">
 				<button class="search_close">닫기</button>
 			</div>
 			<div>
@@ -182,8 +181,6 @@
 		</div>
 	</div>
 </body>
-<!-- jQuery Cdn -->
 
-<
 
 </html>
