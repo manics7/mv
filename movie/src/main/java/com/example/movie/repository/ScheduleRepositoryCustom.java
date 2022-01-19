@@ -166,7 +166,7 @@ public class ScheduleRepositoryCustom {
 		return new BooleanBuilder(schedule.thCode.eq(thCode));
 	}
 	public BooleanBuilder eqSchDate(String schDate) {
-		if(schDate.isEmpty()) {
+		if(schDate == null || schDate.isEmpty()) {
 			return new BooleanBuilder();
 		}
 		Date date = DateUtil.strToDate(schDate);

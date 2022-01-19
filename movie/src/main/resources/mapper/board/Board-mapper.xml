@@ -144,5 +144,9 @@
 		DELETE FROM RF WHERE REVIEW_NUM=#{rnum}
 	</delete>
 	
+	<!-- 댓글 삭제하기 -->
+	<delete id="ReplyDelete" parameterType="Integer">
+		DELETE FROM RE WHERE REVIEW_NUM=#{rnum}
+	</delete>
 							
 </mapper>
