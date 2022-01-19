@@ -310,13 +310,16 @@
 	
 	//모달화면 보였을때 
 	$('#rsrvModal').on('shown.bs.modal', function (event) {
+		var selectCnt = $("#movieList li.selected, #theaterList li.selected, #dateList li.selected").length;
+		if(selectCnt  > 0){
+			return;
+		}
 		fnObj.init();
 		var target = $(event.relatedTarget);		
 		var movieCd = $(target).data("movie");
 		var thCode = $(target).data("thcode");
 		//fnObj.ReceivedData.movieCd = movieCd;
-		//fnObj.ReceivedData.thCode = thCode;
-		
+		//fnObj.ReceivedData.thCode = thCode;		
 	 });
 	
 	$(document).on('keyup',"#searchMovie",function() {
