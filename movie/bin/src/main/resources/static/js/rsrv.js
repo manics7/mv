@@ -276,7 +276,6 @@
 		}
 		, getSeat : function(e){			
 			
-			e.stopImmediatePropagation();
 			
 			$.ajax({
 				type : "POST"
