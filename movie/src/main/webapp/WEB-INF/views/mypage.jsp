@@ -32,9 +32,9 @@
 
 <body>
 
-<nav style="background: #1d1d1d; padding-top: 0">
+<nav style="background: #1d1d1d; padding-top: 0; display: flex; flex-direction: column; justify-content: space-evenly;">
 
-	<jsp:include page="main_header.jsp"></jsp:include>
+	<jsp:include page="mypage_header.jsp"></jsp:include>
 	</nav>
 	<div class="wrap">
 	
