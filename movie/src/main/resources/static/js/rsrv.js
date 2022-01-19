@@ -276,8 +276,6 @@
 		}
 		, getSeat : function(e){			
 			
-			e.stopImmediatePropagation();
-			
 			$.ajax({
 				type : "POST"
 				,url : "/getSeat"
@@ -549,6 +547,10 @@
 		
 	//모달화면 보였을때 
 	 $(document).on('shown.bs.modal','#rsrvModal', function (e) {
+	 var selectCnt = $("#movieList li.selected, #theaterList li.selected, #dateList li.selected").length;
+	if(selectCnt  > 0){
+		return;
+	}
 		fnObj.init(e);
 		var target = $(e.relatedTarget);		
 		var movieCd = $(target).data("moviecd");
@@ -898,7 +900,6 @@
 	
 	
 	$(document).on('click',"#confirm",function(e) {
-		$('#rsrvModal .modal-content').load("rsrv");
 		fnObj.resetData();
 		fnObj.init(e);	
 		modalClose("confirmModal");
