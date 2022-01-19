@@ -96,7 +96,7 @@ a {
 	<div class="admin_nav_wrap">
 		<ul class="admin_nav">
 			<li class="admin_nav_item logo">
-				<div class="logo1">&nbsp;My&nbsp;</div>
+				<div style="cursor: pointer;" onclick="location.href='/'"  class="logo1">&nbsp;My&nbsp;</div>
 				<div class="logo2">&nbsp;Page&nbsp;</div>
 			</li>
 			<li class="admin_nav_item cont1"><a class="yellow underline"
@@ -107,6 +107,10 @@ a {
 				href="pmvReviewFrm">내가 쓴 감상평</a></li>
 			<li class="admin_nav_item cont4"><a class="yellow underline"
 				href="questionFrm">1:1문의</a></li>
+				<li class="admin_nav_item cont4"><a class="yellow underline"
+				href="./logout">로그아웃</a></li>
+				
+				
 
 		</ul>
 
