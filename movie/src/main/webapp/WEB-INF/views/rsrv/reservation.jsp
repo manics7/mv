@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="resource/css/rsrv.css">
 <link rel="stylesheet" type="text/css" href="resource/css/bootstrap.css">
-
+<script src="resource/js/bootstrap.bundle.js"></script>
 <!-- histoty Modal-->
 <div class="modal-content">
 	<div class="modal-header text-white modal-header-bg">
@@ -145,7 +145,7 @@
       </div>
       <div class="modal-footer">        
       	<div class="mr-auto ml-auto">
-      	   <button type="button" class="btn btn-primary" id="confirm">확인</button>
+      	   <button type="button" class="btn btn-primary" id="confirm" >확인</button>
      	   <button type="button" class="btn btn-secondary" onclick="javascript:modalClose('confirmModal');"> 취소</button>
       	</div>       
       </div>
@@ -193,6 +193,4 @@
   </div>
   
 </div>	
-
-<script src="resource/js/bootstrap.bundle.js"></script>
 

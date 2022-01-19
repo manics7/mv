@@ -484,15 +484,14 @@
 			});
 		}
 	}
-	//모달창열기
-	//$(document).on('click',"#reservationComplete",function(e) {
-	//	$('#rsrvModal .modal-content').load("reservationComplete");
-	//});
 	
+
 	//모달창열기
 	$(document).on('click',"#modal",function(e) {
 		$('#rsrvModal .modal-content').load("rsrv", fnObj.init(e));
+		
 	});
+	
 	
 	//좌석선택 페이지 로드
 	$(document).on('click',"#rsrvSeat",function(e) {
@@ -547,6 +546,7 @@
 		fnObj.resetData();
 	  });
 	
+		
 	//모달화면 보였을때 
 	 $(document).on('shown.bs.modal','#rsrvModal', function (e) {
 		fnObj.init(e);
@@ -561,8 +561,7 @@
 		fnObj.ReceivedData.schDetailSeq = schDetailSeq;
 		
 	 });
-	 
-			
+	
 	
 	//영화검색
 	$(document).on('keyup',"#searchMovie",function() {
@@ -610,13 +609,9 @@
 	});
 	//일정에 없는 영화 선택시 모달창열기
 	$(document).on('click', "li.disable", function(e){		
-		e.stopImmediatePropagation();
 		modalShow("confirmModal");
-	});
-	//일정에 없는 영화 선택시 모달창에서 확인 누르면 초기화
-	$(document).on('click', "#confirm", function(){
-		modalClose("confirmModal");	
-		$("#reset").click();		
+		
+		
 	});
 
 	//영화 클릭시 영화코드 저장
@@ -643,7 +638,7 @@
 	$(document).on("click", "#theaterList li" , function(e){
 		var thCode= $(this).attr("thCode");
 		$("#theaterNm").text($(this).text());
-		fnObj.selectData.thCode = thCode;
+		fnObj.selectData.thCode = thCode;		
 		
 		fnObj.selectItem(e, this);
 		
@@ -901,3 +896,10 @@
 		$('#rsrvModal .modal-content').load("reservationComplete");
 	});
 	
+	
+	$(document).on('click',"#confirm",function(e) {
+		$('#rsrvModal .modal-content').load("rsrv");
+		fnObj.resetData();
+		fnObj.init(e);	
+		modalClose("confirmModal");
+	});
